@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Processing Information &#8212; scpca 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to scpca’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="processing-information">
+<h1>Processing Information<a class="headerlink" href="#processing-information" title="Permalink to this headline">¶</a></h1>
+<p>For every cDNA library that was submitted to the ScPCA portal, fastq files were used as input to our processing pipeline to generate both an unfiltered and filtered gene by cell counts matrix.
+All single-cell, single-nuclei, CITE-seq, and spatial transcriptomics libraries were processed using <a class="reference external" href="https://alevin-fry.readthedocs.io/en/latest/">Alevin-fry</a><a class="reference external" href="https://www.biorxiv.org/content/10.1101/2021.06.29.450377v1.full.pdf">He <em>et al.</em> 2021</a>.
+Bulk RNA-sequencing data was aligned and quantified using <a class="reference external" href="https://salmon.readthedocs.io/en/latest/salmon.html">Salmon</a>.
+Gene by cell counts matrices were then transformed into <a class="reference external" href="https://bioconductor.org/packages/release/bioc/html/SingleCellExperiment.html"><code class="docutils literal notranslate"><span class="pre">SingleCellExperiment</span></code> objects</a>.</p>
+<div class="section" id="single-cell-and-single-nuclei-samples">
+<h2>Single Cell and Single Nuclei Samples<a class="headerlink" href="#single-cell-and-single-nuclei-samples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="alignment-and-quantification-using-alevin-fry">
+<h3>Alignment and Quantification using Alevin-fry<a class="headerlink" href="#alignment-and-quantification-using-alevin-fry" title="Permalink to this headline">¶</a></h3>
+<p>Fastq files from single-cell and single-nuclei RNA-sequencing libraries were first aligned to an index containing transcripts from both spliced and unspliced cDNA, or the <code class="docutils literal notranslate"><span class="pre">splici</span></code> index, using the selective alignment strategy invoked by <code class="docutils literal notranslate"><span class="pre">salmon</span> <span class="pre">alevin</span></code>.
+We then obtained the list of all possible cells by using <code class="docutils literal notranslate"><span class="pre">alevin-fry</span> <span class="pre">generate-permit-list</span> <span class="pre">--unfiltered-pl</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">--unfiltered-pl</span></code> option was used alongside the list of barcodes obtained from 10X Genomics based on the 10X version utilized in the original single-cell or single-nuclei RNA-sequencing library generation.
+Use of this option with alevin-fry returns all possible cells within 1 edit distance from the provided 10X whitelist in the counts matrix.
+Lastly, feature quantification is performed and UMI’s are de-duplicated using Alevin-fry’s <code class="docutils literal notranslate"><span class="pre">cr-like-em</span></code> resolution strategy.
+The <code class="docutils literal notranslate"><span class="pre">cr-like-em</span></code> resolution strategy assigns all UMI’s that align to a single gene to that gene.
+Any gene that is assigned to more than one gene, the UMI is assigned to the gene with the highest count.
+If a UMI is assigned to more than one gene with equal frequency, then the counts for each gene are determined via an expectation maximization algorithm.
+The final output includes an unfiltered gene by cell counts matrix in sparse matrix format containing all possible cells found in the 10X whitelist.</p>
+<div class="section" id="the-splici-index">
+<h4>The Splici Index<a class="headerlink" href="#the-splici-index" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">splici</span> <span class="pre">index</span></code> was chosen to be used for single-cell RNA-sequencing libraries because of recent publications highlighting that alignment to the transcriptome alone can lead to spuriously detected genes.
+The rationale for this is that some small fraction of reads from single cell experiments are derived from intronic or intergenic sequnces and not from spliced cDNA <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2021.05.05.442755v1.full#sec-5">Kaminow <em>et al.</em> 2021</a>.
+To minimize the increase in false positive rates, an <a class="reference external" href="https://combine-lab.github.io/alevin-fry-tutorials/2021/improving-txome-specificity/">index with both transcripts from spliced cDNA and intronic regions can be used</a><a class="reference external" href="https://www.biorxiv.org/content/10.1101/2021.06.29.450377v1.full.pdf">He <em>et al.</em> 2021</a>.
+In our hands, we have found that use of the <code class="docutils literal notranslate"><span class="pre">splici</span></code> index led to a more comparable distribution of unique genes found per cell to Cellranger than use of an index obtained from spliced cDNA transcripts.</p>
+<p>For single-nuclei RNA-sequencing experiments, we expect reads to be from both nascent mRNA and mature mRNA.
+Therefore, we use the <code class="docutils literal notranslate"><span class="pre">splici</span></code> index to allow for quantification of both mature, spliced mRNA and nascent, unspliced mRNA that has been captured in by each bead.</p>
+<div class="section" id="generating-a-splici-index">
+<h5>Generating a Splici Index<a class="headerlink" href="#generating-a-splici-index" title="Permalink to this headline">¶</a></h5>
+<p>In order to generate the <code class="docutils literal notranslate"><span class="pre">splici</span></code> index…</p>
+</div>
+</div>
+<div class="section" id="selective-alignment">
+<h4>Selective Alignment<a class="headerlink" href="#selective-alignment" title="Permalink to this headline">¶</a></h4>
+<p>Alevin-fry utilizes the same selective alignment strategy invoked by <code class="docutils literal notranslate"><span class="pre">salmon</span></code> to align reads.
+Briefly, selective alignment uses a mapping score validated approach to identify maximal exact matches between reads and the provided index.
+Alevin-fry provides the option to use either selective alignment or pseudoalignment, an alignment strategy that does not use mapping scores to validate alignments.
+We observed that use of selective alignment with the <code class="docutils literal notranslate"><span class="pre">splici</span></code> index mitigated any spurious increases in total RNA or total genes per cell found when using alevin-fry with pseudoalignment in comparison to Cellranger.
+For all single-cell and single-nuclei samples, selective alignment to the <code class="docutils literal notranslate"><span class="pre">splici</span></code> index was used.</p>
+<p>A more detailed description of the alignment strategy invoked by <code class="docutils literal notranslate"><span class="pre">salmon</span></code> in conjuction with alevin-fry can be found <a class="reference external" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02151-8">here</a>.</p>
+</div>
+<div class="section" id="collapsing-reads-from-spliced-cdna-and-intronic-regions">
+<h4>Collapsing Reads from spliced cDNA and intronic regions<a class="headerlink" href="#collapsing-reads-from-spliced-cdna-and-intronic-regions" title="Permalink to this headline">¶</a></h4>
+<p>In building the <code class="docutils literal notranslate"><span class="pre">splici</span></code> index to be used with both single-cell and single-nuclei samples, the genes were split into unspliced (or intronic) regions of the gene and spliced regions of the gene.
+Gene names were then tagged with a <code class="docutils literal notranslate"><span class="pre">-U</span></code> representing unspliced regions or <code class="docutils literal notranslate"><span class="pre">-S</span></code> for spliced regions in the counts matrix output from alevin-fry.
+If a sample was single-cell RNA-sequencing, any counts aligning to gene names ending in <code class="docutils literal notranslate"><span class="pre">-U</span></code> were discarded before returning the final counts matrix.
+If a sample was single-nuclei RNA-sequencing, all counts were retained and counts for intronic and spliced regions of genes were combined to obtain the total for that gene and return the final counts matrix.</p>
+</div>
+</div>
+<div class="section" id="filtering-cells">
+<h3>Filtering Cells<a class="headerlink" href="#filtering-cells" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="samples-with-cite-seq">
+<h3>Samples with CITE-seq<a class="headerlink" href="#samples-with-cite-seq" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h4>Alignment and Quantification using Alevin-fry<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="combining-cite-counts-with-rna-counts">
+<h4>Combining CITE counts with RNA counts<a class="headerlink" href="#combining-cite-counts-with-rna-counts" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="samples-with-spatial-transcriptomics">
+<h3>Samples with Spatial Transcriptomics<a class="headerlink" href="#samples-with-spatial-transcriptomics" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h4>Alignment and Quantification using Alevin-fry<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+</div>
+<div class="section" id="bulk-rna-samples">
+<h2>Bulk RNA Samples<a class="headerlink" href="#bulk-rna-samples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="alignment-and-quantification-using-salmon">
+<h3>Alignment and Quantification using Salmon<a class="headerlink" href="#alignment-and-quantification-using-salmon" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="normalization-of-rna-counts">
+<h3>Normalization of RNA counts<a class="headerlink" href="#normalization-of-rna-counts" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">scpca</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Processing Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#single-cell-and-single-nuclei-samples">Single Cell and Single Nuclei Samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bulk-rna-samples">Bulk RNA Samples</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to scpca’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, The Childhood Cancer Data Lab.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/processing_information.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
