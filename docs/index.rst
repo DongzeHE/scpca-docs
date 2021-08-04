@@ -7,7 +7,7 @@ Welcome to scpca's documentation!
 =================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 6
    
    processing_information.md
 
