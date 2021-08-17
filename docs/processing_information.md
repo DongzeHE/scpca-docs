@@ -5,7 +5,7 @@
 ### Alignment and Quantification using Alevin-fry
 
 We used [Alevin-fry](https://alevin-fry.readthedocs.io/en/latest/) to generate gene by cell counts matrices for all single-cell and single-nuclei samples.
-In brief, we utilized [selective alignment](####selective-alignment) to the [`splici` index](####the-splici-index) for all single-cell and single-nuclei samples. 
+In brief, we utilized [selective alignment](#selective-alignment) to the [`splici` index](#the-splici-index) for all single-cell and single-nuclei samples. 
 
 #### The Splici Index
 
