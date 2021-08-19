@@ -9,7 +9,7 @@ In brief, we utilized [selective alignment](#selective-alignment) to the [`splic
 
 #### Reference transcriptome index
 
-For all samples, we aligned FASTQ files to a `splici` index.
+For all samples, we aligned FASTQ files to a reference transcriptome index referred to as the `splici` index.
 The [`splici` index](https://combine-lab.github.io/alevin-fry-tutorials/2021/improving-txome-specificity/) is built using transcripts from both spliced cDNA and intronic regions.
 Inclusion of intronic regions in the index used for alignment allowed us to capture both reads from mature, spliced cDNA and nascent, unspliced cDNA. 
 Alignment of RNA-sequencing data to an index containing intronic regions has been shown to reduce spuriously detected genes ([He _et al._ 2021](https://www.biorxiv.org/content/10.1101/2021.06.29.450377v1), [Kaminow _et al._ 2021](https://www.biorxiv.org/content/10.1101/2021.05.05.442755v1.full#sec-5))
