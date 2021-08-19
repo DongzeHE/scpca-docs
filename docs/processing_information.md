@@ -1,64 +1,60 @@
-# Processing Information
+# Processing information
 
 ## Single-cell and single-nuclei RNA-seq
 
-### Alignment and Quantification using Alevin-fry
+### Alignment and quantification using alevin-fry
 
-We used `salmon alevin` and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/) to generate gene by cell counts matrices for all single-cell and single-nuclei samples.
+We used [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/) to generate gene by cell counts matrices for all single-cell and single-nuclei samples.
 In brief, we utilized [selective alignment](#selective-alignment) to the [`splici` index](#the-splici-index) for all single-cell and single-nuclei samples. 
 
-#### The Splici Index
+#### Reference transcriptome index
 
+For all samples, we aligned FASTQ files to a `splici` index.
 The [`splici` index](https://combine-lab.github.io/alevin-fry-tutorials/2021/improving-txome-specificity/) is built using transcripts from both spliced cDNA and intronic regions.
 Inclusion of intronic regions in the index used for alignment allowed us to capture both reads from mature, spliced cDNA and nascent, unspliced cDNA. 
-Although we only anticipate nascent, unspliced cDNA to be present in single-nuclei samples, we chose to align the FASTQ files from both single-cell and single-nuclei samples to the `splici` index.
-Recent publications highlight that a small fraction of reads from single-cell experiments are derived from intronic or intergenic sequences and not from spliced cDNA [Kaminow _et al._ 2021](https://www.biorxiv.org/content/10.1101/2021.05.05.442755v1.full#sec-5).
-Alignment to the transcriptome alone, without inclusion of intronic regions, can result in an inaccurate alignment of the intronic sequences to spliced cDNA that share sequence similarity with a spliced transcript. 
-This has been observed to lead to an increase in spuriously detected genes [He _et al._ 2021](https://www.biorxiv.org/content/10.1101/2021.06.29.450377v1.full.pdf).
+Alignment of RNA-sequencing data to an index containing intronic regions has been shown to reduce spuriously detected genes ([He _et al._ 2021](https://www.biorxiv.org/content/10.1101/2021.06.29.450377v1), [Kaminow _et al._ 2021](https://www.biorxiv.org/content/10.1101/2021.05.05.442755v1.full#sec-5))
 In our hands, we have found that use of the `splici` index led to a more comparable distribution of unique genes found per cell to Cell Ranger than use of an index obtained from spliced cDNA transcripts only. 
 
-#### Selective Alignment
+#### Selective alignment
 
 We aligned reads to the transcriptome index using `salmon` with the defualt "selective alignment" strategy. 
 Briefly, selective alignment uses a mapping score validated approach to identify maximal exact matches between reads and the provided index. 
 For all samples, we used selective alignment to the `splici` index. 
 
-A more detailed description of the alignment strategy invoked by `salmon` in conjuction with alevin-fry can be found [here](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02151-8). 
+A more detailed description of the alignment strategy invoked by `salmon` in conjuction with `alevin-fry` can be found [here](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02151-8). 
 
-#### Alevin-Fry Parameters 
+#### Alevin-fry parameters 
 
-After we aligned FASTQ files using selective alignment to the `splici` index, we continued with the alevin-fry pipeline using the following parameters: 
+After we aligned FASTQ files using selective alignment to the `splici` index, we continued with the `alevin-fry` pipeline using the following parameters: 
 
-1. During the [`generate-permit-list` step of Alevin-fry](https://alevin-fry.readthedocs.io/en/latest/generate_permit_list.html), we used the `--unfiltered-pl` option, which returns any cell with at least 1 read found in a reference barcode list. 
+1. During the [`generate-permit-list` step of `alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/generate_permit_list.html), we used the `--unfiltered-pl` option, which returns any cell with at least 1 read found in a reference barcode list. 
 For our reference barcode list, we used a list of all possible cell barcodes from 10X Genomics.
-Use of this option allowed us to obtain an unfiltered counts matrix with all possible cell barcodes detected in the experiment. 
 
-2. Alevin-fry provides multiple options for performing [feature quantification and UMI de-duplication](https://alevin-fry.readthedocs.io/en/latest/quant.html). 
-We chose to use the `cr-like-em` resolution strategy for UMI de-duplication. 
-The `cr-like-em` resolution strategy assigns all UMI's that align to a single gene to that gene. 
-For any gene that is assigned to more than one gene, the UMI is assigned to the gene with the highest count. 
+2. We chose to use the `cr-like-em` resolution strategy for [feature quantification and UMI de-duplication](https://alevin-fry.readthedocs.io/en/latest/quant.html). 
+Similar to the way Cell Ranger performs feature quantification, the `cr-like-em` resolution strategy assigns all UMI's that align to a single gene to that gene. 
+In contrast to Cell Ranger, `cr-like-em` keeps multi-mapped reads and invokes an extra step to assign these multi-mapped reads to a UMI.
 
-### Post Alevin-Fry Processing
+### Post alevin-fry processing
 
 #### Combining counts from spliced cDNA and intronic regions
 
 For single-cell samples, we only included reads aligning to spliced cDNA transcripts in the counts matrix. 
 For single-nuclei samples, all counts for spliced cDNA and intronic regions were summed for each gene to return the total counts summarized by gene in the counts matrix. 
 
-#### Filtering Cells
+#### Filtering cells
 
 ### CITE-seq quantification
 
-#### Alignment and Quantification using Alevin-fry
+#### Alignment and quantification using alevin-fry
 
 #### Combining CITE counts with RNA counts
 
-### Samples with Spatial Transcriptomics
+### Samples with spatial transcriptomics
 
-#### Alignment and Quantification using Alevin-fry
+#### Alignment and quantification using alevin-fry
 
-## Bulk RNA Samples
+## Bulk RNA samples
 
-### Alignment and Quantification using Salmon
+### Alignment and quantification using salmon
 
 ### Normalization of RNA counts
