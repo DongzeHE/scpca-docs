@@ -1,0 +1,2 @@
+# only check markdown files 
+.md$

@@ -8,4 +8,6 @@ scpca
 splici
 Srivastava
 transcriptome
+transcriptomics
 UMI
+UMIs
