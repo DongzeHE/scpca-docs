@@ -5,7 +5,7 @@
 ### Alignment and quantification using alevin-fry
 
 We used [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/) to generate gene by cell counts matrices for all single-cell and single-nuclei samples.
-In brief, we utilized [selective alignment](#selective-alignment) to the [`splici` index](#the-splici-index) for all single-cell and single-nuclei samples. 
+In brief, we utilized [selective alignment](#selective-alignment) to the [`splici` index](#reference-transcriptome-index) for all single-cell and single-nuclei samples. 
 
 #### Reference transcriptome index
 
@@ -17,7 +17,7 @@ In our hands, we have found that use of the `splici` index led to a more compara
 
 #### Selective alignment
 
-We aligned reads to the transcriptome index using `salmon` with the defualt "selective alignment" strategy. 
+We aligned reads to the transcriptome index using `salmon` with the default "selective alignment" strategy. 
 Briefly, selective alignment uses a mapping score validated approach to identify maximal exact matches between reads and the provided index. 
 For all samples, we used selective alignment to the `splici` index. 
 
@@ -31,7 +31,7 @@ After we aligned FASTQ files using selective alignment to the `splici` index, we
 For our reference barcode list, we used a list of all possible cell barcodes from 10X Genomics.
 
 2. We chose to use the `cr-like-em` resolution strategy for [feature quantification and UMI de-duplication](https://alevin-fry.readthedocs.io/en/latest/quant.html). 
-Similar to the way Cell Ranger performs feature quantification, the `cr-like-em` resolution strategy assigns all UMI's that align to a single gene to that gene. 
+Similar to the way Cell Ranger performs feature quantification, the `cr-like-em` resolution strategy assigns all UMIs that align to a single gene to that gene. 
 In contrast to Cell Ranger, `cr-like-em` keeps multi-mapped reads and invokes an extra step to assign these multi-mapped reads to a UMI.
 
 ### Post alevin-fry processing
