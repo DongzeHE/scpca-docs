@@ -21,7 +21,7 @@ We aligned reads to the transcriptome index using `salmon` with the default "sel
 Briefly, selective alignment uses a mapping score validated approach to identify maximal exact matches between reads and the provided index. 
 For all samples, we used selective alignment to the `splici` index. 
 
-A more detailed description of the alignment strategy invoked by `salmon` in conjuction with `alevin-fry` can be found in [Srivastava _et al._ 2020](https://doi.org/10.1186/s13059-020-02151-8).
+A more detailed description of the alignment strategy invoked by `salmon` in conjunction with `alevin-fry` can be found in [Srivastava _et al._ 2020](https://doi.org/10.1186/s13059-020-02151-8).
 
 #### Alevin-fry parameters 
 
