@@ -8,9 +8,12 @@ de
 et
 FASTQ
 Genomics
+github
 intronic
 Kaminow
+repo
 scpca
+ScPCA
 splici
 Srivastava
 transcriptome
