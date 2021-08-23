@@ -1,7 +1,8 @@
 #!/usr/bin/env Rscript
 #
 # Run spell check and save results
-# Adapted from: https://github.com/AlexsLemonade/refinebio-examples/blob/33cdeff66d57f9fe8ee4fcb5156aea4ac2dce07f/scripts/spell-check.R
+# Adapted from: https://github.com/AlexsLemonade/refinebio-examples/blob/33cdeff66d57f9fe8ee4fcb5156aea4ac2dce07f/scripts/spell-check.R 
+# and https://github.com/AlexsLemonade/training-modules/blob/04bea3d2707975e04b57b714ba8b709c77594706/scripts/spell-check.R
 
 library(magrittr)
 
