@@ -18,7 +18,6 @@ dictionary <- c(dictionary, spelling::spell_check_text("⚠️")$word)
 files <- list.files(root_dir, pattern = '\\.md$', recursive = TRUE, full.names = TRUE)
 
 
-
 # Run spell check
 spelling_errors <- spelling::spell_check_files(files, ignore = dictionary) %>%
   data.frame() %>%
