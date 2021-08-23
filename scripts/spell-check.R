@@ -12,9 +12,6 @@ root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
 # Read in dictionary
 dictionary <- readLines(file.path(root_dir, 'components', 'dictionary.txt'))
 
-# Add emoji to dictionary
-dictionary <- c(dictionary, spelling::spell_check_text("⚠️")$word)
-
 # The only files we want to check are Markdown files
 files <- list.files(root_dir, pattern = '\\.md$', recursive = TRUE, full.names = TRUE)
 
