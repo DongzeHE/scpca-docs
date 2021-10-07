@@ -54,7 +54,3 @@ Cells that do not pass this FDR threshold are removed from the counts matrix.
 #### Alignment and quantification using alevin-fry
 
 #### Combining CITE counts with RNA counts
-
-### Samples with spatial transcriptomics
-
-#### Alignment and quantification using alevin-fry
