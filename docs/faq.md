@@ -14,5 +14,5 @@ We also compared the mean gene expression reported for each gene by both methods
 
 *Insert Correlation graph comparing mean gene expression?*
 
-Recent reports have also shown that Alevin-fry can process single-cell and single-nuclei data much more quickly and efficiently then the next available methods, while also decreasing the false positive rates, leading to over-estimates in gene expression, commonly seen in methods that utilize transcriptome alignment ([He _et al._ 2021](https://doi.org/10.1101/2021.06.29.450377)).
+Recent reports have supported our findings, showing that Alevin-fry can process single-cell and single-nuclei data much more quickly and efficiently then the next available methods, while also decreasing the false positive rate of gene detection, commonly seen in methods that utilize transcriptome alignment ([He _et al._ 2021](https://doi.org/10.1101/2021.06.29.450377)).
 
