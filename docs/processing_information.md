@@ -43,7 +43,7 @@ For single-nuclei samples, all counts for spliced cDNA and intronic regions were
 
 #### Filtering cells
 
-We then removed any cell barcodes that are likely to correspond to empty droplets, rather than true cells. 
+In addition to an unfiltered counts matrix, we provide a matrix filtered to only droplets that are likely to include cells, removing any cell barcodes that are likely to correspond to empty droplets.
 To do this we used [`DropletUtils::emptyDrops()`](https://www.bioconductor.org/packages/devel/bioc/vignettes/DropletUtils/inst/doc/DropletUtils.html#detecting-empty-droplets), a function that estimates the profile of cells containing ambient RNA and tests the likelihood of all other droplets as differing from the ambient profile [Lun _et al._ 2019](https://doi.org/10.1186/s13059-019-1662-y). 
 We defined the ambient profile to include all droplets with less than 200 UMI per cell by using the option `lower=200`.
 We consider droplets with an FDR less than or equal to 0.01 to be cell-containing droplets. 
