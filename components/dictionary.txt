@@ -3,6 +3,7 @@ alevin
 Alevin
 barcode
 barcodes
+benchmarking
 cDNA
 de
 et
