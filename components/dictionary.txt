@@ -4,7 +4,6 @@ Alevin
 barcode
 barcodes
 cDNA
-Cellranger
 de
 et
 FASTQ
@@ -12,7 +11,7 @@ Genomics
 github
 intronic
 Kaminow
-pearson
+Pearson
 repo
 scpca
 ScPCA
