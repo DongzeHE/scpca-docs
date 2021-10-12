@@ -10,9 +10,10 @@ Additionally, comparison of the quantification output from samples processed wit
 
 ![](../images/total_genes_per_cell.png)
 
-We also compared the mean gene expression reported for each gene by both methods and observed a high correlation with a pearson R correlation coefficient of 0.98.  
+We also compared the mean gene expression reported for each gene by both methods and observed a high correlation with a Pearson R correlation coefficient of 0.98.  
 
 *Insert Correlation graph comparing mean gene expression?*
 
-Recent reports have supported our findings, showing that Alevin-fry can process single-cell and single-nuclei data much more quickly and efficiently then the next available methods, while also decreasing the false positive rate of gene detection, commonly seen in methods that utilize transcriptome alignment ([He _et al._ 2021](https://doi.org/10.1101/2021.06.29.450377)).
+Recent reports from others support our findings. 
+[He _et al._ (2021)](https://doi.org/10.1101/2021.06.29.450377)) demonstrated that Alevin-fry can process single-cell and single-nuclei data more quickly and efficiently then other available methods, while also decreasing the false positive rate of gene detection that is commonly seen in methods that utilize transcriptome alignment.
 
