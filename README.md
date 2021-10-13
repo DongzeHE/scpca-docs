@@ -17,7 +17,7 @@ A list of words to be ignored by spell check is listed in `components/dictionary
  $ cd scpca-docs
 ```
 
-#### Set up virtual `env`
+#### Set up `virtualenv`
 ```shell
  $ virtualenv env
  $ source env/bin/activate
