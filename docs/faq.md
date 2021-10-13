@@ -19,3 +19,42 @@ We also compared the mean gene expression reported for each gene by both methods
 Recent reports from others support our findings. 
 [He _et al._ (2021)](https://doi.org/10.1101/2021.06.29.450377)) demonstrated that Alevin-fry can process single-cell and single-nuclei data more quickly and efficiently then other available methods, while also decreasing the false positive rate of gene detection that is commonly seen in methods that utilize transcriptome alignment.
 [You _et al._ (2021)](https://doi.org/10.1101/2021.06.17.448895) and [Tian _et al._ (2019)](https://doi.org/10.1038/s41592-019-0425-8) have also noted that results from different pre-processing workflows for single-cell RNA-sequencing analysis tend to result in compatible results downstream.
+
+#### How do I use the provided RDS files in R? 
+
+We are providing the gene expression data to you as a [`SingleCellExperiment`](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) in an RDS file.
+
+_Note: You will need to install and load the [`SingleCellExperiment` package](https://bioconductor.org/packages/3.13/bioc/html/SingleCellExperiment.html) from Bioconductor to work with the provided files._
+
+To read in the RDS files you can use the following options. 
+In base R, you can use the `readRDS` command. 
+```
+scpca_sample <- readRDS("SCPCL000001_filtered.rds")
+```
+
+Or in the `readr` package, you can use the `read_rds()` function. 
+```
+scpca_sample <- readr::read_rds("SCPCL000001_filtered.rds")
+``` 
+
+The `SingleCellExperiment` holds the gene expression data as a matrix in the assays slot and any associated metadata. 
+
+To access the counts data directly you can do: 
+```
+counts(scpca_sample)
+```
+
+We have included metrics for each cell (associated with every column) and each gene (aassociated with each row). 
+To access the this data you can do: 
+```
+# get data associated with each cell barcode
+colData(scpca_sample)
+
+# get data associated with each row barcode
+rowData(scpca_sample)
+```
+
+To access any additional metadata, use: 
+```
+metadata(scpca_sample)
+```
