@@ -2,10 +2,11 @@
 
 #### Why did we use Alevin-fry for processing? 
 
-In an effort to allow users to easily compare data available on the portal to their own processed data, we aimed to process all of the data using a method that is comparable to widely used pipelines.
-In our own benchmarking, we have found that Alevin-fry offers a faster, more memory efficient approach to processing single-cell and single-nuclei RNA-sequencing data than the commonly utilized 10X Genomics' [Cell Ranger,](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/count) without sacrificing accuracy. 
-Alevin-fry uses approximately 12-16 GB of memory per sample and completes alignment and quantification in less than an hour, while Cell Ranger uses up to 25-30 GB of memory per sample taking anywhere from 2-8 hours to align and quantify one sample.
-Additionally, comparison of the quantification output from samples processed with both Alevin-fry and Cell Ranger revealed similar distributions of UMI/cell and genes detected/cell among both tools.
+We aimed to process all of the data in the portal such that it is comparable to widely used pipelines, namely Cell Ranger from 10x Genomics.
+In our own benchmarking, we found that [Alevin-fry](https://github.com/COMBINE-lab/alevin-fry) produces very similar results to [Cell Ranger](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/count), while allowing faster, more memory efficient processing of single-cell and single-nuclei RNA-sequencing data.
+In the configuration that we are using ("selective alignment" mapping to a human transcriptome that includes introns), Alevin-fry uses approximately 12-16 GB of memory per sample and completes mapping and quantification in less than an hour. 
+By contrast, Cell Ranger uses up to 25-30 GB of memory per sample and takes anywhere from 2-8 hours to align and quantify one sample.
+Quantification of samples processed with both Alevin-fry and Cell Ranger resulted in similar distributions of mapped UMI count per cell and genes detected per cell for both tools.
 
 ![](https://github.com/AlexsLemonade/alsf-scpca/blob/dcebe62514b3a47a26b5923e7a1bdb1bb277e83b/analysis/docs-figures/plots/total_umi_per_cell.png?raw=true)
 
