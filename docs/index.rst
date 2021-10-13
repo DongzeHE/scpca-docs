@@ -10,6 +10,7 @@ Welcome to scpca's documentation!
    :maxdepth: 4
    
    processing_information.md
+   download_files.md
    faq.md
    
 
