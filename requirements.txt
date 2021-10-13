@@ -1,2 +1,4 @@
 Sphinx==3.2.1
+sphinx_rtd_theme==1.0.0
 myst-parser==0.15.1
+livereload==2.6.3
