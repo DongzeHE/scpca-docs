@@ -19,7 +19,7 @@ Every download will also include a `libraries_metadata.csv` file containing meta
 
 The unfiltered counts matrix, `<scpca_library_id>_unfiltered.rds`, is delivered as a RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
 Within the `SingleCellExperiment` is the counts matrix, where the rows correspond to genes or features and the columns correspond to cell barcodes. 
-Here, all potential cell barcodes that are identifed after running [Alevin-fry](processing_information.html/#alignment-and-quantification-using-alevin-fry) are included in the counts matrix. 
+Here, all potential cell barcodes that are identified after running [Alevin-fry](processing_information.html/#alignment-and-quantification-using-alevin-fry) are included in the counts matrix. 
 Summary statistics for each cell and gene can be found in the `colData` and `rowData` of the `SingleCellExperiment` object.
 The `SingleCellExperiment` object also contains metadata about that particular library, including the versions of Salmon and Alevin-fry used for pre-processing, information about the index used for transcriptome alignment, and parameters used for Alevin-fry. 
 See also [Using the provided RDS files in R.](link to FAQ)

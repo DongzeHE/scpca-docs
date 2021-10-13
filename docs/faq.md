@@ -44,7 +44,7 @@ To access the counts data directly you can do:
 counts(scpca_sample)
 ```
 
-We have included metrics for each cell (associated with every column) and each gene (aassociated with each row). 
+We have included metrics for each cell (associated with every column) and each gene (associated with each row). 
 To access the this data you can do: 
 ```
 # get data associated with each cell barcode
