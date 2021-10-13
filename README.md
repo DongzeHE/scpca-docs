@@ -17,7 +17,7 @@ A list of words to be ignored by spell check is listed in `components/dictionary
  $ cd scpca-docs
 ```
 
-#### Set up virtual env
+#### Set up virtual `env`
 ```shell
  $ virtualenv env
  $ source env/bin/activate
@@ -25,7 +25,7 @@ A list of words to be ignored by spell check is listed in `components/dictionary
 ```
 
 ### To run locally:
-You must set up virtual env before running locally.
+You must set up `virtualenv` before running locally.
 To run a local server that watches for changes please run:
 
 ```shell
