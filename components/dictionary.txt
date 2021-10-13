@@ -11,6 +11,7 @@ FASTQ
 Genomics
 github
 intronic
+introns
 Kaminow
 Pearson
 Lun
