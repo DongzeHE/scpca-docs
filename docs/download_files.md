@@ -11,7 +11,6 @@ _add in illustration of file structure for project_
 _add in illustration of file structure for sample downloads_ 
 
 Folders for each sample (indicated by the `SCPCS` prefix) will contain the files for all libraries corresponding to that sample. 
-See also [difference between samples and libraries.](link to FAQ)
 
 Each library will include the following files: `<scpca_library_id>_unfiltered.rds`, `<scpca_library_id>_filtered.rds`, `<scpca_library_id>_qc.html`, and `<scpca_library_id>_metadata.json`. 
 Every download will also include a `libraries_metadata.csv` file containing metadata associated with each library included in the download.
