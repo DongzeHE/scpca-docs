@@ -1,0 +1,147 @@
+/*
+ *   This file contains styles that override the base theme
+ *   */
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.wy-nav-content {
+  background: #fdfdfd;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Zilla Slab', serif;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+h1 {
+  margin-bottom: 16px;
+}
+
+p {
+  margin-bottom: 32px;
+}
+
+.wy-side-nav-search {
+  padding: 56px 24px 24px 24px;
+  position: relative;
+}
+
+.wy-side-nav-search input[type='text'] {
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 100%;
+}
+
+
+.wy-nav-side {
+  background-image: linear-gradient(0deg,#fdfdfd 0%,#edf7fd 100%);
+  color: #000000;
+}
+.wy-menu-vertical a {
+  color: #000000;
+}
+
+.btn, .btn:active {
+  border-radius: 3px;
+  line-height: 1.5px;
+  padding: 4px 24px;
+  box-shadow: None;
+  color: #003595;
+}
+
+.btn-neutral:visited {
+  color: #003595 !important;
+}
+
+.btn-neutral:hover {
+  background-color: #003595 !important;
+  color: #fdfdfd !important;
+  border-color: #003595;
+}
+
+.btn-neutral {
+  background-color: #fdfdfd !important;
+  color: #003595 !important;
+  border-color: #003595;
+}
+
+.wy-menu-vertical a {
+  line-height: 24px;
+  font-size: 110%;
+}
+
+.wy-menu-vertical li.current,
+.wy-menu-vertical li.current a:hover {
+  background-color: transparent;
+}
+
+.wy-menu-vertical li.on a,
+.wy-menu-vertical li.current > a {
+  font-weight: normal;
+}
+
+.wy-menu-vertical li.toctree-l1.current > a,
+.wy-menu-vertical li.toctree-l2.current > a,
+.wy-menu-vertical li.toctree-l3.current > a {
+  border: none;
+  background: transparent;
+}
+
+.wy-menu-vertical li.toctree-l2.current li.toctree-l3 > a,
+.wy-menu-vertical li.toctree-l3.current li.toctree-l4 > a {
+  border: none;
+  background: transparent;
+}
+
+.wy-menu-vertical li.toctree-l1 > a,
+.wy-menu-vertical li.toctree-l2 > a,
+.wy-menu-vertical li.toctree-l3 > a,
+.wy-menu-vertical li.toctree-l4 > a {
+  border: none;
+  background: transparent;
+}
+
+.wy-menu-vertical li.toctree-l1 > a:hover,
+.wy-menu-vertical li.toctree-l2 > a:hover,
+.wy-menu-vertical li.toctree-l3 > a:hover,
+.wy-menu-vertical li.toctree-l4 > a:hover {
+  background: transparent;
+}
+
+.wy-table-responsive table td,
+.wy-table-responsive table th {
+  white-space: normal;
+}
+
+div.version {
+  color: white !important;
+}
+
+@media (min-width: 950px) {
+  .wy-grid-for-nav {
+    position: relative;
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .wy-nav-side {
+    left: auto;
+  }
+
+  .wy-side-scroll {
+    overflow: visible;
+    width: auto;
+    height: auto;
+  }
+}
