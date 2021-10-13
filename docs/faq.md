@@ -54,6 +54,7 @@ colData(scpca_sample)
 rowData(scpca_sample)
 ```
 
+We have also included additional processing information in the metadata slot. 
 To access any additional metadata, use: 
 ```
 metadata(scpca_sample)
