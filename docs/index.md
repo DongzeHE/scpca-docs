@@ -7,4 +7,5 @@ The ScPCA Portal is a database of single-cell data from pediatric cancer clinica
 :maxdepth: 4
 
 processing_information
+faq
 ```
