@@ -22,11 +22,11 @@ Recent reports from others support our findings.
 
 #### How do I use the provided RDS files in R? 
 
-We are providing the gene expression data to you as a [`SingleCellExperiment`](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) in an RDS file.
+We are providing the gene expression data to you as a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) in an RDS file.
 
 _Note: You will need to install and load the [`SingleCellExperiment` package](https://bioconductor.org/packages/3.13/bioc/html/SingleCellExperiment.html) from Bioconductor to work with the provided files._
 
-To read in the RDS files you can use the following options. 
+To read in the RDS files you can use the following commands. 
 In base R, you can use the `readRDS` command. 
 ```
 scpca_sample <- readRDS("SCPCL000001_filtered.rds")
