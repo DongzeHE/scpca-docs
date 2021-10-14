@@ -32,30 +32,4 @@ In base R, you can use the `readRDS` command.
 scpca_sample <- readRDS("SCPCL000001_filtered.rds")
 ```
 
-Or in the `readr` package, you can use the `read_rds()` function. 
-```
-scpca_sample <- readr::read_rds("SCPCL000001_filtered.rds")
-``` 
-
-The `SingleCellExperiment` holds the gene expression data as a matrix in the assays slot and any associated metadata. 
-
-To access the counts data directly you can do: 
-```
-counts(scpca_sample)
-```
-
-We have included metrics for each cell (associated with every column) and each gene (associated with each row). 
-To access the this data you can do: 
-```
-# get data associated with each cell barcode
-colData(scpca_sample)
-
-# get data associated with each row barcode
-rowData(scpca_sample)
-```
-
-We have also included additional processing information in the metadata slot. 
-To access any additional metadata, use: 
-```
-metadata(scpca_sample)
-```
+### What is the difference between a sample and a library?
