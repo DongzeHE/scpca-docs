@@ -1,8 +1,8 @@
-# Downloadable Files
+# Downloadable files
 
 The ScPCA portal download packages include gene expression data, a QC report, and associated metadata for each processed sample.
 These files are delivered as a zip file.
-The folder structure within the zip file is determined by whether a user selected to download all the samples associated with a project or selected to download individual samples.  
+The folder structure within the zip file is determined by selecting to download all samples associated with a project or individual samples.  
 
 ## Download folder structure for project downloads: 
 _add in illustration of file structure for project_ 
@@ -19,19 +19,19 @@ The files associated with each library are:
 - A metadata file: `SCPCL000000_metadata.json`. 
 Every download also includes a `libraries_metadata.csv` file containing metadata associated with each library included in the download.
 
-## Unfiltered Counts File 
+## Gene expression data
 
-The unfiltered counts matrix, `<scpca_library_id>_unfiltered.rds`, is delivered as a RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
+Gene expression data is available in two forms - as an unfiltered counts file or filtered counts file.
+
+The unfiltered counts file, `SCPCL000000_unfiltered.rds`, is delivered as a RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
 Within the `SingleCellExperiment` is the counts matrix, where the rows correspond to genes or features and the columns correspond to cell barcodes. 
-Here, all potential cell barcodes that are identified after running [Alevin-fry](processing_information.html/#alignment-and-quantification-using-alevin-fry) are included in the counts matrix. 
+Here, all potential cell barcodes that are identified after running {ref}`Alevin-fry <processing_information:alignment and quantification using alevin-fry>` are included in the counts matrix. 
 Summary statistics for each cell and gene can be found in the `colData` and `rowData` slots of the `SingleCellExperiment` object, respectively.
 The `SingleCellExperiment` object also contains metadata about that particular library, including the versions of Salmon and Alevin-fry used for pre-processing, information about the index used for transcriptome alignment, and parameters used for Alevin-fry. 
 See also [Using the provided RDS files in R.](link to FAQ)
 
-## Filtered Counts Matrix
-
-The filtered counts matrix is also delivered as a RDS file containing a `SingleCellExperiment` object.
-Following filtering using [`emptyDrops`](processing_information.html/#filtering-cells), the filtered counts matrix and updated summary statistics for each cell and gene are output to the `<scpca_library_id>_filtered.rds` file.
+The filtered counts file is also delivered as a RDS file containing a `SingleCellExperiment` object.
+Following filtering using {ref}`emptyDrops <processing_information:filtering cells>`, the filtered counts matrix and updated summary statistics for each cell and gene are output to the `SCPCL000000_filtered.rds` file.
 As a result, this file only contains cell barcodes that are considered true cells.
 
 ## QC Report 
@@ -40,13 +40,15 @@ The included QC report serves as a general overview of each library, including p
 
 ## Metadata
 
-Metadata is provided in two ways. 
 The `libraries_metadata.csv` file is a comma-separated table with one row per library and the following columns. 
 
 | column_id       | contents                                                       |
 |-----------------|----------------------------------------------------------------|
 | scpca_sample_id | Sample ID in the form `SCPCS000000`                            |
 | scpca_library_id | Library ID in the form `SCPCL000000`                          |
+| seq_unit        | `cell` for single-cell samples or `nucleus` for single-nucleus samples |
+| technology      | 10X kit used to process library                                |
+| filtered_cell_count | Number of cells after filtering with `emptyDrops`          |
 | submitter_id    | Original sample identifier from submitter                      |
 | participant_id  | Original participant id, if there are multiple samples from the same participant                                                                          |
 | submitter       | Submitter name/id                                              |
@@ -59,5 +61,5 @@ The `libraries_metadata.csv` file is a comma-separated table with one row per li
 
 Additional metadata may also be included, specific to the disease type and experimental design of the project. Examples of this include treatment or outcome. 
 
-For each library, is also a `<scpca_library_id>_metadata.json` file that contains processing-associated metadata.
-Most fields can also be found in the metadata slot of the `SingleCellExperiment` objects stored in both the `unfiltered.rds` and `filtered.rds` files.
+For each library, a `SCPCL000000_metadata.json` file that contains processing-associated metadata is also available.
+Most fields can also be found in the metadata slot of the `SingleCellExperiment` objects stored in both the `SCPCL000000_unfiltered.rds` and `SCPCL000000_filtered.rds` files.
