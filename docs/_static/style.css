@@ -31,9 +31,23 @@ p {
   margin-bottom: 32px;
 }
 
+a, a:visited {
+  color: #145ECC;
+}
+
 .wy-side-nav-search {
   padding: 56px 24px 24px 24px;
   position: relative;
+}
+
+.wy-side-nav-search a,
+.wy-side-nav-search a:visited
+{
+  color: white;
+}
+
+.wy-side-nav-search .icon.icon-home:before {
+  content: none;
 }
 
 .wy-side-nav-search input[type='text'] {
@@ -121,6 +135,49 @@ p {
 .wy-table-responsive table td,
 .wy-table-responsive table th {
   white-space: normal;
+}
+
+.toctree-wrapper > ul li.toctree-l1 > a {
+  font-size: 18px;
+}
+
+.toctree-wrapper > ul li.toctree-l1,
+.toctree-wrapper > ul li ul li.toctree-l2,
+.toctree-wrapper > ul li ul li ul li.toctree-l3,
+.toctree-wrapper > ul li ul li ul li ul li.toctree-l4 {
+  list-style: none;
+}
+
+.toctree-wrapper > ul li ul li.toctree-l2:before,
+.toctree-wrapper > ul li ul li ul li.toctree-l3:before,
+.toctree-wrapper > ul li ul li ul li ul li.toctree-l4:before {
+  content: '';
+  display: block;
+  position: absolute;
+  transform: translate(-12px, 7px);
+  border-radius: 50%;
+  background-color: #003595;
+  width: 8px;
+  height: 8px;
+  padding: 2px;
+}
+
+.toctree-wrapper > ul li ul li.toctree-l2:before {
+}
+
+.toctree-wrapper > ul li ul li ul li.toctree-l3:before {
+  border-radius: 0;
+  width: 6px;
+  height: 6px;
+  transform: translate(-12px, 8px);
+}
+
+.toctree-wrapper > ul li ul li ul li ul li.toctree-l4:before {
+  height: 2px;
+  width: 6px;
+  padding: 0 2px;
+  border-radius: 0;
+  transform: translate(-12px, 10px);
 }
 
 div.version {
