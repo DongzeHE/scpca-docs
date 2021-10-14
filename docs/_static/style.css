@@ -184,6 +184,11 @@ a, a:visited {
   transform: translate(-12px, 10px);
 }
 
+.wy-breadcrumbs .icon.icon-home:before {
+  font-family: 'Source Sans Pro', sans-serif;
+  content: "ScPCA Portal"
+}
+
 div.version {
   color: white !important;
 }
