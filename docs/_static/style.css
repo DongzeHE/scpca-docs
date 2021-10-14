@@ -56,13 +56,17 @@ a, a:visited {
   font-size: 100%;
 }
 
-
 .wy-nav-side {
   background-image: linear-gradient(0deg,#fdfdfd 0%,#edf7fd 100%);
   color: #000000;
 }
+
 .wy-menu-vertical a {
   color: #000000;
+}
+
+.wy-menu-vertical ul li button:before {
+  line-height: 1.5em !important;
 }
 
 .btn, .btn:active {
