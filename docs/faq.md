@@ -23,6 +23,6 @@ Recent reports from others support our findings.
 #### What genes are included in the reference transcriptome? 
 
 The {ref}`reference transcriptome index <processing_information:reference transcriptome index>` that was used for alignment included 60,319 genes.
-The reference transcriptome was constructed by extracting both spliced cDNA and intronic regions from the primary genome assembly ([see the script used to generate the reference transcriptome](https://github.com/AlexsLemonade/scpca-nf/blob/5dc49ffdcdb5c74dca86b0b79878f4d060029a53/bin/make_splici_fasta.R)).
+The reference transcriptome was constructed by extracting both spliced cDNA and intronic regions from the primary genome assembly ([see the code used to generate the reference transcriptome](https://github.com/AlexsLemonade/scpca-nf/blob/5dc49ffdcdb5c74dca86b0b79878f4d060029a53/bin/make_splici_fasta.R)).
+In addition to protein-coding genes, this reference transcriptome index includes pseudogenes and non-coding RNA. 
 Although there are 60,319 genes that are present in the reference transcriptome index, it is likely that many of these genes will not be detected in any given library.
-In addition to protein-coding genes, this reference transcriptome index includes pseudogenes and non-coding RNA.
