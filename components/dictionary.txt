@@ -3,6 +3,7 @@ alevin
 Alevin
 barcode
 barcodes
+benchmarking
 cDNA
 de
 et
@@ -10,13 +11,17 @@ FASTQ
 Genomics
 github
 intronic
+introns
 Kaminow
+Pearson
+pre
 Lun
 repo
 scpca
 ScPCA
 splici
 Srivastava
+Tian
 transcriptome
 transcriptomics
 UMI
