@@ -11,6 +11,7 @@ Welcome to scpca's documentation!
    
    processing_information.md
    download_files.md
+   gene_expression_file_contents.md
    faq.md
    
 
