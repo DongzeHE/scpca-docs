@@ -2,7 +2,7 @@
 
 The ScPCA portal download packages include gene expression data, a QC report, and associated metadata for each processed sample.
 These files are delivered as a zip file.
-The folder structure within the zip file is determined by selecting to download all samples associated with a project or individual samples.  
+The folder structure within the zip file is determined by selecting to download all samples associated with a project or selecting individual samples.  
 
 ## Download folder structure for project downloads: 
 _add in illustration of file structure for project_ 
@@ -26,7 +26,7 @@ Every download also includes a `libraries_metadata.csv` file containing metadata
 Gene expression data is available in two forms - as an unfiltered counts file or filtered counts file.
 
 The unfiltered counts file, `SCPCL000000_unfiltered.rds`, is delivered as a RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
-Within the `SingleCellExperiment` is the counts matrix, where the rows correspond to genes or features and the columns correspond to cell barcodes. 
+Within the `SingleCellExperiment` object is the counts matrix, where the rows correspond to genes or features and the columns correspond to cell barcodes. 
 Here, all potential cell barcodes that are identified after running {ref}`Alevin-fry <processing_information:alignment and quantification using alevin-fry>` are included in the counts matrix. 
 Summary statistics for each cell and gene can be found in the `colData` and `rowData` slots of the `SingleCellExperiment` object, respectively.
 The `SingleCellExperiment` object also contains metadata about that particular library, including the versions of Salmon and Alevin-fry used for pre-processing, information about the index used for transcriptome alignment, and parameters used for Alevin-fry. 
