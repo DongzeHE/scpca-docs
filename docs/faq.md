@@ -35,7 +35,7 @@ scpca_sample <- readRDS("SCPCL000000_filtered.rds")
 
 ## What is the difference between a sample and a library?
 
-#### What genes are included in the reference transcriptome? 
+## What genes are included in the reference transcriptome? 
 
 The {ref}`reference transcriptome index <processing_information:reference transcriptome index>` that was used for alignment was constructed by extracting both spliced cDNA and intronic regions from the primary genome assembly GRCh38, Ensembl database version 104 ([see the code used to generate the reference transcriptome](https://github.com/AlexsLemonade/scpca-nf/blob/v0.1.1/bin/make_splici_fasta.R)).
 The resulting reference transcriptome index contains 60,319 genes.
