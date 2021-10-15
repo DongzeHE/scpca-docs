@@ -42,7 +42,7 @@ The resulting reference transcriptome index contains 60,319 genes.
 In addition to protein-coding genes, this list of genes includes pseudogenes and non-coding RNA.
 The gene expression data files available for download report all possible genes present in the reference transcriptome, even if not detected in a given library. 
 
-#### Where can I see the code for generating QC reports? 
+## Where can I see the code for generating QC reports? 
 
 A QC report for every processed library is included with all downloads. 
 Following alignment and quantification, the unfiltered output from Alevin-fry was imported into R as a `SingleCellExperiment` object and filtered using `DropletUtils::emptyDrops()`. 
