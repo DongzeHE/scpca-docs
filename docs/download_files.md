@@ -12,7 +12,7 @@ _add in illustration of file structure for sample downloads_
 
 Sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample. 
 Most samples only have one library that has been sequenced. 
-See the {ref}`FAQ section about samples and libraries <faq:what is the difference between a sample and a library?>` for more information.
+See the {ref}`FAQ section about samples and libraries <faq:What is the difference between participants, samples, and libraries?>` for more information.
 
 The files associated with each library are (example shown for a library with ID `SCPCL000000`):
 - An unfiltered counts file: `SCPCL000000_unfiltered.rds`, 
