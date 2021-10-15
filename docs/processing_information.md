@@ -62,5 +62,6 @@ Mapping to these indices followed the same procedures as for RNA-seq data, inclu
 
 The unfiltered CITE-seq and RNA-seq count matrices often include somewhat different sets of cell barcodes, due to stochastic variation in library construction and sequencing.
 When normalizing these two count matrices to the same set of cells, we chose to prioritize RNA-seq results for broad comparability among libraries with and without CITE-seq data. 
-Any cell barcodes that appeared only in CITE-seq data were discarded, and cell barcodes which did not appear in the CITE-seq data were assigned zero counts for all ADTs. 
+Any cell barcodes that appeared only in CITE-seq data were discarded.
+Cell barcodes that were present only in the RNA-seq data (i.e., did _not_ appear in the CITE-seq data) were assigned zero counts for all ADTs. 
 When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the CITE-seq count matrix was filtered to match.
