@@ -30,4 +30,6 @@ The gene expression data files available for download report all possible genes 
 #### Where can I see the code for generating QC reports? 
 
 A QC report for every processed library is included with all downloads. 
-You can find the [code used to generate the QC report](https://github.com/AlexsLemonade/scpcaTools/blob/2cdad4c5231712edc5a94de44f21e173046ac3d8/inst/rmd/qc_report.rmd) in the package we developed `scpcaTools`(https://github.com/AlexsLemonade/scpcaTools/tree/v0.1.1). 
+Following alignment and quantification, the unfiltered output from Alevin-fry was imported into R as a `SingleCellExperiment` object and filtered using `DropletUtils::emptyDrops()`. 
+Next, we generated the QC report, using the unfiltered and filtered `SingleCellExperiment` objects as input. 
+You can find the [code used to generate the QC report](https://github.com/AlexsLemonade/scpcaTools/blob/fd536edebddb2589c430c460ae7c79458dae803c/inst/rmd/qc_report.rmd) in the package we developed for working with processed ScPCA data, `scpcaTools`(https://github.com/AlexsLemonade/scpcaTools/tree/v0.1.1). 
