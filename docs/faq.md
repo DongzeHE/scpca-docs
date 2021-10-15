@@ -33,7 +33,16 @@ library(SingleCellExperiment)
 scpca_sample <- readRDS("SCPCL000000_filtered.rds")
 ```
 
-## What is the difference between a sample and a library?
+## What is the difference between participants, samples, and libraries?
+
+The `participant_id` indicates the participant, or patient, from which a sample, or collection of samples, is obtained from. 
+A sample ID, labeled as `scpca_sample_id` and indicated by the prefix `SCPCS`, represents a unique tissue that was collected from a participant. 
+For example, one participant can have a sample collected both at initial diagnosis and at relapse.
+This would result in two unique sample ID's with the same participant ID. 
+
+The library ID, labeled as `scpca_library_id` and indicated by the prefix `SCPCL`, represents a single emulsion and droplet generation using the 10X worfklow from a given sample. 
+In most cases, each sample will only have one corresponding library.
+However, in some cases multiple libraries underwent separate droplet generation and sequencing from the same sample, resulting in multiple library ID's being associated with the same sample ID. 
 
 ## What genes are included in the reference transcriptome? 
 
