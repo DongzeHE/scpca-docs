@@ -51,8 +51,16 @@ We defined the ambient profile to include all droplets with less than 200 UMI pe
 We consider droplets with an FDR less than or equal to 0.01 to be cell-containing droplets. 
 Only cells that pass this FDR threshold are included in the filtered counts matrix.
 
-### CITE-seq quantification
+## CITE-seq quantification
 
-#### Alignment and quantification using alevin-fry
+CITE-seq libraries with reads from antibody-derived tags (ADTs) were also quantified using  [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/).
 
-#### Combining CITE counts with RNA counts
+Reference indices were constructed from the submitter-provided list of antibody barcode sequences corresponding to each library using the `--features` flag of `salmon index`.
+Mapping to these indicies then proceeded following the same procedures as for RNA-seq data, including mapping with [selective alignment](#selective-alignment) and subsequent [quantification via alevin-fry](#alevin-fry-parameters).
+
+### Combining CITE counts with RNA counts
+
+The unfiltered CITE-seq and RNA-seq count matrices often include somewhat different sets of cell barcodes, due to stochastic variation in library construction and sequencing.
+When normalizing these two count matrices to the same set of cells, we chose to prioritize RNA-seq results for broad comparability among libraries with and without CITE-seq data. 
+Any cell barcodes that appeared only in CITE-seq data were discarded, and cell barcodes which did not appear in the CITE-seq data were assigned zero counts for all ADTs. 
+When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the CITE-seq count matrix was filtered to match.
