@@ -6,10 +6,12 @@ barcodes
 benchmarking
 cDNA
 de
+Ensembl
 et
 FASTQ
 Genomics
 github
+GRCh
 intronic
 introns
 Kaminow
@@ -22,9 +24,11 @@ scpca
 ScPCA
 splici
 Srivastava
+subdiagnosis
 Tian
 transcriptome
 transcriptomics
+TSV
 UMI
 UMIs
 unspliced
