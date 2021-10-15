@@ -40,7 +40,7 @@ A sample ID, labeled as `scpca_sample_id` and indicated by the prefix `SCPCS`, r
 For example, one participant may have a sample collected both at initial diagnosis and at relapse.
 This would result in two unique sample ID's with the same participant ID. 
 
-The library ID, labeled as `scpca_library_id` and indicated by the prefix `SCPCL`, represents a single emulsion and droplet generation using the 10X Genomics worfklow from a given sample. 
+The library ID, labeled as `scpca_library_id` and indicated by the prefix `SCPCL`, represents a single emulsion and droplet generation using the 10X Genomics workflow from a given sample. 
 In most cases, each sample will only have one corresponding library.
 However, in some cases multiple libraries underwent separate droplet generation and sequencing from the same sample, resulting in more than one library ID being associated with the same sample ID. 
 
