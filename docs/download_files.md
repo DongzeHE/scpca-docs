@@ -14,7 +14,7 @@ Sample folders (indicated by the `SCPCS` prefix) contain the files for all libra
 Most samples only have one library that has been sequenced. 
 See the {ref}`FAQ section about samples and libraries <faq:what is the difference between a sample and a library?>` for more information.
 
-The files associated with each library are:
+The files associated with each library are (example shown for a library with ID `SCPCL000000`):
 - An unfiltered counts file: `SCPCL000000_unfiltered.rds`, 
 - A filtered counts file: `SCPCL000000_filtered.rds`, 
 - A quality control report: `SCPCL000000_qc.html`, 
@@ -31,13 +31,13 @@ Within the `SingleCellExperiment` object is the counts matrix, where the rows co
 Here, all potential cell barcodes that are identified after running {ref}`Alevin-fry <processing_information:alignment and quantification using alevin-fry>` are included in the counts matrix. 
 Summary statistics for each cell and gene can be found in the `colData` and `rowData` slots of the `SingleCellExperiment` object, respectively.
 The `SingleCellExperiment` object also contains metadata about that particular library, including the versions of Salmon and Alevin-fry used for pre-processing, information about the index used for transcriptome alignment, and parameters used for Alevin-fry. 
-See also {ref}`Using the provided RDS files in R <faq:how do i use the provided RDS files in r?>`.
 
 The filtered counts file, `SCPCL000000_filtered.rds` is also an RDS file containing a `SingleCellExperiment` object with the same structure as above.
 The cells in this file are those that remain after filtering using {ref}`emptyDrops <processing_information:filtering cells>`.
 As a result, this file only contains cell barcodes that are likely to correspond to true cells.
 
 See {ref}`gene expression file contents <gene_expression_file_contents:gene expression file contents>` for more information about the contents of the `SingleCellExperiment` objects and the included statistics and metadata.
+See also {ref}`Using the provided RDS files in R <faq:how do i use the provided RDS files in r?>`.
 
 ## QC Report 
 

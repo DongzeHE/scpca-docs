@@ -34,4 +34,4 @@ library(SingleCellExperiment)
 scpca_sample <- readRDS("SCPCL000000_filtered.rds")
 ```
 
-### What is the difference between a sample and a library?
+#### What is the difference between a sample and a library?
