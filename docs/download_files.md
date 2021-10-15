@@ -54,13 +54,13 @@ The `libraries_metadata.csv` file is a comma-separated table with one row per li
 | technology      | 10X kit used to process library                                |
 | filtered_cell_count | Number of cells after filtering with `emptyDrops`          |
 | submitter_id    | Original sample identifier from submitter                      |
-| participant_id  | Original participant id, if there are multiple samples from the same participant                                                                          |
+| participant_id  | Original participant id, if there are multiple samples from the same participant                                                                        |
 | submitter       | Submitter name/id                                              |
 | age             | Age at time sample was obtained                                |
-| sex             | Sex of patient that the sample was obtained from                      |
+| sex             | Sex of patient that the sample was obtained from               |
 | diagnosis       | Tumor type                                                     |
-| subdiagnosis    | Subcategory of diagnosis or mutation status (if applicable)   |
-| tissue_location | Where in the body the tumor sample was located                                 |
+| subdiagnosis    | Subcategory of diagnosis or mutation status (if applicable)    |
+| tissue_location | Where in the body the tumor sample was located                 |
 | disease_timing  | What stage of disease was the sample obtained? At diagnosis or recurrence? |
 
 Additional metadata may also be included, specific to the disease type and experimental design of the project.

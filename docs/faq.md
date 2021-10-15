@@ -26,8 +26,7 @@ We are providing the gene expression data to you as a [`SingleCellExperiment` ob
 
 _Note: You will need to install and load the [`SingleCellExperiment` package](https://bioconductor.org/packages/3.13/bioc/html/SingleCellExperiment.html) from Bioconductor to work with the provided files._
 
-To read in the RDS files you can use the following commands. 
-In base R, you can use the `readRDS` command. 
+To read in the RDS files you can use the `readRDS` command in base R. 
 
 ```
 library(SingleCellExperiment)
