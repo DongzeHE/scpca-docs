@@ -28,8 +28,10 @@ _Note: You will need to install and load the [`SingleCellExperiment` package](ht
 
 To read in the RDS files you can use the following commands. 
 In base R, you can use the `readRDS` command. 
+
 ```
-scpca_sample <- readRDS("SCPCL000001_filtered.rds")
+library(SingleCellExperiment)
+scpca_sample <- readRDS("SCPCL000000_filtered.rds")
 ```
 
 ### What is the difference between a sample and a library?
