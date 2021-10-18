@@ -45,7 +45,7 @@ For single-cell or single-nuclei experiments, this will be the result of emulsio
 For a bulk RNA-seq experiment, this will result in a single sequencing library. 
 
 In most cases, each sample will only have one corresponding single-cell library, and may also have an associated bulk RNA-seq library.
-However, in some cases multiple libraries underwent separate droplet generation and sequencing from the same sample, resulting in more than one library ID being associated with the same sample ID. 
+However, in some cases multiple libraries were created by separate droplet generation and sequencing from the same sample, resulting in more than one library ID being associated with the same sample ID. 
 
 ## What genes are included in the reference transcriptome? 
 
