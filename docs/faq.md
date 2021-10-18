@@ -35,28 +35,29 @@ scpca_sample <- readRDS("SCPCL000000_filtered.rds")
 
 ## What is the difference between participants, samples, and libraries?
 
-The `participant_id` indicates the participant, or patient, from which a sample, or collection of samples, is obtained from. 
+The `participant_id` indicates the participant from which a sample or collection of samples was obtained. 
 A sample ID, labeled as `scpca_sample_id` and indicated by the prefix `SCPCS`, represents a unique tissue that was collected from a participant. 
 For example, one participant may have a sample collected both at initial diagnosis and at relapse.
-This would result in two unique sample ID's with the same participant ID. 
+This would result in two different sample ID's with the same participant ID. 
 
-The library ID, labeled as `scpca_library_id` and indicated by the prefix `SCPCL`, represents a single emulsion and droplet generation using the 10X Genomics workflow from a given sample. 
-In most cases, each sample will only have one corresponding library.
+The library ID, labeled as `scpca_library_id` and indicated by the prefix `SCPCL`, represents a single set of cells from a tissue sample.
+For single-cell or single-nuclei experiments, this will be the result of emulsion and droplet generation using the 10X Genomics workflow, potentially including both RNA-seq, CITE-seq and cell hashing sequencing libraries. 
+For a bulk RNA-seq experiment, this will result in a single sequencing library. 
+
+In most cases, each sample will only have one corresponding single-cell library, and may also have an associated bulk RNA-seq library.
 However, in some cases multiple libraries underwent separate droplet generation and sequencing from the same sample, resulting in more than one library ID being associated with the same sample ID. 
 
 ## What genes are included in the reference transcriptome? 
 
-The {ref}`reference transcriptome index <processing_information:reference transcriptome index>` that was used for alignment was constructed by extracting both spliced cDNA and intronic regions from the primary genome assembly GRCh38, Ensembl database version 104 ([see the code used to generate the reference transcriptome](https://github.com/AlexsLemonade/scpca-nf/blob/v0.1.1/bin/make_splici_fasta.R)).
+The {ref}`reference transcriptome index <processing_information:reference transcriptome index>` that was used for alignment was constructed by extracting both spliced cDNA and intronic regions from the primary genome assembly GRCh38, Ensembl database version 104 ([see the code used to generate the reference transcriptome](https://github.com/AlexsLemonade/scpca-nf/blob/main/bin/make_splici_fasta.R)).
 The resulting reference transcriptome index contains 60,319 genes.
 In addition to protein-coding genes, this list of genes includes pseudogenes and non-coding RNA.
 The gene expression data files available for download report all possible genes present in the reference transcriptome, even if not detected in a given library. 
 
 ## Where can I see the code for generating QC reports? 
 
-A QC report for every processed library is included with all downloads. 
-Following alignment and quantification, the unfiltered output from Alevin-fry was imported into R as a `SingleCellExperiment` object and filtered using `DropletUtils::emptyDrops()`. 
-Next, we generated the QC report, using the unfiltered and filtered `SingleCellExperiment` objects as input. 
-You can find the [code used to generate the QC report](https://github.com/AlexsLemonade/scpcaTools/blob/fd536edebddb2589c430c460ae7c79458dae803c/inst/rmd/qc_report.rmd) in the package we developed for working with processed ScPCA data, `scpcaTools`(https://github.com/AlexsLemonade/scpcaTools/tree/v0.1.1). 
+A QC report for every processed library is included with all downloads, generated from the unfiltered and {ref}`filtered <processing_information:filtering cells>` {ref}`gene expression files <gene_expression_file_contents:gene expression file contents>`.
+You can find the [function for generating a QC report](https://github.com/AlexsLemonade/scpcaTools/blob/main/R/generate_qc_report.R) and the [QC report template documents](https://github.com/AlexsLemonade/scpcaTools/tree/main/inst/rmd) in the package we developed for working with processed ScPCA data, [`scpcaTools`](https://github.com/AlexsLemonade/scpcaTools). 
 
 ## What if I want to use Seurat instead of Bioconductor? 
 
