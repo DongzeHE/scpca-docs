@@ -2,7 +2,7 @@
 
 ## Single-cell and single-nuclei RNA-seq
 
-### Alignment and quantification using alevin-fry
+### Mapping and quantification using alevin-fry
 
 We used [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/) to generate gene by cell counts matrices for all single-cell and single-nuclei samples.
 In brief, we utilized [selective alignment](#selective-alignment) to the [`splici` index](#reference-transcriptome-index) for all single-cell and single-nuclei samples. 
@@ -17,15 +17,15 @@ In our hands, we have found that use of the `splici` index led to a more compara
 
 #### Selective alignment
 
-We aligned reads to the transcriptome index using `salmon` with the default "selective alignment" strategy. 
+We mapped reads to the transcriptome index using `salmon` with the default "selective alignment" strategy. 
 Briefly, selective alignment uses a mapping score validated approach to identify maximal exact matches between reads and the provided index. 
 For all samples, we used selective alignment to the `splici` index. 
 
-A more detailed description of the alignment strategy invoked by `salmon` in conjunction with `alevin-fry` can be found in [Srivastava _et al._ 2020](https://doi.org/10.1186/s13059-020-02151-8).
+A more detailed description of the mapping strategy invoked by `salmon` in conjunction with `alevin-fry` can be found in [Srivastava _et al._ 2020](https://doi.org/10.1186/s13059-020-02151-8).
 
 #### Alevin-fry parameters 
 
-After we aligned FASTQ files using selective alignment to the `splici` index, we continued with the `alevin-fry` pipeline using the following parameters: 
+After mapping FASTQ files using selective alignment to the `splici` index, we continued with the `alevin-fry` pipeline using the following parameters: 
 
 1. During the [`generate-permit-list` step of `alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/generate_permit_list.html), we used the `--unfiltered-pl` option, which returns any cell with at least 1 read found in a reference barcode list. 
 For our reference barcode list, we used a list of all possible cell barcodes from 10X Genomics.
@@ -34,11 +34,13 @@ For our reference barcode list, we used a list of all possible cell barcodes fro
 Similar to the way Cell Ranger performs feature quantification, the `cr-like` resolution strategy assigns all UMIs that align to a single gene to that gene.
 In the case of UMIs with reads that map to more than one gene, UMIs are assigned to the gene with the highest count for the UMI, and discarded in the case of a tie.
 
+3. With initial mapping to the `splici` index, `alevin-fry` quantification resulted in separate counts for spliced and unspliced transcripts, and an ambiguous count for reads compatible with either spliced or unspliced transcripts.
+
 ### Post alevin-fry processing
 
 #### Combining counts from spliced cDNA and intronic regions
 
-For single-cell samples, we only included reads aligning to spliced cDNA transcripts in the counts matrix. 
+For single-cell samples, we only included reads aligning to spliced and ambiguous cDNA transcripts in the counts matrix. 
 For single-nuclei samples, all counts for spliced cDNA and intronic regions were summed for each gene to return the total counts summarized by gene in the counts matrix. 
 
 #### Filtering cells
@@ -49,8 +51,17 @@ We defined the ambient profile to include all droplets with less than 200 UMI pe
 We consider droplets with an FDR less than or equal to 0.01 to be cell-containing droplets. 
 Only cells that pass this FDR threshold are included in the filtered counts matrix.
 
-### CITE-seq quantification
+## CITE-seq quantification
 
-#### Alignment and quantification using alevin-fry
+CITE-seq libraries with reads from antibody-derived tags (ADTs) were also quantified using  [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/).
 
-#### Combining CITE counts with RNA counts
+Reference indices were constructed from the submitter-provided list of antibody barcode sequences corresponding to each library using the `--features` flag of `salmon index`.
+Mapping to these indices followed the same procedures as for RNA-seq data, including mapping with [selective alignment](#selective-alignment) and subsequent [quantification via alevin-fry](#alevin-fry-parameters).
+
+### Combining CITE counts with RNA counts
+
+The unfiltered CITE-seq and RNA-seq count matrices often include somewhat different sets of cell barcodes, due to stochastic variation in library construction and sequencing.
+When normalizing these two count matrices to the same set of cells, we chose to prioritize RNA-seq results for broad comparability among libraries with and without CITE-seq data. 
+Any cell barcodes that appeared only in CITE-seq data were discarded.
+Cell barcodes that were present only in the RNA-seq data (i.e., did _not_ appear in the CITE-seq data) were assigned zero counts for all ADTs. 
+When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the CITE-seq count matrix was filtered to match.
