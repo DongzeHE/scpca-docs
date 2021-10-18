@@ -61,12 +61,12 @@ You can find the [function for generating a QC report](https://github.com/AlexsL
 
 ## What if I want to use Seurat instead of Bioconductor? 
 
-The files available for download contain [`SingleCellExperiment objects`](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html). 
-These can easily be converted into Seurat objects. 
+The files available for download contain [`SingleCellExperiment` objects](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html). 
+If desired, these can be converted into Seurat objects. 
 
 You will need to [install and load the `Seurat` package](https://satijalab.org/seurat/articles/install.html) to work with Seurat objects.
 
-For libraries that only contain RNA-sequencing data (i.e. do not have a CITE-seq library found in the `altExp` of the `SingleCellExperiment object`), you can use the following commands:
+For libraries that only contain RNA-sequencing data (i.e. do not have a CITE-seq library found in the `altExp` of the `SingleCellExperiment` object), you can use the following commands:
 
 ```
 library(Seurat)
@@ -86,6 +86,7 @@ seurat_object[["RNA"]]@meta.features <- as.data.frame(rowData(sce))
 # add metadata from SingleCellExperiment to Seurat
 seurat_object@misc <- metadata(sce)
 ```
+
 In order to convert `SingleCellExperiment` objects from libraries that have counts from both RNA-sequencing and CITE-seq, you can use the following additional commands.
 This adds a second assay containing the CITE-seq counts and associated feature data to an existing Seurat object:
 
