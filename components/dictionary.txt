@@ -22,6 +22,7 @@ Lun
 repo
 scpca
 ScPCA
+scpcaTools
 splici
 Srivastava
 subdiagnosis
