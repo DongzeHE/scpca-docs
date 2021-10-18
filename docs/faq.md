@@ -57,3 +57,45 @@ A QC report for every processed library is included with all downloads.
 Following alignment and quantification, the unfiltered output from Alevin-fry was imported into R as a `SingleCellExperiment` object and filtered using `DropletUtils::emptyDrops()`. 
 Next, we generated the QC report, using the unfiltered and filtered `SingleCellExperiment` objects as input. 
 You can find the [code used to generate the QC report](https://github.com/AlexsLemonade/scpcaTools/blob/fd536edebddb2589c430c460ae7c79458dae803c/inst/rmd/qc_report.rmd) in the package we developed for working with processed ScPCA data, `scpcaTools`(https://github.com/AlexsLemonade/scpcaTools/tree/v0.1.1). 
+
+## What if I want to use Seurat instead of Bioconductor? 
+
+The files available for download contain [`SingleCellExperiment objects`](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html). 
+These can easily be converted into Seurat objects. 
+
+You will need to [install and load the `Seurat` package](https://satijalab.org/seurat/articles/install.html) to work with Seurat objects.
+
+For libraries that only contain RNA-sequencing data (i.e. do not have a CITE-seq library found in the `altExp` of the `SingleCellExperiment object`), you can use the following commands:
+
+```
+library(Seurat)
+
+# grab counts matrix from the SingleCellExperiment
+counts <- as.matrix(counts(sce))
+
+# create seurat object 
+seurat_object <- CreateSeuratObject(counts = counts, assay = "RNA",
+                                    project = "project_name",
+                                    # add colData from SingleCellExperiment
+                                    meta.data = as.data.frame(colData(sce)))
+
+# add rowData from SingleCellExperiment to Seurat 
+seurat_object[["RNA"]]@meta.features <- as.data.frame(rowData(sce))
+
+# add metadata from SingleCellExperiment to Seurat
+seurat_object@misc <- metadata(sce)
+```
+In order to convert `SingleCellExperiment` objects from libraries that have counts from both RNA-sequencing and CITE-seq, you can use the following additional commands.
+This adds a second assay containing the CITE-seq counts and associated feature data to the existing Seurat object:
+
+```
+# create assay object in Seurat from CITE-seq counts found in altExp(SingleCellExperiment)
+cite_counts <- counts(altExp(sce))
+cite_assay <- CreateAssayObject(counts = cite_counts)
+
+# add rowData from altExp to assay 
+cite_assay@meta.features = as.data.frame(rowData(altExp(sce)))
+
+# add altExp from SingleCellExperiment as second assay to Seurat
+seurat_object[["CITE"]] <- cite_assay
+```
