@@ -86,7 +86,7 @@ seurat_object[["RNA"]]@meta.features <- as.data.frame(rowData(sce))
 seurat_object@misc <- metadata(sce)
 ```
 In order to convert `SingleCellExperiment` objects from libraries that have counts from both RNA-sequencing and CITE-seq, you can use the following additional commands.
-This adds a second assay containing the CITE-seq counts and associated feature data to the existing Seurat object:
+This adds a second assay containing the CITE-seq counts and associated feature data to an existing Seurat object:
 
 ```
 # create assay object in Seurat from CITE-seq counts found in altExp(SingleCellExperiment)
