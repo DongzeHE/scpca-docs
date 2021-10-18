@@ -49,14 +49,12 @@ However, in some cases multiple libraries underwent separate droplet generation 
 
 ## What genes are included in the reference transcriptome? 
 
-The {ref}`reference transcriptome index <processing_information:reference transcriptome index>` that was used for alignment was constructed by extracting both spliced cDNA and intronic regions from the primary genome assembly GRCh38, Ensembl database version 104 ([see the code used to generate the reference transcriptome](https://github.com/AlexsLemonade/scpca-nf/blob/v0.1.1/bin/make_splici_fasta.R)).
+The {ref}`reference transcriptome index <processing_information:reference transcriptome index>` that was used for alignment was constructed by extracting both spliced cDNA and intronic regions from the primary genome assembly GRCh38, Ensembl database version 104 ([see the code used to generate the reference transcriptome](https://github.com/AlexsLemonade/scpca-nf/blob/main/bin/make_splici_fasta.R)).
 The resulting reference transcriptome index contains 60,319 genes.
 In addition to protein-coding genes, this list of genes includes pseudogenes and non-coding RNA.
 The gene expression data files available for download report all possible genes present in the reference transcriptome, even if not detected in a given library. 
 
 ## Where can I see the code for generating QC reports? 
 
-A QC report for every processed library is included with all downloads. 
-Following alignment and quantification, the unfiltered output from Alevin-fry was imported into R as a `SingleCellExperiment` object and filtered using `DropletUtils::emptyDrops()`. 
-Next, we generated the QC report, using the unfiltered and filtered `SingleCellExperiment` objects as input. 
-You can find the [code used to generate the QC report](https://github.com/AlexsLemonade/scpcaTools/blob/fd536edebddb2589c430c460ae7c79458dae803c/inst/rmd/qc_report.rmd) in the package we developed for working with processed ScPCA data, `scpcaTools`(https://github.com/AlexsLemonade/scpcaTools/tree/v0.1.1). 
+A QC report for every processed library is included with all downloads, generated from the unfiltered and {ref}`filtered <processing_information:filtering cells>` {ref}`gene expression files <gene_expression_file_contents:gene expression file contents>`.
+You can find the [function for generating a QC report](https://github.com/AlexsLemonade/scpcaTools/blob/main/R/generate_qc_report.R) and the [QC report template documents](https://github.com/AlexsLemonade/scpcaTools/tree/main/inst/rmd) in the package we developed for working with processed ScPCA data, [`scpcaTools`](https://github.com/AlexsLemonade/scpcaTools). 

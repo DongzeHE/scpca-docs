@@ -28,7 +28,7 @@ Gene expression data is provided in two forms - as an unfiltered counts file and
 
 The unfiltered counts file, `SCPCL000000_unfiltered.rds`, is an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
 Within the `SingleCellExperiment` object is the counts matrix, where the rows correspond to genes or features and the columns correspond to cell barcodes. 
-Here, all potential cell barcodes that are identified after running {ref}`Alevin-fry <processing_information:alignment and quantification using alevin-fry>` are included in the counts matrix. 
+Here, all potential cell barcodes that are identified after running {ref}`Alevin-fry <processing_information:mapping and quantification using alevin-fry>` are included in the counts matrix. 
 The object also includes summary statistics for each cell barcode and gene, as well as metadata about that particular library, such as the reference index and software versions used for mapping and quantification. 
 
 The filtered counts file, `SCPCL000000_filtered.rds` is also an RDS file containing a `SingleCellExperiment` object with the same structure as above.

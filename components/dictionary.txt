@@ -1,3 +1,5 @@
+ADT
+ADTs
 al
 alevin
 Alevin
@@ -22,6 +24,7 @@ Lun
 repo
 scpca
 ScPCA
+scpcaTools
 splici
 Srivastava
 subdiagnosis
