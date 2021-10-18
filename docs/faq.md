@@ -101,3 +101,63 @@ cite_assay@meta.features = as.data.frame(rowData(altExp(sce)))
 # add altExp from SingleCellExperiment as second assay to Seurat
 seurat_object[["CITE"]] <- cite_assay
 ```
+
+## What if I want to use Python instead of R? 
+
+Gene expression data files are only available as RDS files, and in order to view the contents must be opened using R. 
+If you prefer to work in python, count data can first be converted into the 10X format using [`DropletUtils::write10xCounts()`](https://rdrr.io/bioc/DropletUtils/man/write10xCounts.html). 
+Note that you will need to install the [`DropletUtils` package](https://www.bioconductor.org/packages/devel/bioc/html/DropletUtils.html) to use this function.
+
+This will result in three files being produced:
+- the counts matrix in sparse matrix format - `matrix.mtx.gz`
+- the row names, or gene names, saved as a TSV - `features.tsv.gz`
+- the column names, or cell barcodes, saved as a TSV - `barcodes.tsv.gz`
+
+```
+library(SingleCellExperiment)
+
+# read in the RDS file to be converted
+sce <- readRDS("SCPCL000000_filtered.rds")
+
+# extract the counts matrix to be saved 
+rna_counts <- counts(sce)
+
+# write counts to 10X format
+DropletUtils::write10xCounts("SCPCL000000-rna", rna_counts, 
+                             barcodes = colnames(rna_counts),
+                             gene.id = rownames(rna_counts))
+
+```
+
+If a library has associated CITE-seq that exists, you will have to save that separately.
+
+```
+# extract the CITE counts matrix to be saved 
+cite_counts <- counts(altExp(sce))
+
+# write counts to 10X format
+DropletUtils::write10xCounts("SCPCL000000-cite", cite_counts, 
+                             barcodes = colnames(cite_counts),
+                             gene.id = rownames(cite_counts))
+
+```
+
+These files can then be directly read into python using the [`scanpy` package](https://scanpy.readthedocs.io/en/stable/), creating an [`AnnData` object](https://anndata.readthedocs.io/en/latest/index.html).
+Note that you will need to [install the `scanpy` package](https://scanpy.readthedocs.io/en/stable/installation.html).
+
+```
+import scanpy as sc
+
+#read in 10X formatted files
+rna_file_directory = "SCPCL000000-rna"
+anndata_object = sc.read_10x_mtx(rna_file_directory)
+
+cite_file_directory = "SCPCL000000-cite"
+cite_anndata = sc.read_10x_mtx(cite_file_directory)
+
+# append CITE-seq anndata to RNA-seq anndata
+anndata_object['CITE'] = cite_anndata.to_df()
+```
+
+It should be noted that in this conversion the `colData`, `rowData` and metadata that is found in the original `SingleCellExperiment` objects will not be obtained. 
+If you would like to maintain this data, we provide a [reference from the authors of scanpy](https://theislab.github.io/scanpy-in-R/#converting-from-r-to-python) discussing one method of saving pieces of the `SingleCellExperiment` object separately and adding them into an `AnnData` object.
