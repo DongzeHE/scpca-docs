@@ -70,12 +70,14 @@ For libraries that only contain RNA-sequencing data (i.e. do not have a CITE-seq
 
 ```
 library(Seurat)
+library(SingleCellExperiment)
 
 # grab counts matrix from the SingleCellExperiment
-counts <- as.matrix(counts(sce))
+counts <- counts(sce)
 
 # create seurat object 
-seurat_object <- CreateSeuratObject(counts = counts, assay = "RNA",
+seurat_object <- CreateSeuratObject(counts = counts, 
+                                    assay = "RNA",
                                     project = "project_name",
                                     # add colData from SingleCellExperiment
                                     meta.data = as.data.frame(colData(sce)))
