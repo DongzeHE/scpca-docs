@@ -1,0 +1,213 @@
+/*
+ *   This file contains styles that override the base theme
+ *   */
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.wy-nav-content {
+  background: #fdfdfd;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Zilla Slab', serif;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+h1 {
+  margin-bottom: 16px;
+}
+
+p {
+  margin-bottom: 32px;
+}
+
+a, a:visited {
+  color: #145ECC;
+}
+
+.wy-side-nav-search {
+  padding: 56px 24px 24px 24px;
+  position: relative;
+}
+
+.wy-side-nav-search a,
+.wy-side-nav-search a:visited
+{
+  color: white;
+}
+
+.wy-side-nav-search .icon.icon-home:before {
+  content: none;
+}
+
+.wy-side-nav-search input[type='text'] {
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 100%;
+}
+
+.wy-nav-side {
+  background-image: linear-gradient(0deg,#fdfdfd 0%,#edf7fd 100%);
+  color: #000000;
+}
+
+.wy-menu-vertical a {
+  color: #000000;
+}
+
+.wy-menu-vertical ul li button:before {
+  line-height: 1.5em !important;
+}
+
+.btn, .btn:active {
+  border-radius: 3px;
+  line-height: 1.5px;
+  padding: 4px 24px;
+  box-shadow: None;
+  color: #003595;
+}
+
+.btn-neutral:visited {
+  color: #003595 !important;
+}
+
+.btn-neutral:hover {
+  background-color: #003595 !important;
+  color: #fdfdfd !important;
+  border-color: #003595;
+}
+
+.btn-neutral {
+  background-color: #fdfdfd !important;
+  color: #003595 !important;
+  border-color: #003595;
+}
+
+.wy-menu-vertical a {
+  line-height: 24px;
+  font-size: 110%;
+}
+
+.wy-menu-vertical li.current,
+.wy-menu-vertical li.current a:hover {
+  background-color: transparent;
+}
+
+.wy-menu-vertical li.on a,
+.wy-menu-vertical li.current > a {
+  font-weight: normal;
+}
+
+.wy-menu-vertical li.toctree-l1.current > a,
+.wy-menu-vertical li.toctree-l2.current > a,
+.wy-menu-vertical li.toctree-l3.current > a {
+  border: none;
+  background: transparent;
+}
+
+.wy-menu-vertical li.toctree-l2.current li.toctree-l3 > a,
+.wy-menu-vertical li.toctree-l3.current li.toctree-l4 > a {
+  border: none;
+  background: transparent;
+}
+
+.wy-menu-vertical li.toctree-l1 > a,
+.wy-menu-vertical li.toctree-l2 > a,
+.wy-menu-vertical li.toctree-l3 > a,
+.wy-menu-vertical li.toctree-l4 > a {
+  border: none;
+  background: transparent;
+}
+
+.wy-menu-vertical li.toctree-l1 > a:hover,
+.wy-menu-vertical li.toctree-l2 > a:hover,
+.wy-menu-vertical li.toctree-l3 > a:hover,
+.wy-menu-vertical li.toctree-l4 > a:hover {
+  background: transparent;
+}
+
+.wy-table-responsive table td,
+.wy-table-responsive table th {
+  white-space: normal;
+}
+
+.toctree-wrapper > ul li.toctree-l1 > a {
+  font-size: 18px;
+}
+
+.toctree-wrapper > ul li.toctree-l1,
+.toctree-wrapper > ul li ul li.toctree-l2,
+.toctree-wrapper > ul li ul li ul li.toctree-l3,
+.toctree-wrapper > ul li ul li ul li ul li.toctree-l4 {
+  list-style: none;
+}
+
+.toctree-wrapper > ul li ul li.toctree-l2:before,
+.toctree-wrapper > ul li ul li ul li.toctree-l3:before,
+.toctree-wrapper > ul li ul li ul li ul li.toctree-l4:before {
+  content: '';
+  display: block;
+  position: absolute;
+  transform: translate(-12px, 7px);
+  border-radius: 50%;
+  background-color: #003595;
+  width: 8px;
+  height: 8px;
+  padding: 2px;
+}
+
+.toctree-wrapper > ul li ul li.toctree-l2:before {
+}
+
+.toctree-wrapper > ul li ul li ul li.toctree-l3:before {
+  border-radius: 0;
+  width: 6px;
+  height: 6px;
+  transform: translate(-12px, 8px);
+}
+
+.toctree-wrapper > ul li ul li ul li ul li.toctree-l4:before {
+  height: 2px;
+  width: 6px;
+  padding: 0 2px;
+  border-radius: 0;
+  transform: translate(-12px, 10px);
+}
+
+.wy-breadcrumbs .icon.icon-home:before {
+  font-family: 'Source Sans Pro', sans-serif;
+  content: "ScPCA Portal"
+}
+
+div.version {
+  color: white !important;
+}
+
+@media (min-width: 950px) {
+  .wy-grid-for-nav {
+    position: relative;
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .wy-nav-side {
+    left: auto;
+  }
+
+  .wy-side-scroll {
+    overflow: visible;
+    width: auto;
+    height: auto;
+  }
+}
