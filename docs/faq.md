@@ -131,11 +131,11 @@ seurat_object[["CITE"]] <- cite_assay
 
 ## What if I want to use Python instead of R? 
 
-Gene expression data files are only available as RDS files, and in order to view the contents must be opened using R. 
+Gene expression data files are only available as RDS files, and must be opened in R to view the contents. 
 If you prefer to work in python, count data can first be converted into the 10X format using [`DropletUtils::write10xCounts()`](https://rdrr.io/bioc/DropletUtils/man/write10xCounts.html). 
 Note that you will need to install the [`DropletUtils` package](https://www.bioconductor.org/packages/devel/bioc/html/DropletUtils.html) to use this function.
 
-This will result in three files being produced:
+This will output three files to a new directory:
 - the counts matrix in sparse matrix format - `matrix.mtx.gz`
 - the row names, or gene names, saved as a TSV - `features.tsv.gz`
 - the column names, or cell barcodes, saved as a TSV - `barcodes.tsv.gz`
@@ -149,7 +149,7 @@ sce <- readRDS("SCPCL000000_filtered.rds")
 # extract the counts matrix to be saved 
 rna_counts <- counts(sce)
 
-# write counts to 10X format
+# write counts to 10X format and save to a folder named "SCPCL000000-rna"
 DropletUtils::write10xCounts("SCPCL000000-rna", rna_counts, 
                              barcodes = colnames(rna_counts),
                              gene.id = rownames(rna_counts))
@@ -187,4 +187,4 @@ anndata_object['CITE'] = cite_anndata.to_df()
 ```
 
 It should be noted that in this conversion the `colData`, `rowData` and metadata that is found in the original `SingleCellExperiment` objects will not be obtained. 
-If you would like to maintain this data, we provide a [reference from the authors of scanpy](https://theislab.github.io/scanpy-in-R/#converting-from-r-to-python) discussing one method of saving pieces of the `SingleCellExperiment` object separately and adding them into an `AnnData` object.
+If you would like to maintain this data, we provide a [reference from the authors of scanpy](https://theislab.github.io/scanpy-in-R/#converting-from-r-to-python) discussing one approach to save pieces of the `SingleCellExperiment` object separately and add them into an `AnnData` object.
