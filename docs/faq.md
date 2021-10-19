@@ -33,19 +33,25 @@ library(SingleCellExperiment)
 scpca_sample <- readRDS("SCPCL000000_filtered.rds")
 ```
 
-## What is the difference between participants, samples, and libraries?
+## What is the difference between samples and libraries?
 
-The `participant_id` indicates the participant from which a sample or collection of samples was obtained. 
 A sample ID, labeled as `scpca_sample_id` and indicated by the prefix `SCPCS`, represents a unique tissue that was collected from a participant. 
-For example, one participant may have a sample collected both at initial diagnosis and at relapse.
-This would result in two different sample ID's with the same participant ID. 
 
 The library ID, labeled as `scpca_library_id` and indicated by the prefix `SCPCL`, represents a single set of cells from a tissue sample.
 For single-cell or single-nuclei experiments, this will be the result of emulsion and droplet generation using the 10X Genomics workflow, potentially including both RNA-seq, CITE-seq and cell hashing sequencing libraries. 
 For a bulk RNA-seq experiment, this will result in a single sequencing library. 
 
-In most cases, each sample will only have one corresponding single-cell library, and may also have an associated bulk RNA-seq library.
-However, in some cases multiple libraries underwent separate droplet generation and sequencing from the same sample, resulting in more than one library ID being associated with the same sample ID. 
+In most cases, each sample will only have one corresponding single-cell or single-nuclei library, and may also have an associated bulk RNA-seq library.
+However, in some cases multiple libraries were created by separate droplet generation and sequencing from the same sample, resulting in more than one single-cell or single-nuclei library ID being associated with the same sample ID. 
+
+## Why do some samples have missing participant IDs?
+
+The `participant_id`, when present, indicates the participant from which a collection of samples was obtained. 
+For example, one participant may have a sample collected both at initial diagnosis and at relapse.
+This would result in two different sample ID's, but the same participant ID. 
+However, for most participants, only a single sample was collected and submitted for sequencing. 
+Because of this, many of the samples do not have a separate participant ID. 
+Participant IDs are only present for samples that were derived from the same participant as at least one other sample. 
 
 ## What genes are included in the reference transcriptome? 
 
@@ -70,18 +76,36 @@ For libraries that only contain RNA-sequencing data (i.e. do not have a CITE-seq
 
 ```
 library(Seurat)
+library(SingleCellExperiment)
 
-# grab counts matrix from the SingleCellExperiment
-counts <- as.matrix(counts(sce))
+# read in RDS file 
+sce <- readRDS("SCPCL000000_filtered.rds")
+
+# grab counts matrix from SingleCellExperiment needed to build the Seurat Object
+counts <- counts(sce)
+
+# colData and rowData will need to be converted to a data.frame to be used in the Seurat object
+cell_metadata <- as.data.frame(colData(sce))
+row_metadata <- as.data.frame(rowData(sce))
 
 # create seurat object 
-seurat_object <- CreateSeuratObject(counts = counts, assay = "RNA",
-                                    project = "project_name",
-                                    # add colData from SingleCellExperiment
-                                    meta.data = as.data.frame(colData(sce)))
+seurat_object <- CreateSeuratObject(counts = counts, 
+                                    assay = "RNA",
+                                    project = "SCPCL000000")
+```
+The above code will only maintain information found in the original counts matrix from the `SingleCellExperiment`.
+Optionally, if you would like to keep the included cell and gene associated metadata during conversion to the Seurat object you can perform the below additional steps: 
 
-# add rowData from SingleCellExperiment to Seurat 
-seurat_object[["RNA"]]@meta.features <- as.data.frame(rowData(sce))
+```
+# colData and rowData will need to be converted to a data.frame to be used in the Seurat object
+cell_metadata <- as.data.frame(colData(sce))
+row_metadata <- as.data.frame(rowData(sce))
+
+# add cell metadata (colData) from SingleCellExperiment to Seurat
+seurat_object@meta.data <- cell_metadata
+
+# add row metadata (rowData) from SingleCellExperiment to Seurat 
+seurat_object[["RNA"]]@meta.features <- row_metadata
 
 # add metadata from SingleCellExperiment to Seurat
 seurat_object@misc <- metadata(sce)
@@ -95,8 +119,11 @@ This adds a second assay containing the CITE-seq counts and associated feature d
 cite_counts <- counts(altExp(sce))
 cite_assay <- CreateAssayObject(counts = cite_counts)
 
-# add rowData from altExp to assay 
-cite_assay@meta.features = as.data.frame(rowData(altExp(sce)))
+# optional: convert rowData to data.frame for use in Seurat object
+cite_row_metadata <- as.data.frame(rowData(altExp(sce)))
+
+# optional: add row metadata (rowData) from altExp to assay 
+cite_assay@meta.features = cite_row_metadata
 
 # add altExp from SingleCellExperiment as second assay to Seurat
 seurat_object[["CITE"]] <- cite_assay
