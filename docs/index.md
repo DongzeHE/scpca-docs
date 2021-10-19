@@ -8,6 +8,6 @@ The ScPCA Portal is a database of single-cell and single-nuclei RNA-sequencing d
 
 processing_information
 download_files
-gene_expression_file_contents
+sce_file_contents
 faq
 ```
