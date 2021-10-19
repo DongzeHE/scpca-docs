@@ -93,7 +93,7 @@ seurat_object <- CreateSeuratObject(counts = counts,
                                     assay = "RNA",
                                     project = "SCPCL000000")
 ```
-The above code will only maintain information found in the original counts matrix from the SingleCellExperiment.
+The above code will only maintain information found in the original counts matrix from the `SingleCellExperiment`.
 Optionally, if you would like to keep the included cell and gene associated metadata during conversion to the Seurat object you can perform the below additional steps: 
 
 ```
