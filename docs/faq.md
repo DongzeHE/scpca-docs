@@ -78,18 +78,26 @@ For libraries that only contain RNA-sequencing data (i.e. do not have a CITE-seq
 library(Seurat)
 library(SingleCellExperiment)
 
-# grab counts matrix from the SingleCellExperiment
+# read in RDS file 
+sce <- readRDS("SCPCL000000_filtered.rds")
+
+# grab elements from SingleCellExperiment needed to build the Seurat Object
 counts <- counts(sce)
+
+# colData and rowData will need to be converted to a data.frame to be used in the Seurat object
+cell_metadata <- as.data.frame(colData(sce))
+row_metadata <- as.data.frame(rowData(sce))
 
 # create seurat object 
 seurat_object <- CreateSeuratObject(counts = counts, 
                                     assay = "RNA",
-                                    project = "project_name",
-                                    # add colData from SingleCellExperiment
-                                    meta.data = as.data.frame(colData(sce)))
+                                    project = "SCPCL000000")
 
-# add rowData from SingleCellExperiment to Seurat 
-seurat_object[["RNA"]]@meta.features <- as.data.frame(rowData(sce))
+# add cell metadata (colData) from SingleCellExperiment to Seurat
+seurat_object@meta.data <- cell_metadata
+
+# add row metadata (rowData) from SingleCellExperiment to Seurat 
+seurat_object[["RNA"]]@meta.features <- row_metadata
 
 # add metadata from SingleCellExperiment to Seurat
 seurat_object@misc <- metadata(sce)
@@ -103,8 +111,11 @@ This adds a second assay containing the CITE-seq counts and associated feature d
 cite_counts <- counts(altExp(sce))
 cite_assay <- CreateAssayObject(counts = cite_counts)
 
-# add rowData from altExp to assay 
-cite_assay@meta.features = as.data.frame(rowData(altExp(sce)))
+# convert rowData to data.frame for use in Seurat object
+cite_row_metadata <- as.data.frame(rowData(altExp(sce)))
+
+# add row metadata (rowData) from altExp to assay 
+cite_assay@meta.features = cite_row_metadata
 
 # add altExp from SingleCellExperiment as second assay to Seurat
 seurat_object[["CITE"]] <- cite_assay
