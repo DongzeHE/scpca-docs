@@ -65,4 +65,18 @@ Metrics were calculated using the [`scuttle::addPerFeatureQCMetrics`](https://rd
 
 ### Experiment metadata
 
-Metadata associated with data processing is included in the `metadata` slot as a list
+Metadata associated with data processing is included in the `metadata` slot as a list.
+
+| Item name           | Contents |
+| ------------------- | -------- |
+| `salmon_version`    | Version of `salmon` used for initial mapping
+| `reference_index`   | Transcriptome reference file used for mapping
+| `total_reads`       | Total number of reads processed by `salmon`
+| `mapped_reads`      | Number of reads successfully mapped
+| `mapping_tool`      | Pipeline used for mapping and quantification (`alevin-fry` for all current data in ScPCA)
+| `alevinfry_version` | Version of `alevin-fry` used for mapping and quantification
+| `af_permit_type`    | `alevin-fry generate-permit-list` method used for filtering cell barcodes  
+| `af_resolution`     | `alevin-fry quant` resolution mode used
+| `usa_mode`          | Boolean indicating whether quantification was done using `alevin-fry` USA mode
+| `af_num_cells`      | Number of cells reported by `alevin-fry`
+| `transcript_type`   | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei 
