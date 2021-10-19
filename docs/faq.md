@@ -81,7 +81,7 @@ library(SingleCellExperiment)
 # read in RDS file 
 sce <- readRDS("SCPCL000000_filtered.rds")
 
-# grab elements from SingleCellExperiment needed to build the Seurat Object
+# grab counts matrix from SingleCellExperiment needed to build the Seurat Object
 counts <- counts(sce)
 
 # colData and rowData will need to be converted to a data.frame to be used in the Seurat object
@@ -92,6 +92,14 @@ row_metadata <- as.data.frame(rowData(sce))
 seurat_object <- CreateSeuratObject(counts = counts, 
                                     assay = "RNA",
                                     project = "SCPCL000000")
+```
+The above code will only maintain information found in the original counts matrix from the SingleCellExperiment.
+Optionally, if you would like to keep the included cell and gene associated metadata during conversion to the Seurat object you can perform the below additional steps: 
+
+```
+# colData and rowData will need to be converted to a data.frame to be used in the Seurat object
+cell_metadata <- as.data.frame(colData(sce))
+row_metadata <- as.data.frame(rowData(sce))
 
 # add cell metadata (colData) from SingleCellExperiment to Seurat
 seurat_object@meta.data <- cell_metadata
@@ -111,10 +119,10 @@ This adds a second assay containing the CITE-seq counts and associated feature d
 cite_counts <- counts(altExp(sce))
 cite_assay <- CreateAssayObject(counts = cite_counts)
 
-# convert rowData to data.frame for use in Seurat object
+# optional: convert rowData to data.frame for use in Seurat object
 cite_row_metadata <- as.data.frame(rowData(altExp(sce)))
 
-# add row metadata (rowData) from altExp to assay 
+# optional: add row metadata (rowData) from altExp to assay 
 cite_assay@meta.features = cite_row_metadata
 
 # add altExp from SingleCellExperiment as second assay to Seurat
