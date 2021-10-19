@@ -42,15 +42,16 @@ For single-cell or single-nuclei experiments, this will be the result of emulsio
 For a bulk RNA-seq experiment, this will result in a single sequencing library. 
 
 In most cases, each sample will only have one corresponding single-cell library, and may also have an associated bulk RNA-seq library.
-However, in some cases multiple libraries were created by separate droplet generation and sequencing from the same sample, resulting in more than one library ID being associated with the same sample ID. 
+However, in some cases multiple libraries were created by separate droplet generation and sequencing from the same sample, resulting in more than one single-cell library ID being associated with the same sample ID. 
 
 ## Why do some samples have missing participant IDs?
 
-The `participant_id` indicates the participant from which a collection of samples was obtained. 
+The `participant_id`, when present, indicates the participant from which a collection of samples was obtained. 
 For example, one participant may have a sample collected both at initial diagnosis and at relapse.
 This would result in two different sample ID's, but the same participant ID. 
-For the most part, each participant only has one corresponding sample that was collected and submitted for sequencing. 
-Because of this, many of the samples do not have a participant ID and only those samples in which multiple unique samples have been obtained from the same participant will a participant ID be present. 
+However, for most participants, only a single sample was collected and submitted for sequencing. 
+Because of this, many of the samples do not have a separate participant ID. 
+Participant IDs are only present for samples that were derived from the same participant as at least one other sample. 
 
 ## What genes are included in the reference transcriptome? 
 
