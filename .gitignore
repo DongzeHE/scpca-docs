@@ -2,4 +2,5 @@
 env
 
 # ignore local build directory
+_build/
 docs/_build/
