@@ -24,7 +24,7 @@ Every download also includes a single `libraries_metadata.csv` file containing m
 
 ## Gene expression data
 
-Gene expression data is provided in two forms - as an unfiltered counts file and a filtered counts file.
+Single-cell or single-nuclei gene expression data is provided in two forms - as an unfiltered counts file and a filtered counts file.
 
 The unfiltered counts file, `SCPCL000000_unfiltered.rds`, is an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
 Within the `SingleCellExperiment` object is the counts matrix, where the rows correspond to genes or features and the columns correspond to cell barcodes. 
@@ -35,7 +35,7 @@ The filtered counts file, `SCPCL000000_filtered.rds` is also an RDS file contain
 The cells in this file are those that remain after filtering using {ref}`emptyDrops <processing_information:filtering cells>`.
 As a result, this file only contains cell barcodes that are likely to correspond to true cells.
 
-See {ref}`gene expression file contents <gene_expression_file_contents:gene expression file contents>` for more information about the contents of the `SingleCellExperiment` objects and the included statistics and metadata.
+See {ref}`Single-cell gene expression file contents <sce_file_contents:Single-cell gene expression file contents>` for more information about the contents of the `SingleCellExperiment` objects and the included statistics and metadata.
 See also {ref}`Using the provided RDS files in R <faq:how do i use the provided RDS files in r?>`.
 
 ## QC Report 
