@@ -41,8 +41,8 @@ The library ID, labeled as `scpca_library_id` and indicated by the prefix `SCPCL
 For single-cell or single-nuclei experiments, this will be the result of emulsion and droplet generation using the 10X Genomics workflow, potentially including both RNA-seq, CITE-seq and cell hashing sequencing libraries. 
 For a bulk RNA-seq experiment, this will result in a single sequencing library. 
 
-In most cases, each sample will only have one corresponding single-cell library, and may also have an associated bulk RNA-seq library.
-However, in some cases multiple libraries were created by separate droplet generation and sequencing from the same sample, resulting in more than one single-cell library ID being associated with the same sample ID. 
+In most cases, each sample will only have one corresponding single-cell or single-nuclei library, and may also have an associated bulk RNA-seq library.
+However, in some cases multiple libraries were created by separate droplet generation and sequencing from the same sample, resulting in more than one single-cell or single-nuclei library ID being associated with the same sample ID. 
 
 ## Why do some samples have missing participant IDs?
 
