@@ -179,4 +179,4 @@ anndata_object['CITE'] = cite_anndata.to_df()
 
 It should be noted that in this conversion the `colData`, `rowData`, and metadata that are found in the original `SingleCellExperiment` objects will not be retained. 
 If you would like to include this data, you could write out each table separately and load them manually in Python.
-Alternatively, you might be interested in this [reference from the authors of scanpy](https://theislab.github.io/scanpy-in-R/#converting-from-r-to-python) discussing a different approach to  conversion using Rmarkdown notebooks and the `reticulate` package to directly convert `SingleCellExperiment` object components to `AnnData` object components without writing files locally.
+Alternatively, you might be interested in this [reference from the authors of `scanpy`](https://theislab.github.io/scanpy-in-R/#converting-from-r-to-python) discussing a different approach to  conversion using Rmarkdown notebooks and the `reticulate` package to directly convert `SingleCellExperiment` object components to `AnnData` object components without writing files locally.
