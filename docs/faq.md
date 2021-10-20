@@ -125,7 +125,7 @@ If you prefer to work in Python, there are a variety of ways of converting the c
 We have found that one of the more efficient is conversion via the 10X format using [`DropletUtils::write10xCounts()`](https://rdrr.io/bioc/DropletUtils/man/write10xCounts.html). 
 Note that you will need to install the [`DropletUtils` package](https://www.bioconductor.org/packages/devel/bioc/html/DropletUtils.html) to use this function.
 
-This will output three files to a new directory:
+When used as described below, `DropletUtils::write10xCounts()` will output three files to a new directory, following the format used by Cell Ranger 3.0 (and later):
 - the counts matrix in sparse matrix format - `matrix.mtx.gz`
 - the row names, or gene names, saved as a TSV - `features.tsv.gz`
 - the column names, or cell barcodes, saved as a TSV - `barcodes.tsv.gz`
