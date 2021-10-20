@@ -130,9 +130,6 @@ When used as described below, `DropletUtils::write10xCounts()` will output three
 - the row names, or gene names, saved as a TSV - `features.tsv.gz`
 - the column names, or cell barcodes, saved as a TSV - `barcodes.tsv.gz`
 
-In the provided example we use counts from a library generated with the 10X version 3 kit.
-We specify this when writing the output files by using the optional argument, `version=3`.
-This will result in compressed files with the `.gz` extension, while use of the default `version=2` outputs uncompressed files. 
 ```
 library(SingleCellExperiment)
 
