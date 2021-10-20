@@ -130,6 +130,9 @@ This will output three files to a new directory:
 - the row names, or gene names, saved as a TSV - `features.tsv.gz`
 - the column names, or cell barcodes, saved as a TSV - `barcodes.tsv.gz`
 
+In the provided example we use counts from a library generated with the 10X version 3 kit.
+We specify this when writing the output files by using the optional argument, `version=3`.
+This will result in compressed files with the `.gz` extension, while use of the default `version=2` outputs uncompressed files. 
 ```
 library(SingleCellExperiment)
 
@@ -140,7 +143,8 @@ sce <- readRDS("SCPCL000000_filtered.rds")
 DropletUtils::write10xCounts("SCPCL000000-rna", counts(sce), 
                              barcodes = colnames(sce),
                              gene.id = rownames(sce),
-                             gene.symbol = rowData(sce)$gene_symbol)
+                             gene.symbol = rowData(sce)$gene_symbol,
+                             version = "3")
 
 ```
 
@@ -175,4 +179,4 @@ anndata_object['CITE'] = cite_anndata.to_df()
 
 It should be noted that in this conversion the `colData`, `rowData`, and metadata that are found in the original `SingleCellExperiment` objects will not be retained. 
 If you would like to include this data, you could write out each table separately and load them manually in Python.
-Alternatively, you might be interested in this [reference from the authors of scanpy](https://theislab.github.io/scanpy-in-R/#converting-from-r-to-python) discussing a different approach to  conversion using Rmarkdown notebooks and the `reticulate` package to directly convert `SingleCellExperiment` object components to AnnData object components without writing files to disk.
+Alternatively, you might be interested in this [reference from the authors of scanpy](https://theislab.github.io/scanpy-in-R/#converting-from-r-to-python) discussing a different approach to  conversion using Rmarkdown notebooks and the `reticulate` package to directly convert `SingleCellExperiment` object components to `AnnData` object components without writing files locally.
