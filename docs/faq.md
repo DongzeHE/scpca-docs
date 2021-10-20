@@ -62,7 +62,7 @@ The gene expression data files available for download report all possible genes 
 
 ## Where can I see the code for generating QC reports? 
 
-A QC report for every processed library is included with all downloads, generated from the unfiltered and {ref}`filtered <processing_information:filtering cells>` {ref}`gene expression files <gene_expression_file_contents:gene expression file contents>`.
+A QC report for every processed library is included with all downloads, generated from the unfiltered and {ref}`filtered <processing_information:filtering cells>` {ref}`Single-cell gene expression files <sce_file_contents:Single-cell gene expression file contents>`.
 You can find the [function for generating a QC report](https://github.com/AlexsLemonade/scpcaTools/blob/main/R/generate_qc_report.R) and the [QC report template documents](https://github.com/AlexsLemonade/scpcaTools/tree/main/inst/rmd) in the package we developed for working with processed ScPCA data, [`scpcaTools`](https://github.com/AlexsLemonade/scpcaTools). 
 
 ## What if I want to use Seurat instead of Bioconductor? 
