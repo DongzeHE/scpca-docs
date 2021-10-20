@@ -25,7 +25,6 @@ repo
 scpca
 ScPCA
 scpcaTools
-SingleCellExperiment
 splici
 Srivastava
 subdiagnosis

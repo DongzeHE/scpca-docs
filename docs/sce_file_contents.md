@@ -88,7 +88,7 @@ expt_metadata <- metadata(sce)
 | `miQC_model`        | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` objects |
 
 
-## Additional SingleCellExperiment components for CITE-seq samples
+## Additional `SingleCellExperiment` components for CITE-seq samples
 
 CITE-seq data, when present, is included within the `SingleCellExperiment` as an "Alternative Experiment" named `"CITEseq"` , which can be accessed with the following command:
 
