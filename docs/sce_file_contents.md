@@ -18,9 +18,9 @@ sce <- readRDS("SCPCL000000_filtered.rds")
 ### Expression counts
 
 For both unfiltered and filtered single-cell and single-nucleotide experiments, the primary cell by gene RNA-seq expression count data is provided as the `"counts"` assay.
-Each column represents a cell or droplet, each row a gene.
+The data is stored as a sparse matrix, and each column represents a cell or droplet, each row a gene.
 Column names are cell barcode sequences and row names are Ensembl gene IDs. 
-This data is stored as a sparse matrix that can be accessed with the following R code:
+The `counts` assay can be accessed with the following R code:
 
 ```r
 count_matrix <- counts(sce)
@@ -87,7 +87,7 @@ expt_metadata <- metadata(sce)
 
 ## Additional fields for filtered cells
 
-After {ref}`filtering for empty droplets <processing_information:Filtering cells>`, some additional fields are added to the `SingleCellExperiment` object.
+After {ref}`filtering and removing empty droplets <processing_information:Filtering cells>`, some additional fields are added to the `SingleCellExperiment` object.
 
 Within `colData`, we add the column `prob_compromised`, which denotes the probability that a cell is compromised (i.e., dead or damaged), as calculated by [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html). 
 We also add to the `metadata` a `miQC_model` item, which includes the model that `miQC` fit to the data and which was used to calculate `prob_compromised`. 
