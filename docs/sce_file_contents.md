@@ -13,11 +13,11 @@ library(SingleCellExperiment)
 sce <- readRDS("SCPCL000000_filtered.rds")
 ```
 
-## Common fields
+## Components of a `SingleCellExperiment` object
 
 ### Expression counts
 
-For both unfiltered and filtered single-cell and single-nucleotide experiments, the primary cell by gene RNA-seq expression count data is provided as the `"counts"` assay.
+The `counts` assay of the `SingleCellExperiment` object for single-cell and single-nuclei experiments (both unfiltered and filtered) contains the primary RNA-seq expression data.
 The data is stored as a sparse matrix, and each column represents a cell or droplet, each row a gene.
 Column names are cell barcode sequences and row names are Ensembl gene IDs. 
 The `counts` assay can be accessed with the following R code:
@@ -36,14 +36,15 @@ cell_metrics <- colData(sce)
 
 The following per-cell data columns are included for each cell, calculated using the [`scuttle::addPerCellQCMetrics`](https://rdrr.io/github/LTLA/scuttle/man/addPerCellQCMetrics.html) function. 
 
-| Column name             | Contents                                                                          |
-| ----------------------- | --------------------------------------------------------------------------------- |
-| `sum`                   | UMI count for RNA-seq data                                                        |
-| `detected`              | Number of genes detected (gene count > 0 )                                        |
-| `subsets_mito_sum`      | UMI count of mitochondrial genes                                                  |
-| `subsets_mito_detected` | Number of mitochondrial genes detected                                            |
-| `subsets_mito_percent`  | Percent of all UMI counts assigned to mitochondrial genes                         |
-| `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., CITE-seq) |
+| Column name             | Contents                                                                                                                                                                                      |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sum`                   | UMI count for RNA-seq data                                                                                                                                                                    |
+| `detected`              | Number of genes detected (gene count > 0 )                                                                                                                                                    |
+| `subsets_mito_sum`      | UMI count of mitochondrial genes                                                                                                                                                              |
+| `subsets_mito_detected` | Number of mitochondrial genes detected                                                                                                                                                        |
+| `subsets_mito_percent`  | Percent of all UMI counts assigned to mitochondrial genes                                                                                                                                     |
+| `prob_compromised`      | Probability that a cell is compromised (i.e., dead or damaged), as calculated by [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html). Only present for `filtered` objects |
+| `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., CITE-seq)                                                                                                             |
 
 
 ### Gene information and metrics
@@ -65,34 +66,29 @@ Metrics were calculated using the [`scuttle::addPerFeatureQCMetrics`](https://rd
 
 ### Experiment metadata
 
-Metadata associated with data processing is included in the `metadata` slot as a list.
+Metadata associated with {ref}`data processing <processing_information:Processing information>` is included in the `metadata` slot as a list.
 
 ```r
 expt_metadata <- metadata(sce)
 ```
 
-| Item name           | Contents                                                                                                 |
-| ------------------- | -------------------------------------------------------------------------------------------------------- |
-| `salmon_version`    | Version of `salmon` used for initial mapping                                                             |
-| `reference_index`   | Transcriptome reference file used for mapping                                                            |
-| `total_reads`       | Total number of reads processed by `salmon`                                                              |
-| `mapped_reads`      | Number of reads successfully mapped                                                                      |
-| `mapping_tool`      | Pipeline used for mapping and quantification (`alevin-fry` for all current data in ScPCA)                |
-| `alevinfry_version` | Version of `alevin-fry` used for mapping and quantification                                              |
-| `af_permit_type`    | `alevin-fry generate-permit-list` method used for filtering cell barcodes                                |
-| `af_resolution`     | `alevin-fry quant` resolution mode used                                                                  |
-| `usa_mode`          | Boolean indicating whether quantification was done using `alevin-fry` USA mode                           |
-| `af_num_cells`      | Number of cells reported by `alevin-fry`                                                                 |
-| `transcript_type`   | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei |
+| Item name           | Contents                                                                                                                       |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `salmon_version`    | Version of `salmon` used for initial mapping                                                                                   |
+| `reference_index`   | Transcriptome reference file used for mapping                                                                                  |
+| `total_reads`       | Total number of reads processed by `salmon`                                                                                    |
+| `mapped_reads`      | Number of reads successfully mapped                                                                                            |
+| `mapping_tool`      | Pipeline used for mapping and quantification (`alevin-fry` for all current data in ScPCA)                                      |
+| `alevinfry_version` | Version of `alevin-fry` used for mapping and quantification                                                                    |
+| `af_permit_type`    | `alevin-fry generate-permit-list` method used for filtering cell barcodes                                                      |
+| `af_resolution`     | `alevin-fry quant` resolution mode used                                                                                        |
+| `usa_mode`          | Boolean indicating whether quantification was done using `alevin-fry` USA mode                                                 |
+| `af_num_cells`      | Number of cells reported by `alevin-fry`                                                                                       |
+| `transcript_type`   | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei                       |
+| `miQC_model`        | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` objects |
 
-## Additional fields for filtered cells
 
-After {ref}`filtering and removing empty droplets <processing_information:Filtering cells>`, some additional fields are added to the `SingleCellExperiment` object.
-
-Within `colData`, we add the column `prob_compromised`, which denotes the probability that a cell is compromised (i.e., dead or damaged), as calculated by [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html). 
-We also add to the `metadata` a `miQC_model` item, which includes the model that `miQC` fit to the data and which was used to calculate `prob_compromised`. 
-
-## Additional fields for CITE-seq samples
+## Additional SingleCellExperiment components for CITE-seq samples
 
 CITE-seq data, when present, is included within the `SingleCellExperiment` as an "Alternative Experiment" named `"CITEseq"` , which can be accessed with the following command:
 
@@ -100,16 +96,16 @@ CITE-seq data, when present, is included within the `SingleCellExperiment` as an
 altExp(sce, "CITEseq")
 ```
 
-Within this, the main data matrix is again found in the `counts` assay, with each column corresponding to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponding to an antibody derived tag (ADT).
+Within this, the main expression matrix is again found in the `counts` assay, with each column corresponding to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponding to an antibody derived tag (ADT).
 Column names are again cell barcode sequences and row names the antibody targets for each ADT. 
 
 The following additional per-cell data columns for the CITE-seq data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#cell-metrics)).
 
-| Column name                | Contents                                            |
-| -------------------------- | --------------------------------------------------- |
-| `altexps_CITEseq_sum  `    | UMI count for CITE-seq ADTs |
-| `altexps_CITEseq_detected` | Number of ADTs detected per cell (ADT count > 0 )   |
-| `altexps_CITEseq_percent`  | Percent of `total` UMI count from ADT reads         |
+| Column name                | Contents                                          |
+| -------------------------- | ------------------------------------------------- |
+| `altexps_CITEseq_sum  `    | UMI count for CITE-seq ADTs                       |
+| `altexps_CITEseq_detected` | Number of ADTs detected per cell (ADT count > 0 ) |
+| `altexps_CITEseq_percent`  | Percent of `total` UMI count from ADT reads       |
 
 Metrics for each of the ADTs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
 
@@ -119,10 +115,10 @@ adt_info <- rowData(altExp(sce, "CITEseq"))
 
 This data frame contains the following columns with statistics for each ADT:
 
-| Column name   | Contents                                                         |
-| ------------- | ---------------------------------------------------------------- |
-| `mean`        | Mean ADT count across all cells/droplets                             |
-| `detected`    | Number of cells in which the ADT was detected (ADT count > 0 ) |
+| Column name | Contents                                                       |
+| ----------- | -------------------------------------------------------------- |
+| `mean`      | Mean ADT count across all cells/droplets                       |
+| `detected`  | Number of cells in which the ADT was detected (ADT count > 0 ) |
 
 Finally, additional metadata for the CITE-seq data processing can be found in the metadata slot of the alternative experiment, with the same contents as the [parent experiment metadata](#experiment-metadata)
 
