@@ -130,7 +130,7 @@ When used as described below, `DropletUtils::write10xCounts()` will output three
 - the row names, or gene names, saved as a TSV - `features.tsv.gz`
 - the column names, or cell barcodes, saved as a TSV - `barcodes.tsv.gz`
 
-```
+```r
 library(SingleCellExperiment)
 
 # read in the RDS file to be converted
@@ -147,7 +147,7 @@ DropletUtils::write10xCounts("SCPCL000000-rna", counts(sce),
 
 If a library has associated CITE-seq that exists, you will have to save that separately.
 
-```
+```r
 # write CITE-seq counts to 10X format
 DropletUtils::write10xCounts("SCPCL000000-cite", counts(altExp(sce)), 
                              barcodes = colnames(altExp(sce)),
@@ -160,7 +160,7 @@ DropletUtils::write10xCounts("SCPCL000000-cite", counts(altExp(sce)),
 These files can then be directly read into Python using the [`scanpy` package](https://scanpy.readthedocs.io/en/stable/), creating an [`AnnData` object](https://anndata.readthedocs.io/en/latest/index.html).
 Note that you will need to [install the `scanpy` package](https://scanpy.readthedocs.io/en/stable/installation.html).
 
-```
+```python
 import scanpy as sc
 
 #read in 10X formatted files
