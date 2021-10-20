@@ -28,7 +28,7 @@ _Note: You will need to install and load the [`SingleCellExperiment` package](ht
 
 To read in the RDS files you can use the `readRDS` command in base R. 
 
-```
+```r
 library(SingleCellExperiment)
 scpca_sample <- readRDS("SCPCL000000_filtered.rds")
 ```
@@ -74,7 +74,7 @@ You will need to [install and load the `Seurat` package](https://satijalab.org/s
 
 For libraries that only contain RNA-sequencing data (i.e. do not have a CITE-seq library found in the `altExp` of the `SingleCellExperiment` object), you can use the following commands:
 
-```
+```r
 library(Seurat)
 library(SingleCellExperiment)
 
@@ -89,7 +89,7 @@ seurat_object <- CreateSeuratObject(counts = counts(sce),
 The above code will only maintain information found in the original counts matrix from the `SingleCellExperiment`.
 Optionally, if you would like to keep the included cell and gene associated metadata during conversion to the Seurat object you can perform the below additional steps: 
 
-```
+```r
 # convert colData and rowData to data.frame for use in the Seurat object
 cell_metadata <- as.data.frame(colData(sce))
 row_metadata <- as.data.frame(rowData(sce))
@@ -106,7 +106,7 @@ seurat_object@misc <- metadata(sce)
 
 For `SingleCellExperiment` objects from libraries with both RNA-seq and CITE-seq data, you can use the following additional commands to add a second assay containing the CITE-seq counts and associated feature data:
 
-```
+```r
 # create assay object in Seurat from CITE-seq counts found in altExp(SingleCellExperiment)
 cite_assay <- CreateAssayObject(counts = counts(altExp(sce)))
 
