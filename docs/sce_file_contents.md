@@ -84,6 +84,7 @@ expt_metadata <- metadata(sce)
 | `af_resolution`     | `alevin-fry quant` resolution mode used                                                                                        |
 | `usa_mode`          | Boolean indicating whether quantification was done using `alevin-fry` USA mode                                                 |
 | `af_num_cells`      | Number of cells reported by `alevin-fry`                                                                                       |
+| `tech_version`      | A string indicating the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1              |
 | `transcript_type`   | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei                       |
 | `miQC_model`        | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` objects |
 
