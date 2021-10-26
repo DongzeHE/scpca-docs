@@ -65,3 +65,21 @@ When normalizing these two count matrices to the same set of cells, we chose to 
 Any cell barcodes that appeared only in CITE-seq data were discarded.
 Cell barcodes that were present only in the RNA-seq data (i.e., did _not_ appear in the CITE-seq data) were assigned zero counts for all ADTs. 
 When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the CITE-seq count matrix was filtered to match.
+
+## Bulk RNA samples
+
+### Mapping and quantification using alevin-fry
+
+We used [`salmon`](https://salmon.readthedocs.io/en/latest/salmon.html) to quantify gene expression for all bulk RNA-sequencing samples.
+As with the single-cell and single-nuclei RNA-sequencing data, we used selective alignment to a decoy-aware reference transcriptome index. 
+The reference transcriptome was constructed by extracting regions of the genome corresponding to spliced cDNA.
+To generate the [decoay-aware reference transcriptome](https://salmon.readthedocs.io/en/latest/salmon.html#preparing-transcriptome-indices-mapping-based-mode), the entire genome sequence was used as a decoy sequence and concatenated to the reference transcriptome.
+
+#### Salmon parameters 
+
+1. As recommended by the Salmon authors, we used the option of `--rangeFactorizationBins 4` in combination with `--validateMappings`. 
+
+2. A benefit of using `Salmon` is the ability to incorporate RNA-sequencing specific technical biases and correct counts accordingly. 
+We chose to enable the `--seqBias` and `--gcBias` flags, telling `Salmon1 to learn and correct for any sequence-specific biases due to random hexamer primer and fragment-level GC biases. 
+
+### Tximeta
