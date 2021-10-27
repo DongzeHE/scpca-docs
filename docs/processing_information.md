@@ -68,18 +68,21 @@ When cells were [filtered based on RNA-seq content](#filtering-cells) after quan
 
 ## Bulk RNA samples
 
-### Mapping and quantification using alevin-fry
+### Preprocessing with fastp
 
-We used [`salmon`](https://salmon.readthedocs.io/en/latest/salmon.html) to quantify gene expression for all bulk RNA-sequencing samples.
-As with the single-cell and single-nuclei RNA-sequencing data, we used selective alignment to a decoy-aware reference transcriptome index. 
+Prior to quantifying gene expression for bulk RNA-sequencing samples, all FASTQ files are pre-processed using [`fastp`](https://github.com/OpenGene/fastp).
+Here, we use `fastp` to perform adapter trimming, quality filtering, and length filtering. 
+For length filtering, all reads shorter than 20 basepairs were removed by using the `--length_required 20` option. 
+All other filtering and trimming was performed using the default strategies enabled in `fastp`.  
+
+### Mapping and quantification using Salmon
+
+To quantify gene expression for all bulk RNA-sequencing samples, we used [`salmon`](https://salmon.readthedocs.io/en/latest/salmon.html).
+Here, we performed selective alignment to a decoy-aware reference transcriptome index of all trimmed and filtered FASTQ files ([Srivastava _et al._ 2020](https://doi.org/10.1186/s13059-020-02151-8)). 
 The reference transcriptome was constructed by extracting regions of the genome corresponding to spliced cDNA.
-To generate the [decoay-aware reference transcriptome](https://salmon.readthedocs.io/en/latest/salmon.html#preparing-transcriptome-indices-mapping-based-mode), the entire genome sequence was used as a decoy sequence and concatenated to the reference transcriptome.
+To generate the [decoy-aware reference transcriptome](https://salmon.readthedocs.io/en/latest/salmon.html#preparing-transcriptome-indices-mapping-based-mode), we used the entire genome sequence as a decoy and concatenated the genome sequence to the reference transcriptome.
 
 #### Salmon parameters 
 
-1. As recommended by the Salmon authors, we used the option of `--rangeFactorizationBins 4` in combination with `--validateMappings`. 
-
-2. A benefit of using `Salmon` is the ability to incorporate RNA-sequencing specific technical biases and correct counts accordingly. 
-We chose to enable the `--seqBias` and `--gcBias` flags, telling `Salmon1 to learn and correct for any sequence-specific biases due to random hexamer primer and fragment-level GC biases. 
-
-### Tximeta
+A benefit of using `Salmon` is the ability to incorporate RNA-sequencing specific technical biases and correct counts accordingly. 
+We chose to enable the [`--seqBias`](https://salmon.readthedocs.io/en/latest/salmon.html#seqbias) and [`--gcBias`](https://salmon.readthedocs.io/en/latest/salmon.html#gcbias) flags, telling `Salmon` to learn and correct for any sequence-specific biases due to random hexamer primer and fragment-level GC biases, respectively. 
