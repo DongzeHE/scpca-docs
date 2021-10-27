@@ -84,5 +84,5 @@ To generate the [decoy-aware reference transcriptome](https://salmon.readthedocs
 
 #### Salmon parameters 
 
-A benefit of using `Salmon` is the ability to incorporate RNA-sequencing specific technical biases and correct counts accordingly. 
+A benefit of using `salmon` is the ability to incorporate RNA-sequencing specific technical biases and correct counts accordingly. 
 We chose to enable the [`--seqBias`](https://salmon.readthedocs.io/en/latest/salmon.html#seqbias) and [`--gcBias`](https://salmon.readthedocs.io/en/latest/salmon.html#gcbias) flags, telling `Salmon` to learn and correct for any sequence-specific biases due to random hexamer primer and fragment-level GC biases, respectively. 
