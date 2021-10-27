@@ -75,9 +75,9 @@ Here, we use `fastp` to perform adapter trimming, quality filtering, and length 
 For length filtering, all reads shorter than 20 basepairs were removed by using the `--length_required 20` option. 
 All other filtering and trimming was performed using the default strategies enabled in `fastp`.  
 
-### Mapping and quantification using Salmon
+### Mapping and quantification using salmon
 
-To quantify gene expression for all bulk RNA-sequencing samples, we used [`salmon`](https://salmon.readthedocs.io/en/latest/salmon.html).
+To quantify gene expression for all bulk RNA-sequencing samples, we used [`salmon quant`](https://salmon.readthedocs.io/en/latest/salmon.html).
 Here, we performed selective alignment to a decoy-aware reference transcriptome index of all trimmed and filtered FASTQ files ([Srivastava _et al._ 2020](https://doi.org/10.1186/s13059-020-02151-8)). 
 The reference transcriptome was constructed by extracting regions of the genome corresponding to spliced cDNA.
 To generate the [decoy-aware reference transcriptome](https://salmon.readthedocs.io/en/latest/salmon.html#preparing-transcriptome-indices-mapping-based-mode), we used the entire genome sequence as a decoy and concatenated the genome sequence to the reference transcriptome.
