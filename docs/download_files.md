@@ -8,7 +8,7 @@ The folder structure within the zip file is determined by whether individual sam
 ![docs-downloads-project](https://user-images.githubusercontent.com/15315514/143308420-a3cca10d-814f-4c52-b934-98d5e9cef1c5.png)
 
 ## Download folder structure for individual sample downloads:
-![docs-downloads-sample](https://user-images.githubusercontent.com/15315514/143308420-a3cca10d-814f-4c52-b934-98d5e9cef1c5.png)
+![docs-downloads-sample](https://user-images.githubusercontent.com/15315514/143308436-715c03ec-fd39-45ba-8213-f24ca14ed0eb.png)
 
 Sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
 Most samples only have one library that has been sequenced.
