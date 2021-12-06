@@ -18,7 +18,6 @@ The files associated with each library are (example shown for a library with ID 
 - An unfiltered counts file: `SCPCL000000_unfiltered.rds`,
 - A filtered counts file: `SCPCL000000_filtered.rds`,
 - A quality control report: `SCPCL000000_qc.html`,
-- A metadata file: `SCPCL000000_metadata.json`.
 
 Every download also includes a single `libraries_metadata.csv` file containing metadata for all libraries included in the download.
 
@@ -65,6 +64,3 @@ The `libraries_metadata.csv` file is a comma-separated table with one row per li
 
 Additional metadata may also be included, specific to the disease type and experimental design of the project.
 Examples of this include treatment or outcome.
-
-For each library, a `SCPCL000000_metadata.json` file that contains processing-associated metadata is also available.
-Most fields can also be found in the metadata slot of the `SingleCellExperiment` objects stored in both the `SCPCL000000_unfiltered.rds` and `SCPCL000000_filtered.rds` files.
