@@ -43,9 +43,15 @@ The following per-cell data columns are included for each cell, calculated using
 | `subsets_mito_sum`      | UMI count of mitochondrial genes                                                                                                                                                              |
 | `subsets_mito_detected` | Number of mitochondrial genes detected                                                                                                                                                        |
 | `subsets_mito_percent`  | Percent of all UMI counts assigned to mitochondrial genes                                                                                                                                     |
-| `prob_compromised`      | Probability that a cell is compromised (i.e., dead or damaged), as calculated by [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html). Only present for `filtered` objects |
 | `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., CITE-seq)                                                                                                             |
 
+The following are additional per-cell data columns included only in `filtered` objects. 
+These metrics were calculated by using [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected to predict low-quality cells. 
+
+| Column name             | Contents                                                                                                                                                                                      |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `prob_compromised`      | Probability that a cell is compromised (i.e., dead or damaged), as calculated by `miQC`                                                                                                       |
+| `miQC_pass`             | Indicates the likelihood of cells passing the default miQC filtering threshold of 0.75, `TRUE` is assigned to cells that have a low probability of being compromised (i.e. less than 0.75)    |
 
 ### Gene information and metrics
 
