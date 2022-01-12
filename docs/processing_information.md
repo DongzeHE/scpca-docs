@@ -66,23 +66,23 @@ Any cell barcodes that appeared only in CITE-seq data were discarded.
 Cell barcodes that were present only in the RNA-seq data (i.e., did _not_ appear in the CITE-seq data) were assigned zero counts for all ADTs. 
 When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the CITE-seq count matrix was filtered to match.
 
-## Bulk RNA samples (Data Available Soon)
+## Bulk RNA samples 
+
+**_Data Available Soon_**
 
 ### Preprocessing with fastp
 
-Prior to quantifying gene expression for bulk RNA-sequencing samples, all FASTQ files are pre-processed using [`fastp`](https://github.com/OpenGene/fastp).
-Here, we use `fastp` to perform adapter trimming, quality filtering, and length filtering. 
-For length filtering, all reads shorter than 20 basepairs were removed by using the `--length_required 20` option. 
+Prior to quantifying gene expression for bulk RNA-sequencing samples, FASTQ files are pre-processed using [`fastp`](https://github.com/OpenGene/fastp) to perform adapter trimming, quality filtering, and length filtering. 
+For length filtering, trimmed reads shorter than 20 basepairs were removed by using the `--length_required 20` option. 
 All other filtering and trimming was performed using the default strategies enabled in `fastp`.  
 
 ### Mapping and quantification using salmon
 
-To quantify gene expression for all bulk RNA-sequencing samples, we used [`salmon quant`](https://salmon.readthedocs.io/en/latest/salmon.html).
-Here, we performed selective alignment to a decoy-aware reference transcriptome index of all trimmed and filtered FASTQ files ([Srivastava _et al._ 2020](https://doi.org/10.1186/s13059-020-02151-8)). 
-The reference transcriptome was constructed by extracting regions of the genome corresponding to spliced cDNA.
-To generate the [decoy-aware reference transcriptome](https://salmon.readthedocs.io/en/latest/salmon.html#preparing-transcriptome-indices-mapping-based-mode), we used the entire genome sequence as a decoy and concatenated the genome sequence to the reference transcriptome.
+To quantify gene expression for bulk RNA-sequencing samples, we used [`salmon quant`](https://salmon.readthedocs.io/en/latest/salmon.html).
+Here, we performed selective alignment of the trimmed and filtered FASTQ files to a decoy-aware reference transcriptome index ([Srivastava _et al._ 2020](https://doi.org/10.1186/s13059-020-02151-8)). 
+The [decoy-aware reference transcriptome](https://salmon.readthedocs.io/en/latest/salmon.html#preparing-transcriptome-indices-mapping-based-mode), was created from spliced cDNA sequences with the entire genome sequence as a decoy.
 
 #### Salmon parameters 
 
 A benefit of using `salmon` is the ability to incorporate RNA-sequencing specific technical biases and correct counts accordingly. 
-We chose to enable the [`--seqBias`](https://salmon.readthedocs.io/en/latest/salmon.html#seqbias) and [`--gcBias`](https://salmon.readthedocs.io/en/latest/salmon.html#gcbias) flags, telling `Salmon` to learn and correct for any sequence-specific biases due to random hexamer primer and fragment-level GC biases, respectively. 
+We chose to enable the [`--seqBias`](https://salmon.readthedocs.io/en/latest/salmon.html#seqbias) and [`--gcBias`](https://salmon.readthedocs.io/en/latest/salmon.html#gcbias) flags, to correct for sequence-specific biases due to random hexamer primer and fragment-level GC biases, respectively. 

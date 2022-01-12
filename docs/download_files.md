@@ -8,8 +8,8 @@ The folder structure within the zip file is determined by whether individual sam
 ![docs-downloads-project](https://user-images.githubusercontent.com/15315514/143308420-a3cca10d-814f-4c52-b934-98d5e9cef1c5.png)
 
 If a project contains bulk RNA-sequencing samples, a single tab-separated values file, `SCPCP000000_bulk_quant.tsv` will be included in the download. 
-The contents of this file include a gene by sample matrix containing raw gene expression counts data determined using Salmon.
-See also {ref}`processing bulk RNA samples <processing_information:Bulk RNA samples (data available soon)>`.   
+This file contains a gene by sample matrix (each row a gene, each column a sample) containing raw gene expression counts quantified by Salmon.
+See also {ref}`processing bulk RNA samples <processing_information:Bulk RNA samples>`.   
 
 ## Download folder structure for individual sample downloads:
 ![docs-downloads-sample](https://user-images.githubusercontent.com/15315514/143308436-715c03ec-fd39-45ba-8213-f24ca14ed0eb.png)
