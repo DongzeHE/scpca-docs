@@ -21,6 +21,7 @@ Pearson
 pre
 pseudogenes
 Lun
+miQC
 repo
 Rmarkdown
 scpca
