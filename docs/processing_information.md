@@ -66,7 +66,7 @@ Any cell barcodes that appeared only in CITE-seq data were discarded.
 Cell barcodes that were present only in the RNA-seq data (i.e., did _not_ appear in the CITE-seq data) were assigned zero counts for all ADTs. 
 When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the CITE-seq count matrix was filtered to match.
 
-## Bulk RNA samples
+## Bulk RNA samples (Data Available Soon)
 
 ### Preprocessing with fastp
 
