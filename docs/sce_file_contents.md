@@ -51,7 +51,7 @@ These metrics were calculated by using [`miQC`](https://bioconductor.org/package
 | Column name             | Contents                                                                                                                                                                                      |
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `prob_compromised`      | Probability that a cell is compromised (i.e., dead or damaged), as calculated by `miQC`                                                                                                       |
-| `miQC_pass`             | Indicates the likelihood of cells passing the default miQC filtering threshold of 0.75, `TRUE` is assigned to cells that have a low probability of being compromised (i.e. less than 0.75)    |
+| `miQC_pass`             | Indicates whether the cell passed the default miQC filtering. `TRUE` is assigned to cells that have a low probability of being compromised (i.e. `prob_compromised` less than 0.75) and those with sufficiently low mitochondrial content (see [miQC vignette](https://bioconductor.org/packages/release/bioc/vignettes/miQC/inst/doc/miQC.html#preventing-exclusion-of-low-mito-cells).)  |
 
 ### Gene information and metrics
 

@@ -48,7 +48,6 @@ For single-nuclei samples, all counts for spliced cDNA and intronic regions were
 In addition to an unfiltered counts matrix, we provide a matrix filtered to only cell barcodes from droplets that are likely to include true cells.
 To do this we used [`DropletUtils::emptyDropsCellRanger()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/emptyDropsCellRanger.html), a function that estimates the profile of cells containing ambient RNA and tests the likelihood of all other droplets as differing from the ambient profile [Lun _et al._ 2019](https://doi.org/10.1186/s13059-019-1662-y). 
 This function more closely mimics the filtering performed in Cell Ranger than it's predecessor [`DropletUtils::emptyDrops()`](https://www.bioconductor.org/packages/devel/bioc/vignettes/DropletUtils/inst/doc/DropletUtils.html#detecting-empty-droplets). 
-The ambient profile includes all droplets that have a rank between 45,000 - 90,000 in total UMI count.
 We consider droplets with an FDR less than or equal to 0.01 to be cell-containing droplets. 
 Only cells that pass this FDR threshold are included in the filtered counts matrix.
 
