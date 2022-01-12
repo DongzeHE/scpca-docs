@@ -12,7 +12,7 @@ In brief, we utilized [selective alignment](#selective-alignment) to the [`splic
 For all samples, we aligned FASTQ files to a reference transcriptome index referred to as the `splici` index.
 The [`splici` index](https://combine-lab.github.io/alevin-fry-tutorials/2021/improving-txome-specificity/) is built using transcripts from both spliced cDNA and intronic regions.
 Inclusion of intronic regions in the index used for alignment allowed us to capture both reads from mature, spliced cDNA and nascent, unspliced cDNA. 
-Alignment of RNA-sequencing data to an index containing intronic regions has been shown to reduce spuriously detected genes ([He _et al._ 2021](https://doi.org/10.1101/2021.06.29.450377), [Kaminow _et al._ 2021](https://www.biorxiv.org/content/10.1101/2021.05.05.442755v1.full#sec-5))
+Alignment of RNA-seq data to an index containing intronic regions has been shown to reduce spuriously detected genes ([He _et al._ 2021](https://doi.org/10.1101/2021.06.29.450377), [Kaminow _et al._ 2021](https://www.biorxiv.org/content/10.1101/2021.05.05.442755v1.full#sec-5))
 In our hands, we have found that use of the `splici` index led to a more comparable distribution of unique genes found per cell to Cell Ranger than use of an index obtained from spliced cDNA transcripts only. 
 
 #### Selective alignment
@@ -72,17 +72,17 @@ When cells were [filtered based on RNA-seq content](#filtering-cells) after quan
 
 ### Preprocessing with fastp
 
-Prior to quantifying gene expression for bulk RNA-sequencing samples, FASTQ files are pre-processed using [`fastp`](https://github.com/OpenGene/fastp) to perform adapter trimming, quality filtering, and length filtering. 
+Prior to quantifying gene expression for bulk RNA-seq samples, FASTQ files are pre-processed using [`fastp`](https://github.com/OpenGene/fastp) to perform adapter trimming, quality filtering, and length filtering. 
 For length filtering, trimmed reads shorter than 20 basepairs were removed by using the `--length_required 20` option. 
 All other filtering and trimming was performed using the default strategies enabled in `fastp`.  
 
 ### Mapping and quantification using salmon
 
-To quantify gene expression for bulk RNA-sequencing samples, we used [`salmon quant`](https://salmon.readthedocs.io/en/latest/salmon.html).
+To quantify gene expression for bulk RNA-seq samples, we used [`salmon quant`](https://salmon.readthedocs.io/en/latest/salmon.html).
 Here, we performed selective alignment of the trimmed and filtered FASTQ files to a decoy-aware reference transcriptome index ([Srivastava _et al._ 2020](https://doi.org/10.1186/s13059-020-02151-8)). 
 The [decoy-aware reference transcriptome](https://salmon.readthedocs.io/en/latest/salmon.html#preparing-transcriptome-indices-mapping-based-mode), was created from spliced cDNA sequences with the entire genome sequence as a decoy.
 
 #### Salmon parameters 
 
-A benefit of using `salmon` is the ability to incorporate RNA-sequencing specific technical biases and correct counts accordingly. 
+A benefit of using `salmon` is the ability to incorporate RNA-seq specific technical biases and correct counts accordingly. 
 We chose to enable the [`--seqBias`](https://salmon.readthedocs.io/en/latest/salmon.html#seqbias) and [`--gcBias`](https://salmon.readthedocs.io/en/latest/salmon.html#gcbias) flags, to correct for sequence-specific biases due to random hexamer primer and fragment-level GC biases, respectively. 
