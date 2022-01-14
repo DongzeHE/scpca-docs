@@ -66,6 +66,18 @@ Any cell barcodes that appeared only in CITE-seq data were discarded.
 Cell barcodes that were present only in the RNA-seq data (i.e., did _not_ appear in the CITE-seq data) were assigned zero counts for all ADTs. 
 When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the CITE-seq count matrix was filtered to match.
 
+## Spatial Transcriptomics
+
+**_Data Available Soon_**
+
+### Mapping and quantification using Space Ranger
+
+Processing spatial transcriptomics libraries requires two steps - gene expression quantification and tissue detection. 
+In the absence of independent tissue detection methods to use with Alevin-fry, we used [10X Genomics' Space Ranger](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/what-is-space-ranger) to obtain both gene expression and spatial information. 
+[`spaceranger count`](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/using/count) takes FASTQ files and a microscopic slide image as input and performs alignment, quantification, and tissue detection for each spot. 
+In contrast to Alevin-fry, which maps reads to a [reference transcriptome index](#reference-transcriptome-index), Space Ranger aligns transcript reads to the reference genome using STAR ([Dobin _et al_., 2012](https://doi.org/10.1093/bioinformatics/bts635)).
+See the 10X documentation for more information on how Space Ranger [quantifies gene expression](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/algorithms/overview) and [detects tissue](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/algorithms/imaging).
+
 ## Bulk RNA samples 
 
 **_Data Available Soon_**
