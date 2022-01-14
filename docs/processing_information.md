@@ -73,9 +73,8 @@ When cells were [filtered based on RNA-seq content](#filtering-cells) after quan
 ### Mapping and quantification using Space Ranger
 
 Processing spatial transcriptomics libraries requires two steps - gene expression quantification and tissue detection. 
-Currently, Alevin-fry is not capable of tissue detection, but only reports gene expression. 
-Therefore, we utilized [10X Genomics' Space Ranger](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/what-is-space-ranger) to obtain both gene expression and spatial information. 
-[`spaceranger count`](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/using/count) takes a microscopic slide image and FASTQ files as input and performs alignment, tissue detection, and spot barcode and UMI counting. 
-In contrast to Alevin-fry which maps reads to a [reference transcriptome index](#reference-transcriptome-index), Space Ranger aligns transcript reads to the reference genome using STAR ([Dobin _et al_., 2012](https://doi.org/10.1093/bioinformatics/bts635)).
+In the absence of independent tissue detection methods to use with Alevin-fry, we used [10X Genomics' Space Ranger](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/what-is-space-ranger) to obtain both gene expression and spatial information. 
+[`spaceranger count`](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/using/count) takes FASTQ files and a microscopic slide image as input and performs alignment, quantification, and tissue detection for each spot. 
+In contrast to Alevin-fry, which maps reads to a [reference transcriptome index](#reference-transcriptome-index), Space Ranger aligns transcript reads to the reference genome using STAR ([Dobin _et al_., 2012](https://doi.org/10.1093/bioinformatics/bts635)).
 See the 10X documentation for more information on how Space Ranger [quantifies gene expression](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/algorithms/overview) and [detects tissue](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/algorithms/imaging).
 
