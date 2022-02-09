@@ -43,6 +43,8 @@ In contrast to Cell Ranger, `cr-like-em` keeps multi-mapped reads and invokes an
 For single-cell samples, we only included reads aligning to spliced and ambiguous cDNA transcripts in the counts matrix. 
 For single-nuclei samples, all counts for spliced cDNA and intronic regions were summed for each gene to return the total counts summarized by gene in the counts matrix. 
 
+After combining read counts, values are rounded to integer values.
+
 #### Filtering cells
 
 In addition to an unfiltered counts matrix, we provide a matrix filtered to only cell barcodes from droplets that are likely to include true cells.
@@ -53,7 +55,7 @@ Only cells that pass this FDR threshold are included in the filtered counts matr
 
 ## CITE-seq quantification
 
-CITE-seq libraries with reads from antibody-derived tags (ADTs) were also quantified using  [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/).
+CITE-seq libraries with reads from antibody-derived tags (ADTs) were also quantified using  [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/), rounded to integer values.
 
 Reference indices were constructed from the submitter-provided list of antibody barcode sequences corresponding to each library using the `--features` flag of `salmon index`.
 Mapping to these indices followed the same procedures as for RNA-seq data, including mapping with [selective alignment](#selective-alignment) and subsequent [quantification via alevin-fry](#alevin-fry-parameters).

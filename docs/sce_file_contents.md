@@ -17,7 +17,7 @@ sce <- readRDS("SCPCL000000_filtered.rds")
 
 ### Expression counts
 
-The `counts` assay of the `SingleCellExperiment` object for single-cell and single-nuclei experiments (both unfiltered and filtered) contains the primary RNA-seq expression data.
+The `counts` assay of the `SingleCellExperiment` object for single-cell and single-nuclei experiments (both unfiltered and filtered) contains the primary RNA-seq expression data as integer counts.
 The data is stored as a sparse matrix, and each column represents a cell or droplet, each row a gene.
 Column names are cell barcode sequences and row names are Ensembl gene IDs. 
 The `counts` assay can be accessed with the following R code:
