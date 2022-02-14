@@ -93,7 +93,8 @@ expt_metadata <- metadata(sce)
 | `tech_version`      | A string indicating the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1              |
 | `transcript_type`   | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei                       |
 | `miQC_model`        | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` objects |
-
+| `filtering_method`  | Which method was used for filtering, one of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`. Only present for `filtered` objects |
+| `umi_cutoff`        | Only present if the `filtering_method` is `UMI cutoff`. The minimum number of UMI per cell used as a threshold for filtering. Only present for `filtered` objects.  |
 
 ## Additional `SingleCellExperiment` components for CITE-seq samples
 
