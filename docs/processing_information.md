@@ -53,7 +53,7 @@ This function more closely mimics the filtering performed in Cell Ranger than it
 We consider droplets with an FDR less than or equal to 0.01 to be cell-containing droplets. 
 Only cells that pass this FDR threshold are included in the filtered counts matrix.
 
-In the event that the cells do not meet the assumptions met in `DropletUtils::emptyDropsCellRanger` and are unable to be filtered using this method (e.g. have a lower than expected number of droplets), droplets were filtered using a hard cutoff in the total number of UMI. 
+In the event that the cells do not meet the assumptions met in `DropletUtils::emptyDropsCellRanger` and are unable to be filtered using this method (e.g. have a lower than expected number of droplets), droplets were filtered based on total UMI count. 
 For these libraries, only droplets containing greater than 100 UMI are included in the filtered counts matrix.
 
 ## CITE-seq quantification
