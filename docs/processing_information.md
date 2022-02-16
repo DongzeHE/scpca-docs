@@ -53,6 +53,9 @@ This function more closely mimics the filtering performed in Cell Ranger than it
 We consider droplets with an FDR less than or equal to 0.01 to be cell-containing droplets. 
 Only cells that pass this FDR threshold are included in the filtered counts matrix.
 
+For some libraries, `DropletUtils::emptyDropsCellRanger()` may fail due to low numbers of droplets with reads or other violations of its assumptions.
+For these libraries, only droplets containing at least 100 UMI are included in the filtered counts matrix.
+
 ## CITE-seq quantification
 
 CITE-seq libraries with reads from antibody-derived tags (ADTs) were also quantified using  [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/), rounded to integer values.
