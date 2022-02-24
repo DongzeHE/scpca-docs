@@ -7,8 +7,10 @@ The folder structure within the zip file is determined by whether individual sam
 ## Download folder structure for project downloads:
 ![docs-downloads-project](https://user-images.githubusercontent.com/15315514/143308420-a3cca10d-814f-4c52-b934-98d5e9cef1c5.png)
 
-If a project contains bulk RNA-seq samples, a single tab-separated values file, `SCPCP000000_bulk_quant.tsv` will be included in the download. 
-This file contains a gene by sample matrix (each row a gene, each column a sample) containing raw gene expression counts quantified by Salmon.
+If a project contains bulk RNA-seq samples, two tab-separated value files, `SCPCP000000_bulk_quant.tsv` and `SCPCP000000_bulk_metadata.tsv`, will be included in the download. 
+The `SCPCP000000_bulk_quant.tsv` file contains a gene by sample matrix (each row a gene, each column a sample) containing raw gene expression counts quantified by Salmon.
+The `SCPCP000000_bulk_metadata.tsv` file contains associated metadata, such as the type of RNA-seq, total number of reads, and processing information for each sample.  
+ 
 See also {ref}`processing bulk RNA samples <processing_information:Bulk RNA samples>`.   
 
 ## Download folder structure for individual sample downloads:
