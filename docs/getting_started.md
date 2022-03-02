@@ -2,6 +2,8 @@
 
 This section provides information on next steps to take after downloading samples or an entire project from the ScPCA portal. 
 
+** insert here some useful links to working with single-cell gene expression data? 
+
 ## Importing ScPCA data into R 
 
 Quantified single-cell or single-nuclei gene expression data is provided as an RDS file as described in the {ref}`single cell gene expression file contents section<sce_file_contents:single-cell gene expression file contents>`. 
@@ -17,6 +19,8 @@ Refer to {ref}`single-cell gene expression file contents<sce_file_contents:singl
 
 In order to work with `SingleCellExperiment` objects in R, we need to ensure that we have the [`SingleCellExperiment` package]() installed and loaded. 
 
+The below commands can be used to import the RDS file into R and save the `SingleCellExperiment` object. 
+
 ```r
 # if SingleCellExperiment is not installed, install the package
 # otherwise the installation step can be skipped
@@ -28,6 +32,10 @@ sce <- readRDS("SCPCL000000_filtered.rds")
 ```
 
 ## Filtering my data 
+
+After we have imported the RDS file into R and accessed the `SingleCellExperiment` object, we can begin working with the data. 
+Before we perform any downstream steps, it is recommended to remove any low quality cells from our dataset.
+This would include cells that may be dying or dead, showing a higher percentage of reads coming from mitochondrial cells, or cells that may not have been sequenced as thoroughly as others in the same library, showing a lower number of total reads and unique genes identified. 
 
 ## Downstream analysis
 
