@@ -1,6 +1,6 @@
 # Single-cell gene expression file contents
 
-Single cell or single-nuclei gene expression data (filtered or unfiltered) is provided for use with R as an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
+Single-cell or single-nuclei gene expression data (filtered or unfiltered) is provided for use with R as an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
 This object contains the expression data, cell and gene metrics, associated metadata, and, in the case of multimodal data like CITE-seq, data from additional cell-based assays.
 
 We highly encourage you to familiarize yourself with the general object structure and functions available as part of the [`SingleCellExperiment` package](https://bioconductor.org/packages/3.13/bioc/html/SingleCellExperiment.html) from Bioconductor.
