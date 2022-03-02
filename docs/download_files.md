@@ -2,6 +2,18 @@
 
 The ScPCA Portal download packages include gene expression data, a QC report, and associated metadata for each processed sample.
 These files are delivered as a zip file.
+
+For all downloads, sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
+Most samples only have one library that has been sequenced.
+See the {ref}`FAQ section about samples and libraries <faq:What is the difference between samples and libraries?>` for more information.
+
+The files associated with each library are (example shown for a library with ID `SCPCL000000`):
+- An unfiltered counts file: `SCPCL000000_unfiltered.rds`,
+- A filtered counts file: `SCPCL000000_filtered.rds`,
+- A quality control report: `SCPCL000000_qc.html`,
+
+Every download also includes a single `single_cell_metadata.tsv` file containing metadata for all libraries included in the download.
+
 The folder structure within the zip file is determined by whether individual samples or all samples associated with a project are selected for download.  
 
 ## Download folder structure for project downloads:
@@ -15,17 +27,6 @@ See also {ref}`processing bulk RNA samples <processing_information:Bulk RNA samp
 
 ## Download folder structure for individual sample downloads:
 ![docs-downloads-sample](https://user-images.githubusercontent.com/15315514/143308436-715c03ec-fd39-45ba-8213-f24ca14ed0eb.png)
-
-Sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
-Most samples only have one library that has been sequenced.
-See the {ref}`FAQ section about samples and libraries <faq:What is the difference between samples and libraries?>` for more information.
-
-The files associated with each library are (example shown for a library with ID `SCPCL000000`):
-- An unfiltered counts file: `SCPCL000000_unfiltered.rds`,
-- A filtered counts file: `SCPCL000000_filtered.rds`,
-- A quality control report: `SCPCL000000_qc.html`,
-
-Every download also includes a single `single_cell_metadata.tsv` file containing metadata for all libraries included in the download.
 
 ## Gene expression data
 
