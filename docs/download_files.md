@@ -2,19 +2,8 @@
 
 The ScPCA Portal download packages include gene expression data, a QC report, and associated metadata for each processed sample.
 These files are delivered as a zip file.
-The folder structure within the zip file is determined by whether individual samples or all samples associated with a project are selected for download.  
 
-## Download folder structure for project downloads:
-![docs-downloads-project](https://user-images.githubusercontent.com/15315514/143308420-a3cca10d-814f-4c52-b934-98d5e9cef1c5.png)
-
-If a project contains bulk RNA-seq samples, a single tab-separated values file, `SCPCP000000_bulk_quant.tsv` will be included in the download. 
-This file contains a gene by sample matrix (each row a gene, each column a sample) containing raw gene expression counts quantified by Salmon.
-See also {ref}`processing bulk RNA samples <processing_information:Bulk RNA samples>`.   
-
-## Download folder structure for individual sample downloads:
-![docs-downloads-sample](https://user-images.githubusercontent.com/15315514/143308436-715c03ec-fd39-45ba-8213-f24ca14ed0eb.png)
-
-Sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
+For all downloads, sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
 Most samples only have one library that has been sequenced.
 See the {ref}`FAQ section about samples and libraries <faq:What is the difference between samples and libraries?>` for more information.
 
@@ -23,7 +12,21 @@ The files associated with each library are (example shown for a library with ID 
 - A filtered counts file: `SCPCL000000_filtered.rds`,
 - A quality control report: `SCPCL000000_qc.html`,
 
-Every download also includes a single `libraries_metadata.csv` file containing metadata for all libraries included in the download.
+Every download also includes a single `single_cell_metadata.tsv` file containing metadata for all libraries included in the download.
+
+The folder structure within the zip file is determined by whether individual samples or all samples associated with a project are selected for download.  
+
+## Download folder structure for project downloads:
+![docs-downloads-project](https://user-images.githubusercontent.com/15315514/156806533-f45e1bef-9a96-490d-b9ad-5aabec2d28a2.png)
+
+If a project contains bulk RNA-seq data, two tab-separated value files, `bulk_quant.tsv` and `bulk_metadata.tsv`, will be included in the download. 
+The `bulk_quant.tsv` file contains a gene by sample matrix (each row a gene, each column a sample) containing raw gene expression counts quantified by Salmon.
+The `bulk_metadata.tsv` file contains associated metadata for all samples with bulk RNA-seq data.  
+ 
+See also {ref}`processing bulk RNA samples <processing_information:Bulk RNA samples>`.   
+
+## Download folder structure for individual sample downloads:
+![docs-downloads-sample](https://user-images.githubusercontent.com/15315514/156806534-7ef8d56b-f8f9-4458-b3f5-3f0f42cb7ede.png)
 
 ## Gene expression data
 
@@ -47,7 +50,7 @@ The included QC report serves as a general overview of each library, including p
 
 ## Metadata
 
-The `libraries_metadata.csv` file is a comma-separated table with one row per library and the following columns.
+The `single_cell_metadata.tsv` file is a comma-separated table with one row per library and the following columns.
 
 | column_id       | contents                                                       |
 |-----------------|----------------------------------------------------------------|
@@ -68,3 +71,8 @@ The `libraries_metadata.csv` file is a comma-separated table with one row per li
 
 Additional metadata may also be included, specific to the disease type and experimental design of the project.
 Examples of this include treatment or outcome.
+Metadata pertaining to processing will also be available in this table and inside of the `SingleCellExperiment` object.
+See the {ref}`Experiment metadata <sce_file_contents:experiment metadata>` section for more information on metadata columns that can be found in this file as well as inside the `SingleCellExperiment` object.
+
+For projects with bulk RNA-seq data, the `bulk_metadata.tsv` file will be included for project downloads. 
+This file will contain fields equivalent to those found in the `single_cell_metadata.tsv` related to processing the sample, but will not contain patient or disease specific metadata (e.g. `age`, `sex`, `diagnosis`, `subdiagnosis`, `tissue_location`, or `disease_timing`).
