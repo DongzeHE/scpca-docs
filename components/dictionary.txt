@@ -8,7 +8,10 @@ barcodes
 basepairs
 benchmarking
 cDNA
+confounders
 de
+deconvolution
+deconvolved
 Dobin
 Ensembl
 et
@@ -19,6 +22,9 @@ Genomics
 github
 GRCh
 hexamer
+HBC
+Hemberg
+Hippen
 intronic
 introns
 Kaminow
@@ -32,13 +38,16 @@ Rmarkdown
 scpca
 ScPCA
 scpcaTools
+scRNA
 splici
 Srivastava
+Stegle
 subdiagnosis
 Tian
 transcriptome
 transcriptomics
 TSV
+UMAP
 UMI
 UMIs
 unspliced

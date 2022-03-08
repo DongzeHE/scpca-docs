@@ -39,7 +39,7 @@ More resources for learning about `SingleCellExperiment` objects:
 After we have imported the RDS file into R and accessed the `SingleCellExperiment` object, we can begin working with the data. 
 Before we perform any downstream steps, it is recommended to remove any low quality cells from our dataset.
 This would include cells that may be dying or damaged, showing a higher percentage of reads coming from mitochondrial cells. 
-Low quality cells may also be present due to technical artificats such as inefficient reverse transcription or PCR amplification resulting in a lower number of total reads and unique genes identified. 
+Low quality cells may also be present due to technical artifiacts such as inefficient reverse transcription or PCR amplification resulting in a lower number of total reads and unique genes identified. 
 
 For the filtered `SingleCellExperiment` object present in all `filtered.rds` files, we have used [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a data driven approach to predict low-quality cells, to identify cells that should be removed prior to downstream analyses. 
 `miQC` jointly models the proportion of mitochondrial reads and the number of unique genes detected in each cell to calculate the probability of a cell being compromised (i.e. dead or damaged). 
@@ -116,7 +116,7 @@ gene_variance <- scran::modelGeneVar(normalized_sce)
 highvar_genes <- scran::getTopHVGs(gene_variance, n = 2000)
 ```
 
-Visit the chapter on [Feature Selection in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/feature-selection.html#feature-selection) to read more about modeling gene varaince and selecting the highly variable genes. 
+Visit the chapter on [Feature Selection in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/feature-selection.html#feature-selection) to read more about modeling gene variance and selecting the highly variable genes. 
 
 ### Dimensionality Reduction 
 
@@ -132,7 +132,7 @@ The PCA results can be calculated and stored in the `SingleCellExperiment` objec
 normalized_sce <- runPCA(normalized_sce, subset_row = highvar_genes)
 ```
 
-PCA is a linear dimensionality reduction technique and therfore it cannot efficiently pack differences in d dimensions into the first 2 principal components which are used for visualizations. 
+PCA is a linear dimensionality reduction technique and therefore it cannot efficiently pack differences in d dimensions into the first 2 principal components which are used for visualizations. 
 Therefore we need a non linear method, such as [UMAP (Uniform Manifold Approximation and Projection)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#uniform-manifold-approximation-and-projection), for visualization. 
 UMAP allows for better separation between clusters of cells, but can be dependent on the choice of parameters, such as the number of neighbors and minimum distance between points. 
 It's important to note that while the observed clusters do have some meaning, the distance between clusters and the cluster density usually is not related to the similarity or dissimilarity of the clusters. 
