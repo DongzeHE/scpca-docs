@@ -39,7 +39,7 @@ More resources for learning about `SingleCellExperiment` objects:
 After we have imported the RDS file into R and accessed the `SingleCellExperiment` object, we can begin working with the data. 
 Before we perform any downstream steps, it is recommended to remove any low quality cells from our dataset.
 This would include cells that may be dying or damaged, showing a higher percentage of reads coming from mitochondrial cells. 
-Low quality cells may also be present due to technical artifiacts such as inefficient reverse transcription or PCR amplification resulting in a lower number of total reads and unique genes identified. 
+Low quality cells may also be present due to technical artifacts such as inefficient reverse transcription or PCR amplification resulting in a lower number of total reads and unique genes identified. 
 
 For the filtered `SingleCellExperiment` object present in all `filtered.rds` files, we have used [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a data driven approach to predict low-quality cells, to identify cells that should be removed prior to downstream analyses. 
 `miQC` jointly models the proportion of mitochondrial reads and the number of unique genes detected in each cell to calculate the probability of a cell being compromised (i.e. dead or damaged). 
