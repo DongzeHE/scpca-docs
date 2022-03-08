@@ -61,9 +61,9 @@ For more information on using `miQC` for filtering cells, see the following reso
 - [`miQC` vignette](https://bioconductor.org/packages/release/bioc/vignettes/miQC/inst/doc/miQC.html)
 - [Hippen _et al._ 2021](https://doi.org/10.1371/journal.pcbi.1009290)
 
-Alternatively, you can directly filter cells based on having a minimum number of unique genes, total read, and a maximum fraction of mitochondrial reads. 
+Alternatively, you can directly filter cells based on having a minimum number of unique genes, total reads, and a maximum fraction of mitochondrial reads. 
 Using the function, [`scuttle::addPerCellQCMetrics()`](https://rdrr.io/github/LTLA/scuttle/man/addPerCellQCMetrics.html), we can calculate the total RNA counts, unique genes, and mitochondrial fraction for each cell and store the results in the `colData()`. 
-These statistics can be used to directly filter the `SingleCellExperiment` object based on informed minimum thresholds. 
+These metrics can be used to directly filter the `SingleCellExperiment` object based on informed minimum thresholds. 
 The `filtered.rds` files contain `SingleCellExperiment` objects with these metrics added to the `colData()` and you can read more about all metrics that are included in the {ref}`cell metrics section of the SingleCellExperiment file contents<sce_file_contents:cell metrics>`.
 
 If you are planning to filter low quality cells using these hard cutoffs, we encourage you to read more about the various metrics and plot the distribution of each metric before deciding on which cells to exclude. 
@@ -78,7 +78,7 @@ If we were to proceed with downstream analysis such as differential gene express
 We need to normalize our data to account for the technical variation between cells in our data and maximize biological variation, allowing us to make more accurate conclusions from downstream analysis.
 
 We recommend using the `scran` and `scater` packages to estimate size factors based on a pool or cluster of cells ([Lun _et al._ 2016](https://doi.org/10.1186/s13059-016-0947-7)).
-Here, before calculating size factors, cells are first pooled into clusters based on similar patterns of gene expression using an approximation of PCA. 
+Here, before calculating size factors, cells are first pooled into clusters based on similar patterns of gene expression using an approximation of principal component analysis (PCA). 
 Once cells are assigned to a cluster, size factors are computed for each pool first and then "deconvolved" across each cell in the pool. 
 You can read more about implementing this method from the [Normalization by deconvolution chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/normalization.html#normalization-by-deconvolution). 
 
@@ -99,7 +99,7 @@ Here we provide more resources on understanding Normalization in single-cell RNA
 
 - [Orchestrating Single Cell Analysis Chapter on Normalization](http://bioconductor.org/books/3.14/OSCA.basic/normalization.html)
 - [Hemberg lab scRNA-seq course section on Normalization methods](https://scrnaseq-course.cog.sanger.ac.uk/website/cleaning-the-expression-matrix.html#normalization-theory)
-- Review on Computational challenges in single-cell, including a summary on Normalization and technical variance in scRNA-seq([Stegle _et al._ 2015](https://doi.org/10.1038/nrg3833))]
+- Review on Computational challenges in single-cell, including a summary on Normalization and technical variance in scRNA-seq([Stegle _et al._ 2015](https://doi.org/10.1038/nrg3833)).
 
 ## Downstream analysis
 
@@ -121,7 +121,7 @@ Visit the chapter on [Feature Selection in Orchestrating Single Cell Analysis](h
 ### Dimensionality Reduction 
 
 In single-cell RNA seq, every gene is another dimension and visualizing high dimension data is problematic. 
-It is assumed that genes are correlated that are affected by the same biological process, therefore we do not need to store each gene as an individual dimension. 
+It is assumed that genes that are affected by the same biological process are correlated, therefore we do not need to store each gene as an individual dimension. 
 Dimensionality reduction is commonly used to reduce dimensions used for plotting, clustering, and other downstream analysis. 
 
 We recommend first performing [principal component analysis (PCA)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#principal-components-analysis), a technique that identifies new axes that capture the largest amount of variation in the data. 
@@ -162,5 +162,5 @@ After converting the object to a Seurat object, the same steps outlined above (q
 
 Here are some resources that can be used to get you started working with Seurat objects: 
 - [Getting started tutorial in Seurat](https://satijalab.org/seurat/articles/pbmc3k_tutorial.html) including quality control, normalization, and dimensionality reduction. 
-- [Converting to and from a `SingleCellExperiment`](https://satijalab.org/seurat/articles/conversion_vignette.html)
+- [Converting Seurat objects to and from a `SingleCellExperiment`](https://satijalab.org/seurat/articles/conversion_vignette.html)
 - [HBC Course on single-cell RNA-seq analysis with Seurat](https://hbctraining.github.io/scRNA-seq_online/schedule/links-to-lessons.html) 
