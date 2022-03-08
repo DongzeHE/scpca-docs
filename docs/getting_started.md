@@ -82,14 +82,85 @@ Here, before calculating size factors, cells are first pooled into clusters base
 Once cells are assigned to a cluster, size factors are computed for each pool first and then "deconvolved" across each cell in the pool. 
 You can read more about implementing this method from the [Normalization by deconvolution chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/normalization.html#normalization-by-deconvolution). 
 
+Follow these steps to perform normalization using `scran` and `scater`: 
+
+```r
+# Cluster similar cells 
+qclust <- scran::quickCluster(filtered_sce)
+
+# Compute sum factors for each cell cluster grouping.  
+filtered_sce <- scran::computeSumFactors(filtered_sce, clusters = qclust)
+
+# Normalize and log transform. 
+normalized_sce <- scater::logNormCounts(filtered_sce)
+```
+
 Here we provide more resources on understanding Normalization in single-cell RNA-seq analysis: 
 
 - [Orchestrating Single Cell Analysis Chapter on Normalization](http://bioconductor.org/books/3.14/OSCA.basic/normalization.html)
 - [Hemberg lab scRNA-seq course section on Normalization methods](https://scrnaseq-course.cog.sanger.ac.uk/website/cleaning-the-expression-matrix.html#normalization-theory)
 - Review on Computational challenges in single-cell, including a summary on Normalization and technical variance in scRNA-seq([Stegle _et al._ 2015](https://doi.org/10.1038/nrg3833))]
 
+## Downstream analysis
 
-## Downstream Analysis
+### Feature selection
+
+Now that our data is normalized we are ready to perform downstream analysis such as dimensionality reduction and clustering. 
+In performing both of these procedures, we want to be sure that we are maximizing biological variance and decreasing technical noise. 
+To do this we want to select the most highly variable genes and use those for dimensionality reduction. 
+
+```r
+# calculate the gene variance 
+gene_variance <- scran::modelGeneVar(normalized_sce)
+# select the most variable genes
+highvar_genes <- scran::getTopHVGs(gene_variance, n = 2000)
+```
+
+Visit the chapter on [Feature Selection in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/feature-selection.html#feature-selection) to read more about modeling gene varaince and selecting the highly variable genes. 
+
+### Dimensionality Reduction 
+
+In single-cell RNA seq, every gene is another dimension and visualizing high dimension data is problematic. 
+It is assumed that genes are correlated that are affected by the same biological process, therefore we do not need to store each gene as an individual dimension. 
+Dimensionality reduction is commonly used to reduce dimensions used for plotting, clustering, and other downstream analysis. 
+
+We recommend first performing [principal component analysis (PCA)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#principal-components-analysis), a technique that identifies new axes that capture the largest amount of variation in the data. 
+The PCA results can be calculated and stored in the `SingleCellExperiment` object using the following command: 
+
+```r
+# calculate a PCA matrix using the most highly variable genes
+normalized_sce <- runPCA(normalized_sce, subset_row = highvar_genes)
+```
+
+PCA is a linear dimensionality reduction technique and therfore it cannot efficiently pack differences in d dimensions into the first 2 principal components which are used for visualizations. 
+Therefore we need a non linear method, such as [UMAP (Uniform Manifold Approximation and Projection)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#uniform-manifold-approximation-and-projection), for visualization. 
+UMAP allows for better separation between clusters of cells, but can be dependent on the choice of parameters, such as the number of neighbors and minimum distance between points. 
+It's important to note that while the observed clusters do have some meaning, the distance between clusters and the cluster density usually is not related to the similarity or dissimilarity of the clusters. 
+Additionally, if the results are completely dependent on the choice of parameters then you should interpret the results with caution. 
+
+UMAP can also be quite slow for a large dataset, so it's recommended to run UMAP with the top 50 principal components, speeding up the analysis. 
+
+```r
+# Run UMAP using already stored PCA results
+normalized_sce <- runUMAP(normalized_sce, 
+                          dimred = "PCA")
+```
+
+See below for more resources on dimensionality reduction: 
+
+- [Dimensionality Reduction in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#dimensionality-reduction)
+- [Dimension Reductions in R](https://rpubs.com/Saskia/520216)
+- [Understanding UMAP](https://pair-code.github.io/understanding-umap/) 
 
 ## What if I want to use Seurat? 
 
+The files available for download contain [`SingleCellExperiment` objects](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html). 
+If desired, these can be converted into Seurat objects. 
+You can find the code needed to convert the `SingleCellExperiment` objects to Seurat objects in the {ref}`FAQ section<FAQ:what if i want to use seurat instead of bioconductor?>`.
+
+After converting the object to a Seurat object, the same steps outlined above (quality control, filtering, normalization, dimensionality reduction) can be followed but using functions available as part of the Seurat package. 
+
+Here are some resources that can be used to get you started working with Seurat objects: 
+- [Getting started tutorial in Seurat](https://satijalab.org/seurat/articles/pbmc3k_tutorial.html) including quality control, normalization, and dimensionality reduction. 
+- [Converting to and from a `SingleCellExperiment`](https://satijalab.org/seurat/articles/conversion_vignette.html)
+- [HBC Course on single-cell RNA-seq analysis with Seurat](https://hbctraining.github.io/scRNA-seq_online/schedule/links-to-lessons.html) 
