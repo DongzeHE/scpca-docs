@@ -1,6 +1,6 @@
 # Getting started with a ScPCA dataset 
 
-This section provides information on next steps to take after downloading a dataset from the ScPCA portal. 
+This section provides information on next steps you might take after downloading a dataset from the ScPCA portal. 
 
 ## Importing ScPCA data into R 
 
@@ -15,18 +15,20 @@ The first step in analyzing the provided gene expression data will be to import 
 As a reminder, each RDS file contains a [`SingleCellExperiment` object](https://bioconductor.org/packages/release/bioc/html/SingleCellExperiment.html). 
 Refer to {ref}`single-cell gene expression file contents<sce_file_contents:single-cell gene expression file contents>` for a more detailed description on the contents of the included `SingleCellExperiment` object. 
 
-In order to work with `SingleCellExperiment` objects in R, we need to ensure that we have the [`SingleCellExperiment` package]() installed and loaded. 
+In order to work with `SingleCellExperiment` objects in R, we need to ensure that we have the [`SingleCellExperiment` package](https://bioconductor.org/packages/release/bioc/html/SingleCellExperiment.html) installed and loaded. 
 
 The below commands can be used to import the RDS file into R and save the `SingleCellExperiment` object. 
 
 ```r
 # if SingleCellExperiment is not installed, install the package
 # otherwise the installation step can be skipped
-BiocManager::install("SingleCellExperiment")
+if (!("SingleCellExperiment" %in% installed.packages())) {
+  BiocManager::install("SingleCellExperiment")
+}
 
 library(SingleCellExperiment)
-# read in the RDS file, including the complete path to the file's location
-sce <- readRDS("SCPCL000000_filtered.rds")
+# read in the RDS file, including the path to the file's location
+sce <- readRDS("SCPCS000000/SCPCL000000_filtered.rds")
 ```
 
 More resources for learning about `SingleCellExperiment` objects: 
@@ -37,12 +39,11 @@ More resources for learning about `SingleCellExperiment` objects:
 ## Quality control  
 
 After we have imported the RDS file into R and accessed the `SingleCellExperiment` object, we can begin working with the data. 
-Before we perform any downstream steps, it is recommended to remove any low quality cells from our dataset.
-This would include cells that may be dying or damaged, showing a higher percentage of reads coming from mitochondrial cells. 
-Low quality cells may also be present due to technical artifacts such as inefficient reverse transcription or PCR amplification resulting in a lower number of total reads and unique genes identified. 
+Before we perform any downstream steps, we recommend removing low quality cells from the dataset.
+Low quality cells include those with a higher percentage of reads from mitochondrial genes (i.e., those that are damaged or dying) and those with a lower number of total reads and unique genes identified (i.e., those with inefficient reverse transcription or PCR amplification). 
 
-For the filtered `SingleCellExperiment` object present in all `filtered.rds` files, we have used [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a data driven approach to predict low-quality cells, to identify cells that should be removed prior to downstream analyses. 
-`miQC` jointly models the proportion of mitochondrial reads and the number of unique genes detected in each cell to calculate the probability of a cell being compromised (i.e. dead or damaged). 
+All `filtered.rds` objects include [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html) results that can be used to identify cells that should be removed prior to downstream analyses. 
+`miQC` jointly models the proportion of mitochondrial reads and the number of unique genes detected in each cell to calculate the probability of a cell being compromised (i.e., dead or damaged). 
 High-quality cells are those with a low probability of being being compromised (< 0.75) or sufficiently low mitochondrial content. 
 We have already incorporated the `miQC` results into the {ref}`colData() of the SingleCellExperiment object<sce_file_contents:cell metrics>`. 
 All cells that are identified as low-quality cells will have `FALSE` in the `miQC_pass` column of the `colData()`. 
@@ -50,18 +51,15 @@ All cells that are identified as low-quality cells will have `FALSE` in the `miQ
 The following commands can be used to remove those cells prior to downstream analysis: 
 
 ```r
-# create a vector of barcode names for cells that are not compromised 
-# the `$` notation denotes access to the colData slot of the `SingleCellExperiment` object 
-cells_to_keep <- colnames(sce$miQC_pass == TRUE)
-
 # filter the `SingleCellExperiment`
-filtered_sce <- sce[, cells_to_keep]
+# the `$` notation denotes access to the colData slot of the `SingleCellExperiment` object 
+filtered_sce <- sce[, which(sce$miQC_pass)]
 ```
 For more information on using `miQC` for filtering cells, see the following resources: 
 - [`miQC` vignette](https://bioconductor.org/packages/release/bioc/vignettes/miQC/inst/doc/miQC.html)
 - [Hippen _et al._ 2021](https://doi.org/10.1371/journal.pcbi.1009290)
 
-Alternatively, you can directly filter cells based on having a minimum number of unique genes, total reads, and a maximum fraction of mitochondrial reads. 
+You can also directly filter cells based on the number of unique genes, total reads, and fraction of mitochondrial reads. 
 Using the function, [`scuttle::addPerCellQCMetrics()`](https://rdrr.io/github/LTLA/scuttle/man/addPerCellQCMetrics.html), we can calculate the total RNA counts, unique genes, and mitochondrial fraction for each cell and store the results in the `colData()`. 
 These metrics can be used to directly filter the `SingleCellExperiment` object based on informed minimum thresholds. 
 The `filtered.rds` files contain `SingleCellExperiment` objects with these metrics added to the `colData()` and you can read more about all metrics that are included in the {ref}`cell metrics section of the SingleCellExperiment file contents<sce_file_contents:cell metrics>`.
@@ -95,11 +93,11 @@ filtered_sce <- scran::computeSumFactors(filtered_sce, clusters = qclust)
 normalized_sce <- scater::logNormCounts(filtered_sce)
 ```
 
-Here we provide more resources on understanding Normalization in single-cell RNA-seq analysis: 
+Here we provide more resources on understanding normalization in single-cell RNA-seq analysis: 
 
-- [Orchestrating Single Cell Analysis Chapter on Normalization](http://bioconductor.org/books/3.14/OSCA.basic/normalization.html)
-- [Hemberg lab scRNA-seq course section on Normalization methods](https://scrnaseq-course.cog.sanger.ac.uk/website/cleaning-the-expression-matrix.html#normalization-theory)
-- Review on Computational challenges in single-cell, including a summary on Normalization and technical variance in scRNA-seq([Stegle _et al._ 2015](https://doi.org/10.1038/nrg3833)).
+- [Normalization chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.14/OSCA.basic/normalization.html)
+- [Hemberg lab scRNA-seq course section on normalization methods](https://www.singlecellcourse.org/basic-quality-control-qc-and-exploration-of-scrna-seq-datasets.html#normalization-theory)
+- [Stegle _et al._ (2015) Computational and analytical challenges in single-cell transcriptomics](https://doi.org/10.1038/nrg3833).  Includes a discussion of normalization and technical variance in scRNA-seq.
 
 ## Downstream analysis
 
@@ -122,7 +120,7 @@ Visit the chapter on [Feature Selection in Orchestrating Single Cell Analysis](h
 
 In single-cell RNA seq, every gene is another dimension and visualizing high dimension data is problematic. 
 It is assumed that genes that are affected by the same biological process are correlated, therefore we do not need to store each gene as an individual dimension. 
-Dimensionality reduction is commonly used to reduce dimensions used for plotting, clustering, and other downstream analysis. 
+Dimensionality reduction is commonly used as a precursor to plotting, clustering, and other downstream analysis. 
 
 We recommend first performing [principal component analysis (PCA)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#principal-components-analysis), a technique that identifies new axes that capture the largest amount of variation in the data. 
 The PCA results can be calculated and stored in the `SingleCellExperiment` object using the following command: 
@@ -148,7 +146,7 @@ normalized_sce <- runUMAP(normalized_sce,
 
 See below for more resources on dimensionality reduction: 
 
-- [Dimensionality Reduction in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#dimensionality-reduction)
+- [Dimensionality Reduction chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#dimensionality-reduction)
 - [Dimension Reductions in R](https://rpubs.com/Saskia/520216)
 - [Understanding UMAP](https://pair-code.github.io/understanding-umap/) 
 
@@ -163,4 +161,4 @@ After converting the object to a Seurat object, the same steps outlined above (q
 Here are some resources that can be used to get you started working with Seurat objects: 
 - [Getting started tutorial in Seurat](https://satijalab.org/seurat/articles/pbmc3k_tutorial.html) including quality control, normalization, and dimensionality reduction. 
 - [Converting Seurat objects to and from a `SingleCellExperiment`](https://satijalab.org/seurat/articles/conversion_vignette.html)
-- [HBC Course on single-cell RNA-seq analysis with Seurat](https://hbctraining.github.io/scRNA-seq_online/schedule/links-to-lessons.html) 
+- [Harvard Chan Bioinformatics Core course on single-cell RNA-seq analysis with Seurat](https://hbctraining.github.io/scRNA-seq_online/schedule/links-to-lessons.html) 
