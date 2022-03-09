@@ -7,6 +7,7 @@ barcode
 barcodes
 basepairs
 benchmarking
+Bioinformatics
 cDNA
 confounders
 de
@@ -35,6 +36,7 @@ Lun
 miQC
 repo
 Rmarkdown
+scanpy
 scpca
 ScPCA
 scpcaTools
