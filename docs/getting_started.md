@@ -47,7 +47,7 @@ All `filtered.rds` objects include [`miQC`](https://bioconductor.org/packages/re
 High-quality cells are those with a low probability of being being compromised (< 0.75) or sufficiently low mitochondrial content.  
 All cells that are identified as low-quality cells will have `FALSE` in the `miQC_pass` column of the `colData()` and can be removed prior to downstream analyses. 
 
-The following command can be used to remove those cells: 
+The following command can be used to remove the low-quality cells: 
 
 ```r
 # filter the `SingleCellExperiment`
@@ -111,7 +111,7 @@ The PCA results can be calculated and stored in the `SingleCellExperiment` objec
 
 ```r
 # calculate a PCA matrix using the top 500 most highly variable genes (default)
-normalized_sce <- runPCA(normalized_sce, ntop = 500)
+normalized_sce <- scater::runPCA(normalized_sce, ntop = 500)
 ```
 
 Here we are calculating PCA by using the default of the top 500 most highly variable genes as input, however this is not always the optimal choice. 
@@ -119,15 +119,13 @@ We encourage you to visit the [Feature selection chapter in Orchestrating Single
 
 PCA is commonly used for initial dimensionality reduction. 
 However, we can use more advanced techniques, like [UMAP (Uniform Manifold Approximation and Projection)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#uniform-manifold-approximation-and-projection), that may be better for visualization. 
-UMAP allows for better separation between clusters of cells, but can be dependent on the choice of parameters, such as the number of neighbors and minimum distance between points. 
-It's important to note that while the observed clusters do have some meaning, the distance between clusters and the cluster density usually is not related to the similarity or dissimilarity of the clusters. 
-Additionally, if the results are completely dependent on the choice of parameters then you should interpret the results with caution. 
+Use caution when interpreting UMAP results, as location, spacing, and density of clusters can be dependent on parameter choices and random effects and do not always accurately represent the relationships among cells.
 
 UMAP can also be quite slow for a large dataset, so we can use the previous PCA results as input to speed up the analysis. 
 
 ```r
 # Run UMAP using already stored PCA results
-normalized_sce <- runUMAP(normalized_sce, 
+normalized_sce <- scater::runUMAP(normalized_sce, 
                           dimred = "PCA")
 ```
 
