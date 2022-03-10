@@ -1,4 +1,4 @@
-# Getting started with a ScPCA dataset 
+# Getting started with an ScPCA dataset 
 
 This section provides information on next steps you might take after downloading a dataset from the ScPCA portal. 
 
@@ -15,9 +15,9 @@ The first step in analyzing the provided gene expression data will be to import 
 As a reminder, each RDS file contains a [`SingleCellExperiment` object](https://bioconductor.org/packages/release/bioc/html/SingleCellExperiment.html). 
 Refer to {ref}`single-cell gene expression file contents<sce_file_contents:single-cell gene expression file contents>` for a more detailed description on the contents of the included `SingleCellExperiment` object. 
 
-In order to work with `SingleCellExperiment` objects in R, we need to ensure that we have the [`SingleCellExperiment` package](https://bioconductor.org/packages/release/bioc/html/SingleCellExperiment.html) installed and loaded. 
+To work with `SingleCellExperiment` objects in R, we need to ensure that we have the [`SingleCellExperiment` package](https://bioconductor.org/packages/release/bioc/html/SingleCellExperiment.html) installed and loaded. 
 
-The below commands can be used to import the RDS file into R and save the `SingleCellExperiment` object. 
+The following commands can be used to import the RDS file into R and save the `SingleCellExperiment` object: 
 
 ```r
 # if SingleCellExperiment is not installed, install the package
@@ -73,9 +73,8 @@ The following columns are added by `scuttle::addPerCellQCMetrics()` and can be f
 | `subsets_mito_percent`  | Percent of all UMI counts assigned to mitochondrial genes                                                                                                                                     |
 | `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., CITE-seq)                                                                                                             |
 
-These metrics can be used to directly filter the `SingleCellExperiment` object based on informed minimum thresholds. 
-
-If you are planning to filter low quality cells using these hard cutoffs, we encourage you to read more about the various metrics and plot the distribution of each metric before deciding on which cells to exclude. 
+These metrics can be used to directly filter the `SingleCellExperiment` object based on informed thresholds. 
+If you are planning to filter low quality cells using such thresholds, we encourage you to read more about the various metrics and plot the distribution of each metric before deciding on which cells to exclude. 
 The [Quality Control chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/quality-control.html#quality-control) provides a nice guide to checking diagnostic plots and then choosing cutoffs. 
 
 ## Normalization 
@@ -101,7 +100,7 @@ Here we provide more resources on understanding normalization in single-cell RNA
 - [Normalization chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.14/OSCA.basic/normalization.html)
 - [Hemberg lab scRNA-seq course section on normalization methods](https://www.singlecellcourse.org/basic-quality-control-qc-and-exploration-of-scrna-seq-datasets.html#normalization-theory)
 - [Stegle _et al._ (2015) Computational and analytical challenges in single-cell transcriptomics](https://doi.org/10.1038/nrg3833).  Includes a discussion of normalization and technical variance in scRNA-seq.
-- [Lun _et al._ 2016 Pooling across cells to normalize single-cell RNA sequencing data with many zero counts](https://doi.org/10.1186/s13059-016-0947-7)
+- [Lun _et al._ (2016) Pooling across cells to normalize single-cell RNA sequencing data with many zero counts](https://doi.org/10.1186/s13059-016-0947-7)
 
 ## Dimensionality Reduction 
 
@@ -118,7 +117,8 @@ normalized_sce <- runPCA(normalized_sce, ntop = 500)
 Here we are calculating PCA by using the default of the top 500 most highly variable genes as input, however this is not always the optimal choice. 
 We encourage you to visit the [Feature selection chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/feature-selection.html#feature-selection) to read more about modeling gene variance and selecting the highly variable genes. 
 
-PCA is commonly used for initial dimensionality reduction, however we can use more advanced techniques, like [UMAP (Uniform Manifold Approximation and Projection)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#uniform-manifold-approximation-and-projection), that are better for visualization. 
+PCA is commonly used for initial dimensionality reduction. 
+However, we can use more advanced techniques, like [UMAP (Uniform Manifold Approximation and Projection)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#uniform-manifold-approximation-and-projection), that may be better for visualization. 
 UMAP allows for better separation between clusters of cells, but can be dependent on the choice of parameters, such as the number of neighbors and minimum distance between points. 
 It's important to note that while the observed clusters do have some meaning, the distance between clusters and the cluster density usually is not related to the similarity or dissimilarity of the clusters. 
 Additionally, if the results are completely dependent on the choice of parameters then you should interpret the results with caution. 
