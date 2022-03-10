@@ -47,7 +47,7 @@ All `filtered.rds` objects include [`miQC`](https://bioconductor.org/packages/re
 High-quality cells are those with a low probability of being being compromised (< 0.75) or sufficiently low mitochondrial content.  
 All cells that are identified as low-quality cells will have `FALSE` in the `miQC_pass` column of the `colData()` and can be removed prior to downstream analyses. 
 
-The following commands can be used to remove those cells: 
+The following command can be used to remove those cells: 
 
 ```r
 # filter the `SingleCellExperiment`
@@ -62,7 +62,7 @@ For more information on using `miQC` for filtering cells, see the following reso
 You can also directly filter cells based on the number of unique genes, total reads, and fraction of mitochondrial reads. 
 We used the function [`scuttle::addPerCellQCMetrics()`](https://rdrr.io/github/LTLA/scuttle/man/addPerCellQCMetrics.html) to calculate these metrics and have included them in the `colData` of the filtered `SingleCellExperiment` objects. 
 
-The following columns can be found in the `colData`: 
+The following columns are added by `scuttle::addPerCellQCMetrics()` and can be found in the `colData`: 
 
 | Column name             | Contents                                                                                                                                                                                      |
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------|
@@ -76,7 +76,7 @@ The following columns can be found in the `colData`:
 These metrics can be used to directly filter the `SingleCellExperiment` object based on informed minimum thresholds. 
 
 If you are planning to filter low quality cells using these hard cutoffs, we encourage you to read more about the various metrics and plot the distribution of each metric before deciding on which cells to exclude. 
-The chapter on [Quality Control in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/quality-control.html#quality-control) provides a nice guide to checking diagnostic plots and then choosing cutoffs. 
+The [Quality Control chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/quality-control.html#quality-control) provides a nice guide to checking diagnostic plots and then choosing cutoffs. 
 
 ## Normalization 
 
@@ -105,7 +105,7 @@ Here we provide more resources on understanding normalization in single-cell RNA
 
 ## Dimensionality Reduction 
 
- Dimensionality reduction is commonly used as a precursor to plotting, clustering, and other downstream analysis. 
+Dimensionality reduction is commonly used as a precursor to plotting, clustering, and other downstream analysis. 
 
 It is common to start with performing [principal component analysis (PCA)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#principal-components-analysis), a technique that identifies new axes that capture the largest amount of variation in the data. 
 The PCA results can be calculated and stored in the `SingleCellExperiment` object using the following command: 
@@ -116,14 +116,14 @@ normalized_sce <- runPCA(normalized_sce, ntop = 500)
 ```
 
 Here we are calculating PCA by using the default of the top 500 most highly variable genes as input, however this is not always the optimal choice. 
-We encourage you to visit the chapter on [Feature Selection in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/feature-selection.html#feature-selection) to read more about modeling gene variance and selecting the highly variable genes. 
+We encourage you to visit the [Feature selection chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/feature-selection.html#feature-selection) to read more about modeling gene variance and selecting the highly variable genes. 
 
 PCA is commonly used for initial dimensionality reduction, however we can use more advanced techniques, like [UMAP (Uniform Manifold Approximation and Projection)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#uniform-manifold-approximation-and-projection), that are better for visualization. 
 UMAP allows for better separation between clusters of cells, but can be dependent on the choice of parameters, such as the number of neighbors and minimum distance between points. 
 It's important to note that while the observed clusters do have some meaning, the distance between clusters and the cluster density usually is not related to the similarity or dissimilarity of the clusters. 
 Additionally, if the results are completely dependent on the choice of parameters then you should interpret the results with caution. 
 
-UMAP can also be quite slow for a large dataset, so we recommend to use the previous PCA results as input to speed up the analysis. 
+UMAP can also be quite slow for a large dataset, so we can use the previous PCA results as input to speed up the analysis. 
 
 ```r
 # Run UMAP using already stored PCA results
@@ -153,7 +153,7 @@ Here are some resources that can be used to get you started working with Seurat 
 
 ## What if I want to use scanpy?
 
-There are a variety of ways to convert the counts data into a python convertible format. 
+There are a variety of ways to convert the counts data into a python-compatible format. 
 We have found that one of the more efficient ways is to first convert the counts data into 10x format using [`DropletUtils::write10xCounts()`](https://rdrr.io/bioc/DropletUtils/man/write10xCounts.html) and then read the files into Python using the [`scanpy` package](https://scanpy.readthedocs.io/en/stable/). 
 
 You can find the code needed to perform these steps outlined in the {ref}`FAQ section on using Python<FAQ:what if i want to use python instead of r?>`.
