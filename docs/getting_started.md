@@ -125,8 +125,7 @@ UMAP can also be quite slow for a large dataset, so we can use the previous PCA 
 
 ```r
 # Run UMAP using already stored PCA results
-normalized_sce <- scater::runUMAP(normalized_sce, 
-                          dimred = "PCA")
+normalized_sce <- scater::runUMAP(normalized_sce, dimred = "PCA")
 ```
 
 See below for more resources on dimensionality reduction: 
