@@ -85,8 +85,6 @@ See the 10X documentation for more information on how Space Ranger [quantifies g
 
 ## Bulk RNA samples 
 
-**_Data Available Soon_**
-
 ### Preprocessing with fastp
 
 Prior to quantifying gene expression for bulk RNA-seq samples, FASTQ files are pre-processed using [`fastp`](https://github.com/OpenGene/fastp) to perform adapter trimming, quality filtering, and length filtering. 
