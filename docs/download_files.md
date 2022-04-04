@@ -95,4 +95,4 @@ Inside that folder will be the following folders and files:
 
 A full description of each of file included in the download for spatial transcriptomics libraries can also be found in the [documentation for the `spaceranger count` function](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/using/count#outputs). 
 
-**Illustration of example download with spatial library**
+_Coming Soon: Illustration of example download with spatial library_
