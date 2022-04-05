@@ -32,7 +32,7 @@ See also {ref}`processing bulk RNA samples <processing_information:Bulk RNA samp
 ![docs-downloads-sample](https://user-images.githubusercontent.com/15315514/156806534-7ef8d56b-f8f9-4458-b3f5-3f0f42cb7ede.png)
 
 Note that if a sample selected for download contains a spatial transcriptomics library, the files included will be different than pictured above. 
-See the [description of the Spatial transcriptomics output section below](#download-contents-for-samples-with-spatial-transcriptomics). 
+See the [description of the Spatial transcriptomics output section below](#spatial-transcriptomics-libraries). 
 
 ## Gene expression data
 
@@ -91,8 +91,8 @@ Inside that folder will be the following folders and files:
 - A `raw_feature_bc_matrix` folder containing the [unfiltered counts files](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/output/matrices)
 - A `filtered_feature_bc_matrix` folder containing the [filtered counts files](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/output/matrices)
 - A `spatial` folder containing [images and position information](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/output/images)
-- A `SCPCL000000_spaceranger_summary.html` file containing the Space Ranger [summary html report](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/output/summary)
+- A `SCPCL000000_spaceranger_summary.html` file containing the [summary html report provided by Space Ranger](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/output/summary)
 
-A full description of each of files included in the download for spatial transcriptomics libraries can also be found in the [`spaceranger count` documentation](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/using/count#outputs). 
+A full description of all files included in the download for spatial transcriptomics libraries can also be found in the [`spaceranger count` documentation](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/using/count#outputs). 
 
 _Coming Soon: Illustration of example download with spatial library_
