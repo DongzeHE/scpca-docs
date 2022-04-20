@@ -71,7 +71,38 @@ Any cell barcodes that appeared only in CITE-seq data were discarded.
 Cell barcodes that were present only in the RNA-seq data (i.e., did _not_ appear in the CITE-seq data) were assigned zero counts for all ADTs. 
 When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the CITE-seq count matrix was filtered to match.
 
-## Spatial Transcriptomics
+## Multiplexed libraries
+
+**_Data Available Soon_**
+
+Libraries with cells or nuclei from more than one biological sample were processed to allow demultiplexing using both hashtag oligonucleotide (HTO) results and genotype data.
+
+### Hashtag oligonucleotide (HTO) quantification
+
+HTO reads were also quantified using  [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/), rounded to integer values.
+Reference indices were constructed from the submitter-provided list of HTO sequences corresponding to each library using the `--features` flag of `salmon index`.
+Mapping to these indices followed the same procedures as for RNA-seq data, including mapping with [selective alignment](#selective-alignment) and subsequent [quantification via alevin-fry](#alevin-fry-parameters).
+
+As with the [CITE-seq data](#combining-cite-counts-with-rna-counts), we retained all cells with RNA-seq data, setting HTO counts to zero for any missing cell barcodes. 
+When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the HTO count matrix was filtered to match.
+
+### HTO demultiplexing
+
+We performed HTO demultiplexing using both [DropletUtils::hashedDrops](https://rdrr.io/github/MarioniLab/DropletUtils/man/hashedDrops.html) and [Seurat::HTOdemux](https://rdrr.io/github/satijalab/seurat/man/HTODemux.html) on the _filtered_ cells, using default parameters for each.
+
+We report the demultiplexed sample calls and associated statistics for both algorithms, but do not separate the multiplexed library into individual samples.
+
+### Genetic demultiplexing
+
+We also performed demultiplexing analysis using genotype data following the procedures described in [Weber _et al._ (2021)](https://doi.org/10.1093/gigascience/giab062):
+- Bulk RNA-seq reads from each sample were mapped to the reference genome using `STAR` ([Dobin _et al._ 2013](https://doi.org/10.1093/bioinformatics/bts635))
+- Variants among the samples within each pool were identified and genotyped with [`bcftools mpileup`](https://samtools.github.io/bcftools/bcftools.html#mpileup) using the mapped bulk reads
+- Pooled single-cell or single-nuclei RNA-seq reads were mapped to the reference genome using `STARsolo` ([Kaminow _et al. (2021)](https://www.biorxiv.org/content/10.1101/2021.05.05.442755v1))
+- Individual cells were genotyped at the sites identified in the bulk RNA using [`cellsnp-lite`](https://cellsnp-lite.readthedocs.io)
+- Cell genotype calls were used to identify sample-of-origin with [`vireo`](https://vireosnp.readthedocs.io)
+ 
+
+## Spatial transcriptomics
 
 **_Data Available Soon_**
 
