@@ -96,7 +96,7 @@ expt_metadata <- metadata(sce)
 | `filtering_method`  | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`. Only present for `filtered` objects |
 | `umi_cutoff`        | The minimum UMI count per cell used as a threshold for filtering. Only present for `filtered` objects where the `filtering_method` is `UMI cutoff` |
 
-## Additional `SingleCellExperiment` components for CITE-seq samples
+## Additional `SingleCellExperiment` components for CITE-seq libraries
 
 CITE-seq data, when present, is included within the `SingleCellExperiment` as an "Alternative Experiment" named `"CITEseq"` , which can be accessed with the following command:
 
@@ -133,3 +133,65 @@ Finally, additional metadata for the CITE-seq data processing can be found in th
 ```r
 citeseq_metadata <- metadata(altExp(sce, "CITEseq"))
 ```
+
+## Additional `SingleCellExperiment` components for multiplexed libraries
+
+Multiplexed libraries will contain a number of additional components and fields.
+
+Hashtag oligo (HTO) quantification for each cell is included within the `SingleCellExperiment` as an "Alternative Experiment" named `"cellhash"` , which can be accessed with the following command:
+
+```r
+altExp(sce, "cellhash")
+```
+
+Within this, the main data matrix is again found in the `counts` assay, with each column corresponding to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponding to a hashtag oligo (HTO).
+Column names are again cell barcode sequences and row names the HTO ids for all assayed HTOs. 
+
+The following additional per-cell data columns for the cellhash data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#cell-metrics)).
+
+| Column name                | Contents                                          |
+| -------------------------- | ------------------------------------------------- |
+| `altexps_cellhash_sum  `    | UMI count for cellhash HTOs                       |
+| `altexps_cellhash_detected` | Number of HTOs detected per cell (HTO count > 0 ) |
+| `altexps_cellhash_percent`  | Percent of `total` UMI count from HTO reads       |
+
+Metrics for each of the HTOs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
+
+```r
+hto_info <- rowData(altExp(sce, "cellhash"))
+```
+
+This data frame contains the following columns with statistics for each HTO:
+
+| Column name | Contents                                                       |
+| ----------- | -------------------------------------------------------------- |
+| `mean`      | Mean HTO count across all cells/droplets                       |
+| `detected`  | Number of cells in which the HTO was detected (HTO count > 0 ) |
+| `sample_id` | Sample ID for this library that corresponds to the HTO (only present in `_filtered.rds` files) |
+
+Note that in the unfiltered `SingleCellExperiment` objects, this may include hashtag oligos that do not correspond to any included sample, but were part of the reference set used for mapping.
+
+### Demultiplexing results
+
+Demultiplexing results are included only in the `_filtered.rds` files. 
+The demultiplexing methods applied for these files are as described in the {ref}`multiplex data processing section <processing_information:Multiplexed libraries>`.
+
+Demultiplexing analysis adds the following additional fields to the `colData(sce)` data frame:
+
+| Column name | Contents                                                       |
+| ----------- | -------------------------------------------------------------- |
+| `hashedDrops_sampleid`  | Most likely sample as called be `DropletUtils::hashedDrops` 
+| `HTODemux_sampleid`  | Most likely sample as called be `Seurat::HTODemux`
+| `vireo_sampleid`  | Most likely sample as called by `vireo` (genetic demultiplexing)        
+
+### Additional demultiplexing statistics
+
+Each demultiplexing method generates additional statistics specific to the method that you may wish to access, including probabilities, alternative calls, and potential doublet information.
+These statistics are included in the `SingleCellExperiment` component `DataFrames` with prefixes corresponding to the method from which they were derived.
+
+For methods that rely on the HTO data, these statistics are found in the `colData(altExp(sce, "cellhash"))` data frame; 
+`DropletUtils::hashedDrops` statistics have the prefix `hashedDrops_` and `Seurat::HTODemux` statistics have the prefix `HTODemux`.
+
+Genetic demultiplexing statistics are found in the main `colData(sce)` data frame, with the prefix `vireo_`.
+
+
