@@ -94,12 +94,15 @@ We report the demultiplexed sample calls and associated statistics for both algo
 
 ### Genetic demultiplexing
 
-We also performed demultiplexing analysis using genotype data following the procedures described in [Weber _et al._ (2021)](https://doi.org/10.1093/gigascience/giab062):
+For multiplex libraries where bulk RNA-seq data is available for the individual samples, we also performed demultiplexing analysis using genotype data following the methods described in [Weber _et al._ (2021)](https://doi.org/10.1093/gigascience/giab062):
+
 - Bulk RNA-seq reads from each sample were mapped to the reference genome using `STAR` ([Dobin _et al._ 2013](https://doi.org/10.1093/bioinformatics/bts635))
 - Variants among the samples within each pool were identified and genotyped with [`bcftools mpileup`](https://samtools.github.io/bcftools/bcftools.html#mpileup) using the mapped bulk reads
 - Pooled single-cell or single-nuclei RNA-seq reads were mapped to the reference genome using `STARsolo` ([Kaminow _et al. (2021)](https://www.biorxiv.org/content/10.1101/2021.05.05.442755v1))
 - Individual cells were genotyped at the sites identified in the bulk RNA using [`cellsnp-lite`](https://cellsnp-lite.readthedocs.io)
-- Cell genotype calls were used to identify sample-of-origin with [`vireo`](https://vireosnp.readthedocs.io)
+- Cell genotypes were used to call sample of origin with [`vireo`](https://vireosnp.readthedocs.io)
+
+The genetic demultiplexing calls are reported alongside HTO demultiplexing results for each library, but we again do not separate the individual samples.
  
 
 ## Spatial transcriptomics
