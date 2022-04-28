@@ -68,7 +68,7 @@ Metrics were calculated using the [`scuttle::addPerFeatureQCMetrics`](https://rd
 | ------------- | ---------------------------------------------------------------- |
 | `gene_symbol` | [HUGO](https://www.genenames.org) gene symbol, if defined        |
 | `mean`        | Mean count across all cells/droplets                             |
-| `detected`    | Number of cells in which the gene was detected (gene count > 0 ) |
+| `detected`    | Percent of cells in which the gene was detected (gene count > 0 ) |
 
 ### Experiment metadata
 
@@ -126,7 +126,7 @@ This data frame contains the following columns with statistics for each ADT:
 | Column name | Contents                                                       |
 | ----------- | -------------------------------------------------------------- |
 | `mean`      | Mean ADT count across all cells/droplets                       |
-| `detected`  | Number of cells in which the ADT was detected (ADT count > 0 ) |
+| `detected`  | Percent of cells in which the ADT was detected (ADT count > 0 ) |
 
 Finally, additional metadata for the CITE-seq data processing can be found in the metadata slot of the alternative experiment, with the same contents as the [parent experiment metadata](#experiment-metadata)
 
@@ -166,7 +166,7 @@ This data frame contains the following columns with statistics for each HTO:
 | Column name | Contents                                                       |
 | ----------- | -------------------------------------------------------------- |
 | `mean`      | Mean HTO count across all cells/droplets                       |
-| `detected`  | Number of cells in which the HTO was detected (HTO count > 0 ) |
+| `detected`  | Percent of cells in which the HTO was detected (HTO count > 0 ) |
 | `sample_id` | Sample ID for this library that corresponds to the HTO (only present in `_filtered.rds` files) |
 
 Note that in the unfiltered `SingleCellExperiment` objects, this may include hashtag oligos that do not correspond to any included sample, but were part of the reference set used for mapping.
