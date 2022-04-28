@@ -187,7 +187,6 @@ Demultiplexing analysis adds the following additional fields to the `colData(sce
 ### Additional demultiplexing statistics
 
 Each demultiplexing method generates additional statistics specific to the method that you may wish to access, including probabilities, alternative calls, and potential doublet information.
-These statistics are included in the `SingleCellExperiment` component `DataFrames` with prefixes corresponding to the method from which they were derived.
 
 For methods that rely on the HTO data, these statistics are found in the `colData(altExp(sce, "cellhash"))` data frame; 
 `DropletUtils::hashedDrops` statistics have the prefix `hashedDrops_` and `Seurat::HTODemux` statistics have the prefix `HTODemux`.
