@@ -14,9 +14,6 @@ The files associated with each library are (example shown for a library with ID 
 
 Every download also includes a single `single_cell_metadata.tsv` file containing metadata for all libraries included in the download.
 
-If a sample includes a library that was processed using spatial transcriptomics, there will be an additional folder in the sample directory, `SCPCL000000_spatial`. 
-For more information about the contents of this folder, see the [spatial transcriptomics libraries section below](#spatial-transcriptomics-libraries). 
-
 The folder structure within the zip file is determined by whether individual samples or all samples associated with a project are selected for download.  
 
 ## Download folder structure for project downloads:
@@ -85,6 +82,8 @@ This file will contain fields equivalent to those found in the `single_cell_meta
 
 ## Spatial transcriptomics libraries
 
+If a sample includes a library processed using spatial transcriptomics, the spatial transcriptomics output files will be available as a separate download from the single-cell/single-nuclei gene expression data. 
+
 For all spatial transcriptomics libraries, a `SCPCL000000_spatial` folder will be nested inside the corresponding sample folder in the download. 
 Inside that folder will be the following folders and files: 
 
@@ -92,7 +91,10 @@ Inside that folder will be the following folders and files:
 - A `filtered_feature_bc_matrix` folder containing the [filtered counts files](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/output/matrices)
 - A `spatial` folder containing [images and position information](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/output/images)
 - A `SCPCL000000_spaceranger_summary.html` file containing the [summary html report provided by Space Ranger](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/output/summary)
+- A `SCPCL000000_metadata.json` file containing library processing information. 
 
 A full description of all files included in the download for spatial transcriptomics libraries can also be found in the [`spaceranger count` documentation](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/using/count#outputs). 
+
+Every download also includes a single `spatial_metadata.tsv` file containing metadata for all libraries included in the download.
 
 _Coming Soon: Illustration of example download with spatial library_
