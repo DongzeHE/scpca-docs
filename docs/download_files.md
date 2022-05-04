@@ -82,7 +82,7 @@ This file will contain fields equivalent to those found in the `single_cell_meta
 
 ## Spatial transcriptomics libraries
 
-If a sample includes a library processed using spatial transcriptomics, the spatial transcriptomics output files will be available as a separate download from single-cell/single-nuclei gene expression data and will only include spatial related files. 
+If a sample includes a library processed using spatial transcriptomics, the spatial transcriptomics output files will be available as a separate download from the single-cell/single-nuclei gene expression data. 
 
 For all spatial transcriptomics libraries, a `SCPCL000000_spatial` folder will be nested inside the corresponding sample folder in the download. 
 Inside that folder will be the following folders and files: 
