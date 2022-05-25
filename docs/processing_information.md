@@ -73,8 +73,6 @@ When cells were [filtered based on RNA-seq content](#filtering-cells) after quan
 
 ## Spatial Transcriptomics
 
-**_Data Available Soon_**
-
 ### Mapping and quantification using Space Ranger
 
 Processing spatial transcriptomics libraries requires two steps - gene expression quantification and tissue detection.
