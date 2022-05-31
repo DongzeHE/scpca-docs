@@ -19,7 +19,7 @@ Every download also includes a single `single_cell_metadata.tsv` file containing
 The folder structure within the zip file is determined by whether individual samples or all samples associated with a project are selected for download.
 
 ## Download folder structure for project downloads:
-![project download folder](images/docs-downloads-project.png)
+![docs-downloads-project](https://user-images.githubusercontent.com/15315514/156806533-f45e1bef-9a96-490d-b9ad-5aabec2d28a2.png)
 
 If a project contains bulk RNA-seq data, two tab-separated value files, `bulk_quant.tsv` and `bulk_metadata.tsv`, will be included in the download.
 The `bulk_quant.tsv` file contains a gene by sample matrix (each row a gene, each column a sample) containing raw gene expression counts quantified by Salmon.
@@ -28,7 +28,7 @@ The `bulk_metadata.tsv` file contains associated metadata for all samples with b
 See also {ref}`processing bulk RNA samples <processing_information:Bulk RNA samples>`.
 
 ## Download folder structure for individual sample downloads:
-![sample download folder](images/docs-downloads-sample.png)
+![docs-downloads-sample](https://user-images.githubusercontent.com/15315514/156806534-7ef8d56b-f8f9-4458-b3f5-3f0f42cb7ede.png)
 
 Note that if a sample selected for download contains a spatial transcriptomics library, the files included will be different than pictured above.
 See the [description of the Spatial transcriptomics output section below](#spatial-transcriptomics-libraries).
