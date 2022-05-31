@@ -5,8 +5,6 @@ These files are delivered as a zip file.
 
 For all downloads, sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
 Most samples only have one library that has been sequenced.
-For multiplexed libraries, the sample folder name will be a comma-separated list of all samples found in the library files that the folder contains.
-
 See the {ref}`FAQ section about samples and libraries <faq:What is the difference between samples and libraries?>` for more information.
 
 The files associated with each library are (example shown for a library with ID `SCPCL000000`):
