@@ -53,6 +53,28 @@ However, for most participants, only a single sample was collected and submitted
 Because of this, many of the samples do not have a separate participant ID.
 Participant IDs are only present for samples that were derived from the same participant as at least one other sample.
 
+## What is a multiplexed sample? 
+
+Multiplexed samples refer to samples that have been combined together into one library using cell hashing and then sequenced together. 
+This means that a single library contains cells that correspond to multiple samples. 
+Each sample has been tagged with a hashtag oligo (HTO) prior to mixing, and that HTO can be used to identify which cells belong to which sample within a multiplexed library. 
+The libraries available for download on the portal have not been separated by sample (i.e. demultiplexed), and therefore contain data from multiple samples.  
+
+## What are estimated demux cell counts? 
+
+Estimated demux cell counts are provided for multiplexed libraries and refer to the estimated cell counts for each sample that is present in the library. 
+Cells that are included in the estimated cell count are cells that can be confidently assigned to a given sample using a given demultiplexing method. 
+Note that not all cells in a library are included in the estimated demux cell count, as some cells may not be able to be assigned to a particular sample. 
+For more about demultiplexing, see the section on {ref}`processing multiplexed libraries <processing_information:multiplexed libraries>`.
+
+## Why do multiplexed samples have estimated demux cell counts? 
+
+Estimated demux cell counts will only be reported for multiplexed samples and will not be reported for single-cell or single-nuclei samples that are not multiplexed. 
+This is because multiplexed samples have multiple samples combined into one library using cell hashing, and samples have not been separated or demultiplexed. 
+Because there are multiple accepted methods that can be used for demultiplexing, we provide the single multiplexed library with the sample calls from each method, rather than separating out each sample. 
+The {ref}`demultiplexing results <sce_file_contents:demultiplexing results>` can be found in the `SingleCellExperiment` objects for each multiplexed library. 
+The estimated demux cell counts simply represent an estimate of the number of cells per sample based on a single multiplexing method. 
+
 ## What genes are included in the reference transcriptome?
 
 The {ref}`reference transcriptome index <processing_information:reference transcriptome index>` that was used for alignment was constructed by extracting both spliced cDNA and intronic regions from the primary genome assembly GRCh38, Ensembl database version 104 ([see the code used to generate the reference transcriptome](https://github.com/AlexsLemonade/scpca-nf/blob/main/bin/make_splici_fasta.R)).
