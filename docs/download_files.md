@@ -16,25 +16,22 @@ The files associated with each library are (example shown for a library with ID 
 
 Every download also includes a single `single_cell_metadata.tsv` file containing metadata for all libraries included in the download.
 
-If a sample includes a library that was processed using spatial transcriptomics, there will be an additional folder in the sample directory, `SCPCL000000_spatial`. 
-For more information about the contents of this folder, see the [spatial transcriptomics libraries section below](#spatial-transcriptomics-libraries). 
-
-The folder structure within the zip file is determined by whether individual samples or all samples associated with a project are selected for download.  
+The folder structure within the zip file is determined by whether individual samples or all samples associated with a project are selected for download.
 
 ## Download folder structure for project downloads:
 ![project download folder](images/docs-downloads-project.png)
 
-If a project contains bulk RNA-seq data, two tab-separated value files, `bulk_quant.tsv` and `bulk_metadata.tsv`, will be included in the download. 
+If a project contains bulk RNA-seq data, two tab-separated value files, `bulk_quant.tsv` and `bulk_metadata.tsv`, will be included in the download.
 The `bulk_quant.tsv` file contains a gene by sample matrix (each row a gene, each column a sample) containing raw gene expression counts quantified by Salmon.
-The `bulk_metadata.tsv` file contains associated metadata for all samples with bulk RNA-seq data.  
- 
-See also {ref}`processing bulk RNA samples <processing_information:Bulk RNA samples>`.   
+The `bulk_metadata.tsv` file contains associated metadata for all samples with bulk RNA-seq data.
+
+See also {ref}`processing bulk RNA samples <processing_information:Bulk RNA samples>`.
 
 ## Download folder structure for individual sample downloads:
 ![sample download folder](images/docs-downloads-sample.png)
 
-Note that if a sample selected for download contains a spatial transcriptomics library, the files included will be different than pictured above. 
-See the [description of the Spatial transcriptomics output section below](#spatial-transcriptomics-libraries). 
+Note that if a sample selected for download contains a spatial transcriptomics library, the files included will be different than pictured above.
+See the [description of the Spatial transcriptomics output section below](#spatial-transcriptomics-libraries).
 
 ## Gene expression data
 
@@ -82,19 +79,24 @@ Examples of this include treatment or outcome.
 Metadata pertaining to processing will also be available in this table and inside of the `SingleCellExperiment` object.
 See the {ref}`Experiment metadata <sce_file_contents:experiment metadata>` section for more information on metadata columns that can be found in this file as well as inside the `SingleCellExperiment` object.
 
-For projects with bulk RNA-seq data, the `bulk_metadata.tsv` file will be included for project downloads. 
+For projects with bulk RNA-seq data, the `bulk_metadata.tsv` file will be included for project downloads.
 This file will contain fields equivalent to those found in the `single_cell_metadata.tsv` related to processing the sample, but will not contain patient or disease specific metadata (e.g. `age`, `sex`, `diagnosis`, `subdiagnosis`, `tissue_location`, or `disease_timing`).
 
 ## Spatial transcriptomics libraries
 
-For all spatial transcriptomics libraries, a `SCPCL000000_spatial` folder will be nested inside the corresponding sample folder in the download. 
-Inside that folder will be the following folders and files: 
+If a sample includes a library processed using spatial transcriptomics, the spatial transcriptomics output files will be available as a separate download from the single-cell/single-nuclei gene expression data.
+
+For all spatial transcriptomics libraries, a `SCPCL000000_spatial` folder will be nested inside the corresponding sample folder in the download.
+Inside that folder will be the following folders and files:
 
 - A `raw_feature_bc_matrix` folder containing the [unfiltered counts files](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/output/matrices)
 - A `filtered_feature_bc_matrix` folder containing the [filtered counts files](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/output/matrices)
 - A `spatial` folder containing [images and position information](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/output/images)
 - A `SCPCL000000_spaceranger_summary.html` file containing the [summary html report provided by Space Ranger](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/output/summary)
+- A `SCPCL000000_metadata.json` file containing library processing information.
 
-A full description of all files included in the download for spatial transcriptomics libraries can also be found in the [`spaceranger count` documentation](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/using/count#outputs). 
+A full description of all files included in the download for spatial transcriptomics libraries can also be found in the [`spaceranger count` documentation](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/using/count#outputs).
+
+Every download also includes a single `spatial_metadata.tsv` file containing metadata for all libraries included in the download.
 
 _Coming Soon: Illustration of example download with spatial library_

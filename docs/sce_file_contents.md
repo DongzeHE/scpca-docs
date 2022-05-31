@@ -19,7 +19,7 @@ sce <- readRDS("SCPCL000000_filtered.rds")
 
 The `counts` assay of the `SingleCellExperiment` object for single-cell and single-nuclei experiments (both unfiltered and filtered) contains the primary RNA-seq expression data as integer counts.
 The data is stored as a sparse matrix, and each column represents a cell or droplet, each row a gene.
-Column names are cell barcode sequences and row names are Ensembl gene IDs. 
+Column names are cell barcode sequences and row names are Ensembl gene IDs.
 The `counts` assay can be accessed with the following R code:
 
 ```r
@@ -34,7 +34,7 @@ Cell metrics calculated from the RNA-seq expression data are stored as a `DataFr
 cell_metrics <- colData(sce)
 ```
 
-The following per-cell data columns are included for each cell, calculated using the [`scuttle::addPerCellQCMetrics`](https://rdrr.io/github/LTLA/scuttle/man/addPerCellQCMetrics.html) function. 
+The following per-cell data columns are included for each cell, calculated using the [`scuttle::addPerCellQCMetrics`](https://rdrr.io/github/LTLA/scuttle/man/addPerCellQCMetrics.html) function.
 
 | Column name             | Contents                                                                                                                                                                                      |
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -45,8 +45,8 @@ The following per-cell data columns are included for each cell, calculated using
 | `subsets_mito_percent`  | Percent of all UMI counts assigned to mitochondrial genes                                                                                                                                     |
 | `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., CITE-seq)                                                                                                             |
 
-The following are additional per-cell data columns included only in `filtered` objects. 
-These metrics were calculated by using [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected to predict low-quality cells. 
+The following are additional per-cell data columns included only in `filtered` objects.
+These metrics were calculated by using [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected to predict low-quality cells.
 
 | Column name             | Contents                                                                                                                                                                                      |
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -61,7 +61,7 @@ Gene information and metrics calculated from the RNA-seq expression data are sto
 gene_info <- rowData(sce)
 ```
 
-The following columns are included for all genes. 
+The following columns are included for all genes.
 Metrics were calculated using the [`scuttle::addPerFeatureQCMetrics`](https://rdrr.io/github/LTLA/scuttle/man/addPerFeatureQCMetrics.html) function.
 
 | Column name   | Contents                                                         |
@@ -105,7 +105,7 @@ altExp(sce, "CITEseq")
 ```
 
 Within this, the main expression matrix is again found in the `counts` assay, with each column corresponding to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponding to an antibody derived tag (ADT).
-Column names are again cell barcode sequences and row names the antibody targets for each ADT. 
+Column names are again cell barcode sequences and row names the antibody targets for each ADT.
 
 The following additional per-cell data columns for the CITE-seq data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#cell-metrics)).
 
