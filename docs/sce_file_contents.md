@@ -193,4 +193,3 @@ For methods that rely on the HTO data, these statistics are found in the `colDat
 
 Genetic demultiplexing statistics are found in the main `colData(sce)` data frame, with the prefix `vireo_`.
 
-
