@@ -21,7 +21,7 @@ We mapped reads to the transcriptome index using `salmon` with the default "sele
 Briefly, selective alignment uses a mapping score validated approach to identify maximal exact matches between reads and the provided index.
 For all samples, we used selective alignment to the `splici` index.
 
-A more detailed description of the mapping strategy invoked by `salmon` in conjunction with `alevin-fry` can be found in [Srivastava _et al._ 2020](https://doi.org/10.1186/s13059-020-02151-8).
+A more detailed description of the mapping strategy invoked by `salmon` in conjunction with `alevin-fry` can be found in [Srivastava _et al._ (2020)](https://doi.org/10.1186/s13059-020-02151-8).
 
 #### Alevin-fry parameters
 
@@ -96,11 +96,11 @@ We report the demultiplexed sample calls and associated statistics for both algo
 
 For multiplex libraries where bulk RNA-seq data is available for the individual samples, we also performed demultiplexing analysis using genotype data following the methods described in [Weber _et al._ (2021)](https://doi.org/10.1093/gigascience/giab062):
 
-- Bulk RNA-seq reads from each sample were mapped to the reference genome using `STAR` ([Dobin _et al._ 2013](https://doi.org/10.1093/bioinformatics/bts635))
-- Variants among the samples within each pool were identified and genotyped with [`bcftools mpileup`](https://samtools.github.io/bcftools/bcftools.html#mpileup) using the mapped bulk reads
-- Pooled single-cell or single-nuclei RNA-seq reads were mapped to the reference genome using `STARsolo` ([Kaminow _et al. (2021)](https://www.biorxiv.org/content/10.1101/2021.05.05.442755v1))
-- Individual cells were genotyped at the sites identified in the bulk RNA using [`cellsnp-lite`](https://cellsnp-lite.readthedocs.io)
-- Cell genotypes were used to call sample of origin with [`vireo`](https://vireosnp.readthedocs.io)
+- Bulk RNA-seq reads from each sample were mapped to the reference genome using `STAR` ([Dobin _et al._ 2012](https://doi.org/10.1093/bioinformatics/bts635))
+- Variants among the samples within each pool were identified and genotyped with [`bcftools mpileup`](https://samtools.github.io/bcftools/bcftools.html#mpileup) ([Danecek _et al._ 2021](https://doi.org/10.1093/gigascience/giab008)) using the mapped bulk reads
+- Pooled single-cell or single-nuclei RNA-seq reads were mapped to the reference genome using `STARsolo` ([Kaminow _et al._ 2021](https://www.biorxiv.org/content/10.1101/2021.05.05.442755v1))
+- Individual cells were genotyped at the sites identified in the bulk RNA using [`cellsnp-lite`](https://cellsnp-lite.readthedocs.io) ([Huang _et al._ 2021](https://doi.org/10.1093/bioinformatics/btab358))
+- Cell genotypes were used to call sample of origin with [`vireo`](https://vireosnp.readthedocs.io) ([Huang _et al._ 2019](https://doi.org/10.1186/s13059-019-1865-2))
 
 The genetic demultiplexing calls are reported alongside HTO demultiplexing results for each library, but we again do not separate the individual samples.
 For information on where the demultiplexing calls can be found, see {ref}`the section on demultiplexing results in the  SingleCellExperiment file contents. <sce_file_contents:demultiplexing results>`
@@ -115,7 +115,7 @@ For information on where the demultiplexing calls can be found, see {ref}`the se
 Processing spatial transcriptomics libraries requires two steps - gene expression quantification and tissue detection.
 In the absence of independent tissue detection methods to use with Alevin-fry, we used [10X Genomics' Space Ranger](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/what-is-space-ranger) to obtain both gene expression and spatial information.
 [`spaceranger count`](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/using/count) takes FASTQ files and a microscopic slide image as input and performs alignment, quantification, and tissue detection for each spot.
-In contrast to Alevin-fry, which maps reads to a [reference transcriptome index](#reference-transcriptome-index), Space Ranger aligns transcript reads to the reference genome using STAR ([Dobin _et al_., 2012](https://doi.org/10.1093/bioinformatics/bts635)).
+In contrast to Alevin-fry, which maps reads to a [reference transcriptome index](#reference-transcriptome-index), Space Ranger aligns transcript reads to the reference genome using STAR ([Dobin _et al._ 2012](https://doi.org/10.1093/bioinformatics/bts635)).
 See the 10X documentation for more information on how Space Ranger [quantifies gene expression](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/algorithms/overview) and [detects tissue](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/algorithms/imaging).
 
 ## Bulk RNA samples
