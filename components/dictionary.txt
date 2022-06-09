@@ -18,6 +18,7 @@ deconvolved
 demultiplex
 demultiplexed
 demultiplexing
+demux
 Dobin
 DropletUtils
 Ensembl
