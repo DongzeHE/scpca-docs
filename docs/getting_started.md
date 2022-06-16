@@ -164,9 +164,9 @@ Here are some resources that can be used to get you started working with `AnnDat
 
 ## Special considerations for multiplexed samples 
 
-If the dataset that you have downloaded contains samples that were multiplexed (i.e. cells from mutliple samples have been combined together into one library), then the steps to take after downloading will be a little different than for libraries that only contain cells corresponding to one sample. 
+If the dataset that you have downloaded contains samples that were multiplexed (i.e. cells from mutliple samples have been combined together into one library), then the steps to take after downloading will be a little different than for libraries that only contain cells corresponding to a single sample. 
 Here, multiplexed samples refer to samples that have been combined together into one library using cell hashing and then sequenced together. 
-This means that a single library contains cells that correspond to multiple samples. 
+This means that a single library contains cells or nuclei that correspond to multiple samples. 
 Each sample has been tagged with a hashtag oligo (HTO) prior to mixing, and that HTO can be used to identify which cells belong to which sample within a multiplexed library. 
 The libraries available for download on the portal have not been separated by sample (i.e. demultiplexed), and therefore contain data from multiple samples.  
 
@@ -176,17 +176,17 @@ Demultiplexing has already been performed using both [`Seurat::HTODemux`](https:
 For samples where corresponding bulk RNA-sequencing data is available, {ref}`genetic demultiplexing <processing_information:Genetic demultiplexing>` was also conducted. 
 The results from demultiplexing using these methods have been summarized and are present in the `colData` of the `SingleCellExperiment` object in the `_filtered.rds` file only. 
 The summary of the results will identify which sample each cell belongs to in a given library, or if a confident call cannot be identified, will report `NA`. 
-For more information on how to access the demultiplexing results, see {ref}`this description of demultiplexing results <sce_file_contents:demultiplexing results>`.
+For more information on how to access the full demultiplexing results, see {ref}`this description of demultiplexing results <sce_file_contents:demultiplexing results>`.
 
 If desired, the sample calls identified from demultiplexing can be used to separate the `SingleCellExperiment` object by sample for downstream analysis. 
 
 ```r
 # view the summary of the sample calls for genetic demultiplexing
 # genetic demultiplexing results are stored in the vireo_sampleid column found in the colData
-table(multiplexed_sce$vireo)
+table(multiplexed_sce$vireo_sampleid)
 
-# identify cells that are assigned to sample A
-sampleA_cells <- multiplexed_sce$vireo == "sampleA"
+# identify cells that are assigned to sample A (use `which` to remove NA)
+sampleA_cells <- which(multiplexed_sce$vireo_sampleid == "sampleA")
 
 # create a new sce that only contains cells from sample A
 sampleA_sce <- multiplexed_sce[, sampleA_cells]
