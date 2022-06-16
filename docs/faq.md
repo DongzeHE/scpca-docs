@@ -55,9 +55,9 @@ Participant IDs are only present for samples that were derived from the same par
 
 ## What is a multiplexed sample? 
 
-Multiplexed samples refer to samples that have been combined together into one library using cell hashing and then sequenced together. 
-This means that a single library contains cells that correspond to multiple samples. 
-Each sample has been tagged with a hashtag oligo (HTO) prior to mixing, and that HTO can be used to identify which cells belong to which sample within a multiplexed library. 
+Multiplexed samples refer to samples that have been combined together into a single library using cell hashing ([Stoeckius _et al._ 2018](https://doi.org/10.1186/s13059-018-1603-1)) or a related technology and then sequenced together. 
+This means that a single library contains cells or nuclei that correspond to multiple samples. 
+Each sample has been tagged with a hashtag oligo (HTO) prior to mixing, and that HTO can be used to identify which cells or nuclei belong to which sample within a multiplexed library. 
 The libraries available for download on the portal have not been separated by sample (i.e. demultiplexed), and therefore contain data from multiple samples.  
 
 ## What are estimated demux cell counts? 
