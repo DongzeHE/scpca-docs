@@ -66,10 +66,11 @@ Downloading a multiplexed sample on the portal will result in obtaining the gene
 This means that users will receive the gene expression data for all samples that were combined into a given library and will have to separate any cells corresponding to the sample of interest before proceeding with downstream analysis.
 
 We have applied multiple {ref}`demultiplexing methods <processing_information:hto demultiplexing>` to multiplexed libraries and noticed that these demultiplexing methods can vary both in calls and confidence levels assigned. 
+[Here we have performed some exploratory analysis comparing demultiplexing methods within a single multiplexed library](https://htmlpreview.github.io/?https://github.com/AlexsLemonade/alsf-scpca/blob/main/analysis/quantifier-comparisons/15-demux-comparisons.nb.html).
 Because of the inconsistency across demultiplexing methods used, the choice of demultiplexing method to use is up to the discretion of the user. 
 Rather than separating out each sample, the sample calls and any associated statistics regarding sample calls for multiple demultiplexing methods can be found in the `_filtered.rds` file for each multiplexed library. 
-We also include the Hash Tag Oligo counts matrix to allow demultiplexing using other available methods.
 See the {ref}`demultiplexing results section <sce_file_contents:demultiplexing results>` for instructions on how to access the demultiplexing results in the `SingleCellExperiment` objects for multiplexed libraries.
+We also include the Hash Tag Oligo counts matrix to allow demultiplexing using other available methods.
 
 ## What are estimated demux cell counts? 
 
