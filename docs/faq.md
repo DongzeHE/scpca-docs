@@ -60,20 +60,25 @@ This means that a single library contains cells or nuclei that correspond to mul
 Each sample has been tagged with a hashtag oligo (HTO) prior to mixing, and that HTO can be used to identify which cells or nuclei belong to which sample within a multiplexed library. 
 The libraries available for download on the portal have not been separated by sample (i.e. demultiplexed), and therefore contain data from multiple samples.  
 
+## Why are demultiplexed samples not available? 
+
+Downloading a multiplexed sample on the portal will result in obtaining the gene expression files corresponding to the library containing the chosen multiplexed sample and any other samples that were multiplexed with that chosen sample. 
+This means that users will receive the gene expression data for all samples that were combined into a given library and will have to separate any cells corresponding to the sample of interest before proceeding with downstream analysis.
+
+We have applied multiple {ref}`demultiplexing methods <processing_information:hto demultiplexing>` to multiplexed libraries and noticed that these demultiplexing methods assign different cell barcodes to each sample at varying confidence levels. 
+Because of the inconsistency across demultiplexing methods used, the choice of demultiplexing method to use is up to the discretion of the user. 
+Rather than separating out each sample, the sample calls and any associated statistics regarding sample calls for multiple demultiplexing methods can be found in the `_filtered.rds` file for each multiplexed library. 
+See the {ref}`demultiplexing results section <sce_file_contents:demultiplexing results>` for instructions on how to access the demultiplexing results in the `SingleCellExperiment` objects for multiplexed libraries.
+
 ## What are estimated demux cell counts? 
 
 Estimated demux cell counts are provided for multiplexed libraries and refer to the estimated cell counts for each sample that is present in the library. 
-Cells that are included in the estimated cell count are cells that can be confidently assigned to a given sample using a given demultiplexing method. 
+In order to provide an estimate of the number of cells or nuclei that are present in a given sample before download, we use the estimated number of cells per sample identified by one of the tested demultiplexing methods.
+However, these estimated demux cell counts simply represent an estimate and we encourage users to investigate the data on their own and make their own decisions on the best demultiplexing method to use for their research purposes. 
+
 Note that not all cells in a library are included in the estimated demux cell count, as some cells may not be able to be assigned to a particular sample. 
-For more about demultiplexing, see the section on {ref}`processing multiplexed libraries <processing_information:multiplexed libraries>`.
-
-## Why do multiplexed samples have estimated demux cell counts? 
-
 Estimated demux cell counts will only be reported for multiplexed samples and will not be reported for single-cell or single-nuclei samples that are not multiplexed. 
-This is because multiplexed samples have multiple samples combined into one library using cell hashing, and samples have not been separated or demultiplexed. 
-Because there are multiple accepted methods that can be used for demultiplexing, we provide the single multiplexed library with the sample calls from each method, rather than separating out each sample. 
-The {ref}`demultiplexing results <sce_file_contents:demultiplexing results>` can be found in the `SingleCellExperiment` objects for each multiplexed library. 
-The estimated demux cell counts simply represent an estimate of the number of cells per sample based on a single multiplexing method. 
+For more about demultiplexing, see the section on {ref}`processing multiplexed libraries <processing_information:multiplexed libraries>`.
 
 ## What genes are included in the reference transcriptome?
 
