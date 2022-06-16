@@ -175,7 +175,8 @@ Demultiplexing can then be used to identify the sample that each cell is from.
 Demultiplexing has already been performed using both [`Seurat::HTODemux`](https://satijalab.org/seurat/reference/htodemux) and [`DropletUtils::hashedDrops`](https://rdrr.io/github/MarioniLab/DropletUtils/man/hashedDrops.html). 
 For samples where corresponding bulk RNA-sequencing data is available, {ref}`genetic demultiplexing <processing_information:Genetic demultiplexing>` was also conducted. 
 The results from demultiplexing using these methods have been summarized and are present in the `colData` of the `SingleCellExperiment` object in the `_filtered.rds` file only. 
-The `hashedDrops_sampleid`, `HTODemux_sampleid`, and `vireo_sampleid` columns in the `colData` will identify which sample each cell belongs to in a given library, or if a confident call cannot be identified, will report `NA` for the specified demultiplexing method. 
+The `hashedDrops_sampleid`, `HTODemux_sampleid`, and `vireo_sampleid` columns in the `colData` report the sample called for each cell by the specified demultiplexing method.
+If a confident call was not made for a cell by the demultiplexing method, the column will have a value of `NA`. 
 For more information on how to access the full demultiplexing results, see {ref}`this description of demultiplexing results <sce_file_contents:demultiplexing results>`.
 
 If desired, the sample calls identified from demultiplexing can be used to separate the `SingleCellExperiment` object by sample for downstream analysis. 
