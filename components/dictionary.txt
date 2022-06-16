@@ -57,6 +57,7 @@ scRNA
 splici
 Srivastava
 Stegle
+Stoeckius
 subdiagnosis
 Tian
 transcriptome
