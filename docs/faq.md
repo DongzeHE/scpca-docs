@@ -59,6 +59,7 @@ Multiplexed samples refer to samples that have been combined together into a sin
 This means that a single library contains cells or nuclei that correspond to multiple samples. 
 Each sample has been tagged with a hashtag oligo (HTO) prior to mixing, and that HTO can be used to identify which cells or nuclei belong to which sample within a multiplexed library. 
 The libraries available for download on the portal have not been separated by sample (i.e. demultiplexed), and therefore contain data from multiple samples.  
+For more information on working with multiplexed samples, see the {ref}`special considerations for multiplexed samples section in getting started with an ScPCA dataset <getting_started:Special considerations for multiplexed samples>`. 
 
 ## Why are demultiplexed samples not available? 
 
