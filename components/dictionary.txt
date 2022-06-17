@@ -18,6 +18,7 @@ deconvolved
 demultiplex
 demultiplexed
 demultiplexing
+demux
 Dobin
 DropletUtils
 Ensembl
@@ -56,6 +57,7 @@ scRNA
 splici
 Srivastava
 Stegle
+Stoeckius
 subdiagnosis
 Tian
 transcriptome
