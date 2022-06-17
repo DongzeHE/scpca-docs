@@ -97,4 +97,4 @@ A full description of all files included in the download for spatial transcripto
 
 Every download also includes a single `spatial_metadata.tsv` file containing metadata for all libraries included in the download.
 
-_Coming Soon: Illustration of example download with spatial library_
+![sample download with spatial](images/spatial-download.png)
