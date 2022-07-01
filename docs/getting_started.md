@@ -162,15 +162,15 @@ Here are some resources that can be used to get you started working with `AnnDat
 - [Converting directly from R to Python](https://theislab.github.io/scanpy-in-R/#converting-from-r-to-python)
 - [Homepage for scanpy tutorials](https://scanpy.readthedocs.io/en/latest/tutorials.html)
 
-## Special considerations for multiplexed samples 
+## Special considerations for multiplexed samples
 
-If the dataset that you have downloaded contains samples that were multiplexed (i.e. cells from mutliple samples have been combined together into one library), then the steps to take after downloading will be a little different than for libraries that only contain cells corresponding to a single sample. 
+If the dataset that you have downloaded contains samples that were multiplexed (i.e. cells from multiple samples have been combined together into one library), then the steps to take after downloading will be a little different than for libraries that only contain cells corresponding to a single sample. 
 Here, multiplexed samples refer to samples that have been combined together into one library using cell hashing and then sequenced together. 
 This means that a single library contains cells or nuclei that correspond to multiple samples. 
 Each sample has been tagged with a hashtag oligo (HTO) prior to mixing, and that HTO can be used to identify which cells belong to which sample within a multiplexed library. 
 The libraries available for download on the portal have not been separated by sample (i.e. demultiplexed), and therefore contain data from multiple samples.  
 
-Libraries containing multiplexed samples can be initially processed using the same workflow described above including removal of [low quality cells](#quality-control), [normalization](#normalization), and [dimensionality reduction](#dimensionality-reduction). 
+Libraries containing multiplexed samples can be initially processed using the same workflow described above including removal of [low quality cells](#quality-control), [normalization](#normalization), and [dimensionality reduction](#dimensionality-reduction).
 Demultiplexing can then be used to identify the sample that each cell is from. 
 Demultiplexing has already been performed using both [`Seurat::HTODemux`](https://satijalab.org/seurat/reference/htodemux) and [`DropletUtils::hashedDrops`](https://rdrr.io/github/MarioniLab/DropletUtils/man/hashedDrops.html). 
 For samples where corresponding bulk RNA-sequencing data is available, {ref}`genetic demultiplexing <processing_information:Genetic demultiplexing>` was also conducted. 
