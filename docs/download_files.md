@@ -82,6 +82,15 @@ See the {ref}`Experiment metadata <sce_file_contents:experiment metadata>` secti
 For projects with bulk RNA-seq data, the `bulk_metadata.tsv` file will be included for project downloads.
 This file will contain fields equivalent to those found in the `single_cell_metadata.tsv` related to processing the sample, but will not contain patient or disease specific metadata (e.g. `age`, `sex`, `diagnosis`, `subdiagnosis`, `tissue_location`, or `disease_timing`).
 
+## Multiplexed libraries
+
+For multiplexed libraries, where multiple biological samples were combined via cellhashing or similar technology, the organization of the downloaded files and metadata is slightly different.
+
+For project downloads, the counts and QC files will be organized by the _set_ of samples that comprise each library, rather than in individual sample folders.
+These sample set folders are named with an ordered, comma-separated list of the sample ids for the libraries within, _e.g._, `SCPCS999990,SCPCS999991,SCPCS999992`.
+
+Because we do not perform demultiplexing to separate cells from multiplexed libraries into sample-specific count matrices, sample downloads from a project with multiplexed data will include all libraries that contain the sample of interest, but these libraries _will still contain cells from other samples_.
+
 ## Spatial transcriptomics libraries
 
 If a sample includes a library processed using spatial transcriptomics, the spatial transcriptomics output files will be available as a separate download from the single-cell/single-nuclei gene expression data.
@@ -100,3 +109,4 @@ A full description of all files included in the download for spatial transcripto
 Every download also includes a single `spatial_metadata.tsv` file containing metadata for all libraries included in the download.
 
 ![sample download with spatial](images/spatial-download.png)
+
