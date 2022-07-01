@@ -88,8 +88,13 @@ For multiplexed libraries, where multiple biological samples were combined via c
 
 For project downloads, the counts and QC files will be organized by the _set_ of samples that comprise each library, rather than in individual sample folders.
 These sample set folders are named with an ordered, comma-separated list of the sample ids for the libraries within, _e.g._, `SCPCS999990,SCPCS999991,SCPCS999992`.
+Bulk RNA-seq data, if present, will follow the [same format as for single-sample libraries](#download-folder-structure-for-project-downloads).
 
 Because we do not perform demultiplexing to separate cells from multiplexed libraries into sample-specific count matrices, sample downloads from a project with multiplexed data will include all libraries that contain the sample of interest, but these libraries _will still contain cells from other samples_.
+
+For more one the specific contents of multiplexed library `SingleCellExperiment` objects, see the {ref}`Additional SingleCellExperiment components for multiplexed libraries <sce_file_contents:additional singlecellexperiment components for multiplexed libraries>` section.
+
+The [metadata file](#metadata) for multiplexed libraries (`single_cell_metadata.tsv`) will have the same format as for individual samples, but each row will represent a particular sample/library pair, meaning that there may be multiple rows for each `scpca_library_id`, one for each `scpca_sample_id` within that library.
 
 ## Spatial transcriptomics libraries
 
