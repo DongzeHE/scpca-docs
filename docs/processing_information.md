@@ -108,8 +108,6 @@ For information on where the demultiplexing calls can be found, see {ref}`the se
 
 ## Spatial transcriptomics
 
-**_Data Available Soon_**
-
 ### Mapping and quantification using Space Ranger
 
 Processing spatial transcriptomics libraries requires two steps - gene expression quantification and tissue detection.
