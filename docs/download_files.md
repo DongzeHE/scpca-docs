@@ -19,7 +19,7 @@ Every download also includes a single `single_cell_metadata.tsv` file containing
 The folder structure within the zip file is determined by whether individual samples or all samples associated with a project are selected for download.
 
 ## Download folder structure for project downloads:
-![project download folder](images/docs-downloads-project.png)
+![project download folder](images/project-download-folder.png)
 
 If a project contains bulk RNA-seq data, two tab-separated value files, `bulk_quant.tsv` and `bulk_metadata.tsv`, will be included in the download.
 The `bulk_quant.tsv` file contains a gene by sample matrix (each row a gene, each column a sample) containing raw gene expression counts quantified by Salmon.
@@ -28,7 +28,7 @@ The `bulk_metadata.tsv` file contains associated metadata for all samples with b
 See also {ref}`processing bulk RNA samples <processing_information:Bulk RNA samples>`.
 
 ## Download folder structure for individual sample downloads:
-![sample download folder](images/docs-downloads-sample.png)
+![sample download folder](images/sample-download-folder.png)
 
 Note that if a sample selected for download contains a spatial transcriptomics library, the files included will be different than pictured above.
 See the [description of the Spatial transcriptomics output section below](#spatial-transcriptomics-libraries).
@@ -90,6 +90,8 @@ For project downloads, the counts and QC files will be organized by the _set_ of
 These sample set folders are named with an underscore-separated list of the sample ids for the libraries within, _e.g._, `SCPCS999990_SCPCS999991_SCPCS999992`.
 Bulk RNA-seq data, if present, will follow the [same format as for single-sample libraries](#download-folder-structure-for-project-downloads).
 
+![multiplexed project download folder](images/multiplexed-download-folder.png)
+
 Because we do not perform demultiplexing to separate cells from multiplexed libraries into sample-specific count matrices, sample downloads from a project with multiplexed data will include all libraries that contain the sample of interest, but these libraries _will still contain cells from other samples_.
 
 For more one the specific contents of multiplexed library `SingleCellExperiment` objects, see the {ref}`Additional SingleCellExperiment components for multiplexed libraries <sce_file_contents:additional singlecellexperiment components for multiplexed libraries>` section.
@@ -113,5 +115,5 @@ A full description of all files included in the download for spatial transcripto
 
 Every download also includes a single `spatial_metadata.tsv` file containing metadata for all libraries included in the download.
 
-![sample download with spatial](images/spatial-download.png)
+![sample download with spatial](images/spatial-download-folder.png)
 
