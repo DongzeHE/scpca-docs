@@ -55,7 +55,7 @@ The included QC report serves as a general overview of each library, including p
 
 ## Metadata
 
-The `single_cell_metadata.tsv` file is a comma-separated table with one row per library and the following columns.
+The `single_cell_metadata.tsv` file is a tab-separated table with one row per library and the following columns.
 
 | column_id       | contents                                                       |
 |-----------------|----------------------------------------------------------------|
@@ -87,7 +87,7 @@ This file will contain fields equivalent to those found in the `single_cell_meta
 For multiplexed libraries, where multiple biological samples were combined via cellhashing or similar technology, the organization of the downloaded files and metadata is slightly different.
 
 For project downloads, the counts and QC files will be organized by the _set_ of samples that comprise each library, rather than in individual sample folders.
-These sample set folders are named with an ordered, comma-separated list of the sample ids for the libraries within, _e.g._, `SCPCS999990,SCPCS999991,SCPCS999992`.
+These sample set folders are named with an underscore-separated list of the sample ids for the libraries within, _e.g._, `SCPCS999990_SCPCS999991_SCPCS999992`.
 Bulk RNA-seq data, if present, will follow the [same format as for single-sample libraries](#download-folder-structure-for-project-downloads).
 
 Because we do not perform demultiplexing to separate cells from multiplexed libraries into sample-specific count matrices, sample downloads from a project with multiplexed data will include all libraries that contain the sample of interest, but these libraries _will still contain cells from other samples_.
