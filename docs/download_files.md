@@ -5,7 +5,7 @@ These files are delivered as a zip file.
 
 For all downloads, sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
 Most samples only have one library that has been sequenced.
-For multiplexed libraries, the sample folder name will be a comma-separated list of all samples found in the library files that the folder contains.
+For [multiplexed libraries](#multiplexed-libraries), the sample folder name will be an underscore-separated list of all samples found in the library files that the folder contains.
 
 See the {ref}`FAQ section about samples and libraries <faq:What is the difference between samples and libraries?>` for more information.
 
@@ -88,13 +88,13 @@ For multiplexed libraries, where multiple biological samples were combined via c
 
 For project downloads, the counts and QC files will be organized by the _set_ of samples that comprise each library, rather than in individual sample folders.
 These sample set folders are named with an underscore-separated list of the sample ids for the libraries within, _e.g._, `SCPCS999990_SCPCS999991_SCPCS999992`.
-Bulk RNA-seq data, if present, will follow the [same format as for single-sample libraries](#download-folder-structure-for-project-downloads).
+Bulk RNA-seq data, if present, will follow the [same format as bulk RNA-seq for single-sample libraries](#download-folder-structure-for-project-downloads).
 
 ![multiplexed project download folder](images/multiplexed-download-folder.png)
 
 Because we do not perform demultiplexing to separate cells from multiplexed libraries into sample-specific count matrices, sample downloads from a project with multiplexed data will include all libraries that contain the sample of interest, but these libraries _will still contain cells from other samples_.
 
-For more one the specific contents of multiplexed library `SingleCellExperiment` objects, see the {ref}`Additional SingleCellExperiment components for multiplexed libraries <sce_file_contents:additional singlecellexperiment components for multiplexed libraries>` section.
+For more on the specific contents of multiplexed library `SingleCellExperiment` objects, see the {ref}`Additional SingleCellExperiment components for multiplexed libraries <sce_file_contents:additional singlecellexperiment components for multiplexed libraries>` section.
 
 The [metadata file](#metadata) for multiplexed libraries (`single_cell_metadata.tsv`) will have the same format as for individual samples, but each row will represent a particular sample/library pair, meaning that there may be multiple rows for each `scpca_library_id`, one for each `scpca_sample_id` within that library.
 
