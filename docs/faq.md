@@ -38,7 +38,7 @@ scpca_sample <- readRDS("SCPCL000000_filtered.rds")
 A sample ID, labeled as `scpca_sample_id` and indicated by the prefix `SCPCS`, represents a unique tissue that was collected from a participant.
 
 The library ID, labeled as `scpca_library_id` and indicated by the prefix `SCPCL`, represents a single set of cells from a tissue sample, or a particular combination of samples in the case of multiplexed libraries.
-For single-cell or single-nuclei experiments, this will be the result of emulsion and droplet generation using the 10X Genomics workflow, potentially including both RNA-seq, CITE-seq and cell hashing sequencing libraries. 
+For single-cell or single-nuclei experiments, this will be the result of emulsion and droplet generation using the 10X Genomics workflow, potentially including both RNA-seq, CITE-seq and cell hashing sequencing libraries.
 Multiplexed libraries will have more than one sample ID corresponding to each library ID.
 
 In most cases, each sample will only have one corresponding single-cell or single-nuclei library, and may also have an associated bulk RNA-seq library.
@@ -53,34 +53,34 @@ However, for most participants, only a single sample was collected and submitted
 Because of this, many of the samples do not have a separate participant ID.
 Participant IDs are only present for samples that were derived from the same participant as at least one other sample.
 
-## What is a multiplexed sample? 
+## What is a multiplexed sample?
 
-Multiplexed samples refer to samples that have been combined together into a single library using cell hashing ([Stoeckius _et al._ 2018](https://doi.org/10.1186/s13059-018-1603-1)) or a related technology and then sequenced together. 
-This means that a single library contains cells or nuclei that correspond to multiple samples. 
-Each sample has been tagged with a hashtag oligo (HTO) prior to mixing, and that HTO can be used to identify which cells or nuclei belong to which sample within a multiplexed library. 
-The libraries available for download on the portal have not been separated by sample (i.e. demultiplexed), and therefore contain data from multiple samples.  
-For more information on working with multiplexed samples, see the {ref}`special considerations for multiplexed samples section in getting started with an ScPCA dataset <getting_started:Special considerations for multiplexed samples>`. 
+Multiplexed samples refer to samples that have been combined together into a single library using cell hashing ([Stoeckius _et al._ 2018](https://doi.org/10.1186/s13059-018-1603-1)) or a related technology and then sequenced together.
+This means that a single library contains cells or nuclei that correspond to multiple samples.
+Each sample has been tagged with a hashtag oligo (HTO) prior to mixing, and that HTO can be used to identify which cells or nuclei belong to which sample within a multiplexed library.
+The libraries available for download on the portal have not been separated by sample (i.e. demultiplexed), and therefore contain data from multiple samples.
+For more information on working with multiplexed samples, see the {ref}`special considerations for multiplexed samples section in getting started with an ScPCA dataset <getting_started:Special considerations for multiplexed samples>`.
 
-## Why are demultiplexed samples not available? 
+## Why are demultiplexed samples not available?
 
-Downloading a multiplexed sample on the portal will result in obtaining the gene expression files corresponding to the library containing the chosen multiplexed sample and any other samples that were multiplexed with that chosen sample. 
+Downloading a multiplexed sample on the portal will result in obtaining the gene expression files corresponding to the library containing the chosen multiplexed sample and any other samples that were multiplexed with that chosen sample.
 This means that users will receive the gene expression data for all samples that were combined into a given library and will have to separate any cells corresponding to the sample of interest before proceeding with downstream analysis.
 
-We have applied multiple {ref}`demultiplexing methods <processing_information:hto demultiplexing>` to multiplexed libraries and noticed that these demultiplexing methods can vary both in calls and confidence levels assigned. 
+We have applied multiple {ref}`demultiplexing methods <processing_information:hto demultiplexing>` to multiplexed libraries and noticed that these demultiplexing methods can vary both in calls and confidence levels assigned.
 [Here we have performed some exploratory analysis comparing demultiplexing methods within a single multiplexed library](https://htmlpreview.github.io/?https://github.com/AlexsLemonade/alsf-scpca/blob/main/analysis/quantifier-comparisons/15-demux-comparisons.nb.html).
-Because of the inconsistency across demultiplexing methods used, the choice of demultiplexing method to use is up to the discretion of the user. 
-Rather than separating out each sample, the sample calls and any associated statistics regarding sample calls for multiple demultiplexing methods can be found in the `_filtered.rds` file for each multiplexed library. 
+Because of the inconsistency across demultiplexing methods used, the choice of demultiplexing method to use is up to the discretion of the user.
+Rather than separating out each sample, the sample calls and any associated statistics regarding sample calls for multiple demultiplexing methods can be found in the `_filtered.rds` file for each multiplexed library.
 See the {ref}`demultiplexing results section <sce_file_contents:demultiplexing results>` for instructions on how to access the demultiplexing results in the `SingleCellExperiment` objects for multiplexed libraries.
 We also include the Hash Tag Oligo counts matrix to allow demultiplexing using other available methods.
 
-## What are estimated demux cell counts? 
+## What are estimated demux cell counts?
 
-Estimated demux cell counts are provided for multiplexed libraries and refer to the estimated cell counts for each sample that is present in the library. 
+Estimated demux cell counts are provided for multiplexed libraries and refer to the estimated cell counts for each sample that is present in the library.
 In order to provide an estimate of the number of cells or nuclei that are present in a given sample before download, we use the estimated number of cells per sample identified by one of the tested demultiplexing methods.
-However, these estimated demux cell counts should only be considered a guide; we encourage users to investigate the data on their own and make their own decisions on the best demultiplexing method to use for their research purposes. 
+However, these estimated demux cell counts should only be considered a guide; we encourage users to investigate the data on their own and make their own decisions on the best demultiplexing method to use for their research purposes.
 
-Note that not all cells in a library are included in the estimated demux cell count, as some cells may not have been assigned to a sample. 
-Estimated demux cell counts are only reported for multiplexed samples and are not reported for single-cell or single-nuclei samples that are not multiplexed. 
+Note that not all cells in a library are included in the estimated demux cell count, as some cells may not have been assigned to a sample.
+Estimated demux cell counts are only reported for multiplexed samples and are not reported for single-cell or single-nuclei samples that are not multiplexed.
 For more about demultiplexing, see the section on {ref}`processing multiplexed libraries <processing_information:multiplexed libraries>`.
 
 ## What genes are included in the reference transcriptome?

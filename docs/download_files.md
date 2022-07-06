@@ -5,7 +5,7 @@ These files are delivered as a zip file.
 
 For all downloads, sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
 Most samples only have one library that has been sequenced.
-For [multiplexed libraries](#multiplexed-libraries), the sample folder name will be an underscore-separated list of all samples found in the library files that the folder contains.
+For [multiplexed sample libraries](#multiplexed-sample-libraries), the sample folder name will be an underscore-separated list of all samples found in the library files that the folder contains.
 
 See the {ref}`FAQ section about samples and libraries <faq:What is the difference between samples and libraries?>` for more information.
 
@@ -82,9 +82,9 @@ See the {ref}`Experiment metadata <sce_file_contents:experiment metadata>` secti
 For projects with bulk RNA-seq data, the `bulk_metadata.tsv` file will be included for project downloads.
 This file will contain fields equivalent to those found in the `single_cell_metadata.tsv` related to processing the sample, but will not contain patient or disease specific metadata (e.g. `age`, `sex`, `diagnosis`, `subdiagnosis`, `tissue_location`, or `disease_timing`).
 
-## Multiplexed libraries
+## Multiplexed sample libraries
 
-For multiplexed libraries, where multiple biological samples were combined via cellhashing or similar technology, the organization of the downloaded files and metadata is slightly different.
+For libraries where multiple biological samples were combined via cellhashing or similar technology (see the {ref}`FAQ section about multiplexed samples <faq:What is a multiplexed sample?>`), the organization of the downloaded files and metadata is slightly different.
 
 For project downloads, the counts and QC files will be organized by the _set_ of samples that comprise each library, rather than in individual sample folders.
 These sample set folders are named with an underscore-separated list of the sample ids for the libraries within, _e.g._, `SCPCS999990_SCPCS999991_SCPCS999992`.
