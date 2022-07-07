@@ -10,6 +10,7 @@ benchmarking
 Bioinformatics
 cDNA
 cellhash
+cellhashing
 confounders
 Danecek
 de
@@ -34,7 +35,7 @@ hexamer
 HBC
 Hemberg
 HTO
-HTOdemux
+HTODemux
 HTOs
 Hippen
 intronic
@@ -54,6 +55,7 @@ scpca
 ScPCA
 scpcaTools
 scRNA
+SingleCellExperiment
 splici
 Srivastava
 Stegle

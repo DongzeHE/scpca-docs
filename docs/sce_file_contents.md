@@ -96,7 +96,7 @@ expt_metadata <- metadata(sce)
 | `filtering_method`  | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`. Only present for `filtered` objects |
 | `umi_cutoff`        | The minimum UMI count per cell used as a threshold for filtering. Only present for `filtered` objects where the `filtering_method` is `UMI cutoff` |
 
-## Additional `SingleCellExperiment` components for CITE-seq libraries
+## Additional SingleCellExperiment components for CITE-seq libraries
 
 CITE-seq data, when present, is included within the `SingleCellExperiment` as an "Alternative Experiment" named `"CITEseq"` , which can be accessed with the following command:
 
@@ -134,7 +134,7 @@ Finally, additional metadata for the CITE-seq data processing can be found in th
 citeseq_metadata <- metadata(altExp(sce, "CITEseq"))
 ```
 
-## Additional `SingleCellExperiment` components for multiplexed libraries
+## Additional SingleCellExperiment components for multiplexed libraries
 
 Multiplexed libraries will contain a number of additional components and fields.
 

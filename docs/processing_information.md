@@ -88,7 +88,7 @@ When cells were [filtered based on RNA-seq content](#filtering-cells) after quan
 
 ### HTO demultiplexing
 
-We performed HTO demultiplexing using both [DropletUtils::hashedDrops](https://rdrr.io/github/MarioniLab/DropletUtils/man/hashedDrops.html) and [Seurat::HTOdemux](https://rdrr.io/github/satijalab/seurat/man/HTODemux.html) only on the _filtered_ cells, using default parameters for each.
+We performed HTO demultiplexing using both [DropletUtils::hashedDrops](https://rdrr.io/github/MarioniLab/DropletUtils/man/hashedDrops.html) and [Seurat::HTODemux](https://rdrr.io/github/satijalab/seurat/man/HTODemux.html) only on the _filtered_ cells, using default parameters for each.
 
 We report the demultiplexed sample calls and associated statistics for both algorithms, but do not separate the multiplexed library into individual samples.
 
