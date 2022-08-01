@@ -73,8 +73,6 @@ When cells were [filtered based on RNA-seq content](#filtering-cells) after quan
 
 ## Multiplexed libraries
 
-**_Data Available Soon_**
-
 Multiplexed libraries, or libraries with cells or nuclei from more than one biological sample, were processed to allow demultiplexing using both hashtag oligonucleotide (HTO) results and genotype data.
 
 ### Hashtag oligonucleotide (HTO) quantification
