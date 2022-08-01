@@ -73,8 +73,6 @@ When cells were [filtered based on RNA-seq content](#filtering-cells) after quan
 
 ## Multiplexed libraries
 
-**_Data Available Soon_**
-
 Multiplexed libraries, or libraries with cells or nuclei from more than one biological sample, were processed to allow demultiplexing using both hashtag oligonucleotide (HTO) results and genotype data.
 
 ### Hashtag oligonucleotide (HTO) quantification
@@ -83,7 +81,7 @@ HTO reads were also quantified using  [`salmon alevin`](https://salmon.readthedo
 Reference indices were constructed from the submitter-provided list of HTO sequences corresponding to each library using the `--features` flag of `salmon index`.
 Mapping to these indices followed the same procedures as for RNA-seq data, including mapping with [selective alignment](#selective-alignment) and subsequent [quantification via alevin-fry](#alevin-fry-parameters).
 
-As with the [CITE-seq data](#combining-cite-counts-with-rna-counts), we retained all cells with RNA-seq data, setting HTO counts to zero for any missing cell barcodes. 
+As with the [CITE-seq data](#combining-cite-counts-with-rna-counts), we retained all cells with RNA-seq data, setting HTO counts to zero for any missing cell barcodes.
 When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the HTO count matrix was filtered to match.
 
 ### HTO demultiplexing
@@ -104,7 +102,7 @@ For multiplex libraries where bulk RNA-seq data is available for the individual 
 
 The genetic demultiplexing calls are reported alongside HTO demultiplexing results for each library, but we again do not separate the individual samples.
 For information on where the demultiplexing calls can be found, see {ref}`the section on demultiplexing results in the  SingleCellExperiment file contents. <sce_file_contents:demultiplexing results>`
- 
+
 
 ## Spatial transcriptomics
 
