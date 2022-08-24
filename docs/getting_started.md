@@ -3,7 +3,7 @@
 This section provides information on next steps you might take after downloading a dataset from the ScPCA portal.
 
 We have also provided a workflow that can be used to perform initial filtering, dimensionality reduction, normalization, and clustering on single-cell and single-nuclei samples in parallel.
-This workflow and more resources for processing single-cell datasets can be found on our Github in the [`scpca-downstream-analyses` repository](https://github.com/AlexsLemonade/scpca-downstream-analyses).
+This workflow and more resources for processing single-cell and single-nuclei datasets can be found on our Github in the [`scpca-downstream-analyses` repository](https://github.com/AlexsLemonade/scpca-downstream-analyses).
 
 ## Importing ScPCA data into R
 
