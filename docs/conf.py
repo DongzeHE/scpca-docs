@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = "ScPCA Portal Docs"
-copyright = "2021, The Childhood Cancer Data Lab"
+copyright = "2022, The Childhood Cancer Data Lab"
 author = "The Childhood Cancer Data Lab"
 
 # The full version, including alpha/beta/rc tags
