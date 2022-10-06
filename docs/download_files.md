@@ -39,7 +39,7 @@ Single-cell or single-nuclei gene expression data is provided in two forms - as 
 
 The unfiltered counts file, `SCPCL000000_unfiltered.rds`, is an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
 Within the `SingleCellExperiment` object is the counts matrix, where the rows correspond to genes or features and the columns correspond to cell barcodes.
-Here, all potential cell barcodes that are identified after running {ref}`Alevin-fry <processing_information:mapping and quantification using alevin-fry>` are included in the counts matrix.
+Here, all potential cell barcodes that are identified after running {ref}`alevin-fry <processing_information:mapping and quantification using alevin-fry>` are included in the counts matrix.
 The object also includes summary statistics for each cell barcode and gene, as well as metadata about that particular library, such as the reference index and software versions used for mapping and quantification.
 
 The filtered counts file, `SCPCL000000_filtered.rds` is also an RDS file containing a `SingleCellExperiment` object with the same structure as above.
@@ -59,20 +59,20 @@ The `single_cell_metadata.tsv` file is a tab-separated table with one row per li
 
 | column_id       | contents                                                       |
 |-----------------|----------------------------------------------------------------|
-| scpca_sample_id | Sample ID in the form `SCPCS000000`                            |
-| scpca_library_id | Library ID in the form `SCPCL000000`                          |
-| seq_unit        | `cell` for single-cell samples or `nucleus` for single-nucleus samples |
-| technology      | 10X kit used to process library                                |
-| filtered_cell_count | Number of cells after filtering with `emptyDrops`          |
-| submitter_id    | Original sample identifier from submitter                      |
-| participant_id  | Original participant id, if there are multiple samples from the same participant                                                                        |
-| submitter       | Submitter name/id                                              |
-| age             | Age at time sample was obtained                                |
-| sex             | Sex of patient that the sample was obtained from               |
-| diagnosis       | Tumor type                                                     |
-| subdiagnosis    | Subcategory of diagnosis or mutation status (if applicable)    |
-| tissue_location | Where in the body the tumor sample was located                 |
-| disease_timing  | What stage of disease was the sample obtained? At diagnosis or recurrence? |
+| `scpca_sample_id` | Sample ID in the form `SCPCS000000`                            |
+| `scpca_library_id` | Library ID in the form `SCPCL000000`                          |
+| `seq_unit`        | `cell` for single-cell samples or `nucleus` for single-nucleus samples |
+| `technology`      | 10X kit used to process library                                |
+| `filtered_cell_count` | Number of cells after filtering with `emptyDrops`          |
+| `submitter_id`    | Original sample identifier from submitter                      |
+| `participant_id`  | Original participant id, if there are multiple samples from the same participant                                                                        |
+| `submitter`       | Submitter name/id                                              |
+| `age`             | Age at time sample was obtained                                |
+| `sex`             | Sex of patient that the sample was obtained from               |
+| `diagnosis`       | Tumor type                                                     |
+| `subdiagnosis`    | Subcategory of diagnosis or mutation status (if applicable)    |
+| `tissue_location` | Where in the body the tumor sample was located                 |
+| `disease_timing`  | What stage of disease was the sample obtained? At diagnosis or recurrence? |
 
 Additional metadata may also be included, specific to the disease type and experimental design of the project.
 Examples of this include treatment or outcome.
