@@ -17,7 +17,7 @@ We also compared the mean gene expression reported for each gene by both methods
 ![](https://github.com/AlexsLemonade/alsf-scpca/blob/c0c2442d7242f6e06a5ac6d1e45bd1951780da14/analysis/docs-figures/plots/gene_exp_correlation.png?raw=true)
 
 Recent reports from others support our findings.
-[He _et al._ (2021)](https://doi.org/10.1101/2021.06.29.450377)) demonstrated that Alevin-fry can process single-cell and single-nuclei data more quickly and efficiently then other available methods, while also decreasing the false positive rate of gene detection that is commonly seen in methods that utilize transcriptome alignment.
+[He _et al._ (2021)](https://doi.org/10.1101/2021.06.29.450377) demonstrated that `alevin-fry` can process single-cell and single-nuclei data more quickly and efficiently then other available methods, while also decreasing the false positive rate of gene detection that is commonly seen in methods that utilize transcriptome alignment.
 [You _et al._ (2021)](https://doi.org/10.1101/2021.06.17.448895) and [Tian _et al._ (2019)](https://doi.org/10.1038/s41592-019-0425-8) have also noted that results from different pre-processing workflows for single-cell RNA-sequencing analysis tend to result in compatible results downstream.
 
 ## How do I use the provided RDS files in R?
@@ -68,7 +68,7 @@ This means that users will receive the gene expression data for all samples that
 
 We have applied multiple {ref}`demultiplexing methods <processing_information:hto demultiplexing>` to multiplexed libraries and noticed that these demultiplexing methods can vary both in calls and confidence levels assigned.
 [Here we have performed some exploratory analysis comparing demultiplexing methods within a single multiplexed library](https://htmlpreview.github.io/?https://github.com/AlexsLemonade/alsf-scpca/blob/main/analysis/quantifier-comparisons/15-demux-comparisons.nb.html).
-Because of the inconsistency across demultiplexing methods used, the choice of demultiplexing method to use is up to the discretion of the user.
+Because of the inconsistency across demultiplexing methods used, the choice of demultiplexing method to use is at the discretion of the user.
 Rather than separating out each sample, the sample calls and any associated statistics regarding sample calls for multiple demultiplexing methods can be found in the `_filtered.rds` file for each multiplexed library.
 See the {ref}`demultiplexing results section <sce_file_contents:demultiplexing results>` for instructions on how to access the demultiplexing results in the `SingleCellExperiment` objects for multiplexed libraries.
 We also include the Hash Tag Oligo counts matrix to allow demultiplexing using other available methods.
@@ -85,7 +85,7 @@ For more about demultiplexing, see the section on {ref}`processing multiplexed l
 
 ## What genes are included in the reference transcriptome?
 
-The {ref}`reference transcriptome index <processing_information:reference transcriptome index>` that was used for alignment was constructed by extracting both spliced cDNA and intronic regions from the primary genome assembly GRCh38, Ensembl database version 104 ([see the code used to generate the reference transcriptome](https://github.com/AlexsLemonade/scpca-nf/blob/main/bin/make_splici_fasta.R)).
+The {ref}`reference transcriptome index <processing_information:reference transcriptome index>` that was used for alignment was constructed by extracting both spliced cDNA and intronic regions from the primary genome assembly GRCh38, Ensembl database version 104 ([see the code used to generate the reference transcriptome](https://github.com/AlexsLemonade/scpca-nf/blob/main/bin/make_reference_fasta.R)).
 The resulting reference transcriptome index contains 60,319 genes.
 In addition to protein-coding genes, this list of genes includes pseudogenes and non-coding RNA.
 The gene expression data files available for download report all possible genes present in the reference transcriptome, even if not detected in a given library.

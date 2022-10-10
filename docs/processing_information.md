@@ -12,8 +12,8 @@ In brief, we utilized [selective alignment](#selective-alignment) to the [`splic
 For all samples, we aligned FASTQ files to a reference transcriptome index referred to as the `splici` index.
 The [`splici` index](https://combine-lab.github.io/alevin-fry-tutorials/2021/improving-txome-specificity/) is built using transcripts from both spliced cDNA and intronic regions.
 Inclusion of intronic regions in the index used for alignment allowed us to capture both reads from mature, spliced cDNA and nascent, unspliced cDNA.
-Alignment of RNA-seq data to an index containing intronic regions has been shown to reduce spuriously detected genes ([He _et al._ 2021](https://doi.org/10.1101/2021.06.29.450377), [Kaminow _et al._ 2021](https://www.biorxiv.org/content/10.1101/2021.05.05.442755v1.full#sec-5))
-In our hands, we have found that use of the `splici` index led to a more comparable distribution of unique genes found per cell to Cell Ranger than use of an index obtained from spliced cDNA transcripts only.
+Alignment of RNA-seq data to an index containing intronic regions has been shown to reduce spuriously detected genes ([He _et al._ 2021](https://doi.org/10.1101/2021.06.29.450377), [Kaminow _et al._ 2021](https://www.biorxiv.org/content/10.1101/2021.05.05.442755v1.full#sec-5)).
+In our hands, we have found that use of the `splici` index led to a more comparable distribution of unique genes found per cell to Cell Ranger than did use of an index obtained from spliced cDNA transcripts only.
 
 #### Selective alignment
 
@@ -48,8 +48,8 @@ After combining read counts, values are rounded to integer values.
 #### Filtering cells
 
 In addition to an unfiltered counts matrix, we provide a matrix filtered to only cell barcodes from droplets that are likely to include true cells.
-To do this we used [`DropletUtils::emptyDropsCellRanger()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/emptyDropsCellRanger.html), a function that estimates the profile of cells containing ambient RNA and tests the likelihood of all other droplets as differing from the ambient profile [Lun _et al._ 2019](https://doi.org/10.1186/s13059-019-1662-y).
-This function more closely mimics the filtering performed in Cell Ranger than its predecessor [`DropletUtils::emptyDrops()`](https://www.bioconductor.org/packages/devel/bioc/vignettes/DropletUtils/inst/doc/DropletUtils.html#detecting-empty-droplets).
+To do this we used [`DropletUtils::emptyDropsCellRanger()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/emptyDropsCellRanger.html), a function that estimates the profile of cells containing ambient RNA and tests the likelihood of all other droplets as differing from the ambient profile ([Lun _et al._ 2019](https://doi.org/10.1186/s13059-019-1662-y)).
+This function more closely mimics the filtering performed in Cell Ranger than does its predecessor [`DropletUtils::emptyDrops()`](https://www.bioconductor.org/packages/devel/bioc/vignettes/DropletUtils/inst/doc/DropletUtils.html#detecting-empty-droplets).
 We consider droplets with an FDR less than or equal to 0.01 to be cell-containing droplets.
 Only cells that pass this FDR threshold are included in the filtered counts matrix.
 
@@ -86,7 +86,7 @@ When cells were [filtered based on RNA-seq content](#filtering-cells) after quan
 
 ### HTO demultiplexing
 
-We performed HTO demultiplexing using both [DropletUtils::hashedDrops](https://rdrr.io/github/MarioniLab/DropletUtils/man/hashedDrops.html) and [Seurat::HTODemux](https://rdrr.io/github/satijalab/seurat/man/HTODemux.html) only on the _filtered_ cells, using default parameters for each.
+We performed HTO demultiplexing using both [`DropletUtils::hashedDrops()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/hashedDrops.html) and [`Seurat::HTODemux()`](https://rdrr.io/github/satijalab/seurat/man/HTODemux.html) only on the _filtered_ cells, using default parameters for each.
 
 We report the demultiplexed sample calls and associated statistics for both algorithms, but do not separate the multiplexed library into individual samples.
 
@@ -111,14 +111,14 @@ For information on where the demultiplexing calls can be found, see {ref}`the se
 Processing spatial transcriptomics libraries requires two steps - gene expression quantification and tissue detection.
 In the absence of independent tissue detection methods to use with Alevin-fry, we used [10X Genomics' Space Ranger](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/what-is-space-ranger) to obtain both gene expression and spatial information.
 [`spaceranger count`](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/using/count) takes FASTQ files and a microscopic slide image as input and performs alignment, quantification, and tissue detection for each spot.
-In contrast to Alevin-fry, which maps reads to a [reference transcriptome index](#reference-transcriptome-index), Space Ranger aligns transcript reads to the reference genome using STAR ([Dobin _et al._ 2012](https://doi.org/10.1093/bioinformatics/bts635)).
+In contrast to `alevin-fry`, which maps reads to a [reference transcriptome index](#reference-transcriptome-index), Space Ranger aligns transcript reads to the reference genome using `STAR` ([Dobin _et al._ 2012](https://doi.org/10.1093/bioinformatics/bts635)).
 See the 10X documentation for more information on how Space Ranger [quantifies gene expression](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/algorithms/overview) and [detects tissue](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/algorithms/imaging).
 
 ## Bulk RNA samples
 
 ### Preprocessing with fastp
 
-Prior to quantifying gene expression for bulk RNA-seq samples, FASTQ files are pre-processed using [`fastp`](https://github.com/OpenGene/fastp) to perform adapter trimming, quality filtering, and length filtering.
+Prior to quantifying gene expression for bulk RNA-seq samples, FASTQ files were pre-processed using [`fastp`](https://github.com/OpenGene/fastp) to perform adapter trimming, quality filtering, and length filtering.
 For length filtering, trimmed reads shorter than 20 basepairs were removed by using the `--length_required 20` option.
 All other filtering and trimming was performed using the default strategies enabled in `fastp`.
 

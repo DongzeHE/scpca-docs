@@ -34,7 +34,7 @@ Cell metrics calculated from the RNA-seq expression data are stored as a `DataFr
 cell_metrics <- colData(sce)
 ```
 
-The following per-cell data columns are included for each cell, calculated using the [`scuttle::addPerCellQCMetrics`](https://rdrr.io/github/LTLA/scuttle/man/addPerCellQCMetrics.html) function.
+The following per-cell data columns are included for each cell, calculated using the [`scuttle::addPerCellQCMetrics()`](https://rdrr.io/github/LTLA/scuttle/man/addPerCellQCMetrics.html) function.
 
 | Column name             | Contents                                                                                                                                                                                      |
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -145,7 +145,7 @@ altExp(sce, "cellhash")
 ```
 
 Within this, the main data matrix is again found in the `counts` assay, with each column corresponding to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponding to a hashtag oligo (HTO).
-Column names are again cell barcode sequences and row names the HTO ids for all assayed HTOs. 
+Column names are again cell barcode sequences and row names the HTO ids for all assayed HTOs.
 
 The following additional per-cell data columns for the cellhash data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#cell-metrics)).
 
@@ -173,22 +173,22 @@ Note that in the unfiltered `SingleCellExperiment` objects, this may include has
 
 ### Demultiplexing results
 
-Demultiplexing results are included only in the `_filtered.rds` files. 
+Demultiplexing results are included only in the `_filtered.rds` files.
 The demultiplexing methods applied for these files are as described in the {ref}`multiplex data processing section <processing_information:Multiplexed libraries>`.
 
 Demultiplexing analysis adds the following additional fields to the `colData(sce)` data frame:
 
 | Column name | Contents                                                       |
 | ----------- | -------------------------------------------------------------- |
-| `hashedDrops_sampleid`  | Most likely sample as called be `DropletUtils::hashedDrops` 
+| `hashedDrops_sampleid`  | Most likely sample as called be `DropletUtils::hashedDrops`
 | `HTODemux_sampleid`  | Most likely sample as called be `Seurat::HTODemux`
-| `vireo_sampleid`  | Most likely sample as called by `vireo` (genetic demultiplexing)        
+| `vireo_sampleid`  | Most likely sample as called by `vireo` (genetic demultiplexing)
 
 ### Additional demultiplexing statistics
 
 Each demultiplexing method generates additional statistics specific to the method that you may wish to access, including probabilities, alternative calls, and potential doublet information.
 
-For methods that rely on the HTO data, these statistics are found in the `colData(altExp(sce, "cellhash"))` data frame; 
+For methods that rely on the HTO data, these statistics are found in the `colData(altExp(sce, "cellhash"))` data frame;
 `DropletUtils::hashedDrops` statistics have the prefix `hashedDrops_` and `Seurat::HTODemux` statistics have the prefix `HTODemux`.
 
 Genetic demultiplexing statistics are found in the main `colData(sce)` data frame, with the prefix `vireo_`.
