@@ -5,7 +5,9 @@ name: Spell check Markdown files
 # Pull requests to master only.
 on:
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
+      - development
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -18,7 +20,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v2
-          
+
       - name: Install packages
         run: Rscript --vanilla -e "install.packages('spelling', repos = c(CRAN = 'https://cloud.r-project.org'))"
 
