@@ -69,8 +69,6 @@ The log-normalized counts are used to model variance of each gene prior to selec
 The HVGs are then used as input to principal component analysis, and the top 50 principal components are selected.
 Finally, the principal components are used to calculate the [UMAP (Uniform Manifold Approximation and Projection)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#uniform-manifold-approximation-and-projection) embeddings.
 
-#### Normalization and dimensionality reduction
-
 ## CITE-seq quantification
 
 CITE-seq libraries with reads from antibody-derived tags (ADTs) were also quantified using  [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/), rounded to integer values.
