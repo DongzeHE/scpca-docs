@@ -58,7 +58,7 @@ For these libraries, only droplets containing at least 100 UMI are included in t
 
 ### Processed gene expression data
 
-In addition to the raw gene expression data, we also provide a `_processed.rds` file contianing a `SingleCellExperiment` object with the filtered, normalized counts matrix and embeddings from dimensionality reduction.
+In addition to the raw gene expression data, we also provide a `_processed.rds` file containing a `SingleCellExperiment` object with the filtered, normalized counts matrix and embeddings from dimensionality reduction.
 
 Prior to normalization, low-quality cells are removed from the gene by cell counts matrix.
 To predict low-quality cells, we use [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected.

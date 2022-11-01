@@ -22,6 +22,7 @@ demultiplexing
 demux
 Dobin
 DropletUtils
+embeddings
 Ensembl
 et
 fastp
@@ -38,9 +39,12 @@ HTO
 HTODemux
 HTOs
 Hippen
+HVG
+HVGs
 intronic
 introns
 Kaminow
+Marioni
 Pearson
 pre
 pseudogenes
