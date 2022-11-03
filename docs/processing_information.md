@@ -56,6 +56,19 @@ Only cells that pass this FDR threshold are included in the filtered counts matr
 For some libraries, `DropletUtils::emptyDropsCellRanger()` may fail due to low numbers of droplets with reads or other violations of its assumptions.
 For these libraries, only droplets containing at least 100 UMI are included in the filtered counts matrix.
 
+### Processed gene expression data
+
+In addition to the raw gene expression data, we also provide a `_processed.rds` file containing a `SingleCellExperiment` object with further filtering applied, a normalized counts matrix, and results from dimensionality reduction.
+
+Prior to normalization, low-quality cells are removed from the gene by cell counts matrix.
+To identify low-quality cells, we use [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected.
+Cells with a high likelihood of being compromised (greater than 0.75) and cells that do not pass a minimum number of unique genes detected threshold of 200 are removed from the counts matrix present in the `_processed.rds` file.
+
+Log-normalized counts are calculated using the deconvolution method presented in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7).
+The log-normalized counts are used to model variance of each gene prior to selecting the top 2000 highly variable genes (HVGs).
+These HVGs are then used as input to principal component analysis, and the top 50 principal components are selected.
+Finally, these principal components are used to calculate the [UMAP (Uniform Manifold Approximation and Projection)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#uniform-manifold-approximation-and-projection) embeddings.
+
 ## CITE-seq quantification
 
 CITE-seq libraries with reads from antibody-derived tags (ADTs) were also quantified using  [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/), rounded to integer values.
