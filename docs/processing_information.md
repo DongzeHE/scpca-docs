@@ -21,7 +21,7 @@ We mapped reads to the transcriptome index using `salmon` with the default "sele
 Briefly, selective alignment uses a mapping score validated approach to identify maximal exact matches between reads and the provided index.
 For all samples, we used selective alignment to the `splici` index.
 
-A more detailed description of the mapping strategy invoked by `salmon` in conjunction with `alevin-fry` can be found in [Srivastava _et al._ 2020](https://doi.org/10.1186/s13059-020-02151-8).
+A more detailed description of the mapping strategy invoked by `salmon` in conjunction with `alevin-fry` can be found in [Srivastava _et al._ (2020)](https://doi.org/10.1186/s13059-020-02151-8).
 
 #### Alevin-fry parameters
 
@@ -64,7 +64,7 @@ Prior to normalization, low-quality cells are removed from the gene by cell coun
 To identify low-quality cells, we use [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected.
 Cells with a high likelihood of being compromised (greater than 0.75) and cells that do not pass a minimum number of unique genes detected threshold of 200 are removed from the counts matrix present in the `_processed.rds` file.
 
-Log-normalized counts are calculated using the deconvolution method presented in [Lun, Bach, and Marioni 2016](https://doi.org/10.1186/s13059-016-0947-7).
+Log-normalized counts are calculated using the deconvolution method presented in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7).
 The log-normalized counts are used to model variance of each gene prior to selecting the top 2000 highly variable genes (HVGs).
 These HVGs are then used as input to principal component analysis, and the top 50 principal components are selected.
 Finally, these principal components are used to calculate the [UMAP (Uniform Manifold Approximation and Projection)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#uniform-manifold-approximation-and-projection) embeddings.
