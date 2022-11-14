@@ -12,6 +12,7 @@ See the {ref}`FAQ section about samples and libraries <faq:What is the differenc
 The files associated with each library are (example shown for a library with ID `SCPCL000000`):
 - An unfiltered counts file: `SCPCL000000_unfiltered.rds`,
 - A filtered counts file: `SCPCL000000_filtered.rds`,
+- A processed counts file: `SCPCL000000_processed.rds`,
 - A quality control report: `SCPCL000000_qc.html`,
 
 Every download also includes a single `single_cell_metadata.tsv` file containing metadata for all libraries included in the download.
@@ -35,7 +36,7 @@ See the [description of the Spatial transcriptomics output section below](#spati
 
 ## Gene expression data
 
-Single-cell or single-nuclei gene expression data is provided in two forms - as an unfiltered counts file and a filtered counts file.
+Single-cell or single-nuclei gene expression data is provided in three forms - as an unfiltered counts file, a filtered counts file, and a processed counts file.
 
 The unfiltered counts file, `SCPCL000000_unfiltered.rds`, is an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
 Within the `SingleCellExperiment` object is the counts matrix, where the rows correspond to genes or features and the columns correspond to cell barcodes.
@@ -45,6 +46,11 @@ The object also includes summary statistics for each cell barcode and gene, as w
 The filtered counts file, `SCPCL000000_filtered.rds` is also an RDS file containing a `SingleCellExperiment` object with the same structure as above.
 The cells in this file are those that remain after filtering using {ref}`emptyDrops <processing_information:filtering cells>`.
 As a result, this file only contains cell barcodes that are likely to correspond to true cells.
+
+The processed counts file, `SCPCL000000_processed.rds` is an RDS file containing a `SingleCellExperiment` object containing both the raw and normalized counts matrices.
+The filtered counts file is further filtered to remove any low quality cells, such as those with a low number of genes detected or high mitochondrial content.
+This file contains the raw and normalized counts data for only cell barcodes that have passed both levels of filtering.
+In addition to the normalized counts matrix, a selection of highly variable genes, and dimensionality reduction using both principal component analysis (PCA) and UMAP are available in the `SingleCellExperiment` object stored in the file.
 
 See {ref}`Single-cell gene expression file contents <sce_file_contents:Single-cell gene expression file contents>` for more information about the contents of the `SingleCellExperiment` objects and the included statistics and metadata.
 See also {ref}`Using the provided RDS files in R <faq:how do i use the provided RDS files in r?>`.
