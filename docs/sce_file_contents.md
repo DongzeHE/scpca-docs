@@ -57,7 +57,7 @@ For the `_processed.rds` file only, an additional column named, `ccdl_filter` wi
 This column was used to label cells as either `Keep` or `Remove` based on a set of filtering criteria.
 All cells labeled as `Remove` were removed prior to writing the `_processed.rds` file and therefore all cells found in the `_processed.rds` file should be labeled as `Keep`.
 
-See the description of the {ref}`processed gene expression data <processing_information:Processed gene expression data>` for more information on filtering perfomed to obtain the `_processed.rds` file.
+See the description of the {ref}`processed gene expression data <processing_information:Processed gene expression data>` for more information on filtering performed to obtain the `_processed.rds` file.
 
 ### Gene information and metrics
 
