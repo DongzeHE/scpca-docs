@@ -105,15 +105,16 @@ expt_metadata <- metadata(sce)
 | `ccdl_filter_method`        | Method used by the Data Lab to filter low quality cells prior to normalization. Either `miQC` or `Minimum_gene_cutoff`. Only present for `processed` objects |
 | `min_gene_cutoff`        | The minimum cutoff for the number of unique genes detected per cell. Only present for `processed` objects |
 | `normalization`        | The method used for normalization of raw counts. Either `deconvolution`, described in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7), or  `log-normalization`. Only present for `processed` objects |
-| `highly_variable_genes`        | A list of highly variable genes detected in the library, determined using `scran::modelGeneVar` and `scran::getTopHVGs`. Only present for `processed` objects |
+| `highly_variable_genes`        | A list of highly variable genes used for dimensionality reduction, determined using `scran::modelGeneVar` and `scran::getTopHVGs`. Only present for `processed` objects |
 
 ### Dimensionality reduction results
 
-In the RDS file containing the processed `SingleCellExperiment` object only (`_processed.rds`), the `reducedDim` slot of the object will be occupied with both principal component analysis (PCA) and UMAP results.
+In the RDS file containing the processed `SingleCellExperiment` object only (`_processed.rds`), the `reducedDim` slot of the object will be occupied with both principal component analysis (`PCA`) and `UMAP` results.
 For all other files, the `reducedDim` slot will be empty as no dimensionality reduction was performed.
 
-PCA results were calculated using `scater::runPCA()`, specifying to only use the highly variable genes stored in the object in `metadata(sce)$highly_variable_genes`.
-The below command can be used to access the PCA results:
+PCA results were calculated using `scater::runPCA()`, using only highly variable genes.
+The list of highly variable genes used was selected using `scran::modelGeneVar` and `scran::getTopHVGs`, and is stored in the SCE object in `metadata(sce)$highly_variable_genes`.
+The following command can be used to access the PCA results:
 
 ```r
 reducedDim(sce, "PCA")
