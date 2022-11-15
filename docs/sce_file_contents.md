@@ -52,10 +52,8 @@ These metrics were calculated by using [`miQC`](https://bioconductor.org/package
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `prob_compromised`      | Probability that a cell is compromised (i.e., dead or damaged), as calculated by `miQC`                                                                                                       |
 | `miQC_pass`             | Indicates whether the cell passed the default miQC filtering. `TRUE` is assigned to cells with a low probability of being compromised (`prob_compromised` < 0.75) or [sufficiently low mitochondrial content](https://bioconductor.org/packages/release/bioc/vignettes/miQC/inst/doc/miQC.html#preventing-exclusion-of-low-mito-cells).  |
-
-For the `_processed.rds` file only, an additional column named, `ccdl_filter` will be included in the `colData`.
-This column was used to label cells as either `Keep` or `Remove` based on a set of filtering criteria.
-All cells labeled as `Remove` were removed prior to writing the `_processed.rds` file and therefore all cells found in the `_processed.rds` file should be labeled as `Keep`.
+| `ccdl_filter` | Labels cells as either `Keep` or `Remove` based on a set of filtering criteria.
+All cells labeled as `Remove` were removed prior to writing the `_processed.rds` file and therefore all cells found in the `_processed.rds` file should be labeled as `Keep`. |
 
 See the description of the {ref}`processed gene expression data <processing_information:Processed gene expression data>` for more information on filtering performed to obtain the `_processed.rds` file.
 
@@ -102,8 +100,8 @@ expt_metadata <- metadata(sce)
 | `filtering_method`  | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`. Only present for `filtered` objects |
 | `umi_cutoff`        | The minimum UMI count per cell used as a threshold for removing empty droplets. Only present for `filtered` objects where the `filtering_method` is `UMI cutoff` |
 | `prob_compromised_cutoff`        | The minimum cutoff for the probability of a cell being compromised, as calculated by `miQC`. Only present for `filtered` objects |
-| `ccdl_filter_method`        | Method used by the Data Lab to filter low quality cells prior to normalization. Either `miQC` or `Minimum_gene_cutoff`. Only present for `processed` objects |
-| `min_gene_cutoff`        | The minimum cutoff for the number of unique genes detected per cell. Only present for `processed` objects |
+| `ccdl_filter_method`        | Method used by the Data Lab to filter low quality cells prior to normalization. Either `miQC` or `Minimum_gene_cutoff`. Only present for `filtered` objects |
+| `min_gene_cutoff`        | The minimum cutoff for the number of unique genes detected per cell. Only present for `filtered` objects |
 | `normalization`        | The method used for normalization of raw counts. Either `deconvolution`, described in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7), or  `log-normalization`. Only present for `processed` objects |
 | `highly_variable_genes`        | A list of highly variable genes used for dimensionality reduction, determined using `scran::modelGeneVar` and `scran::getTopHVGs`. Only present for `processed` objects |
 
@@ -113,7 +111,7 @@ In the RDS file containing the processed `SingleCellExperiment` object only (`_p
 For all other files, the `reducedDim` slot will be empty as no dimensionality reduction was performed.
 
 PCA results were calculated using `scater::runPCA()`, using only highly variable genes.
-The list of highly variable genes used was selected using `scran::modelGeneVar` and `scran::getTopHVGs`, and is stored in the SCE object in `metadata(sce)$highly_variable_genes`.
+The list of highly variable genes used was selected using `scran::modelGeneVar` and `scran::getTopHVGs`, and are stored in the `SingleCellExperiment` object in `metadata(sce)$highly_variable_genes`.
 The following command can be used to access the PCA results:
 
 ```r
@@ -121,7 +119,7 @@ reducedDim(sce, "PCA")
 ```
 
 UMAP results were calculated using `scater::runUMAP()`, with the PCA results as input rather than the full gene expression matrix.
-The below command can be used to access the UMAP results:
+The following command can be used to access the UMAP results:
 
 ```r
 reducedDim(sce,"UMAP")
