@@ -48,9 +48,9 @@ The cells in this file are those that remain after filtering using {ref}`emptyDr
 As a result, this file only contains cell barcodes that are likely to correspond to true cells.
 
 The processed counts file, `SCPCL000000_processed.rds` is an RDS file containing a `SingleCellExperiment` object containing both the raw and normalized counts matrices.
-The filtered counts file is further filtered to remove any low quality cells, such as those with a low number of genes detected or high mitochondrial content.
-This file contains the raw and normalized counts data for only cell barcodes that have passed both levels of filtering.
-In addition to the normalized counts matrix, a selection of highly variable genes, and dimensionality reduction using both principal component analysis (PCA) and UMAP are available in the `SingleCellExperiment` object stored in the file.
+The filtered counts file is further filtered to remove low quality cells, such as those with a low number of genes detected or high mitochondrial content.
+This file contains the raw and normalized counts data for cell barcodes that have passed both levels of filtering.
+In addition to the counts matrices, the `SingleCellExperiment` object stored in the file includes the results of dimensionality reduction using both principal component analysis (PCA) and UMAP.
 
 See {ref}`Single-cell gene expression file contents <sce_file_contents:Single-cell gene expression file contents>` for more information about the contents of the `SingleCellExperiment` objects and the included statistics and metadata.
 See also {ref}`Using the provided RDS files in R <faq:how do i use the provided RDS files in r?>`.
