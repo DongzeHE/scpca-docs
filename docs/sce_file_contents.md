@@ -46,9 +46,9 @@ The following per-cell data columns are included for each cell, calculated using
 | `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., CITE-seq)                                                                                                             |
 
 The following are additional per-cell data columns included in both the `filtered` and `processed` objects.
-These include metrics were calculated by [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected to predict low-quality cells.
-We also include the filtering results used for the creation of the `processed` objects. 
-See the description of the {ref}`processed gene expression data <processing_information:Processed gene expression data>` for more information on filtering performed to obtain the `_processed.rds` file.
+The included metrics were calculated by [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected to predict low-quality cells.
+We also include the filtering results used for the creation of the `processed` objects.
+See the description of the {ref}`processed gene expression data <processing_information:Processed gene expression data>` for more information on filtering performed to create the `processed` objects.
 
 | Column name             | Contents                                                                                                                                                                                      |
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -56,8 +56,6 @@ See the description of the {ref}`processed gene expression data <processing_info
 | `miQC_pass`             | Indicates whether the cell passed the default miQC filtering. `TRUE` is assigned to cells with a low probability of being compromised (`prob_compromised` < 0.75) or [sufficiently low mitochondrial content](https://bioconductor.org/packages/release/bioc/vignettes/miQC/inst/doc/miQC.html#preventing-exclusion-of-low-mito-cells).  |
 | `ccdl_filter` | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200).
 All cells labeled as `Remove` were removed prior to writing the `_processed.rds` file and therefore all cells found in the `_processed.rds` file will be labeled `Keep`. |
-
-See the description of the {ref}`processed gene expression data <processing_information:Processed gene expression data>` for more information on filtering performed to obtain the `_processed.rds` file.
 
 ### Gene information and metrics
 
