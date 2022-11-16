@@ -46,8 +46,9 @@ The following per-cell data columns are included for each cell, calculated using
 | `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., CITE-seq)                                                                                                             |
 
 The following are additional per-cell data columns included in both the `filtered` and `processed` objects.
-These metrics were calculated by using [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected to predict low-quality cells.
-Cells with a high likelihood of being compromised as calculated by `miQC` (greater than 0.75) and cells that do not pass a minimum number of unique genes detected threshold of 200 are removed from the counts matrix found in the `processed` objects.
+These include metrics were calculated by [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected to predict low-quality cells.
+We also include the filtering results used for the creation of the `processed` objects. 
+See the description of the {ref}`processed gene expression data <processing_information:Processed gene expression data>` for more information on filtering performed to obtain the `_processed.rds` file.
 
 | Column name             | Contents                                                                                                                                                                                      |
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
