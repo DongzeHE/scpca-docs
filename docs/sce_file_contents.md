@@ -45,8 +45,8 @@ The following per-cell data columns are included for each cell, calculated using
 | `subsets_mito_percent`  | Percent of all UMI counts assigned to mitochondrial genes                                                                                                                                     |
 | `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., CITE-seq)                                                                                                             |
 
-The following are additional per-cell data columns included in both the `filtered` and `processed` objects.
-The included metrics were calculated by [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected to predict low-quality cells.
+The following additional per-cell data columns are included in both the `filtered` and `processed` objects.
+These columns include metrics calculated by [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected to predict low-quality cells.
 We also include the filtering results used for the creation of the `processed` objects.
 See the description of the {ref}`processed gene expression data <processing_information:Processed gene expression data>` for more information on filtering performed to create the `processed` objects.
 
