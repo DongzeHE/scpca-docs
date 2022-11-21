@@ -46,12 +46,20 @@ More resources for learning about `SingleCellExperiment` objects:
 
 The `processed` objects contain both the raw and normalized gene expression data, so many of the steps described in the section below can be skipped.
 These objects have already undergone quality control, removing low quality cells, normalization, and then dimensionality reduction like principal component analysis and UMAP.
+See the description of the {ref}`processed gene expression data <processing_information:Processed gene expression data>` for more information on the `processed` objects.
 
 The following command can be used to grab the normalized counts assay:
 
 ```r
 # grab the log normalized data from the processed object
 normalized_counts <- logcounts(processed_sce)
+```
+
+These objects also contain a list of highly variable genes identified for the given library.
+These can be accessed using the following command:
+
+```r
+highly_variable_genes <- metadata(processed_sce)$highly_variable_genes
 ```
 
 Dimensionality reduction results can be accessed using the following command:
