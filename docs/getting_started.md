@@ -3,7 +3,7 @@
 This section provides information on next steps you might take after downloading a dataset from the ScPCA portal.
 
 We also have a separate Github repository that contains workflows for some common analysis performed on single-cell RNA-sequencing data.
-These worfklows are designed to apply the same analysis (e.g., clustering) across multiple samples in parallel.
+These workflows are designed to apply the same analysis (e.g., clustering) across multiple samples in parallel.
 These workflows and more resources for processing single-cell and single-nuclei datasets can be found on our Github in the [`scpca-downstream-analyses` repository](https://github.com/AlexsLemonade/scpca-downstream-analyses).
 
 ## Importing ScPCA data into R
