@@ -9,11 +9,13 @@ These workflows and more resources for processing single-cell and single-nuclei 
 ## Importing ScPCA data into R
 
 Quantified single-cell or single-nuclei gene expression data is provided as an RDS file as described in the {ref}`single cell gene expression file contents section<sce_file_contents:single-cell gene expression file contents>`.
-There are three RDS files that will be available for each library: an `_unfiltered.rds`, a `filtered.rds`, and a `processed.rds` file.
-The `unfiltered.rds` file will contain the gene expression data for all droplets, regardless of the presence of a cell or not.
-The `filtered.rds` files will contain the gene expression data for only droplets that are likely to contain cells, removing any probable empty droplets.
-The `normalized.rds` files will be further filtered, removing any low quality cells, and contain both the raw and normalized gene expression data for the identified cells.
+There are three RDS files that are available for each library: an `_unfiltered.rds`, a `filtered.rds`, and a `processed.rds` file.
+The `unfiltered.rds` file contains the gene expression data for all droplets, regardless of the presence of a cell or not.
+The `filtered.rds` files contains the gene expression data for only droplets that are likely to contain cells, removing any probable empty droplets.
 See the {ref}`section on filtering cells<processing_information:filtering cells>` for more information on how we remove potential empty droplets.
+
+The `normalized.rds` files are further filtered to remove any low quality cells and contains both the raw and normalized gene expression data for the identified cells.
+See the description of the {ref}`processed gene expression data <processing_information:Processed gene expression data>` for more information on the `processed` objects.
 
 In most scenarios, we recommend starting with the `processed.rds` file.
 
@@ -44,22 +46,16 @@ More resources for learning about `SingleCellExperiment` objects:
 
 ## Working with the processed `SingleCellExperiment` objects
 
-The `processed` objects contain both the raw and normalized gene expression data, so many of the steps described in the section below can be skipped.
-These objects have already undergone quality control, removing low quality cells, normalization, and then dimensionality reduction like principal component analysis and UMAP.
-See the description of the {ref}`processed gene expression data <processing_information:Processed gene expression data>` for more information on the `processed` objects.
+The `SingleCellExperiment` objects stored in the `_processed.rds` files have already undergone quality control to remove low quality cells, normalization, and dimensionality reduction such as principal component analysis and UMAP.
 
-The following command can be used to grab the normalized counts assay:
+The following commands can be used to access the raw and normalized counts matrices:
 
 ```r
-# grab the log normalized data from the processed object
+# the raw counts matrix stored in the processed object
+raw_counts <- counts(processed_sce)
+
+# log normalized counts matrix stored in the processed object
 normalized_counts <- logcounts(processed_sce)
-```
-
-These objects also contain a list of highly variable genes identified for the given library.
-These can be accessed using the following command:
-
-```r
-highly_variable_genes <- metadata(processed_sce)$highly_variable_genes
 ```
 
 Dimensionality reduction results can be accessed using the following command:
@@ -70,6 +66,15 @@ pca_results <- reducedDim(processed_sce, "PCA")
 
 # extract UMAP results
 umap_results <- reducedDim(processed_sce, "UMAP")
+```
+
+Principal components were calculated from a set of highly variable genes identified for a given library.
+The list of highly variable genes used for this calculation, in order from highest to lowest variation, is stored in the `metadata` of the `SingleCellExperiment` object.
+
+These can be accessed using the following command:
+
+```r
+highly_variable_genes <- metadata(processed_sce)$highly_variable_genes
 ```
 
 This data is immediately ready for clustering and further analysis to answer biological questions of interest.
@@ -84,8 +89,7 @@ If you prefer to work with the `filtered` objects and perform the quality contro
 
 ### Quality control
 
-After we have imported the `filtered` RDS file into R and loaded the `SingleCellExperiment` object, we can begin working with the data.
-Before we perform any downstream steps, we recommend removing low quality cells from the dataset.
+Before performing any downstream steps, we recommend removing low quality cells from the dataset.
 Low quality cells include those with a higher percentage of reads from mitochondrial genes (i.e., those that are damaged or dying) and those with a lower number of total reads and unique genes identified (i.e., those with inefficient reverse transcription or PCR amplification).
 
 All `filtered.rds` objects include [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html) results found in the {ref}`colData() of the SingleCellExperiment object<sce_file_contents:cell metrics>`.
