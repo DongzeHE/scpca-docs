@@ -2,16 +2,16 @@
 
 This section provides information on next steps you might take after downloading a dataset from the ScPCA portal.
 
-We also have a separate Github repository that contains workflows for some common analysis performed on single-cell RNA-sequencing data.
+We also have a separate GitHub repository that contains workflows for some common analysis performed on single-cell RNA-sequencing data.
 These workflows are designed to apply the same analysis (e.g., clustering) across multiple samples in parallel.
-These workflows and more resources for processing single-cell and single-nuclei datasets can be found on our Github in the [`scpca-downstream-analyses` repository](https://github.com/AlexsLemonade/scpca-downstream-analyses).
+These workflows and more resources for processing single-cell and single-nuclei datasets can be found in the [`scpca-downstream-analyses` repository](https://github.com/AlexsLemonade/scpca-downstream-analyses).
 
 ## Importing ScPCA data into R
 
 Quantified single-cell or single-nuclei gene expression data is provided as an RDS file as described in the {ref}`single cell gene expression file contents section<sce_file_contents:single-cell gene expression file contents>`.
-There are three RDS files that will be available for each library, an `unfiltered.rds`, `filtered.rds`, and a `processed.rds` file.
+There are three RDS files that will be available for each library: an `_unfiltered.rds`, a `filtered.rds`, and a `processed.rds` file.
 The `unfiltered.rds` file will contain the gene expression data for all droplets, regardless of the presence of a cell or not.
-The `filtered.rds` files will contain the gene expression data for only droplets that are likely to contain cells, removing any potential empty droplets.
+The `filtered.rds` files will contain the gene expression data for only droplets that are likely to contain cells, removing any probable empty droplets.
 The `normalized.rds` files will be further filtered, removing any low quality cells, and contain both the raw and normalized gene expression data for the identified cells.
 See the {ref}`section on filtering cells<processing_information:filtering cells>` for more information on how we remove potential empty droplets.
 
