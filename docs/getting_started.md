@@ -9,12 +9,12 @@ These workflows and more resources for processing single-cell and single-nuclei 
 ## Importing ScPCA data into R
 
 Quantified single-cell or single-nuclei gene expression data is provided as an RDS file as described in the {ref}`single cell gene expression file contents section<sce_file_contents:single-cell gene expression file contents>`.
-There are three RDS files that are available for each library: an `_unfiltered.rds`, a `filtered.rds`, and a `processed.rds` file.
+There are three RDS files that are available for each library: an `unfiltered.rds`, a `filtered.rds`, and a `processed.rds` file.
 The `unfiltered.rds` file contains the gene expression data for all droplets, regardless of the presence of a cell or not.
 The `filtered.rds` files contains the gene expression data for only droplets that are likely to contain cells, removing any probable empty droplets.
 See the {ref}`section on filtering cells<processing_information:filtering cells>` for more information on how we remove potential empty droplets.
 
-The `normalized.rds` files are further filtered to remove any low quality cells and contains both the raw and normalized gene expression data for the identified cells.
+The `processed.rds` files are further filtered to remove any low quality cells and contain both the raw and normalized gene expression data for the identified cells.
 See the description of the {ref}`processed gene expression data <processing_information:Processed gene expression data>` for more information on the `processed` objects.
 
 In most scenarios, we recommend starting with the `processed.rds` file.
@@ -46,9 +46,10 @@ More resources for learning about `SingleCellExperiment` objects:
 
 ## Working with the processed `SingleCellExperiment` objects
 
-The `SingleCellExperiment` objects stored in the `_processed.rds` files have already undergone quality control to remove low quality cells, normalization, and dimensionality reduction such as principal component analysis and UMAP.
+The `SingleCellExperiment` objects stored in the `processed.rds` files have undergone additional quality control steps to remove low quality cells.
+In addition,  normalized expression counts and dimensionality reduction (principal component analysis and UMAP) have been calculated.
 
-The following commands can be used to access the raw and normalized counts matrices:
+The following commands can be used to access the raw and normalized count matrices:
 
 ```r
 # the raw counts matrix stored in the processed object
@@ -71,7 +72,7 @@ umap_results <- reducedDim(processed_sce, "UMAP")
 Principal components were calculated from a set of highly variable genes identified for a given library.
 The list of highly variable genes used for this calculation, in order from highest to lowest variation, is stored in the `metadata` of the `SingleCellExperiment` object.
 
-These can be accessed using the following command:
+This list can be accessed using the following command:
 
 ```r
 highly_variable_genes <- metadata(processed_sce)$highly_variable_genes
