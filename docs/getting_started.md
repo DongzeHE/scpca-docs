@@ -2,17 +2,22 @@
 
 This section provides information on next steps you might take after downloading a dataset from the ScPCA portal.
 
-We have also provided a workflow that can be used to perform initial filtering, dimensionality reduction, normalization, and clustering on single-cell and single-nuclei samples in parallel.
-This workflow and more resources for processing single-cell and single-nuclei datasets can be found on our Github in the [`scpca-downstream-analyses` repository](https://github.com/AlexsLemonade/scpca-downstream-analyses).
+We also have a separate GitHub repository that contains workflows for some common analysis performed on single-cell RNA-sequencing data.
+These workflows are designed to apply the same analysis (e.g., clustering) across multiple samples in parallel.
+These workflows and more resources for processing single-cell and single-nuclei datasets can be found in the [`scpca-downstream-analyses` repository](https://github.com/AlexsLemonade/scpca-downstream-analyses).
 
 ## Importing ScPCA data into R
 
 Quantified single-cell or single-nuclei gene expression data is provided as an RDS file as described in the {ref}`single cell gene expression file contents section<sce_file_contents:single-cell gene expression file contents>`.
-There are two RDS files that will be available for each library, a `filtered.rds` and an `unfiltered.rds` file.
-The `filtered.rds` files will contain the gene expression data for only droplets that are likely to contain cells, removing any potential empty droplets.
-The `unfiltered.rds` file will contain the gene expression data for all droplets, regardless of the presence of a cell or not.
+There are three RDS files that are available for each library: an `unfiltered.rds`, a `filtered.rds`, and a `processed.rds` file.
+The `unfiltered.rds` file contains the gene expression data for all droplets, regardless of the presence of a cell or not.
+The `filtered.rds` files contains the gene expression data for only droplets that are likely to contain cells, removing any probable empty droplets.
 See the {ref}`section on filtering cells<processing_information:filtering cells>` for more information on how we remove potential empty droplets.
-In most scenarios, we recommend starting with the `filtered.rds` file.
+
+The `processed.rds` files are further filtered to remove any low quality cells and contain both the raw and normalized gene expression data for the identified cells.
+See the description of the {ref}`processed gene expression data <processing_information:Processed gene expression data>` for more information on the `processed` objects.
+
+In most scenarios, we recommend starting with the `processed.rds` file.
 
 The first step in analyzing the provided gene expression data will be to import the data into R.
 As a reminder, each RDS file contains a [`SingleCellExperiment` object](https://bioconductor.org/packages/release/bioc/html/SingleCellExperiment.html).
@@ -31,7 +36,7 @@ if (!("SingleCellExperiment" %in% installed.packages())) {
 
 library(SingleCellExperiment)
 # read in the RDS file, including the path to the file's location
-sce <- readRDS("SCPCS000000/SCPCL000000_filtered.rds")
+processed_sce <- readRDS("SCPCS000000/SCPCL000000_processed.rds")
 ```
 
 More resources for learning about `SingleCellExperiment` objects:
@@ -39,10 +44,53 @@ More resources for learning about `SingleCellExperiment` objects:
 - [`SingleCellExperiment` objects Vignette](https://bioconductor.org/packages/devel/bioc/vignettes/SingleCellExperiment/inst/doc/intro.html) on working with `SingleCellExperiment` objects
 - [Orchestrating Single Cell Analysis chapter on the `SingleCellExperiment` class](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html)
 
-## Quality control
+## Working with the processed `SingleCellExperiment` objects
 
-After we have imported the RDS file into R and loaded the `SingleCellExperiment` object, we can begin working with the data.
-Before we perform any downstream steps, we recommend removing low quality cells from the dataset.
+The `SingleCellExperiment` objects stored in the `processed.rds` files have undergone additional quality control steps to remove low quality cells.
+In addition,  normalized expression counts and dimensionality reduction (principal component analysis and UMAP) have been calculated.
+
+The following commands can be used to access the raw and normalized count matrices:
+
+```r
+# the raw counts matrix stored in the processed object
+raw_counts <- counts(processed_sce)
+
+# log normalized counts matrix stored in the processed object
+normalized_counts <- logcounts(processed_sce)
+```
+
+Dimensionality reduction results can be accessed using the following command:
+
+```r
+# extract principal component results
+pca_results <- reducedDim(processed_sce, "PCA")
+
+# extract UMAP results
+umap_results <- reducedDim(processed_sce, "UMAP")
+```
+
+Principal components were calculated from a set of highly variable genes identified for a given library.
+The list of highly variable genes used for this calculation, in order from highest to lowest variation, is stored in the `metadata` of the `SingleCellExperiment` object.
+
+This list can be accessed using the following command:
+
+```r
+highly_variable_genes <- metadata(processed_sce)$highly_variable_genes
+```
+
+This data is immediately ready for clustering and further analysis to answer biological questions of interest.
+
+See these resources for more information on clustering:
+ - [Clustering chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.14/OSCA.basic/clustering.html)
+ - [Quantifying clustering behavior in Orchestrating Single Cell Analysis](https://bioconductor.org/books/release/OSCA.advanced/clustering-redux.html#quantifying-clustering-behavior)
+
+## Working with the filtered `SingleCellExperiment` objects
+
+If you prefer to work with the `filtered` objects and perform the quality control and normalization yourself, see below for details on working with these objects.
+
+### Quality control
+
+Before performing any downstream steps, we recommend removing low quality cells from the dataset.
 Low quality cells include those with a higher percentage of reads from mitochondrial genes (i.e., those that are damaged or dying) and those with a lower number of total reads and unique genes identified (i.e., those with inefficient reverse transcription or PCR amplification).
 
 All `filtered.rds` objects include [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html) results found in the {ref}`colData() of the SingleCellExperiment object<sce_file_contents:cell metrics>`.
@@ -53,6 +101,9 @@ All cells that are identified as low-quality cells will have `FALSE` in the `miQ
 The following command can be used to remove the low-quality cells:
 
 ```r
+# read in the filtered object
+sce <- readRDS("SCPCS000000/SCPCL000000_filtered.rds")
+
 # filter the `SingleCellExperiment`
 # the `$` notation denotes access to the colData slot of the `SingleCellExperiment` object
 filtered_sce <- sce[, which(sce$miQC_pass)]
@@ -80,7 +131,7 @@ These metrics can be used to directly filter the `SingleCellExperiment` object b
 If you are planning to filter low quality cells using such thresholds, we encourage you to read more about the various metrics and plot the distribution of each metric before deciding on which cells to exclude.
 The [Quality Control chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/quality-control.html#quality-control) provides a nice guide to checking diagnostic plots and then choosing cutoffs.
 
-## Normalization
+### Normalization
 
 The provided data contains unnormalized raw counts.
 We recommend using the `scran` and `scater` packages to add normalized counts to the `SingleCellExperiment` object.
@@ -105,7 +156,7 @@ Here we provide more resources on understanding normalization in single-cell RNA
 - [Stegle _et al._ (2015) Computational and analytical challenges in single-cell transcriptomics](https://doi.org/10.1038/nrg3833).  Includes a discussion of normalization and technical variance in scRNA-seq.
 - [Lun _et al._ (2016) Pooling across cells to normalize single-cell RNA sequencing data with many zero counts](https://doi.org/10.1186/s13059-016-0947-7)
 
-## Dimensionality Reduction
+### Dimensionality Reduction
 
 Dimensionality reduction is commonly used as a precursor to plotting, clustering, and other downstream analysis.
 

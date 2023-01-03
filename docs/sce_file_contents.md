@@ -1,6 +1,6 @@
 # Single-cell gene expression file contents
 
-Single-cell or single-nuclei gene expression data (filtered or unfiltered) is provided for use with R as an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
+Single-cell or single-nuclei gene expression data (unfiltered, filtered, or processed) is provided for use with R as an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
 This object contains the expression data, cell and gene metrics, associated metadata, and, in the case of multimodal data like CITE-seq, data from additional cell-based assays.
 
 We highly encourage you to familiarize yourself with the general object structure and functions available as part of the [`SingleCellExperiment` package](https://bioconductor.org/packages/3.13/bioc/html/SingleCellExperiment.html) from Bioconductor.
@@ -10,14 +10,14 @@ To begin, you will need to load the `SingleCellExperiment` package and read the 
 
 ```r
 library(SingleCellExperiment)
-sce <- readRDS("SCPCL000000_filtered.rds")
+sce <- readRDS("SCPCL000000_processed.rds")
 ```
 
 ## Components of a `SingleCellExperiment` object
 
 ### Expression counts
 
-The `counts` assay of the `SingleCellExperiment` object for single-cell and single-nuclei experiments (both unfiltered and filtered) contains the primary RNA-seq expression data as integer counts.
+The `counts` assay of the `SingleCellExperiment` object for single-cell and single-nuclei experiments (for all provided file types) contains the primary RNA-seq expression data as integer counts.
 The data is stored as a sparse matrix, and each column represents a cell or droplet, each row a gene.
 Column names are cell barcode sequences and row names are Ensembl gene IDs.
 The `counts` assay can be accessed with the following R code:
@@ -45,13 +45,17 @@ The following per-cell data columns are included for each cell, calculated using
 | `subsets_mito_percent`  | Percent of all UMI counts assigned to mitochondrial genes                                                                                                                                     |
 | `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., CITE-seq)                                                                                                             |
 
-The following are additional per-cell data columns included only in `filtered` objects.
-These metrics were calculated by using [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected to predict low-quality cells.
+The following additional per-cell data columns are included in both the `filtered` and `processed` objects.
+These columns include metrics calculated by [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected to predict low-quality cells.
+We also include the filtering results used for the creation of the `processed` objects.
+See the description of the {ref}`processed gene expression data <processing_information:Processed gene expression data>` for more information on filtering performed to create the `processed` objects.
 
 | Column name             | Contents                                                                                                                                                                                      |
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `prob_compromised`      | Probability that a cell is compromised (i.e., dead or damaged), as calculated by `miQC`                                                                                                       |
 | `miQC_pass`             | Indicates whether the cell passed the default miQC filtering. `TRUE` is assigned to cells with a low probability of being compromised (`prob_compromised` < 0.75) or [sufficiently low mitochondrial content](https://bioconductor.org/packages/release/bioc/vignettes/miQC/inst/doc/miQC.html#preventing-exclusion-of-low-mito-cells).  |
+| `scpca_filter` | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200).
+All cells labeled as `Remove` were removed prior to writing the `_processed.rds` file and therefore all cells found in the `_processed.rds` file will be labeled `Keep`. |
 
 ### Gene information and metrics
 
@@ -94,7 +98,32 @@ expt_metadata <- metadata(sce)
 | `transcript_type`   | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei                       |
 | `miQC_model`        | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` objects |
 | `filtering_method`  | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`. Only present for `filtered` objects |
-| `umi_cutoff`        | The minimum UMI count per cell used as a threshold for filtering. Only present for `filtered` objects where the `filtering_method` is `UMI cutoff` |
+| `umi_cutoff`        | The minimum UMI count per cell used as a threshold for removing empty droplets. Only present for `filtered` objects where the `filtering_method` is `UMI cutoff` |
+| `prob_compromised_cutoff`        | The minimum cutoff for the probability of a cell being compromised, as calculated by `miQC`. Only present for `filtered` objects |
+| `scpca_filter_method`        | Method used by the Data Lab to filter low quality cells prior to normalization. Either `miQC` or `Minimum_gene_cutoff`. Only present for `filtered` objects |
+| `min_gene_cutoff`        | The minimum cutoff for the number of unique genes detected per cell. Only present for `filtered` objects |
+| `normalization`        | The method used for normalization of raw counts. Either `deconvolution`, described in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7), or  `log-normalization`. Only present for `processed` objects |
+| `highly_variable_genes`        | A list of highly variable genes used for dimensionality reduction, determined using `scran::modelGeneVar` and `scran::getTopHVGs`. Only present for `processed` objects |
+
+### Dimensionality reduction results
+
+In the RDS file containing the processed `SingleCellExperiment` object only (`_processed.rds`), the `reducedDim` slot of the object will be occupied with both principal component analysis (`PCA`) and `UMAP` results.
+For all other files, the `reducedDim` slot will be empty as no dimensionality reduction was performed.
+
+PCA results were calculated using `scater::runPCA()`, using only highly variable genes.
+The list of highly variable genes used was selected using `scran::modelGeneVar` and `scran::getTopHVGs`, and are stored in the `SingleCellExperiment` object in `metadata(sce)$highly_variable_genes`.
+The following command can be used to access the PCA results:
+
+```r
+reducedDim(sce, "PCA")
+```
+
+UMAP results were calculated using `scater::runUMAP()`, with the PCA results as input rather than the full gene expression matrix.
+The following command can be used to access the UMAP results:
+
+```r
+reducedDim(sce,"UMAP")
+```
 
 ## Additional SingleCellExperiment components for CITE-seq libraries
 
