@@ -50,7 +50,7 @@ The `participant_id`, when present, indicates the participant from which a colle
 For example, one participant may have a sample collected both at initial diagnosis and at relapse.
 This would result in two different sample ID's, but the same participant ID.
 However, for most participants, only a single sample was collected and submitted for sequencing.
-Because of this, many samples do not have a separate participant ID.
+Because of this, many of the samples do not have a separate participant ID.
 A `participant_id` is required for all samples that were derived from the same participant as at least one other sample.
 They may also be present for samples in which there is only one sample collected from a participant, but for this scenario the presence of a `participant_id` is optional.
 
