@@ -51,7 +51,8 @@ For example, one participant may have a sample collected both at initial diagnos
 This would result in two different sample ID's, but the same participant ID.
 However, for most participants, only a single sample was collected and submitted for sequencing.
 Because of this, many of the samples do not have a separate participant ID.
-Participant IDs are only present for samples that were derived from the same participant as at least one other sample.
+A `participant_id` is required for all samples that were derived from the same participant as at least one other sample.
+They may also be present for samples in which only one sample is collected from a participant, but for this scenario, the presence of a `participant_id` is optional.
 
 ## What is a multiplexed sample?
 
