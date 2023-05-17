@@ -133,8 +133,10 @@ CITE-seq data, when present, is included within the `SingleCellExperiment` as an
 altExp(sce, "CITEseq")
 ```
 
-Within this, the main expression matrix is again found in the `counts` assay, with each column corresponding to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponding to an antibody derived tag (ADT).
+Within this, the main expression matrix is again found in the `counts` assay and the normalized expression matrix is again found in the `logcounts` assay.
+For each assay, each column corresponds to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponds to an antibody derived tag (ADT).
 Column names are again cell barcode sequences and row names are the antibody targets for each ADT.
+
 
 The following additional per-cell data columns for the CITE-seq data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#cell-metrics)).
 
