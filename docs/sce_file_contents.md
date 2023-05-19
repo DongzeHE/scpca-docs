@@ -156,6 +156,8 @@ The following columns, representing QC statistics from [`DropletUtils::cleanTagC
 | `high.controls`  | Indicates whether the cell has unusually high total control counts; Only present if negative control ADTs are present.|
 | `ambient.scale` |  The relative amount of ambient contamination; Only present if negative control ADTs are _not_ present. |
 | `high.ambient`  | Indicates whether the cell has unusually high contamination; Only present if negative control ADTs are _not_ present.|
+| `discard`  | Indicates whether the cell should be discarded based on QC statistics; All retained cells in the `_processed.rds` are `FALSE`. |
+
 
 Metrics for each of the ADTs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
 
@@ -171,7 +173,8 @@ This data frame contains the following columns with statistics for each ADT:
 | `detected`  | Percent of cells in which the ADT was detected (ADT count > 0 ) |
 | `target_type` | Whether each ADT is a `target`, `neg_control`, or `pos_control`. This column will be empty if target information is unknown. |
 
-Finally, additional metadata for the CITE-seq data processing can be found in the metadata slot of the alternative experiment, with the same contents as the [parent experiment metadata](#experiment-metadata)
+Finally, additional metadata for the CITE-seq data processing can be found in the metadata slot of the alternative experiment.
+This metadata slot has the same contents as the [parent experiment metadata](#experiment-metadata), along with one additional field `ambient_profile` which holds a list of representing the ambient concentrations of each ADT.
 
 ```r
 citeseq_metadata <- metadata(altExp(sce, "CITEseq"))
