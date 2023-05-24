@@ -1,33 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**
-
-- [Processing information](#processing-information)
-  - [Single-cell and single-nuclei RNA-seq](#single-cell-and-single-nuclei-rna-seq)
-    - [Mapping and quantification using alevin-fry](#mapping-and-quantification-using-alevin-fry)
-      - [Reference transcriptome index](#reference-transcriptome-index)
-      - [Selective alignment](#selective-alignment)
-      - [Alevin-fry parameters](#alevin-fry-parameters)
-    - [Post alevin-fry processing](#post-alevin-fry-processing)
-      - [Combining counts from spliced cDNA and intronic regions](#combining-counts-from-spliced-cdna-and-intronic-regions)
-      - [Filtering cells](#filtering-cells)
-    - [Processed gene expression data](#processed-gene-expression-data)
-  - [CITE-seq quantification](#cite-seq-quantification)
-    - [Combining ADT counts with RNA counts](#combining-adt-counts-with-rna-counts)
-    - [Processed CITE-seq data](#processed-cite-seq-data)
-  - [Multiplexed libraries](#multiplexed-libraries)
-    - [Hashtag oligonucleotide (HTO) quantification](#hashtag-oligonucleotide-hto-quantification)
-    - [HTO demultiplexing](#hto-demultiplexing)
-    - [Genetic demultiplexing](#genetic-demultiplexing)
-  - [Spatial transcriptomics](#spatial-transcriptomics)
-    - [Mapping and quantification using Space Ranger](#mapping-and-quantification-using-space-ranger)
-  - [Bulk RNA samples](#bulk-rna-samples)
-    - [Preprocessing with fastp](#preprocessing-with-fastp)
-    - [Mapping and quantification using salmon](#mapping-and-quantification-using-salmon)
-      - [Salmon parameters](#salmon-parameters)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Processing information
 
 ## Single-cell and single-nuclei RNA-seq
