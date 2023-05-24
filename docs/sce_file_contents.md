@@ -155,7 +155,7 @@ In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`]
 | `high.controls`  | Indicates whether the cell has unusually high total control counts. Only present if negative control ADTs are present.|
 | `ambient.scale` |  The relative amount of ambient contamination. Only present if negative control ADTs are _not_ present. |
 | `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative control ADTs are _not_ present.|
-| `discard`  | Indicates whether the cell should be discarded based on QC statistics. All retained cells in the `_processed.rds` are `FALSE`. |
+| `discard`  | Indicates whether the cell should be discarded based on QC statistics. |
 
 
 Metrics for each of the ADTs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
