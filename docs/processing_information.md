@@ -64,6 +64,8 @@ Prior to normalization, low-quality cells are removed from the gene by cell coun
 To identify low-quality cells, we use [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected.
 Cells with a high likelihood of being compromised (greater than 0.75) and cells that do not pass a minimum number of unique genes detected threshold of 200 are removed from the counts matrix present in the `_processed.rds` file.
 
+If CITE-seq data is present, additional low-quality cells are further removed based on antibody-derived tag (ADT) content, as described in [Processed CITE-seq data](#processed-cite-seq-data).
+
 Log-normalized counts are calculated using the deconvolution method presented in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7).
 The log-normalized counts are used to model variance of each gene prior to selecting the top 2000 highly variable genes (HVGs).
 These HVGs are then used as input to principal component analysis, and the top 50 principal components are selected.
@@ -76,13 +78,23 @@ CITE-seq libraries with reads from antibody-derived tags (ADTs) were also quanti
 Reference indices were constructed from the submitter-provided list of antibody barcode sequences corresponding to each library using the `--features` flag of `salmon index`.
 Mapping to these indices followed the same procedures as for RNA-seq data, including mapping with [selective alignment](#selective-alignment) and subsequent [quantification via alevin-fry](#alevin-fry-parameters).
 
-### Combining CITE counts with RNA counts
+### Combining ADT counts with RNA counts
 
 The unfiltered CITE-seq and RNA-seq count matrices often include somewhat different sets of cell barcodes, due to stochastic variation in library construction and sequencing.
 When normalizing these two count matrices to the same set of cells, we chose to prioritize RNA-seq results for broad comparability among libraries with and without CITE-seq data.
 Any cell barcodes that appeared only in CITE-seq data were discarded.
 Cell barcodes that were present only in the RNA-seq data (i.e., did _not_ appear in the CITE-seq data) were assigned zero counts for all ADTs.
 When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the CITE-seq count matrix was filtered to match.
+
+### Processed CITE-seq data
+
+An ambient profile representing antibody-derived tag (ADT) proportions present in the ambient solution is calculated from the `_unfiltered.rds` object using [`DropletUtils::ambientProfileEmpty()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/ambientProfileEmpty.html).
+This ambient profile, along with negative control information, if present, is then as input to calculate quality-control statistics using [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html).
+Cells identified by `DropletUtils::cleanTagCounts()` as having high levels of ambient contamination and/or negative control tags are are removed from all counts matrices present in the `_processed.rds` file.
+The RNA count matrix was filtered to match, such that the same cells are present in all RNA and CITE-seq counts matrices.
+
+Log-normalized ADT counts are calculated using [median-based normalization](http://bioconductor.org/books/3.16/OSCA.advanced/integrating-with-protein-abundance.html#cite-seq-median-norm), again making use of the baseline ambient profile.
+Importantly, this process may fail if any calculated median size factors have a value of 0, in which case log-normalized ADT counts are not provided in the `_processed.rds` object.
 
 ## Multiplexed libraries
 
