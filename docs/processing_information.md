@@ -75,10 +75,8 @@ Finally, these principal components are used to calculate the [UMAP (Uniform Man
 
 If the experiment contains CITE-seq data, further filtering steps are applied to the `SingleCellExperiment` object found in `_processed.rds`.
 An ambient profile representing antibody-derived tag (ADT) proportions present in the ambient solution is calculated from the `_unfiltered.rds` object using [`DropletUtils::ambientProfileEmpty()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/ambientProfileEmpty.html).
-This ambient profile is then as input to calculate quality-control statistics using [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html).
-If negative control ADTs are present, this information is also provided to `DropletUtils::cleanTagCounts()`.
-`DropletUtils::cleanTagCounts()` identifies cells that should be discarded as those with overly high levels of ambient contamination and/or total negative control counts.
-When cells were filtered based on ADT content, the RNA count matrix was also filtered to match such that the same cells are present in both experiments.
+This ambient profile, along with negative control information, if present, is then as input to calculate quality-control statistics using [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html).
+Cells identified by `DropletUtils::cleanTagCounts()` as having high levels of ambient contamination and/or negative control tags are are removed from the counts matrices present in the `_processed.rds` file.
 
 Log-normalized ADT counts are calculated using [median-based normalization](http://bioconductor.org/books/3.16/OSCA.advanced/integrating-with-protein-abundance.html#cite-seq-median-norm), again making use of the baseline ambient profile.
 Importantly, this process may fail if any calculated median size factors have a value of 0, in which case log-normalized ADT counts are not provided in the `_processed.rds` object.

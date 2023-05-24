@@ -100,7 +100,7 @@ expt_metadata <- metadata(sce)
 | `filtering_method`  | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`. Only present for `filtered` objects |
 | `umi_cutoff`        | The minimum UMI count per cell used as a threshold for removing empty droplets. Only present for `filtered` objects where the `filtering_method` is `UMI cutoff` |
 | `prob_compromised_cutoff`        | The minimum cutoff for the probability of a cell being compromised, as calculated by `miQC`. Only present for `filtered` objects |
-| `scpca_filter_method`        | Method used by the Data Lab to filter low quality cells prior to normalization. Either `miQC` or `Minimum_gene_cutoff`; If CITE-seq data is also present, this will also indicate the ADT filtering method as `cleanTagCounts`, e.g. `miQC;cleanTagCounts`. Only present for `filtered` objects.   |
+| `scpca_filter_method`        | Method used by the Data Lab to filter low quality cells prior to normalization. Either `miQC` or `Minimum_gene_cutoff`. If CITE-seq data is also present, this will also indicate the ADT filtering method as `cleanTagCounts`, e.g. `miQC;cleanTagCounts`. Only present for `filtered` objects.   |
 | `min_gene_cutoff`        | The minimum cutoff for the number of unique genes detected per cell. Only present for `filtered` objects |
 | `normalization`        | The method used for normalization of raw counts. Either `deconvolution`, described in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7), or  `log-normalization`. Only present for `processed` objects |
 | `highly_variable_genes`        | A list of highly variable genes used for dimensionality reduction, determined using `scran::modelGeneVar` and `scran::getTopHVGs`. Only present for `processed` objects |
@@ -133,7 +133,7 @@ CITE-seq data, when present, is included within the `SingleCellExperiment` as an
 altExp(sce, "CITEseq")
 ```
 
-Within this, the main expression matrix is again found in the `counts` assay and the normalized expression matrix is again found in the `logcounts` assay.
+Within this, the main expression matrix is again found in the `counts` assay and the normalized expression matrix is found in the `logcounts` assay.
 For each assay, each column corresponds to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponds to an antibody derived tag (ADT).
 Column names are again cell barcode sequences and row names are the antibody targets for each ADT.
 
@@ -142,21 +142,21 @@ The following additional per-cell data columns for the CITE-seq data can be foun
 
 | Column name                | Contents                                          |
 | -------------------------- | ------------------------------------------------- |
-| `altexps_CITEseq_sum`    | UMI count for CITE-seq ADTs                       |
+| `altexps_CITEseq_sum`      | UMI count for CITE-seq ADTs                       |
 | `altexps_CITEseq_detected` | Number of ADTs detected per cell (ADT count > 0 ) |
 | `altexps_CITEseq_percent`  | Percent of `total` UMI count from ADT reads       |
 
 
-The following columns, representing QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html), can be further be found in the `"CITEseq"`  alternative experiment `colData`, accessed with `colData(altExp(sce, "CITEseq"))`.
+In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) can be found in the `colData` of the `"CITEseq"` alternative experiment, accessed with `colData(altExp(sce, "CITEseq"))`.
 
 | Column name                | Contents                                          |
 | -------------------------- | ------------------------------------------------- |
 | `zero.ambient`   | Indicates whether the cell has zero ambient contamination   |
-| `sum.controls` |  The sum of counts for all control features; Only present if negative control ADTs are present. |
-| `high.controls`  | Indicates whether the cell has unusually high total control counts; Only present if negative control ADTs are present.|
-| `ambient.scale` |  The relative amount of ambient contamination; Only present if negative control ADTs are _not_ present. |
-| `high.ambient`  | Indicates whether the cell has unusually high contamination; Only present if negative control ADTs are _not_ present.|
-| `discard`  | Indicates whether the cell should be discarded based on QC statistics; All retained cells in the `_processed.rds` are `FALSE`. |
+| `sum.controls` |  The sum of counts for all control features. Only present if negative control ADTs are present. |
+| `high.controls`  | Indicates whether the cell has unusually high total control counts. Only present if negative control ADTs are present.|
+| `ambient.scale` |  The relative amount of ambient contamination. Only present if negative control ADTs are _not_ present. |
+| `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative control ADTs are _not_ present.|
+| `discard`  | Indicates whether the cell should be discarded based on QC statistics. All retained cells in the `_processed.rds` are `FALSE`. |
 
 
 Metrics for each of the ADTs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
@@ -174,7 +174,7 @@ This data frame contains the following columns with statistics for each ADT:
 | `target_type` | Whether each ADT is a `target`, `neg_control`, or `pos_control`. This column will be empty if target information is unknown. |
 
 Finally, additional metadata for the CITE-seq data processing can be found in the metadata slot of the alternative experiment.
-This metadata slot has the same contents as the [parent experiment metadata](#experiment-metadata), along with one additional field `ambient_profile` which holds a list of representing the ambient concentrations of each ADT.
+This metadata slot has the same contents as the [parent experiment metadata](#experiment-metadata), along with one additional field, `ambient_profile`, which holds a list of representing the ambient concentrations of each ADT.
 
 ```r
 citeseq_metadata <- metadata(altExp(sce, "CITEseq"))
