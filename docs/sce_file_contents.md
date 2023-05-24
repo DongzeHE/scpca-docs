@@ -54,8 +54,7 @@ See the description of the {ref}`processed gene expression data <processing_info
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `prob_compromised`      | Probability that a cell is compromised (i.e., dead or damaged), as calculated by `miQC`                                                                                                       |
 | `miQC_pass`             | Indicates whether the cell passed the default miQC filtering. `TRUE` is assigned to cells with a low probability of being compromised (`prob_compromised` < 0.75) or [sufficiently low mitochondrial content](https://bioconductor.org/packages/release/bioc/vignettes/miQC/inst/doc/miQC.html#preventing-exclusion-of-low-mito-cells).  |
-| `scpca_filter` | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200).
-All cells labeled as `Remove` were removed prior to writing the `_processed.rds` file and therefore all cells found in the `_processed.rds` file will be labeled `Keep`. |
+| `scpca_filter` | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200; if CITE-seq is present, the alternative experiment `discard` column is `TRUE`). All cells labeled as `Remove` were removed prior to writing the `_processed.rds` file, and therefore all cells found in the `_processed.rds` file will be labeled `Keep`. |
 
 ### Gene information and metrics
 
