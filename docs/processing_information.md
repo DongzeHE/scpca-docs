@@ -1,3 +1,33 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Processing information](#processing-information)
+  - [Single-cell and single-nuclei RNA-seq](#single-cell-and-single-nuclei-rna-seq)
+    - [Mapping and quantification using alevin-fry](#mapping-and-quantification-using-alevin-fry)
+      - [Reference transcriptome index](#reference-transcriptome-index)
+      - [Selective alignment](#selective-alignment)
+      - [Alevin-fry parameters](#alevin-fry-parameters)
+    - [Post alevin-fry processing](#post-alevin-fry-processing)
+      - [Combining counts from spliced cDNA and intronic regions](#combining-counts-from-spliced-cdna-and-intronic-regions)
+      - [Filtering cells](#filtering-cells)
+    - [Processed gene expression data](#processed-gene-expression-data)
+  - [CITE-seq quantification](#cite-seq-quantification)
+    - [Combining ADT counts with RNA counts](#combining-adt-counts-with-rna-counts)
+    - [Processed CITE-seq data](#processed-cite-seq-data)
+  - [Multiplexed libraries](#multiplexed-libraries)
+    - [Hashtag oligonucleotide (HTO) quantification](#hashtag-oligonucleotide-hto-quantification)
+    - [HTO demultiplexing](#hto-demultiplexing)
+    - [Genetic demultiplexing](#genetic-demultiplexing)
+  - [Spatial transcriptomics](#spatial-transcriptomics)
+    - [Mapping and quantification using Space Ranger](#mapping-and-quantification-using-space-ranger)
+  - [Bulk RNA samples](#bulk-rna-samples)
+    - [Preprocessing with fastp](#preprocessing-with-fastp)
+    - [Mapping and quantification using salmon](#mapping-and-quantification-using-salmon)
+      - [Salmon parameters](#salmon-parameters)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Processing information
 
 ## Single-cell and single-nuclei RNA-seq
@@ -71,16 +101,6 @@ The log-normalized counts are used to model variance of each gene prior to selec
 These HVGs are then used as input to principal component analysis, and the top 50 principal components are selected.
 Finally, these principal components are used to calculate the [UMAP (Uniform Manifold Approximation and Projection)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#uniform-manifold-approximation-and-projection) embeddings.
 
-### Processed CITE-seq data
-
-If the experiment contains CITE-seq data, further filtering steps are applied to the `SingleCellExperiment` object found in `_processed.rds`.
-An ambient profile representing antibody-derived tag (ADT) proportions present in the ambient solution is calculated from the `_unfiltered.rds` object using [`DropletUtils::ambientProfileEmpty()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/ambientProfileEmpty.html).
-This ambient profile, along with negative control information, if present, is then as input to calculate quality-control statistics using [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html).
-Cells identified by `DropletUtils::cleanTagCounts()` as having high levels of ambient contamination and/or negative control tags are are removed from the counts matrices present in the `_processed.rds` file.
-
-Log-normalized ADT counts are calculated using [median-based normalization](http://bioconductor.org/books/3.16/OSCA.advanced/integrating-with-protein-abundance.html#cite-seq-median-norm), again making use of the baseline ambient profile.
-Importantly, this process may fail if any calculated median size factors have a value of 0, in which case log-normalized ADT counts are not provided in the `_processed.rds` object.
-
 ## CITE-seq quantification
 
 CITE-seq libraries with reads from antibody-derived tags (ADTs) were also quantified using  [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/), rounded to integer values.
@@ -95,6 +115,16 @@ When normalizing these two count matrices to the same set of cells, we chose to 
 Any cell barcodes that appeared only in CITE-seq data were discarded.
 Cell barcodes that were present only in the RNA-seq data (i.e., did _not_ appear in the CITE-seq data) were assigned zero counts for all ADTs.
 When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the CITE-seq count matrix was filtered to match.
+
+### Processed CITE-seq data
+
+An ambient profile representing antibody-derived tag (ADT) proportions present in the ambient solution is calculated from the `_unfiltered.rds` object using [`DropletUtils::ambientProfileEmpty()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/ambientProfileEmpty.html).
+This ambient profile, along with negative control information, if present, is then as input to calculate quality-control statistics using [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html).
+Cells identified by `DropletUtils::cleanTagCounts()` as having high levels of ambient contamination and/or negative control tags are are removed from all counts matrices present in the `_processed.rds` file.
+The RNA count matrix was filtered to match, such that the same cells are present in all RNA and CITE-seq counts matrices.
+
+Log-normalized ADT counts are calculated using [median-based normalization](http://bioconductor.org/books/3.16/OSCA.advanced/integrating-with-protein-abundance.html#cite-seq-median-norm), again making use of the baseline ambient profile.
+Importantly, this process may fail if any calculated median size factors have a value of 0, in which case log-normalized ADT counts are not provided in the `_processed.rds` object.
 
 ## Multiplexed libraries
 
