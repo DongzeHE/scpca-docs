@@ -135,8 +135,7 @@ altExp(sce, "adt")
 ```
 
 Within this, the main expression matrix is again found in the `counts` assay and the normalized expression matrix is found in the `logcounts` assay.
-!!!!!!!! TODO: not everything is normalized. !!!!!!!!!!!
-
+Note that only cells which are denoted as "Keep" in both the `colData(sce)$scpca_filter` and  `colData(sce)$adt_scpca_filter` column (as described in #cell-metrics) have normalized expression values in `logcounts`, and all other cells are assigned `NA` values.
 For each assay, each column corresponds to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponds to an antibody derived tag (ADT).
 Column names are again cell barcode sequences and row names are the antibody targets for each ADT.
 
@@ -155,10 +154,10 @@ In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`]
 | Column name                | Contents                                          |
 | -------------------------- | ------------------------------------------------- |
 | `zero.ambient`   | Indicates whether the cell has zero ambient contamination   |
-| `sum.controls` |  The sum of counts for all control features. Only present if negative control ADTs are present. |
-| `high.controls`  | Indicates whether the cell has unusually high total control counts. Only present if negative control ADTs are present.|
+| `sum.controls` |  The sum of counts for all control features. Only present if negative/isotype control ADTs are present. |
+| `high.controls`  | Indicates whether the cell has unusually high total control counts. Only present if negative/isotype control ADTs are present.|
 | `ambient.scale` |  The relative amount of ambient contamination. Only present if negative control ADTs are _not_ present. |
-| `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative control ADTs are _not_ present.|
+| `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative/isotype control ADTs are _not_ present.|
 | `discard`  | Indicates whether the cell should be discarded based on QC statistics. |
 
 
