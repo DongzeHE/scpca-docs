@@ -174,7 +174,7 @@ This data frame contains the following columns with statistics for each ADT:
 | ----------- | -------------------------------------------------------------- |
 | `mean`      | Mean ADT count across all cells/droplets                       |
 | `detected`  | Percent of cells in which the ADT was detected (ADT count > 0 ) |
-| `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and thusly labeled. |
+| `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and labeled as such. |
 
 Finally, additional metadata for ADT processing can be found in the metadata slot of the alternative experiment.
 This metadata slot has the same contents as the [parent experiment metadata](#experiment-metadata), along with one additional field, `ambient_profile`, which holds a list of representing the ambient concentrations of each ADT.

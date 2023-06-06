@@ -43,6 +43,7 @@ HVG
 HVGs
 intronic
 introns
+isotype
 Kaminow
 Marioni
 Pearson
