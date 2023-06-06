@@ -236,14 +236,15 @@ Here are some resources that can be used to get you started working with `AnnDat
 
 ### Filtering cells based on ADT quality control
 
-The `SingleCellExperiment` objects stored in both the `filtered.rds` and the `processed.rds` have not been filtered based on ADT-level statistics, but both objects contain indicator variables to quickly perform this filtering.
+The `SingleCellExperiment` objects stored in both the `filtered.rds` and the `processed.rds` files have not been filtered based on ADT-level statistics, but both objects contain indicator variables to quickly perform this filtering.
 
-In both objects, you can see cells flagged for removal based on ADT-level QC statistics in the alternative experiment's `discard` column, where `TRUE` indicates the cell should be removed.
+In both objects, you can see cells flagged for removal based on ADT-level QC statistics in the alternative experiment's `discard` column as calculated by [`DropletUtils::CleanTagCounts()](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html), where `TRUE` indicates the cell should be removed.
 
 ```r
 # See which cells should be removed (`TRUE`) vs. kept (`FALSE`)
-# This information is in both `filtered.rds` and `processed.rds`
-altExp(sce)$discard
+# This column is in both `filtered.rds` and `processed.rds`:
+altExp(filtered_sce)$discard
+altExp(processed_sce)$discard
 ```
 
 In the `processed.rds` object specifically, this information is also recorded as values "Remove" and "Keep":
@@ -259,7 +260,7 @@ To perform normalization yourself, we first recommend filtering cells flagged fo
 
 ```r
 # Filter cells based on ADT-level QC statistics to
-# prepare for normalization
+#  prepare for normalization
 filtered_sce <- filtered_sce[, adt_scpca_filter == "Keep"]
 ```
 
@@ -274,10 +275,11 @@ altExp(filtered_sce) <- scuttle::computeMedianFactors(
 )
 
 # Normalize and log transform
+# This step will only succeed if all size factors calculated above are positive
 altExp(filtered_sce) <- scater::logNormCounts(altExp(filtered_sce))
 ```
 
-A normalized expression matrix is also provided in the `processed.rds` object, specifically for all cells which are indicated as `"Keep"` in the `processed_sce$adt_scpca_filter` column:
+A normalized expression matrix is also provided in the `processed.rds` object, containing values for all cells which are indicated as `"Keep"` in the `processed_sce$adt_scpca_filter` column and `NA` for all cells indicated as `"Remove"`:
 
 ```r
 # Access log normalized ADT expression matrix
