@@ -247,22 +247,31 @@ altExp(filtered_sce)$discard
 altExp(processed_sce)$discard
 ```
 
-In the `processed.rds` object specifically, this information is also recorded as values "Remove" and "Keep":
+To filter cells based on this column, use the following command, for example on `filtered_sce`:
+```r
+# Filter cells based on ADT-level QC statistics
+filtered_sce <- filtered_sce[, -which(altExp(filtered_sce)$discard)]
+```
+
+In the `processed.rds` object specifically, this information is also recorded as values `"Remove"` and `"Keep"`:
 
 ```r
 # See which cells should be removed vs. kept in `processed.rds`
 processed_sce$adt_scpca_filter
 ```
+
+To filter cells based on this column, use the following command:
+```r
+# Filter cells based on ADT-level QC statistics
+processed_sce <- processed_sce[, which(processed_sce$adt_scpca_filter ==  "Keep")]
+```
+
+
 ### Normalizing ADT counts
 
 The `filtered.rds` object contains a raw ADT counts matrix, but not a matrix of log normalized ADT expression.
-To perform normalization yourself, we first recommend filtering cells flagged for removal by ADT-level QC statistics to reduce the chances of normalization failing:
+To perform normalization yourself, we first recommend filtering cells flagged for removal by ADT-level QC statistics to reduce the chances of normalization failing, as described above.
 
-```r
-# Filter cells based on ADT-level QC statistics to
-#  prepare for normalization
-filtered_sce <- filtered_sce[, adt_scpca_filter == "Keep"]
-```
 
 Normalization can then be performed with `scuttle` and `scater`:
 
