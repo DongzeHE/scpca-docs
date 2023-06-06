@@ -125,12 +125,13 @@ The following columns are added by `scuttle::addPerCellQCMetrics()` and can be f
 | `subsets_mito_sum`      | UMI count of mitochondrial genes                                                                                                                                                              |
 | `subsets_mito_detected` | Number of mitochondrial genes detected                                                                                                                                                        |
 | `subsets_mito_percent`  | Percent of all UMI counts assigned to mitochondrial genes                                                                                                                                     |
-| `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., CITE-seq)                                                                                                             |
+| `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., ADT data from CITE-seq)                                                                                                             |
 
 These metrics can be used to directly filter the `SingleCellExperiment` object based on informed thresholds.
 If you are planning to filter low quality cells using such thresholds, we encourage you to read more about the various metrics and plot the distribution of each metric before deciding on which cells to exclude.
 The [Quality Control chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/quality-control.html#quality-control) provides a nice guide to checking diagnostic plots and then choosing cutoffs.
 
+See the other section below if you have CITE-seq experiment and want to do more filtering based on ADTs.
 ### Normalization
 
 The provided data contains unnormalized raw counts.
@@ -215,6 +216,17 @@ Here are some resources that can be used to get you started working with `AnnDat
 - [Preprocessing and clustering tutorial in scanpy](https://scanpy-tutorials.readthedocs.io/en/latest/pbmc3k.html)
 - [Converting directly from R to Python](https://theislab.github.io/scanpy-in-R/#converting-from-r-to-python)
 - [Homepage for scanpy tutorials](https://scanpy.readthedocs.io/en/latest/tutorials.html)
+
+
+## Special considerations for CITE-seq experiments
+
+These have ADT in the altExp which you can also filter.
+We did this with cleanTagCounts, using provided negatives if you had them, and an ambient profile that's stored in the metadata.
+You can filter based on the `adt_scpca_filter` column (which has "Keep"/"Remove" for corresponding `FALSE`/`TRUE` in the altexp colData `discard` column).
+
+Normalization is still up for grabs in the field overall and we recommend OSCA for different ideas.
+We recommend median-based normalization which is usually ok for these non-sparse counts.
+This will fail if any size fators are 0 so you should filter cells based on `adt_scpca_filter` first to have the best chance of success here.
 
 ## Special considerations for multiplexed samples
 
