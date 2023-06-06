@@ -47,7 +47,7 @@ More resources for learning about `SingleCellExperiment` objects:
 ## Working with the processed `SingleCellExperiment` objects
 
 The `SingleCellExperiment` objects stored in the `processed.rds` files have undergone additional quality control steps to remove low quality cells.
-In addition,  normalized expression counts and dimensionality reduction (principal component analysis and UMAP) have been calculated.
+In addition, normalized expression counts and dimensionality reduction (principal component analysis and UMAP) have been calculated.
 
 The following commands can be used to access the raw and normalized count matrices:
 
@@ -58,6 +58,18 @@ raw_counts <- counts(processed_sce)
 # log normalized counts matrix stored in the processed object
 normalized_counts <- logcounts(processed_sce)
 ```
+
+If you have ADT data from a CITE-seq experiment, you can use the following commands to access raw and normalized ADT count matrices:
+
+```r
+# the raw ADT counts matrix stored in the processed object
+raw_adt_counts <- counts(altExp(processed_sce))
+
+# log normalized ADT counts matrix stored in the processed object
+# if this value is NULL, it means normalization failed
+normalized_adt_counts <- logcounts(altExp(processed_sce))
+```
+
 
 Dimensionality reduction results can be accessed using the following command:
 
@@ -131,7 +143,7 @@ These metrics can be used to directly filter the `SingleCellExperiment` object b
 If you are planning to filter low quality cells using such thresholds, we encourage you to read more about the various metrics and plot the distribution of each metric before deciding on which cells to exclude.
 The [Quality Control chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/quality-control.html#quality-control) provides a nice guide to checking diagnostic plots and then choosing cutoffs.
 
-See the other section below if you have CITE-seq experiment and want to do more filtering based on ADTs.
+If you have ADT data from a CITE-seq experiment, please refer to the section [Special considerations for CITE-seq experiments](#special-considerations-for-cite-seq-experiments) below for information on how to filter cells based on ADT-level statistics.
 ### Normalization
 
 The provided data contains unnormalized raw counts.
@@ -156,6 +168,8 @@ Here we provide more resources on understanding normalization in single-cell RNA
 - [Hemberg lab scRNA-seq course section on normalization methods](https://www.singlecellcourse.org/basic-quality-control-qc-and-exploration-of-scrna-seq-datasets.html#normalization-theory)
 - [Stegle _et al._ (2015) Computational and analytical challenges in single-cell transcriptomics](https://doi.org/10.1038/nrg3833).  Includes a discussion of normalization and technical variance in scRNA-seq.
 - [Lun _et al._ (2016) Pooling across cells to normalize single-cell RNA sequencing data with many zero counts](https://doi.org/10.1186/s13059-016-0947-7)
+
+If you have ADT data from a CITE-seq experiment, please refer to the section [Special considerations for CITE-seq experiments](#special-considerations-for-cite-seq-experiments) below for information on how to normalize ADT counts.
 
 ### Dimensionality Reduction
 
@@ -220,13 +234,61 @@ Here are some resources that can be used to get you started working with `AnnDat
 
 ## Special considerations for CITE-seq experiments
 
-These have ADT in the altExp which you can also filter.
-We did this with cleanTagCounts, using provided negatives if you had them, and an ambient profile that's stored in the metadata.
-You can filter based on the `adt_scpca_filter` column (which has "Keep"/"Remove" for corresponding `FALSE`/`TRUE` in the altexp colData `discard` column).
+### Filtering cells based on ADT quality control
 
-Normalization is still up for grabs in the field overall and we recommend OSCA for different ideas.
-We recommend median-based normalization which is usually ok for these non-sparse counts.
-This will fail if any size fators are 0 so you should filter cells based on `adt_scpca_filter` first to have the best chance of success here.
+The `SingleCellExperiment` objects stored in both the `filtered.rds` and the `processed.rds` have not been filtered based on ADT-level statistics, but both objects contain indicator variables to quickly perform this filtering.
+
+In both objects, you can see cells flagged for removal based on ADT-level QC statistics in the alternative experiment's `discard` column, where `TRUE` indicates the cell should be removed.
+
+```r
+# See which cells should be removed (`TRUE`) vs. kept (`FALSE`)
+# This information is in both `filtered.rds` and `processed.rds`
+altExp(sce)$discard
+```
+
+In the `processed.rds` object specifically, this information is also recorded as values "Remove" and "Keep":
+
+```r
+# See which cells should be removed vs. kept in `processed.rds`
+processed_sce$adt_scpca_filter
+```
+### Normalizing ADT counts
+
+The `filtered.rds` object contains a raw ADT counts matrix, but not a matrix of log normalized ADT expression.
+To perform normalization yourself, we first recommend filtering cells flagged for removal by ADT-level QC statistics to reduce the chances of normalization failing:
+
+```r
+# Filter cells based on ADT-level QC statistics to
+# prepare for normalization
+filtered_sce <- filtered_sce[, adt_scpca_filter == "Keep"]
+```
+
+Normalization can then be performed with `scuttle` and `scater`:
+
+```r
+# Calculate size factors for use in ADT normalization,
+# using the previously-calculated ambient profile
+altExp(filtered_sce) <- scuttle::computeMedianFactors(
+  altExp(filtered_sce),
+  reference = metadata(altExp(filtered_sce))$ambient_profile
+)
+
+# Normalize and log transform
+altExp(filtered_sce) <- scater::logNormCounts(altExp(filtered_sce))
+```
+
+A normalized expression matrix is also provided in the `processed.rds` object, specifically for all cells which are indicated as `"Keep"` in the `processed_sce$adt_scpca_filter` column:
+
+```r
+# Access log normalized ADT expression matrix
+logcounts(altExp(processed_sce))
+```
+
+Here are some additional resources that can be used for working with ADT counts from CITE-seq experiments:
+- [Integrating with Protein Abundance, Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.15/OSCA.advanced/integrating-with-protein-abundance.html)
+- [Seurat vignette on using with multimodal data](https://satijalab.org/seurat/articles/multimodal_vignette.html)
+
+
 
 ## Special considerations for multiplexed samples
 
