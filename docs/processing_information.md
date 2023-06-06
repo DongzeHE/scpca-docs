@@ -91,8 +91,8 @@ This ambient profile, along with negative/isotype control information, if presen
 Cells identified by `DropletUtils::cleanTagCounts()` as having high levels of ambient contamination and/or negative/isotype control tags are indicated for removal within the `_processed.rds` file, but they are not actually removed.
 
 For all cells that _would be_ retained if `DropletUtils::cleanTagCounts()` filtering were applied, log-normalized ADT counts are calculated using [median-based normalization](http://bioconductor.org/books/3.16/OSCA.advanced/integrating-with-protein-abundance.html#cite-seq-median-norm), again making use of the baseline ambient profile.
-Any cells that would be filtered out as determined by `DropletUtils::cleanTagCounts()`, normalized values are not calculated but are instead assigned `NA` values.
-Importantly, all normalization may fail if any calculated median size factors have a value of 0, in which case log-normalized ADT counts are not provided in the `_processed.rds` object.
+For any cells that would be filtered out as determined by `DropletUtils::cleanTagCounts()`, normalized values are not calculated but are instead assigned `NA` values.
+Importantly, if any calculated median size factors have a value of 0, normalization will fail, and log-normalized ADT counts are not provided in the `_processed.rds` object.
 
 ## Multiplexed libraries
 
