@@ -139,7 +139,7 @@ For each assay, each column corresponds to a cell or droplet (in the same order 
 Column names are again cell barcode sequences and row names are the antibody targets for each ADT.
 
 Note that only cells which are denoted as "Keep" in both the `colData(sce)$scpca_filter` and  `colData(sce)$adt_scpca_filter` column (as described in #cell-metrics) have normalized expression values in the `logcounts` assay, and all other cells are assigned `NA` values.
-However, as described in the {ref}`processed CITE-seq data section <processing_information:Processed CITE-seq data>`, normalization may fail under certain circumstances, in which case there will be no `logcounts` normalized expression matrix present in the alternative experiment.
+However, as described in the {ref}`processed ADT data section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances, in which case there will be no `logcounts` normalized expression matrix present in the alternative experiment.
 
 The following additional per-cell data columns for the ADT data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#cell-metrics)).
 

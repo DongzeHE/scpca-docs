@@ -69,7 +69,7 @@ The log-normalized counts are used to model variance of each gene prior to selec
 These HVGs are then used as input to principal component analysis, and the top 50 principal components are selected.
 Finally, these principal components are used to calculate the [UMAP (Uniform Manifold Approximation and Projection)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#uniform-manifold-approximation-and-projection) embeddings.
 
-## CITE-seq quantification
+## ADT quantification from CITE-seq experiments
 
 CITE-seq libraries with reads from antibody-derived tags (ADTs) were also quantified using  [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/), rounded to integer values.
 
@@ -78,13 +78,13 @@ Mapping to these indices followed the same procedures as for RNA-seq data, inclu
 
 ### Combining ADT counts with RNA counts
 
-The unfiltered CITE-seq and RNA-seq count matrices often include somewhat different sets of cell barcodes, due to stochastic variation in library construction and sequencing.
-When normalizing these two count matrices to the same set of cells, we chose to prioritize RNA-seq results for broad comparability among libraries with and without CITE-seq data.
-Any cell barcodes that appeared only in CITE-seq data were discarded.
-Cell barcodes that were present only in the RNA-seq data (i.e., did _not_ appear in the CITE-seq data) were assigned zero counts for all ADTs.
-When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the CITE-seq count matrix was filtered to match.
+The unfiltered ADT and RNA-seq count matrices often include somewhat different sets of cell barcodes, due to stochastic variation in library construction and sequencing.
+When normalizing these two count matrices to the same set of cells, we chose to prioritize RNA-seq results for broad comparability among libraries with and without ADT data.
+Any cell barcodes that appeared only in ADT data were discarded.
+Cell barcodes that were present only in the RNA-seq data (i.e., did _not_ appear in the ADT data) were assigned zero counts for all ADTs.
+When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the ADT count matrix was filtered to match.
 
-### Processed CITE-seq data
+### Processed ADT data
 
 An ambient profile representing antibody-derived tag (ADT) proportions present in the ambient solution is calculated from the `_unfiltered.rds` object using [`DropletUtils::ambientProfileEmpty()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/ambientProfileEmpty.html).
 This ambient profile, along with negative/isotype control information, if present, is then as input to calculate quality-control statistics using [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html).
@@ -104,7 +104,7 @@ HTO reads were also quantified using  [`salmon alevin`](https://salmon.readthedo
 Reference indices were constructed from the submitter-provided list of HTO sequences corresponding to each library using the `--features` flag of `salmon index`.
 Mapping to these indices followed the same procedures as for RNA-seq data, including mapping with [selective alignment](#selective-alignment) and subsequent [quantification via alevin-fry](#alevin-fry-parameters).
 
-As with the [CITE-seq data](#combining-cite-counts-with-rna-counts), we retained all cells with RNA-seq data, setting HTO counts to zero for any missing cell barcodes.
+As with the [ADT data](#combining-adt-counts-with-rna-counts), we retained all cells with RNA-seq data, setting HTO counts to zero for any missing cell barcodes.
 When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the HTO count matrix was filtered to match.
 
 ### HTO demultiplexing
