@@ -103,7 +103,7 @@ If desired, these can be converted into Seurat objects.
 
 You will need to [install and load the `Seurat` package](https://satijalab.org/seurat/articles/install.html) to work with Seurat objects.
 
-For libraries that only contain RNA-sequencing data (i.e. do not have an ADT library found in the `altExp` of the `SingleCellExperiment` object), you can use the following commands:
+For libraries that only contain RNA-seq data (i.e., do not have an ADT library found in the `altExp` of the `SingleCellExperiment` object), you can use the following commands:
 
 ```r
 library(Seurat)

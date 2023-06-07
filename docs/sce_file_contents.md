@@ -54,7 +54,7 @@ See the description of the {ref}`processed gene expression data <processing_info
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `prob_compromised`      | Probability that a cell is compromised (i.e., dead or damaged), as calculated by `miQC`                                                                                                       |
 | `miQC_pass`             | Indicates whether the cell passed the default miQC filtering. `TRUE` is assigned to cells with a low probability of being compromised (`prob_compromised` < 0.75) or [sufficiently low mitochondrial content](https://bioconductor.org/packages/release/bioc/vignettes/miQC/inst/doc/miQC.html#preventing-exclusion-of-low-mito-cells).  |
- `scpca_filter` | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200) |
+| `scpca_filter` | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200) |
 | `adt_scpca_filter` | If CITE-seq was performed, labels cells as either `Keep` or `Remove` based on ADT filtering criteria (`discard = TRUE` as determined by [`DropletUtils::CleanTagCounts`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html)) |
 
 ### Gene information and metrics
@@ -101,7 +101,7 @@ expt_metadata <- metadata(sce)
 | `umi_cutoff`        | The minimum UMI count per cell used as a threshold for removing empty droplets. Only present for `filtered` objects where the `filtering_method` is `UMI cutoff` |
 | `prob_compromised_cutoff`        | The minimum cutoff for the probability of a cell being compromised, as calculated by `miQC`. Only present for `filtered` objects |
 | `scpca_filter_method`        | Method used by the Data Lab to filter low quality cells prior to normalization. Either `miQC` or `Minimum_gene_cutoff`.  |
-| `adt_scpca_filter_method`        | If CITE-seq was performed, method used by the Data Lab to identify cells to be filtered prior to normalization, based on ADT counts. Either `cleanTagCounts with isotype controls` or `cleanTagCounts without isotype controls`, if controls are present or absent, respectively.  |
+| `adt_scpca_filter_method`        | If CITE-seq was performed, method used by the Data Lab to identify cells to be filtered prior to normalization, based on ADT counts. Either `cleanTagCounts with isotype controls` or `cleanTagCounts without isotype controls`|
 | `min_gene_cutoff`        | The minimum cutoff for the number of unique genes detected per cell. Only present for `filtered` objects |
 | `normalization`        | The method used for normalization of raw RNA counts. Either `deconvolution`, described in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7), or  `log-normalization`. Only present for `processed` objects |
 | `highly_variable_genes`        | A list of highly variable genes used for dimensionality reduction, determined using `scran::modelGeneVar` and `scran::getTopHVGs`. Only present for `processed` objects |
@@ -126,7 +126,7 @@ The following command can be used to access the UMAP results:
 reducedDim(sce,"UMAP")
 ```
 
-## Additional SingleCellExperiment components for ADT (CITE-seq) libraries
+## Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags)
 
 ADT data from CITE-seq experiments, when present, is included within the `SingleCellExperiment` as an "Alternative Experiment" named `"adt"` , which can be accessed with the following command:
 
@@ -138,7 +138,7 @@ Within this, the main expression matrix is again found in the `counts` assay and
 For each assay, each column corresponds to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponds to an antibody derived tag (ADT).
 Column names are again cell barcode sequences and row names are the antibody targets for each ADT.
 
-Note that only cells which are denoted as "Keep" in both the `colData(sce)$scpca_filter` and  `colData(sce)$adt_scpca_filter` column (as described in #cell-metrics) have normalized expression values in the `logcounts` assay, and all other cells are assigned `NA` values.
+Note that only cells which are denoted as "Keep" in  the `colData(sce)$adt_scpca_filter` column (as described in #cell-metrics) have normalized expression values in the `logcounts` assay, and all other cells are assigned `NA` values.
 However, as described in the {ref}`processed ADT data section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances, in which case there will be no `logcounts` normalized expression matrix present in the alternative experiment.
 
 The following additional per-cell data columns for the ADT data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#cell-metrics)).

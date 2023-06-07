@@ -81,18 +81,18 @@ Mapping to these indices followed the same procedures as for RNA-seq data, inclu
 The unfiltered ADT and RNA-seq count matrices often include somewhat different sets of cell barcodes, due to stochastic variation in library construction and sequencing.
 When normalizing these two count matrices to the same set of cells, we chose to prioritize RNA-seq results for broad comparability among libraries with and without ADT data.
 Any cell barcodes that appeared only in ADT data were discarded.
-Cell barcodes that were present only in the RNA-seq data (i.e., did _not_ appear in the ADT data) were assigned zero counts for all ADTs.
+Cell barcodes that were present only in the RNA-seq data (i.e., did not appear in the ADT data) were assigned zero counts for all ADTs.
 When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the ADT count matrix was filtered to match.
 
 ### Processed ADT data
 
 An ambient profile representing antibody-derived tag (ADT) proportions present in the ambient solution is calculated from the `_unfiltered.rds` object using [`DropletUtils::ambientProfileEmpty()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/ambientProfileEmpty.html).
-This ambient profile, along with negative/isotype control information, if present, is then used as input to calculate quality-control statistics using [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html).
-Cells identified by `DropletUtils::cleanTagCounts()` as having high levels of ambient contamination and/or negative/isotype control tags are indicated for removal within the `_processed.rds` file, but they are not actually removed.
+Quality-control statistics were calculated with [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) using this ambient profile, along with negative/isotype control information, if present.
+Low quality cells identified by `DropletUtils::cleanTagCounts()` (those having high levels of ambient contamination or substantial negative/isotype control tags) are flagged within the `_processed.rds` file by the `adt_scpca_filter` `colData` column, but are not removed.
 
-For all cells that _would be_ retained if `DropletUtils::cleanTagCounts()` filtering were applied, log-normalized ADT counts are calculated using [median-based normalization](http://bioconductor.org/books/3.16/OSCA.advanced/integrating-with-protein-abundance.html#cite-seq-median-norm), again making use of the baseline ambient profile.
-For any cells that would be filtered out as determined by `DropletUtils::cleanTagCounts()`, normalized values are not calculated but are instead assigned `NA` values.
-Importantly, if any calculated median size factors have a value of 0, normalization will fail, and log-normalized ADT counts are not provided in the `_processed.rds` object.
+For all cells that would be retained if `DropletUtils::cleanTagCounts()` filtering were applied, log-normalized ADT counts are calculated using [median-based normalization](http://bioconductor.org/books/3.16/OSCA.advanced/integrating-with-protein-abundance.html#cite-seq-median-norm), again making use of the baseline ambient profile.
+Normalized counts for cells that would be filtered out by `DropletUtils::cleanTagCounts()` are assigned as `NA`.
+If normalization fails, log-normalized ADT counts are not provided in the `_processed.rds` object.
 
 ## Multiplexed libraries
 
