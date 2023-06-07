@@ -59,18 +59,6 @@ raw_counts <- counts(processed_sce)
 normalized_counts <- logcounts(processed_sce)
 ```
 
-If you have ADT data from a CITE-seq experiment, you can use the following commands to access raw and normalized ADT count matrices:
-
-```r
-# the raw ADT counts matrix stored in the processed object
-raw_adt_counts <- counts(altExp(processed_sce))
-
-# log normalized ADT counts matrix stored in the processed object
-# if this value is NULL, it means normalization failed
-normalized_adt_counts <- logcounts(altExp(processed_sce))
-```
-
-
 Dimensionality reduction results can be accessed using the following command:
 
 ```r
@@ -234,44 +222,67 @@ Here are some resources that can be used to get you started working with `AnnDat
 
 ## Special considerations for CITE-seq experiments
 
-### Filtering cells based on ADT quality control
 
-The `SingleCellExperiment` objects stored in both the `filtered.rds` and the `processed.rds` files have not been filtered based on ADT-level statistics, but both objects contain indicator variables to quickly perform this filtering.
-
-In both objects, you can see cells flagged for removal based on ADT-level QC statistics in the alternative experiment's `discard` column as calculated by [`DropletUtils::CleanTagCounts()](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html), where `TRUE` indicates the cell should be removed.
+If you have ADT data from a CITE-seq experiment, you can use the following commands to access raw and normalized ADT expression matrices in the `processed.rds` file object:
 
 ```r
-# See which cells should be removed (`TRUE`) vs. kept (`FALSE`)
-# This column is in both `filtered.rds` and `processed.rds`:
-altExp(filtered_sce)$discard
-altExp(processed_sce)$discard
+# the raw ADT counts matrix
+raw_adt_counts <- counts(altExp(processed_sce))
+
+# the log normalized ADT counts matrix
+# if this value is NULL, it means normalization failed
+normalized_adt_counts <- logcounts(altExp(processed_sce))
 ```
 
-To filter cells based on this column, use the following command, for example on `filtered_sce`:
-```r
-# Filter cells based on ADT-level QC statistics
-filtered_sce <- filtered_sce[, -which(altExp(filtered_sce)$discard)]
-```
-
-In the `processed.rds` object specifically, this information is also recorded as values `"Remove"` and `"Keep"`:
-
-```r
-# See which cells should be removed vs. kept in `processed.rds`
-processed_sce$adt_scpca_filter
-```
+It is important to be aware that the `SingleCellExperiment` object in the `processed.rds` file was not filtered based on ADT counts, but information that can be used for filtering is  available in the `adt_scpca_filter` column.
+Cells are labeled either as `"Keep"` (cells to retain) or `"Remove"` (cells to filter out).
 
 To filter cells based on this column, use the following command:
 ```r
-# Filter cells based on ADT-level QC statistics
-processed_sce <- processed_sce[, which(processed_sce$adt_scpca_filter ==  "Keep")]
+# Filter cells based on ADT QC statistics
+processed_sce <- processed_sce[, which(processed_sce$adt_scpca_filter == "Keep")]
 ```
 
+It is also important to be aware that the normalized ADT expression matrix only contains values for cells labeled as `"Keep"` in the `adt_scpca_filter` column.
+Any cells labeled `"Remove"` have `NA` values normalized expression matrix (see
+{ref}`processed cite-seq data <processing_information:Processed CITE-seq data>` for more details).
+
+As dimension reduction requires all known values (i.e., no `NA`s), filtering cells as shown above is critical before proceeding to downstream analyses on ADT counts.
+
+To perform principal components analysis (PCA) on the ADT counts, use the following `scater` command _after_ filtering has been performed:
+
+```r
+# Calculate PCA on the ADT counts
+processed_sce <- scater::runPCA(altExp(processed_sce))
+```
+
+To perform UMAP on this resulting PCA matrix, use the following `scater` command:
+
+```r
+# Calculate UMAP on the ADT counts
+processed_sce <- scater::runUMAP(altExp(processed_sce))
+```
+### Filtering cells based on ADT quality control
+
+In both the `filtered.rds` and `processed.rds` files, cells are flagged for removal based on ADT-level QC statistics in the alternative experiment's `discard` column as calculated by [`DropletUtils::CleanTagCounts()](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html).
+This column contains values `FALSE` for cells that should not be removed, and `TRUE` for cells that should be removed.
+
+To filter cells based on ADT counts, for example in the `filtered.rds` object, use the following commands:
+
+```r
+# First, you can see cells should be removed (`TRUE`) vs. kept (`FALSE`)
+altExp(filtered_sce)$discard
+
+# Filter cells based on ADT QC statistics
+filtered_sce <- filtered_sce[, -which(altExp(filtered_sce)$discard)]
+```
 
 ### Normalizing ADT counts
 
-The `filtered.rds` object contains a raw ADT counts matrix, but not a matrix of log normalized ADT expression.
-To perform normalization yourself, we first recommend filtering cells flagged for removal by ADT-level QC statistics to reduce the chances of normalization failing, as described above.
 
+The `filtered.rds` object contains a raw ADT counts matrix, but not a matrix of log normalized ADT expression.
+To perform normalization yourself, we first recommend filtering cells using the `filtered_sce$discard` column, as shown above, to reduce the chances of normalization failing as described in
+{ref}`processed cite-seq data <processing_information:Processed CITE-seq data>`.
 
 Normalization can then be performed with `scuttle` and `scater`:
 
@@ -284,16 +295,10 @@ altExp(filtered_sce) <- scuttle::computeMedianFactors(
 )
 
 # Normalize and log transform
-# This step will only succeed if all size factors calculated above are positive
+# This will only succeed if all size factors calculated above are positive
 altExp(filtered_sce) <- scater::logNormCounts(altExp(filtered_sce))
 ```
 
-A normalized expression matrix is also provided in the `processed.rds` object, containing values for all cells which are indicated as `"Keep"` in the `processed_sce$adt_scpca_filter` column and `NA` for all cells indicated as `"Remove"`:
-
-```r
-# Access log normalized ADT expression matrix
-logcounts(altExp(processed_sce))
-```
 
 Here are some additional resources that can be used for working with ADT counts from CITE-seq experiments:
 - [Integrating with Protein Abundance, Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.15/OSCA.advanced/integrating-with-protein-abundance.html)
