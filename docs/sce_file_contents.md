@@ -1,7 +1,7 @@
 # Single-cell gene expression file contents
 
 Single-cell or single-nuclei gene expression data (unfiltered, filtered, or processed) is provided for use with R as an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
-This object contains the expression data, cell and gene metrics, associated metadata, and, in the case of multimodal data like CITE-seq, data from additional cell-based assays.
+This object contains the expression data, cell and gene metrics, associated metadata, and, in the case of multimodal data like ADTs from CITE-seq experiments, data from additional cell-based assays.
 
 We highly encourage you to familiarize yourself with the general object structure and functions available as part of the [`SingleCellExperiment` package](https://bioconductor.org/packages/3.13/bioc/html/SingleCellExperiment.html) from Bioconductor.
 Below we present some details about the specific contents of the objects we provide.
@@ -43,7 +43,7 @@ The following per-cell data columns are included for each cell, calculated using
 | `subsets_mito_sum`      | UMI count of mitochondrial genes                                                                                                                                                              |
 | `subsets_mito_detected` | Number of mitochondrial genes detected                                                                                                                                                        |
 | `subsets_mito_percent`  | Percent of all UMI counts assigned to mitochondrial genes                                                                                                                                     |
-| `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., CITE-seq)                                                                                                             |
+| `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., ADT data from CITE-seq)                                                                                                             |
 
 The following additional per-cell data columns are included in both the `filtered` and `processed` objects.
 These columns include metrics calculated by [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected to predict low-quality cells.
@@ -54,7 +54,8 @@ See the description of the {ref}`processed gene expression data <processing_info
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `prob_compromised`      | Probability that a cell is compromised (i.e., dead or damaged), as calculated by `miQC`                                                                                                       |
 | `miQC_pass`             | Indicates whether the cell passed the default miQC filtering. `TRUE` is assigned to cells with a low probability of being compromised (`prob_compromised` < 0.75) or [sufficiently low mitochondrial content](https://bioconductor.org/packages/release/bioc/vignettes/miQC/inst/doc/miQC.html#preventing-exclusion-of-low-mito-cells).  |
-| `scpca_filter` | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200; if CITE-seq is present, the alternative experiment `discard` column is `TRUE`). All cells labeled as `Remove` were removed prior to writing the `_processed.rds` file, and therefore all cells found in the `_processed.rds` file will be labeled `Keep`. |
+| `scpca_filter` | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200) |
+| `adt_scpca_filter` | If CITE-seq was performed, labels cells as either `Keep` or `Remove` based on ADT filtering criteria (`discard = TRUE` as determined by [`DropletUtils::CleanTagCounts`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html)) |
 
 ### Gene information and metrics
 
@@ -99,9 +100,10 @@ expt_metadata <- metadata(sce)
 | `filtering_method`  | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`. Only present for `filtered` objects |
 | `umi_cutoff`        | The minimum UMI count per cell used as a threshold for removing empty droplets. Only present for `filtered` objects where the `filtering_method` is `UMI cutoff` |
 | `prob_compromised_cutoff`        | The minimum cutoff for the probability of a cell being compromised, as calculated by `miQC`. Only present for `filtered` objects |
-| `scpca_filter_method`        | Method used by the Data Lab to filter low quality cells prior to normalization. Either `miQC` or `Minimum_gene_cutoff`. If CITE-seq data is also present, this will also indicate the ADT filtering method as `cleanTagCounts`, e.g. `miQC;cleanTagCounts`. Only present for `filtered` objects.   |
+| `scpca_filter_method`        | Method used by the Data Lab to filter low quality cells prior to normalization. Either `miQC` or `Minimum_gene_cutoff`.  |
+| `adt_scpca_filter_method`        | If CITE-seq was performed, method used by the Data Lab to identify cells to be filtered prior to normalization, based on ADT counts. Either `cleanTagCounts with isotype controls` or `cleanTagCounts without isotype controls`|
 | `min_gene_cutoff`        | The minimum cutoff for the number of unique genes detected per cell. Only present for `filtered` objects |
-| `normalization`        | The method used for normalization of raw counts. Either `deconvolution`, described in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7), or  `log-normalization`. Only present for `processed` objects |
+| `normalization`        | The method used for normalization of raw RNA counts. Either `deconvolution`, described in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7), or  `log-normalization`. Only present for `processed` objects |
 | `highly_variable_genes`        | A list of highly variable genes used for dimensionality reduction, determined using `scran::modelGeneVar` and `scran::getTopHVGs`. Only present for `processed` objects |
 
 ### Dimensionality reduction results
@@ -124,44 +126,46 @@ The following command can be used to access the UMAP results:
 reducedDim(sce,"UMAP")
 ```
 
-## Additional SingleCellExperiment components for CITE-seq libraries
+## Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags)
 
-CITE-seq data, when present, is included within the `SingleCellExperiment` as an "Alternative Experiment" named `"CITEseq"` , which can be accessed with the following command:
+ADT data from CITE-seq experiments, when present, is included within the `SingleCellExperiment` as an "Alternative Experiment" named `"adt"` , which can be accessed with the following command:
 
 ```r
-altExp(sce, "CITEseq")
+altExp(sce, "adt")
 ```
 
 Within this, the main expression matrix is again found in the `counts` assay and the normalized expression matrix is found in the `logcounts` assay.
 For each assay, each column corresponds to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponds to an antibody derived tag (ADT).
 Column names are again cell barcode sequences and row names are the antibody targets for each ADT.
 
+Note that only cells which are denoted as "Keep" in  the `colData(sce)$adt_scpca_filter` column (as described in #cell-metrics) have normalized expression values in the `logcounts` assay, and all other cells are assigned `NA` values.
+However, as described in the {ref}`processed ADT data section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances, in which case there will be no `logcounts` normalized expression matrix present in the alternative experiment.
 
-The following additional per-cell data columns for the CITE-seq data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#cell-metrics)).
+The following additional per-cell data columns for the ADT data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#cell-metrics)).
 
 | Column name                | Contents                                          |
 | -------------------------- | ------------------------------------------------- |
-| `altexps_CITEseq_sum`      | UMI count for CITE-seq ADTs                       |
-| `altexps_CITEseq_detected` | Number of ADTs detected per cell (ADT count > 0 ) |
-| `altexps_CITEseq_percent`  | Percent of `total` UMI count from ADT reads       |
+| `altexps_adt_sum`      | UMI count for CITE-seq ADTs                       |
+| `altexps_adt_detected` | Number of ADTs detected per cell (ADT count > 0 ) |
+| `altexps_adt_percent`  | Percent of `total` UMI count from ADT reads       |
 
 
-In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) can be found in the `colData` of the `"CITEseq"` alternative experiment, accessed with `colData(altExp(sce, "CITEseq"))`.
+In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) can be found in the `colData` of the `"adt"` alternative experiment, accessed with `colData(altExp(sce, "adt"))`.
 
 | Column name                | Contents                                          |
 | -------------------------- | ------------------------------------------------- |
 | `zero.ambient`   | Indicates whether the cell has zero ambient contamination   |
-| `sum.controls` |  The sum of counts for all control features. Only present if negative control ADTs are present. |
-| `high.controls`  | Indicates whether the cell has unusually high total control counts. Only present if negative control ADTs are present.|
+| `sum.controls` |  The sum of counts for all control features. Only present if negative/isotype control ADTs are present. |
+| `high.controls`  | Indicates whether the cell has unusually high total control counts. Only present if negative/isotype control ADTs are present.|
 | `ambient.scale` |  The relative amount of ambient contamination. Only present if negative control ADTs are _not_ present. |
-| `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative control ADTs are _not_ present.|
+| `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative/isotype control ADTs are _not_ present.|
 | `discard`  | Indicates whether the cell should be discarded based on QC statistics. |
 
 
 Metrics for each of the ADTs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
 
 ```r
-adt_info <- rowData(altExp(sce, "CITEseq"))
+adt_info <- rowData(altExp(sce, "adt"))
 ```
 
 This data frame contains the following columns with statistics for each ADT:
@@ -170,13 +174,13 @@ This data frame contains the following columns with statistics for each ADT:
 | ----------- | -------------------------------------------------------------- |
 | `mean`      | Mean ADT count across all cells/droplets                       |
 | `detected`  | Percent of cells in which the ADT was detected (ADT count > 0 ) |
-| `target_type` | Whether each ADT is a `target`, `neg_control`, or `pos_control`. This column will be empty if target information is unknown. |
+| `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and labeled as such. |
 
-Finally, additional metadata for the CITE-seq data processing can be found in the metadata slot of the alternative experiment.
+Finally, additional metadata for ADT processing can be found in the metadata slot of the alternative experiment.
 This metadata slot has the same contents as the [parent experiment metadata](#experiment-metadata), along with one additional field, `ambient_profile`, which holds a list of representing the ambient concentrations of each ADT.
 
 ```r
-citeseq_metadata <- metadata(altExp(sce, "CITEseq"))
+adt_metadata <- metadata(altExp(sce, "adt"))
 ```
 
 ## Additional SingleCellExperiment components for multiplexed libraries
