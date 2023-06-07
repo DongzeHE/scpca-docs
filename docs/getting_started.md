@@ -223,7 +223,8 @@ Here are some resources that can be used to get you started working with `AnnDat
 ## Special considerations for CITE-seq experiments
 
 
-If you have ADT data from a CITE-seq experiment, you can use the following commands to access raw and normalized ADT expression matrices in the `processed.rds` file object:
+If the dataset that you have downloaded contains samples with ADT data from a CITE-seq experiment, the raw and normalized ADT expression matrices are stored in the `altExp` of the `SingleCellExperiment` object in the `processed.rds` file.
+The following commands can be used to access the ADT expression matrices:
 
 ```r
 # the raw ADT counts matrix
@@ -234,7 +235,8 @@ raw_adt_counts <- counts(altExp(processed_sce))
 normalized_adt_counts <- logcounts(altExp(processed_sce))
 ```
 
-It is important to be aware that the `SingleCellExperiment` object in the `processed.rds` file was not filtered based on ADT counts, but information that can be used for filtering is  available in the `adt_scpca_filter` column.
+It is important to be aware that the `SingleCellExperiment` object in the `processed.rds` file was not filtered based on ADT counts.
+The `adt_scpca_filter` column indicates which cells should be removed before proceeding with downstream analyses of the ADT data.
 Cells are labeled either as `"Keep"` (cells to retain) or `"Remove"` (cells to filter out).
 
 To filter cells based on this column, use the following command:
@@ -245,7 +247,7 @@ processed_sce <- processed_sce[, which(processed_sce$adt_scpca_filter == "Keep")
 
 It is also important to be aware that the normalized ADT expression matrix only contains values for cells labeled as `"Keep"` in the `adt_scpca_filter` column.
 Any cells labeled `"Remove"` have `NA` values normalized expression matrix (see
-{ref}`processed cite-seq data <processing_information:Processed CITE-seq data>` for more details).
+{ref}`processed adt data <processing_information:Processed ADT data>` for more details).
 
 As dimension reduction requires all known values (i.e., no `NA`s), filtering cells as shown above is critical before proceeding to downstream analyses on ADT counts.
 
@@ -267,7 +269,7 @@ processed_sce <- scater::runUMAP(altExp(processed_sce))
 In both the `filtered.rds` and `processed.rds` files, cells are flagged for removal based on ADT-level QC statistics in the alternative experiment's `discard` column as calculated by [`DropletUtils::CleanTagCounts()](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html).
 This column contains values `FALSE` for cells that should not be removed and `TRUE` for cells that should be removed.
 
-To filter cells based on ADT counts, for example in the `filtered.rds` object, use the following commands:
+If starting with the `filtered.rds` file instead, cells will need to be filtered based on ADT counts using the following commands:
 
 ```r
 # First, you can see cells should be removed (`TRUE`) vs. kept (`FALSE`)
