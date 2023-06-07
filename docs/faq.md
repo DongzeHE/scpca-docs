@@ -153,7 +153,7 @@ seurat_object[["ADT"]] <- adt_assay
 
 We provide single-cell and single-nuclei gene expression data as RDS files, which must be opened in R to view the contents.
 If you prefer to work in Python, there are a variety of ways of converting the count data to Python-compatible formats.
-We have found that one of the more efficient is conversion via the 10X format using [`DropletUtils::write10xCounts()`](https://rdrr.io/bioc/DropletUtils/man/write10xCounts.html).
+We have found that one of the more efficient is conversion via the 10x format using [`DropletUtils::write10xCounts()`](https://rdrr.io/bioc/DropletUtils/man/write10xCounts.html).
 Note that you will need to install the [`DropletUtils` package](https://www.bioconductor.org/packages/devel/bioc/html/DropletUtils.html) to use this function.
 
 When used as described below, `DropletUtils::write10xCounts()` will output three files to a new directory, following the format used by Cell Ranger 3.0 (and later):
@@ -167,7 +167,7 @@ library(SingleCellExperiment)
 # read in the RDS file to be converted
 sce <- readRDS("SCPCL000000_filtered.rds")
 
-# write counts to 10X format and save to a folder named "SCPCL000000-rna"
+# write counts to 10x format and save to a folder named "SCPCL000000-rna"
 DropletUtils::write10xCounts("SCPCL000000-rna", counts(sce),
                              barcodes = colnames(sce),
                              gene.id = rownames(sce),
@@ -179,7 +179,7 @@ DropletUtils::write10xCounts("SCPCL000000-rna", counts(sce),
 If a library has associated ADT data, you will have to save that separately.
 
 ```r
-# write ADT counts to 10X format
+# write ADT counts to 10x format
 DropletUtils::write10xCounts("SCPCL000000-adt", counts(altExp(sce)),
                              barcodes = colnames(altExp(sce)),
                              gene.id = rownames(altExp(sce)),
@@ -194,7 +194,7 @@ Note that you will need to [install the `scanpy` package](https://scanpy.readthe
 ```python
 import scanpy as sc
 
-#read in 10X formatted files
+#read in 10x formatted files
 rna_file_directory = "SCPCL000000-rna"
 anndata_object = sc.read_10x_mtx(rna_file_directory)
 
