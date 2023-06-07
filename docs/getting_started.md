@@ -132,6 +132,7 @@ If you are planning to filter low quality cells using such thresholds, we encour
 The [Quality Control chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/quality-control.html#quality-control) provides a nice guide to checking diagnostic plots and then choosing cutoffs.
 
 If you have ADT data from a CITE-seq experiment, please refer to the section [Special considerations for CITE-seq experiments](#special-considerations-for-cite-seq-experiments) below for information on how to filter cells based on ADT-level statistics.
+
 ### Normalization
 
 The provided data contains unnormalized raw counts.
@@ -223,7 +224,7 @@ Here are some resources that can be used to get you started working with `AnnDat
 ## Special considerations for CITE-seq experiments
 
 
-If the dataset that you have downloaded contains samples with ADT data from a CITE-seq experiment, the raw and normalized ADT expression matrices are stored in the `altExp` of the `SingleCellExperiment` object in the `processed.rds` file.
+If the dataset that you have downloaded contains samples with ADT data from a CITE-seq experiment, the raw and normalized ADT expression matrices are stored in an `altExp` of the `SingleCellExperiment` object in the `processed.rds` file.
 The following commands can be used to access the ADT expression matrices:
 
 ```r
@@ -241,14 +242,14 @@ Specifically, this process identified cells with high levels of ambient concentr
 Cells are labeled either as `"Keep"` (cells to retain) or `"Remove"` (cells to filter out).
 
 To filter cells based on this column, use the following command:
+
 ```r
 # Filter cells based on ADT QC statistics
 processed_sce <- processed_sce[, which(processed_sce$adt_scpca_filter == "Keep")]
 ```
 
 It is also important to be aware that the normalized ADT expression matrix only contains values for cells labeled as `"Keep"` in the `adt_scpca_filter` column.
-Any cells labeled `"Remove"` have `NA` values normalized expression matrix (see
-{ref}`processed adt data <processing_information:Processed ADT data>` for more details).
+Any cells labeled `"Remove"` have `NA` values in the normalized expression matrix (see {ref}`processed adt data <processing_information:Processed ADT data>` for more details).
 
 As dimension reduction requires all known values (i.e., no `NA`s), filtering cells as shown above is critical before proceeding to downstream analyses on ADT counts.
 
