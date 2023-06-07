@@ -68,7 +68,7 @@ The `single_cell_metadata.tsv` file is a tab-separated table with one row per li
 | `scpca_sample_id` | Sample ID in the form `SCPCS000000`                            |
 | `scpca_library_id` | Library ID in the form `SCPCL000000`                          |
 | `seq_unit`        | `cell` for single-cell samples or `nucleus` for single-nucleus samples |
-| `technology`      | 10X kit used to process library                                |
+| `technology`      | 10x kit used to process library                                |
 | `filtered_cell_count` | Number of cells after filtering with `emptyDrops`          |
 | `submitter_id`    | Original sample identifier from submitter                      |
 | `participant_id`  | Original participant id, required when there are multiple samples from the same participant, optional for all other samples                                                                        |
