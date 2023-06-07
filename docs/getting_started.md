@@ -265,7 +265,7 @@ processed_sce <- scater::runUMAP(altExp(processed_sce))
 ### Filtering cells based on ADT quality control
 
 In both the `filtered.rds` and `processed.rds` files, cells are flagged for removal based on ADT-level QC statistics in the alternative experiment's `discard` column as calculated by [`DropletUtils::CleanTagCounts()](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html).
-This column contains values `FALSE` for cells that should not be removed, and `TRUE` for cells that should be removed.
+This column contains values `FALSE` for cells that should not be removed and `TRUE` for cells that should be removed.
 
 To filter cells based on ADT counts, for example in the `filtered.rds` object, use the following commands:
 
@@ -278,7 +278,6 @@ filtered_sce <- filtered_sce[, -which(altExp(filtered_sce)$discard)]
 ```
 
 ### Normalizing ADT counts
-
 
 The `filtered.rds` object contains a raw ADT counts matrix, but not a matrix of log normalized ADT expression.
 To perform normalization yourself, we first recommend filtering cells using the `filtered_sce$discard` column, as shown above, to reduce the chances of normalization failing as described in
