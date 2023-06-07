@@ -224,7 +224,16 @@ Here are some resources that can be used to get you started working with `AnnDat
 ## Special considerations for CITE-seq experiments
 
 
-If the dataset that you have downloaded contains samples with ADT data from a CITE-seq experiment, the raw and normalized ADT expression matrices are stored in an `altExp` of the `SingleCellExperiment` object in the `processed.rds` file.
+If the dataset that you have downloaded contains samples with ADT data from a CITE-seq experiment, the raw and normalized ADT expression matrices are stored in an `altExp` named `"adt"` of the `SingleCellExperiment` object in the `processed.rds` file:
+
+```r
+# View the ADT alternative experiment
+altExp(processed_sce)
+
+# You can also explicitly specify the altexp's name:
+altExp(processed_sce, "adt")
+```
+
 The following commands can be used to access the ADT expression matrices:
 
 ```r
@@ -268,18 +277,15 @@ processed_sce <- scater::runUMAP(altExp(processed_sce))
 ```
 ### Filtering cells based on ADT quality control
 
-In both the `filtered.rds` and `processed.rds` files, cells are flagged for removal based on ADT-level QC statistics in the alternative experiment's `discard` column as calculated by [`DropletUtils::CleanTagCounts()](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html).
-This column contains values `FALSE` for cells that should not be removed and `TRUE` for cells that should be removed.
+In both the `filtered.rds` and `processed.rds` files, quality-control statistics calculated by [`DropletUtils::CleanTagCounts()](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) are provided in the alternative experiment's `colData` and can be used for filtering.
 
-If starting with the `filtered.rds` file instead, cells will need to be filtered based on ADT counts using the following commands:
-
+To perform the same filtering as we recommended above for the `processed.rds` file, you can use the following command:
 ```r
-# First, you can see cells should be removed (`TRUE`) vs. kept (`FALSE`)
-altExp(filtered_sce)$discard
-
 # Filter cells based on ADT QC statistics
 filtered_sce <- filtered_sce[, -which(altExp(filtered_sce)$discard)]
 ```
+
+You can also filter cells out based on your own criteria, but regardless we do recommend filtering before proceeding to normalization.
 
 ### Normalizing ADT counts
 
