@@ -277,7 +277,7 @@ processed_sce <- scater::runUMAP(altExp(processed_sce))
 ```
 ### Filtering cells based on ADT quality control
 
-In both the `filtered.rds` and `processed.rds` files, quality-control statistics calculated by [`DropletUtils::CleanTagCounts()](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) are provided in the alternative experiment's `colData` and can be used for filtering.
+In both the `filtered.rds` and `processed.rds` files, quality-control statistics calculated by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) are provided in the alternative experiment's `colData` and can be used for filtering.
 
 To perform the same filtering as we recommended above for the `processed.rds` file, you can use the following command:
 ```r
