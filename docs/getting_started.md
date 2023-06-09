@@ -260,21 +260,7 @@ processed_sce <- processed_sce[, which(processed_sce$adt_scpca_filter == "Keep")
 It is also important to be aware that the normalized ADT expression matrix only contains values for cells labeled as `"Keep"` in the `adt_scpca_filter` column.
 Any cells labeled `"Remove"` have `NA` values in the normalized expression matrix (see {ref}`processed adt data <processing_information:Processed ADT data>` for more details).
 
-As dimension reduction requires all known values (i.e., no `NA`s), filtering cells as shown above is critical before proceeding to downstream analyses on ADT counts.
 
-To perform principal components analysis (PCA) on the ADT counts, use the following `scater` command _after_ filtering has been performed:
-
-```r
-# Calculate PCA on the ADT counts
-processed_sce <- scater::runPCA(altExp(processed_sce))
-```
-
-To perform UMAP on this resulting PCA matrix, use the following `scater` command:
-
-```r
-# Calculate UMAP on the ADT counts
-processed_sce <- scater::runUMAP(altExp(processed_sce))
-```
 ### Filtering cells based on ADT quality control
 
 In both the `filtered.rds` and `processed.rds` files, quality-control statistics calculated by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) are provided in the alternative experiment's `colData` and can be used for filtering.
@@ -285,30 +271,7 @@ To perform the same filtering as we recommended above for the `processed.rds` fi
 filtered_sce <- filtered_sce[, -which(altExp(filtered_sce)$discard)]
 ```
 
-You can also filter cells out based on your own criteria, but regardless we do recommend filtering before proceeding to normalization.
-
-### Normalizing ADT counts
-
-The `filtered.rds` object contains a raw ADT counts matrix, but not a matrix of log normalized ADT expression.
-To perform normalization yourself, we first recommend filtering cells using the `filtered_sce$discard` column, as shown above, to reduce the chances of normalization failing as described in
-{ref}`processed adt data <processing_information:Processed ADT data>`.
-
-Normalization can then be performed with `scuttle` and `scater`:
-
-```r
-# Calculate size factors for use in ADT normalization,
-# using the previously-calculated ambient profile
-altExp(filtered_sce) <- scuttle::computeMedianFactors(
-  altExp(filtered_sce),
-  reference = metadata(altExp(filtered_sce))$ambient_profile
-)
-
-# Normalize and log transform
-# This will only succeed if all size factors calculated above are positive
-altExp(filtered_sce) <- scater::logNormCounts(altExp(filtered_sce))
-```
-
-You can now proceed with dimension reduction (PCA and UMAP) using the same approach as described above for the `processed.rds` object.
+You can also filter cells out based on your own criteria, but regardless we do recommend filtering before proceeding to normalization and downstream analyses.
 
 
 Here are some additional resources that can be used for working with ADT counts from CITE-seq experiments:
