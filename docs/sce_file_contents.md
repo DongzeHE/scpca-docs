@@ -104,7 +104,7 @@ expt_metadata <- metadata(sce)
 | `adt_scpca_filter_method`        | If CITE-seq was performed, the method used by the Data Lab to identify cells to be filtered prior to normalization, based on ADT counts. Either `cleanTagCounts with isotype controls` or `cleanTagCounts without isotype controls`|
 | `min_gene_cutoff`        | The minimum cutoff for the number of unique genes detected per cell. Only present for `filtered` objects |
 | `normalization`        | The method used for normalization of raw RNA counts. Either `deconvolution`, described in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7), or  `log-normalization`. Only present for `processed` objects |
-| `adt_normalization`        | If CITE-seq was performed, the method used for normalization of raw ADT counts. Either `median-based`, {ref}`processed ADT data section <processing_information:Processed ADT data>`, or  `log-normalization`. Only present for `processed` objects |
+| `adt_normalization`        | If CITE-seq was performed, the method used for normalization of raw ADT counts. Either `median-based` or  `log-normalization`, as explained in {ref}`processed ADT data section <processing_information:Processed ADT data>`. Only present for `processed` objects |
 | `highly_variable_genes`        | A list of highly variable genes used for dimensionality reduction, determined using `scran::modelGeneVar` and `scran::getTopHVGs`. Only present for `processed` objects |
 
 ### Dimensionality reduction results
