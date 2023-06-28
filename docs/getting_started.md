@@ -240,7 +240,6 @@ The following commands can be used to access the ADT expression matrices:
 raw_adt_counts <- counts(altExp(processed_sce))
 
 # the log normalized ADT counts matrix
-# if this value is NULL, it means normalization failed
 normalized_adt_counts <- logcounts(altExp(processed_sce))
 ```
 
