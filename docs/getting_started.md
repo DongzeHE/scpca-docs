@@ -264,7 +264,7 @@ In both the `filtered.rds` and `processed.rds` files, quality-control statistics
 To perform the same filtering as we recommended above for the `processed.rds` file, you can use the following command:
 ```r
 # Filter cells based on ADT QC statistics
-filtered_sce <- filtered_sce[, -which(altExp(filtered_sce)$discard)]
+filtered_sce <- filtered_sce[, which(filtered_sce$adt_scpca_filter == "Keep")]
 ```
 
 You can also filter cells out based on your own criteria, but regardless we do recommend filtering before proceeding to normalization and downstream analyses.
