@@ -241,9 +241,9 @@ raw_adt_counts <- counts(altExp(processed_sce))
 normalized_adt_counts <- logcounts(altExp(processed_sce))
 ```
 
-It is important to be aware that the `SingleCellExperiment` object in the `processed.rds` file was not filtered based on ADT counts.
+Be aware that the `SingleCellExperiment` object in the `processed.rds` file was not filtered based on ADT counts.
 The `adt_scpca_filter` column indicates which cells should be removed before proceeding with downstream analyses of the ADT data, as determined by [`DropletUtils::CleanTagCounts()](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html).
-Specifically, this process identified cells with high levels of ambient concentration and/or, if available, high levels of negative/isotype control ADTs for removal.
+Specifically, this process identified cells with high levels of ambient contamination and/or high levels of negative control ADTs (if available).
 Cells are labeled either as `"Keep"` (cells to retain) or `"Remove"` (cells to filter out).
 
 To filter cells based on this column, use the following command:
@@ -253,7 +253,7 @@ To filter cells based on this column, use the following command:
 processed_sce <- processed_sce[, which(processed_sce$adt_scpca_filter == "Keep")]
 ```
 
-It is also important to be aware that the normalized ADT expression matrix only contains values for cells labeled as `"Keep"` in the `adt_scpca_filter` column.
+The normalized ADT expression matrix only contains values for cells labeled as `"Keep"` in the `adt_scpca_filter` column.
 Any cells labeled `"Remove"` have `NA` values in the normalized expression matrix (see {ref}`processed adt data <processing_information:Processed ADT data>` for more details).
 
 
