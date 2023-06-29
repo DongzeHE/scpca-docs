@@ -131,7 +131,7 @@ These metrics can be used to directly filter the `SingleCellExperiment` object b
 If you are planning to filter low quality cells using such thresholds, we encourage you to read more about the various metrics and plot the distribution of each metric before deciding on which cells to exclude.
 The [Quality Control chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/quality-control.html#quality-control) provides a nice guide to checking diagnostic plots and then choosing cutoffs.
 
-If you have ADT data from a CITE-seq experiment, please refer to the section [Special considerations for CITE-seq experiments](#special-considerations-for-cite-seq-experiments) below for information on how to filter cells based on ADT-level statistics.
+If you have ADT data from a CITE-seq experiment, please refer to the section [Special considerations for CITE-seq experiments](#special-considerations-for-cite-seq-experiments) below for information on how to filter cells based on ADT counts.
 
 ### Normalization
 
@@ -157,8 +157,6 @@ Here we provide more resources on understanding normalization in single-cell RNA
 - [Hemberg lab scRNA-seq course section on normalization methods](https://www.singlecellcourse.org/basic-quality-control-qc-and-exploration-of-scrna-seq-datasets.html#normalization-theory)
 - [Stegle _et al._ (2015) Computational and analytical challenges in single-cell transcriptomics](https://doi.org/10.1038/nrg3833).  Includes a discussion of normalization and technical variance in scRNA-seq.
 - [Lun _et al._ (2016) Pooling across cells to normalize single-cell RNA sequencing data with many zero counts](https://doi.org/10.1186/s13059-016-0947-7)
-
-If you have ADT data from a CITE-seq experiment, please refer to the section [Special considerations for CITE-seq experiments](#special-considerations-for-cite-seq-experiments) below for information on how to normalize ADT counts.
 
 ### Dimensionality Reduction
 
