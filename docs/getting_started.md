@@ -221,7 +221,8 @@ Here are some resources that can be used to get you started working with `AnnDat
 
 ## Special considerations for CITE-seq experiments
 
-If the dataset that you have downloaded contains samples with ADT data from a CITE-seq experiment, the raw and normalized ADT expression matrices are stored in an `altExp` named `"adt"` of the `SingleCellExperiment` object in the `processed.rds` file:
+If the dataset you downloaded contains samples with ADT data from a CITE-seq experiment, the raw and normalized ADT expression matrices are stored in as an `altExp` named `"adt"`.
+We recommend working with the `SingleCellExperiment` objects stored in the `processed.rds` files as those files contain additional quality control metrics for the CITE-seq experiment:
 
 ```r
 # View the ADT alternative experiment
@@ -241,7 +242,7 @@ raw_adt_counts <- counts(altExp(processed_sce))
 normalized_adt_counts <- logcounts(altExp(processed_sce))
 ```
 
-Be aware that the `SingleCellExperiment` object in the `processed.rds` file was not filtered based on ADT counts.
+Be aware that the `SingleCellExperiment` object in the `processed.rds` file has been filtered to remove low-quality cells based on RNA expression and is not filtered based on ADT counts.
 The `adt_scpca_filter` column indicates which cells should be removed before proceeding with downstream analyses of the ADT data, as determined by [`DropletUtils::CleanTagCounts()](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html).
 Specifically, this process identified cells with high levels of ambient contamination and/or high levels of negative control ADTs (if available).
 Cells are labeled either as `"Keep"` (cells to retain) or `"Remove"` (cells to filter out).
