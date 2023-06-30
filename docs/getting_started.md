@@ -267,21 +267,12 @@ filtered_sce <- filtered_sce[, which(filtered_sce$adt_scpca_filter == "Keep")]
 
 You can also filter cells out based on your own criteria, but regardless we do recommend filtering before proceeding to normalization and downstream analyses.
 In both the `filtered.rds` and `processed.rds` files, quality-control statistics calculated by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) are provided in the alternative experiment's `colData` and can also be used for filtering.
-You can access these statistics with the following (see {ref}`genetic demultiplexing <processing_information:Genetic demultiplexing>` )
+You can access these statistics as follows (see {ref}`Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags) <sce_file_contents:Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags)>` for more details on the available columns):
 
 ```r
 # View the alternative experiment's colData slot
 colData(altExp(filtered_sce))
 ```
-
-Note that the filtering information provided in the `adt_scpca_filter` column was taken from the `discard` column in the `colData`:
-
-```r
-# View the discard column in colData, but print
-# only the first 6 values for easier viewing
-head( colData(altExp(filtered_sce))$discard )
-```
-
 
 Here are some additional resources that can be used for working with ADT counts from CITE-seq experiments:
 - [Integrating with Protein Abundance, Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.15/OSCA.advanced/integrating-with-protein-abundance.html)
