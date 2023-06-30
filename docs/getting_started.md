@@ -242,9 +242,12 @@ raw_adt_counts <- counts(altExp(processed_sce))
 normalized_adt_counts <- logcounts(altExp(processed_sce))
 ```
 
-Be aware that the `SingleCellExperiment` object in the `processed.rds` file has been filtered to remove low-quality cells based on RNA expression and is not filtered based on ADT counts.
-The `adt_scpca_filter` column indicates which cells should be removed before proceeding with downstream analyses of the ADT data, as determined by [`DropletUtils::CleanTagCounts()](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html).
-Specifically, this process identified cells with high levels of ambient contamination and/or high levels of negative control ADTs (if available).
+Be aware that the `SingleCellExperiment` object in the `processed.rds` file has been filtered to remove low-quality cells based on RNA expression but has not been filtered based on ADT counts.
+
+### Filtering cells based on ADT quality control
+
+The `adt_scpca_filter` column indicates which cells should be removed before proceeding with downstream analyses of the ADT data, as determined by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html).
+This process identified cells with high levels of ambient contamination and/or high levels of negative control ADTs (if available).
 Cells are labeled either as `"Keep"` (cells to retain) or `"Remove"` (cells to filter out).
 
 To filter cells based on this column, use the following command:
@@ -254,26 +257,20 @@ To filter cells based on this column, use the following command:
 processed_sce <- processed_sce[, which(processed_sce$adt_scpca_filter == "Keep")]
 ```
 
-The normalized ADT expression matrix only contains values for cells labeled as `"Keep"` in the `adt_scpca_filter` column.
-Any cells labeled `"Remove"` have `NA` values in the normalized expression matrix (see {ref}`processed adt data <processing_information:Processed ADT data>` for more details).
+Note that the normalized ADT expression matrix only contains values for cells labeled as `"Keep"` in the `adt_scpca_filter` column.
+Any cells labeled `"Remove"` have `NA` values in the normalized expression matrix (see {ref}`Processed ADT Data <processing_information:Processed ADT data>` for more details).
 
+If you are working with the `filtered.rds` file, you can perform the same filtering:
 
-### Filtering cells based on ADT quality control
-
-To perform the same filtering as we recommended above for the `processed.rds` file, you can use the following command:
 ```r
 # Filter cells based on ADT QC statistics
 filtered_sce <- filtered_sce[, which(filtered_sce$adt_scpca_filter == "Keep")]
 ```
 
-You can also filter cells out based on your own criteria, but regardless we do recommend filtering before proceeding to normalization and downstream analyses.
-In both the `filtered.rds` and `processed.rds` files, quality-control statistics calculated by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) are provided in the alternative experiment's `colData` and can also be used for filtering.
-You can access these statistics as follows (see {ref}`Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags) <sce_file_contents:Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags)>` for more details on the available columns):
+Alternatively, you can also filter cells out based on your own criteria.
+Quality-control statistics calculated by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) are provided in the `colData` slot of the `altExp` (`colData(altExp(filtered_sce))`), as described in {ref}`Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags) <sce_file_contents:Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags)>`.
+We recommend filtering out these low-quality cells before proceeding with ADT normalization and downstream analyses.
 
-```r
-# View the alternative experiment's colData slot
-colData(altExp(filtered_sce))
-```
 
 Here are some additional resources that can be used for working with ADT counts from CITE-seq experiments:
 - [Integrating with Protein Abundance, Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.15/OSCA.advanced/integrating-with-protein-abundance.html)
