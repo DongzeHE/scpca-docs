@@ -221,7 +221,7 @@ Here are some resources that can be used to get you started working with `AnnDat
 
 ## Special considerations for CITE-seq experiments
 
-If the dataset you downloaded contains samples with ADT data from a CITE-seq experiment, the raw and normalized ADT expression matrices are stored in as an `altExp` named `"adt"`.
+If the dataset you downloaded contains samples with ADT data from a CITE-seq experiment, the raw and normalized ADT expression matrices are stored as an `altExp` named `"adt"`.
 We recommend working with the `SingleCellExperiment` objects stored in the `processed.rds` files as those files contain additional quality control metrics for the CITE-seq experiment:
 
 ```r
