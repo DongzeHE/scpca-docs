@@ -259,8 +259,6 @@ Any cells labeled `"Remove"` have `NA` values in the normalized expression matri
 
 ### Filtering cells based on ADT quality control
 
-In both the `filtered.rds` and `processed.rds` files, quality-control statistics calculated by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) are provided in the alternative experiment's `colData` and can be used for filtering.
-
 To perform the same filtering as we recommended above for the `processed.rds` file, you can use the following command:
 ```r
 # Filter cells based on ADT QC statistics
@@ -268,6 +266,21 @@ filtered_sce <- filtered_sce[, which(filtered_sce$adt_scpca_filter == "Keep")]
 ```
 
 You can also filter cells out based on your own criteria, but regardless we do recommend filtering before proceeding to normalization and downstream analyses.
+In both the `filtered.rds` and `processed.rds` files, quality-control statistics calculated by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) are provided in the alternative experiment's `colData` and can also be used for filtering.
+You can access these statistics with the following (see {ref}`genetic demultiplexing <processing_information:Genetic demultiplexing>` )
+
+```r
+# View the alternative experiment's colData slot
+colData(altExp(filtered_sce))
+```
+
+Note that the filtering information provided in the `adt_scpca_filter` column was taken from the `discard` column in the `colData`:
+
+```r
+# View the discard column in colData, but print
+# only the first 6 values for easier viewing
+head( colData(altExp(filtered_sce))$discard )
+```
 
 
 Here are some additional resources that can be used for working with ADT counts from CITE-seq experiments:
