@@ -78,7 +78,7 @@ The `single_cell_metadata.tsv` file is a tab-separated table with one row per li
 | `diagnosis`       | Tumor type                                                     |
 | `subdiagnosis`    | Subcategory of diagnosis or mutation status (if applicable)    |
 | `tissue_location` | Where in the body the tumor sample was located                 |
-| `disease_timing`  | What stage of disease was the sample obtained, either diagnosis or recurrence |
+| `disease_timing`  | At what stage of disease the sample was obtained, either diagnosis or recurrence |
 
 Additional metadata may also be included, specific to the disease type and experimental design of the project.
 Examples of this include treatment or outcome.
