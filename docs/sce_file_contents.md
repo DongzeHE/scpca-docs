@@ -230,8 +230,8 @@ Demultiplexing analysis adds the following additional fields to the `colData(sce
 
 | Column name | Contents                                                       |
 | ----------- | -------------------------------------------------------------- |
-| `hashedDrops_sampleid`  | Most likely sample as called be `DropletUtils::hashedDrops` |
-| `HTODemux_sampleid`  | Most likely sample as called be `Seurat::HTODemux` |
+| `hashedDrops_sampleid`  | Most likely sample as called by `DropletUtils::hashedDrops` |
+| `HTODemux_sampleid`  | Most likely sample as called by `Seurat::HTODemux` |
 | `vireo_sampleid`  | Most likely sample as called by `vireo` (genetic demultiplexing) |
 
 ### Additional demultiplexing statistics
