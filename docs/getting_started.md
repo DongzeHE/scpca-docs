@@ -258,7 +258,6 @@ processed_sce <- processed_sce[, which(processed_sce$adt_scpca_filter == "Keep")
 ```
 
 Note that the normalized ADT expression matrix only contains values for cells labeled as `"Keep"` in the `adt_scpca_filter` column.
-If filtering assessment failed because `DropletUtils::CleanTagCounts()` could not reliably determine which cells to filter, then all cells will be labeled as `"Keep"`.
 Any cells labeled `"Remove"` have `NA` values in the normalized expression matrix (see {ref}`Processed ADT Data <processing_information:Processed ADT data>` for more details).
 
 If you are working with the `filtered.rds` file, you can perform the same filtering:
