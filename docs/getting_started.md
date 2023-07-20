@@ -258,6 +258,7 @@ processed_sce <- processed_sce[, which(processed_sce$adt_scpca_filter == "Keep")
 ```
 
 Note that the normalized ADT expression matrix only contains values for cells labeled as `"Keep"` in the `adt_scpca_filter` column.
+If filtering assessment failed because `DropletUtils::CleanTagCounts()` could not reliably determine which cells to filter, then all cells will be labeled as `"Keep"`.
 Any cells labeled `"Remove"` have `NA` values in the normalized expression matrix (see {ref}`Processed ADT Data <processing_information:Processed ADT data>` for more details).
 
 If you are working with the `filtered.rds` file, you can perform the same filtering:
@@ -268,7 +269,7 @@ filtered_sce <- filtered_sce[, which(filtered_sce$adt_scpca_filter == "Keep")]
 ```
 
 Alternatively, you can also filter cells out based on your own criteria.
-Quality-control statistics calculated by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) are provided in the `colData` slot of the `altExp` (`colData(altExp(filtered_sce))`), as described in {ref}`Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags) <sce_file_contents:Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags)>`.
+Quality-control statistics calculated by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) (with default parameters) are provided in the `colData` slot of the `altExp` (`colData(altExp(filtered_sce))`), as described in {ref}`Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags) <sce_file_contents:Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags)>`.
 We recommend filtering out these low-quality cells before proceeding with ADT normalization and downstream analyses.
 
 
