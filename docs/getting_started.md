@@ -269,7 +269,7 @@ filtered_sce <- filtered_sce[, which(filtered_sce$adt_scpca_filter == "Keep")]
 ```
 
 Alternatively, you can also filter cells out based on your own criteria.
-Quality-control statistics calculated by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) (with default parameters) are provided in the `colData` slot of the `altExp` (`colData(altExp(filtered_sce))`), as described in {ref}`Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags) <sce_file_contents:Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags)>`.
+Quality-control statistics calculated by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) are provided in the `colData` slot of the `altExp` (`colData(altExp(filtered_sce))`), as described in {ref}`Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags) <sce_file_contents:Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags)>`.
 We recommend filtering out these low-quality cells before proceeding with ADT normalization and downstream analyses.
 
 

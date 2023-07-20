@@ -86,15 +86,14 @@ When cells were [filtered based on RNA-seq content](#filtering-cells) after quan
 
 ### Processed ADT data
 
-An ambient profile representing antibody-derived tag (ADT) proportions present in the ambient solution is calculated from the `_unfiltered.rds` object using [`DropletUtils::ambientProfileEmpty()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/ambientProfileEmpty.html).
+An ambient profile representing antibody-derived tag (ADT) proportions present in the ambient solution is calculated from the unfiltered `SingleCellExperiment` object using [`DropletUtils::ambientProfileEmpty()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/ambientProfileEmpty.html).
 Quality-control statistics were calculated with [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) (with default parameters) using this ambient profile, along with negative/isotype control information, if present.
-Low-quality cells identified by `DropletUtils::cleanTagCounts()` (those having high levels of ambient contamination or substantial negative/isotype control tags) are flagged within the `_processed.rds` file by the `adt_scpca_filter` `colData` column, but are not removed.
+Low-quality cells identified by `DropletUtils::cleanTagCounts()` (those having high levels of ambient contamination or substantial negative/isotype control tags) are flagged but not removed except during normalization, as described below.
 If `DropletUtils::cleanTagCounts()` cannot reliably determine which cells to filter, then no cells will be flagged for removal.
 
 For all cells that would be retained if `DropletUtils::cleanTagCounts()` filtering were applied, log-normalized ADT counts are, by default, calculated using [median-based normalization](http://bioconductor.org/books/3.16/OSCA.advanced/integrating-with-protein-abundance.html#cite-seq-median-norm), again making use of the baseline ambient profile.
 In order for this normalization to succeed, all median size factor values must be positive.
-If any size factors are not positive, then only log-based normalization (with a pseudocount of one) will be performed.
-Log-normalization will also be performed if ADT filtering failed.
+If any size factors are not positive or if ADT filtering failed, then only log-based normalization (with a pseudocount of one) will be performed.
 Normalized counts for cells that would be filtered out by `DropletUtils::cleanTagCounts()` are assigned as `NA`.
 
 ## Multiplexed libraries
