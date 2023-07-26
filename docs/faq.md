@@ -38,7 +38,7 @@ scpca_sample <- readRDS("SCPCL000000_filtered.rds")
 A sample ID, labeled as `scpca_sample_id` and indicated by the prefix `SCPCS`, represents a unique tissue that was collected from a participant.
 
 The library ID, labeled as `scpca_library_id` and indicated by the prefix `SCPCL`, represents a single set of cells from a tissue sample, or a particular combination of samples in the case of multiplexed libraries.
-For single-cell or single-nuclei experiments, this will be the result of emulsion and droplet generation using the 10X Genomics workflow, potentially including both RNA-seq, CITE-seq and cell hashing sequencing libraries.
+For single-cell or single-nuclei experiments, this will be the result of emulsion and droplet generation using the 10x Genomics workflow, potentially including both RNA-seq, ADT (i.e., from CITE-seq), and cell hashing sequencing libraries.
 Multiplexed libraries will have more than one sample ID corresponding to each library ID.
 
 In most cases, each sample will only have one corresponding single-cell or single-nuclei library, and may also have an associated bulk RNA-seq library.
@@ -103,7 +103,7 @@ If desired, these can be converted into Seurat objects.
 
 You will need to [install and load the `Seurat` package](https://satijalab.org/seurat/articles/install.html) to work with Seurat objects.
 
-For libraries that only contain RNA-sequencing data (i.e. do not have a CITE-seq library found in the `altExp` of the `SingleCellExperiment` object), you can use the following commands:
+For libraries that only contain RNA-seq data (i.e., do not have an ADT library found in the `altExp` of the `SingleCellExperiment` object), you can use the following commands:
 
 ```r
 library(Seurat)
@@ -135,25 +135,25 @@ seurat_object[["RNA"]]@meta.features <- row_metadata
 seurat_object@misc <- metadata(sce)
 ```
 
-For `SingleCellExperiment` objects from libraries with both RNA-seq and CITE-seq data, you can use the following additional commands to add a second assay containing the CITE-seq counts and associated feature data:
+For `SingleCellExperiment` objects from libraries with both RNA-seq and ADT data, you can use the following additional commands to add a second assay containing the ADT counts and associated feature data:
 
 ```r
-# create assay object in Seurat from CITE-seq counts found in altExp(SingleCellExperiment)
-cite_assay <- CreateAssayObject(counts = counts(altExp(sce)))
+# create assay object in Seurat from ADT counts found in altExp(SingleCellExperiment)
+adt_assay <- CreateAssayObject(counts = counts(altExp(sce)))
 
 # optional: add row metadata (rowData) from altExp to assay
-cite_row_metadata <- as.data.frame(rowData(altExp(sce)))
-cite_assay@meta.features <- cite_row_metadata
+adt_row_metadata <- as.data.frame(rowData(altExp(sce)))
+adt_assay@meta.features <- adt_row_metadata
 
 # add altExp from SingleCellExperiment as second assay to Seurat
-seurat_object[["CITE"]] <- cite_assay
+seurat_object[["ADT"]] <- adt_assay
 ```
 
 ## What if I want to use Python instead of R?
 
 We provide single-cell and single-nuclei gene expression data as RDS files, which must be opened in R to view the contents.
 If you prefer to work in Python, there are a variety of ways of converting the count data to Python-compatible formats.
-We have found that one of the more efficient is conversion via the 10X format using [`DropletUtils::write10xCounts()`](https://rdrr.io/bioc/DropletUtils/man/write10xCounts.html).
+We have found that one of the more efficient is conversion via the 10x format using [`DropletUtils::write10xCounts()`](https://rdrr.io/bioc/DropletUtils/man/write10xCounts.html).
 Note that you will need to install the [`DropletUtils` package](https://www.bioconductor.org/packages/devel/bioc/html/DropletUtils.html) to use this function.
 
 When used as described below, `DropletUtils::write10xCounts()` will output three files to a new directory, following the format used by Cell Ranger 3.0 (and later):
@@ -167,7 +167,7 @@ library(SingleCellExperiment)
 # read in the RDS file to be converted
 sce <- readRDS("SCPCL000000_filtered.rds")
 
-# write counts to 10X format and save to a folder named "SCPCL000000-rna"
+# write counts to 10x format and save to a folder named "SCPCL000000-rna"
 DropletUtils::write10xCounts("SCPCL000000-rna", counts(sce),
                              barcodes = colnames(sce),
                              gene.id = rownames(sce),
@@ -176,11 +176,11 @@ DropletUtils::write10xCounts("SCPCL000000-rna", counts(sce),
 
 ```
 
-If a library has associated CITE-seq that exists, you will have to save that separately.
+If a library has associated ADT data, you will have to save that separately.
 
 ```r
-# write CITE-seq counts to 10X format
-DropletUtils::write10xCounts("SCPCL000000-cite", counts(altExp(sce)),
+# write ADT counts to 10x format
+DropletUtils::write10xCounts("SCPCL000000-adt", counts(altExp(sce)),
                              barcodes = colnames(altExp(sce)),
                              gene.id = rownames(altExp(sce)),
                              gene.type = "Antibody Capture",
@@ -194,15 +194,15 @@ Note that you will need to [install the `scanpy` package](https://scanpy.readthe
 ```python
 import scanpy as sc
 
-#read in 10X formatted files
+#read in 10x formatted files
 rna_file_directory = "SCPCL000000-rna"
 anndata_object = sc.read_10x_mtx(rna_file_directory)
 
-cite_file_directory = "SCPCL000000-cite"
-cite_anndata = sc.read_10x_mtx(cite_file_directory)
+adt_file_directory = "SCPCL000000-adt"
+adt_anndata = sc.read_10x_mtx(adt_file_directory)
 
-# append CITE-seq anndata to RNA-seq anndata
-anndata_object['CITE'] = cite_anndata.to_df()
+# append ADT anndata to RNA-seq anndata
+anndata_object["ADT"] = adt_anndata.to_df()
 ```
 
 It should be noted that in this conversion the `colData`, `rowData`, and metadata that are found in the original `SingleCellExperiment` objects will not be retained.

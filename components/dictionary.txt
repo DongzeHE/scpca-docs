@@ -43,10 +43,12 @@ HVG
 HVGs
 intronic
 introns
+isotype
 Kaminow
 Marioni
 Pearson
 pre
+pseudocount
 pseudogenes
 Lun
 miQC

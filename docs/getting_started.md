@@ -47,7 +47,7 @@ More resources for learning about `SingleCellExperiment` objects:
 ## Working with the processed `SingleCellExperiment` objects
 
 The `SingleCellExperiment` objects stored in the `processed.rds` files have undergone additional quality control steps to remove low quality cells.
-In addition,  normalized expression counts and dimensionality reduction (principal component analysis and UMAP) have been calculated.
+In addition, normalized expression counts and dimensionality reduction (principal component analysis and UMAP) have been calculated.
 
 The following commands can be used to access the raw and normalized count matrices:
 
@@ -125,11 +125,13 @@ The following columns are added by `scuttle::addPerCellQCMetrics()` and can be f
 | `subsets_mito_sum`      | UMI count of mitochondrial genes                                                                                                                                                              |
 | `subsets_mito_detected` | Number of mitochondrial genes detected                                                                                                                                                        |
 | `subsets_mito_percent`  | Percent of all UMI counts assigned to mitochondrial genes                                                                                                                                     |
-| `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., CITE-seq)                                                                                                             |
+| `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., ADT data from CITE-seq)                                                                                                             |
 
 These metrics can be used to directly filter the `SingleCellExperiment` object based on informed thresholds.
 If you are planning to filter low quality cells using such thresholds, we encourage you to read more about the various metrics and plot the distribution of each metric before deciding on which cells to exclude.
 The [Quality Control chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/quality-control.html#quality-control) provides a nice guide to checking diagnostic plots and then choosing cutoffs.
+
+If you have ADT data from a CITE-seq experiment, please refer to the section [Special considerations for CITE-seq experiments](#special-considerations-for-cite-seq-experiments) below for information on how to filter cells based on ADT counts.
 
 ### Normalization
 
@@ -215,6 +217,66 @@ Here are some resources that can be used to get you started working with `AnnDat
 - [Preprocessing and clustering tutorial in scanpy](https://scanpy-tutorials.readthedocs.io/en/latest/pbmc3k.html)
 - [Converting directly from R to Python](https://theislab.github.io/scanpy-in-R/#converting-from-r-to-python)
 - [Homepage for scanpy tutorials](https://scanpy.readthedocs.io/en/latest/tutorials.html)
+
+
+## Special considerations for CITE-seq experiments
+
+If the dataset you downloaded contains samples with ADT data from a CITE-seq experiment, the raw and normalized ADT expression matrices are stored as an `altExp` named `"adt"`.
+We recommend working with the `SingleCellExperiment` objects stored in the `processed.rds` files as those files contain additional quality control metrics for the CITE-seq experiment:
+
+```r
+# View the ADT alternative experiment
+altExp(processed_sce)
+
+# You can also explicitly specify the altexp's name:
+altExp(processed_sce, "adt")
+```
+
+The following commands can be used to access the ADT expression matrices:
+
+```r
+# the raw ADT counts matrix
+raw_adt_counts <- counts(altExp(processed_sce))
+
+# the log normalized ADT counts matrix
+normalized_adt_counts <- logcounts(altExp(processed_sce))
+```
+
+Be aware that the `SingleCellExperiment` object in the `processed.rds` file has been filtered to remove low-quality cells based on RNA expression but has not been filtered based on ADT counts.
+
+### Filtering cells based on ADT quality control
+
+The `adt_scpca_filter` column indicates which cells should be removed before proceeding with downstream analyses of the ADT data, as determined by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html).
+This process identified cells with high levels of ambient contamination and/or high levels of negative control ADTs (if available).
+Cells are labeled either as `"Keep"` (cells to retain) or `"Remove"` (cells to filter out).
+
+To filter cells based on this column, use the following command:
+
+```r
+# Filter cells based on ADT QC statistics
+processed_sce <- processed_sce[, which(processed_sce$adt_scpca_filter == "Keep")]
+```
+
+Note that the normalized ADT expression matrix only contains values for cells labeled as `"Keep"` in the `adt_scpca_filter` column.
+Any cells labeled `"Remove"` have `NA` values in the normalized expression matrix (see {ref}`Processed ADT Data <processing_information:Processed ADT data>` for more details).
+
+If you are working with the `filtered.rds` file, you can perform the same filtering:
+
+```r
+# Filter cells based on ADT QC statistics
+filtered_sce <- filtered_sce[, which(filtered_sce$adt_scpca_filter == "Keep")]
+```
+
+Alternatively, you can also filter cells out based on your own criteria.
+Quality-control statistics calculated by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) are provided in the `colData` slot of the `altExp` (`colData(altExp(filtered_sce))`), as described in {ref}`Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags) <sce_file_contents:Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags)>`.
+We recommend filtering out these low-quality cells before proceeding with ADT normalization and downstream analyses.
+
+
+Here are some additional resources that can be used for working with ADT counts from CITE-seq experiments:
+- [Integrating with Protein Abundance, Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.15/OSCA.advanced/integrating-with-protein-abundance.html)
+- [Seurat vignette on using with multimodal data](https://satijalab.org/seurat/articles/multimodal_vignette.html)
+
+
 
 ## Special considerations for multiplexed samples
 

@@ -68,7 +68,7 @@ The `single_cell_metadata.tsv` file is a tab-separated table with one row per li
 | `scpca_sample_id` | Sample ID in the form `SCPCS000000`                            |
 | `scpca_library_id` | Library ID in the form `SCPCL000000`                          |
 | `seq_unit`        | `cell` for single-cell samples or `nucleus` for single-nucleus samples |
-| `technology`      | 10X kit used to process library                                |
+| `technology`      | 10x kit used to process library                                |
 | `filtered_cell_count` | Number of cells after filtering with `emptyDrops`          |
 | `submitter_id`    | Original sample identifier from submitter                      |
 | `participant_id`  | Original participant id, required when there are multiple samples from the same participant, optional for all other samples                                                                        |
@@ -78,7 +78,7 @@ The `single_cell_metadata.tsv` file is a tab-separated table with one row per li
 | `diagnosis`       | Tumor type                                                     |
 | `subdiagnosis`    | Subcategory of diagnosis or mutation status (if applicable)    |
 | `tissue_location` | Where in the body the tumor sample was located                 |
-| `disease_timing`  | What stage of disease was the sample obtained? At diagnosis or recurrence? |
+| `disease_timing`  | At what stage of disease the sample was obtained, either diagnosis or recurrence |
 
 Additional metadata may also be included, specific to the disease type and experimental design of the project.
 Examples of this include treatment or outcome.

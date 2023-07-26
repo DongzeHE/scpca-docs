@@ -28,7 +28,7 @@ A more detailed description of the mapping strategy invoked by `salmon` in conju
 After mapping FASTQ files using selective alignment to the `splici` index, we continued with the `alevin-fry` pipeline using the following parameters:
 
 1. During the [`generate-permit-list` step of `alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/generate_permit_list.html), we used the `--unfiltered-pl` option, which returns any cell with at least 1 read found in a reference barcode list.
-For our reference barcode list, we used a list of all possible cell barcodes from 10X Genomics.
+For our reference barcode list, we used a list of all possible cell barcodes from 10x Genomics.
 
 2. We chose to use the `cr-like-em` resolution strategy for [feature quantification and UMI de-duplication](https://alevin-fry.readthedocs.io/en/latest/quant.html).
 Similar to the way Cell Ranger performs feature quantification, the `cr-like-em` resolution strategy assigns all UMIs that align to a single gene to that gene.
@@ -58,31 +58,43 @@ For these libraries, only droplets containing at least 100 UMI are included in t
 
 ### Processed gene expression data
 
-In addition to the raw gene expression data, we also provide a `_processed.rds` file containing a `SingleCellExperiment` object with further filtering applied, a normalized counts matrix, and results from dimensionality reduction.
+In addition to the raw gene expression data, we also provide a processed `SingleCellExperiment` object with further filtering applied, a normalized counts matrix, and results from dimensionality reduction.
 
 Prior to normalization, low-quality cells are removed from the gene by cell counts matrix.
 To identify low-quality cells, we use [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected.
-Cells with a high likelihood of being compromised (greater than 0.75) and cells that do not pass a minimum number of unique genes detected threshold of 200 are removed from the counts matrix present in the `_processed.rds` file.
+Cells with a high likelihood of being compromised (greater than 0.75) and cells that do not pass a minimum number of unique genes detected threshold of 200 are removed from the counts matrix present in the processed `SingleCellExperiment` object.
 
 Log-normalized counts are calculated using the deconvolution method presented in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7).
 The log-normalized counts are used to model variance of each gene prior to selecting the top 2000 highly variable genes (HVGs).
 These HVGs are then used as input to principal component analysis, and the top 50 principal components are selected.
 Finally, these principal components are used to calculate the [UMAP (Uniform Manifold Approximation and Projection)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#uniform-manifold-approximation-and-projection) embeddings.
 
-## CITE-seq quantification
+## ADT quantification from CITE-seq experiments
 
 CITE-seq libraries with reads from antibody-derived tags (ADTs) were also quantified using  [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/), rounded to integer values.
 
 Reference indices were constructed from the submitter-provided list of antibody barcode sequences corresponding to each library using the `--features` flag of `salmon index`.
 Mapping to these indices followed the same procedures as for RNA-seq data, including mapping with [selective alignment](#selective-alignment) and subsequent [quantification via alevin-fry](#alevin-fry-parameters).
 
-### Combining CITE counts with RNA counts
+### Combining ADT counts with RNA counts
 
-The unfiltered CITE-seq and RNA-seq count matrices often include somewhat different sets of cell barcodes, due to stochastic variation in library construction and sequencing.
-When normalizing these two count matrices to the same set of cells, we chose to prioritize RNA-seq results for broad comparability among libraries with and without CITE-seq data.
-Any cell barcodes that appeared only in CITE-seq data were discarded.
-Cell barcodes that were present only in the RNA-seq data (i.e., did _not_ appear in the CITE-seq data) were assigned zero counts for all ADTs.
-When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the CITE-seq count matrix was filtered to match.
+The unfiltered ADT and RNA-seq count matrices often include somewhat different sets of cell barcodes, due to stochastic variation in library construction and sequencing.
+When normalizing these two count matrices to the same set of cells, we chose to prioritize RNA-seq results for broad comparability among libraries with and without ADT data.
+Any cell barcodes that appeared only in ADT data were discarded.
+Cell barcodes that were present only in the RNA-seq data (i.e., did not appear in the ADT data) were assigned zero counts for all ADTs.
+When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the ADT count matrix was filtered to match.
+
+### Processed ADT data
+
+An ambient profile representing antibody-derived tag (ADT) proportions present in the ambient solution is calculated from the unfiltered `SingleCellExperiment` object using [`DropletUtils::ambientProfileEmpty()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/ambientProfileEmpty.html).
+Quality-control statistics were calculated with [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) (with default parameters) using this ambient profile, along with negative/isotype control information, if present.
+Low-quality cells identified by `DropletUtils::cleanTagCounts()` (those having high levels of ambient contamination or substantial negative/isotype control tags) are flagged but not removed except during normalization, as described below.
+If `DropletUtils::cleanTagCounts()` cannot reliably determine which cells to filter, then no cells will be flagged for removal.
+
+For all cells that would be retained if `DropletUtils::cleanTagCounts()` filtering were applied, log-normalized ADT counts are, by default, calculated using [median-based normalization](http://bioconductor.org/books/3.16/OSCA.advanced/integrating-with-protein-abundance.html#cite-seq-median-norm), again making use of the baseline ambient profile.
+In order for this normalization to succeed, all median size factor values must be positive.
+If any size factors are not positive or if ADT filtering failed, then only log-based normalization (with a pseudocount of one) will be performed.
+Normalized counts for cells that would be filtered out by `DropletUtils::cleanTagCounts()` are assigned as `NA`.
 
 ## Multiplexed libraries
 
@@ -94,7 +106,7 @@ HTO reads were also quantified using  [`salmon alevin`](https://salmon.readthedo
 Reference indices were constructed from the submitter-provided list of HTO sequences corresponding to each library using the `--features` flag of `salmon index`.
 Mapping to these indices followed the same procedures as for RNA-seq data, including mapping with [selective alignment](#selective-alignment) and subsequent [quantification via alevin-fry](#alevin-fry-parameters).
 
-As with the [CITE-seq data](#combining-cite-counts-with-rna-counts), we retained all cells with RNA-seq data, setting HTO counts to zero for any missing cell barcodes.
+As with the [ADT data](#combining-adt-counts-with-rna-counts), we retained all cells with RNA-seq data, setting HTO counts to zero for any missing cell barcodes.
 When cells were [filtered based on RNA-seq content](#filtering-cells) after quantification, the HTO count matrix was filtered to match.
 
 ### HTO demultiplexing
@@ -122,10 +134,10 @@ For information on where the demultiplexing calls can be found, see {ref}`the se
 ### Mapping and quantification using Space Ranger
 
 Processing spatial transcriptomics libraries requires two steps - gene expression quantification and tissue detection.
-In the absence of independent tissue detection methods to use with Alevin-fry, we used [10X Genomics' Space Ranger](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/what-is-space-ranger) to obtain both gene expression and spatial information.
+In the absence of independent tissue detection methods to use with Alevin-fry, we used [10x Genomics' Space Ranger](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/what-is-space-ranger) to obtain both gene expression and spatial information.
 [`spaceranger count`](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/using/count) takes FASTQ files and a microscopic slide image as input and performs alignment, quantification, and tissue detection for each spot.
 In contrast to `alevin-fry`, which maps reads to a [reference transcriptome index](#reference-transcriptome-index), Space Ranger aligns transcript reads to the reference genome using `STAR` ([Dobin _et al._ 2012](https://doi.org/10.1093/bioinformatics/bts635)).
-See the 10X documentation for more information on how Space Ranger [quantifies gene expression](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/algorithms/overview) and [detects tissue](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/algorithms/imaging).
+See the 10x documentation for more information on how Space Ranger [quantifies gene expression](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/algorithms/overview) and [detects tissue](https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/algorithms/imaging).
 
 ## Bulk RNA samples
 
