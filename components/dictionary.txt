@@ -44,12 +44,14 @@ HVGs
 intronic
 introns
 isotype
+Jaccard
 Kaminow
 Marioni
 Pearson
 pre
 pseudocount
 pseudogenes
+Louvain
 Lun
 miQC
 oligo

@@ -57,6 +57,13 @@ See the description of the {ref}`processed gene expression data <processing_info
 | `scpca_filter` | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200) |
 | `adt_scpca_filter` | If CITE-seq was performed, labels cells as either `Keep` or `Remove` based on ADT filtering criteria (`discard = TRUE` as determined by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html)) |
 
+The `processed` object has one additional `colData` column reflecting cluster assignments:
+
+| Column name             | Contents                                              |
+| ----------------------- | ----------------------------------------------------- |
+| `clusters`  | Cell cluster identity identified by graph-based clustering |
+
+
 ### Gene information and metrics
 
 Gene information and metrics calculated from the RNA-seq expression data are stored as a `DataFrame` in the `rowData` slot, with the Ensembl ID as the names of the rows.
@@ -106,6 +113,9 @@ expt_metadata <- metadata(sce)
 | `normalization`        | The method used for normalization of raw RNA counts. Either `deconvolution`, described in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7), or `log-normalization`. Only present for `processed` objects |
 | `adt_normalization`        | If CITE-seq was performed, the method used for normalization of raw ADT counts. Either `median-based` or  `log-normalization`, as explained in {ref}`processed ADT data section <processing_information:Processed ADT data>`. Only present for `processed` objects |
 | `highly_variable_genes`        | A list of highly variable genes used for dimensionality reduction, determined using `scran::modelGeneVar` and `scran::getTopHVGs`. Only present for `processed` objects |
+| `cluster_algorithm` | The algorithm used to perform graph-based clustering of cells. Only present for `processed` objects |
+| `cluster_weighting` | The weighting approach used during graph-based clustering. Only present for `processed` objects |
+| `cluster_nn`        | The nearest neighbor parameter value used for the graph-based clustering. Only present for `processed` objects |
 
 ### Dimensionality reduction results
 
