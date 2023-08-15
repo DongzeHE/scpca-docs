@@ -61,7 +61,7 @@ The `processed` object has one additional `colData` column reflecting cluster as
 
 | Column name             | Contents                                              |
 | ----------------------- | ----------------------------------------------------- |
-| `clusters`  | Cell cluster identify identified by graph-based clustering |
+| `clusters`  | Cell cluster identity identified by graph-based clustering |
 
 
 ### Gene information and metrics
