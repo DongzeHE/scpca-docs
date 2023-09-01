@@ -116,6 +116,11 @@ expt_metadata <- metadata(sce)
 | `cluster_algorithm` | The algorithm used to perform graph-based clustering of cells. Only present for `processed` objects |
 | `cluster_weighting` | The weighting approach used during graph-based clustering. Only present for `processed` objects |
 | `cluster_nn`        | The nearest neighbor parameter value used for the graph-based clustering. Only present for `processed` objects |
+| `singler_results` | If cell typing with `SingleR` was performed, the full result object returned by `SingleR` classifiannotationcation. Only present for `processed` objects |
+| `singler_reference_name` | If cell typing with `SingleR` was performed, the name of the reference dataset used for annotation. Only present for `processed` objects |
+| `singler_reference_label` | If cell typing with `SingleR` was performed, the name of the label in the reference dataset used for annotation. Only present for `processed` objects |
+| `cellassign_predictions` | If cell typing with `CellAssign` was performed, the full matrix of predictions across cells and cell types. Only present for `processed` objects |
+| `cellassign_reference` | If cell typing with `CellAssign` was performed, is the organ/tissue type for which marker genes were obtained from `PanglaoDB`. Only present for `processed` objects |
 
 ### Dimensionality reduction results
 
