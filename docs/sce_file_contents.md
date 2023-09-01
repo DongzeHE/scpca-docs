@@ -57,12 +57,16 @@ See the description of the {ref}`processed gene expression data <processing_info
 | `scpca_filter` | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200) |
 | `adt_scpca_filter` | If CITE-seq was performed, labels cells as either `Keep` or `Remove` based on ADT filtering criteria (`discard = TRUE` as determined by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html)) |
 
-The `processed` object has one additional `colData` column reflecting cluster assignments:
+The `processed` object has one additional `colData` column reflecting cluster assignments.
+Further, if cell type annotation was performed, there will be additional columns representing annotation results in the `processed` object's `colData`.
 
 | Column name             | Contents                                              |
 | ----------------------- | ----------------------------------------------------- |
 | `clusters`  | Cell cluster identity identified by graph-based clustering |
-
+| `singler_celltype_annotation`  | If cell typing with `SingleR` was performed, the annotated cell type |
+| `singler_celltype_ontology`  | If cell typing with `SingleR` was performed, the annotated cell type's ontology ID |
+| `cellassign_celltype_annotation`  | If cell typing with `CellAssign` was performed, the annotated cell type  |
+| `cellassign_max_prediction`  | If cell typing with `CellAssign` was performed, the annotation's prediction score (probability)  |
 
 ### Gene information and metrics
 
