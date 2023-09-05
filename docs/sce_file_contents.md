@@ -57,12 +57,16 @@ See the description of the {ref}`processed gene expression data <processing_info
 | `scpca_filter` | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200) |
 | `adt_scpca_filter` | If CITE-seq was performed, labels cells as either `Keep` or `Remove` based on ADT filtering criteria (`discard = TRUE` as determined by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html)) |
 
-The `processed` object has one additional `colData` column reflecting cluster assignments:
+The `processed` object has one additional `colData` column reflecting cluster assignments.
+Further, if cell type annotation was performed, there will be additional columns representing annotation results in the `processed` object's `colData`, as described in the {ref}`cell type annotation processing section <processing_information:Cell type annotation>`.
 
 | Column name             | Contents                                              |
 | ----------------------- | ----------------------------------------------------- |
 | `clusters`  | Cell cluster identity identified by graph-based clustering |
-
+| `singler_celltype_annotation`  | If cell typing with `SingleR` was performed, the annotated cell type. Cells labeled as `NA` are those which `SingleR` could not confidently annotate |
+| `singler_celltype_ontology`  | If cell typing with `SingleR` was performed, the annotated cell type's ontology ID. Cells labeled as `NA` are those which `SingleR` could not confidently annotate |
+| `cellassign_celltype_annotation`  | If cell typing with `CellAssign` was performed, the annotated cell type. Cells labeled as `"other"` are those which `CellAssign` could not confidently annotate  |
+| `cellassign_max_prediction`  | If cell typing with `CellAssign` was performed, the annotation's prediction score (probability)  |
 
 ### Gene information and metrics
 
@@ -111,11 +115,17 @@ expt_metadata <- metadata(sce)
 | `adt_scpca_filter_method`        | If CITE-seq was performed, the method used by the Data Lab to identify cells to be filtered prior to normalization, based on ADT counts. Either `cleanTagCounts with isotype controls` or `cleanTagCounts without isotype controls`. If filtering failed (i.e. `DropletUtils::cleanTagCounts()` could not reliably determine which cells to filter), the value will be `No filter` |
 | `min_gene_cutoff`        | The minimum cutoff for the number of unique genes detected per cell. Only present for `filtered` objects |
 | `normalization`        | The method used for normalization of raw RNA counts. Either `deconvolution`, described in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7), or `log-normalization`. Only present for `processed` objects |
-| `adt_normalization`        | If CITE-seq was performed, the method used for normalization of raw ADT counts. Either `median-based` or  `log-normalization`, as explained in {ref}`processed ADT data section <processing_information:Processed ADT data>`. Only present for `processed` objects |
+| `adt_normalization`        | If CITE-seq was performed, the method used for normalization of raw ADT counts. Either `median-based` or  `log-normalization`, as explained in the {ref}`processed ADT data section <processing_information:Processed ADT data>`. Only present for `processed` objects |
 | `highly_variable_genes`        | A list of highly variable genes used for dimensionality reduction, determined using `scran::modelGeneVar` and `scran::getTopHVGs`. Only present for `processed` objects |
 | `cluster_algorithm` | The algorithm used to perform graph-based clustering of cells. Only present for `processed` objects |
 | `cluster_weighting` | The weighting approach used during graph-based clustering. Only present for `processed` objects |
 | `cluster_nn`        | The nearest neighbor parameter value used for the graph-based clustering. Only present for `processed` objects |
+| `celltype_methods` | If cell type annotation was performed, a vector of the methods used for annotation. May include `"singler"` and/or `"cellassign"`. Only present for `processed` objects |
+| `singler_results` | If cell typing with `SingleR` was performed, the full result object returned by `SingleR` annotation. Only present for `processed` objects |
+| `singler_reference_name` | If cell typing with `SingleR` was performed, the name of the [`celldex`](http://bioconductor.org/packages/release/data/experiment/html/celldex.html) reference dataset used for annotation. Only present for `processed` objects |
+| `singler_reference_label` | If cell typing with `SingleR` was performed, the name of the label in the reference dataset used for annotation. Only present for `processed` objects |
+| `cellassign_predictions` | If cell typing with `CellAssign` was performed, the full matrix of predictions across cells and cell types. Only present for `processed` objects |
+| `cellassign_reference` | If cell typing with `CellAssign` was performed, is the organ/tissue type for which marker genes were obtained from `PanglaoDB`. Only present for `processed` objects |
 
 ### Dimensionality reduction results
 

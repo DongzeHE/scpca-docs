@@ -71,6 +71,20 @@ Finally, these principal components are used to calculate the [UMAP (Uniform Man
 
 [Graph-based clustering](http://bioconductor.org/books/3.16/OSCA.basic/clustering.html#clustering-graph) is also performed, using the Louvain algorithm with 20 nearest neighbors and Jaccard weighting.
 
+#### Cell type annotation
+
+We perform cell type annotation with two complementary methods, where possible:
+
+- [`SingleR`](https://bioconductor.org/packages/release/bioc/html/SingleR.html), a reference-based cell type annotation method
+- [`CellAssign`](https://github.com/Irrationone/cellassign), a marker-gene--based cell type annotation method
+
+For `SingleR` annotation, we identify an appropriate reference dataset from the [`celldex` package](http://bioconductor.org/packages/release/data/experiment/html/celldex.html) and train the classification model to use ontology IDs for annotation.
+Cells which `SingleR` cannot confidently assign are labeled as `NA`.
+
+For `CellAssign` annotation, we identify an appropriate set of marker genes for the given tissue type from the [`PanglaoDB`](https://panglaodb.se/) database.
+We combine these marker genes with all "immune cell" `PanglaoDB` marker genes to create a full marker gene list for for cell type annotation.
+During annotation, we additionally include an `"other"` cell type that does not express any of these marker genes.
+As a consequence, cells which `CellAssign` cannot confidently annotate from the full marker gene list are labeled as `"other"`.
 ## ADT quantification from CITE-seq experiments
 
 CITE-seq libraries with reads from antibody-derived tags (ADTs) were also quantified using  [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/), rounded to integer values.
