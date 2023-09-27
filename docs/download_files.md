@@ -1,8 +1,8 @@
 # Downloadable files
 
 The ScPCA Portal download packages include gene expression data, a QC report, and associated metadata for each processed sample.
-These files are delivered as a zip file.
 Gene expression data is available as either [`SingleCellExperiment` objects (`.rds` files)](#singlecellexperiment-downloads) or [`AnnData` objects (`.hdf5` files)](#anndata-downloads).
+These files are delivered as a zip file.
 
 For all downloads, sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
 Most samples only have one library that has been sequenced.
@@ -26,6 +26,8 @@ The `bulk_metadata.tsv` file contains associated metadata for all samples with b
 See also {ref}`processing bulk RNA samples <processing_information:Bulk RNA samples>`.
 
 The folder structure within the zip file is determined by whether individual samples or all samples associated with a project are selected for download.
+Note that if a sample selected for download contains a spatial transcriptomics library, the files included will be different than pictured below.
+See the [description of the Spatial transcriptomics output section below](#spatial-transcriptomics-libraries).
 
 ## SingleCellExperiment downloads
 
@@ -35,9 +37,6 @@ The folder structure within the zip file is determined by whether individual sam
 ### Download folder structure for individual sample downloads:
 ![sample download folder](images/sample-download-folder.png)
 
-Note that if a sample selected for download contains a spatial transcriptomics library, the files included will be different than pictured above.
-See the [description of the Spatial transcriptomics output section below](#spatial-transcriptomics-libraries).
-
 ## AnnData downloads
 
 ### Download folder structure for project downloads:
@@ -45,9 +44,6 @@ To do: insert project download image
 
 ### Download folder structure for individual sample downloads:
 To do: insert sample download image
-
-Note that if a sample selected for download contains a spatial transcriptomics library, the files included will be different than pictured above.
-See the [description of the Spatial transcriptomics output section below](#spatial-transcriptomics-libraries).
 
 ### Download folder structure for individual sample downloads with CITE-seq (ADT) data:
 To do: insert sample download with CITE-seq image
