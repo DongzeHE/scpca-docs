@@ -109,6 +109,7 @@ expt_metadata <- metadata(sce)
 | `assay_ontology_term_id` | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the `tech_version`  |
 | `seq_unit`         | `cell` for single-cell samples or `nucleus` for single-nucleus samples                                                          |
 | `transcript_type`   | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei                       |
+| `sample_metadata`   | Data frame containing metadata for each sample included in the library (see the [`Sample metadata` section below](#sample-metadata)) |
 | `miQC_model`        | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` objects |
 | `filtering_method`  | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`. Only present for `filtered` objects |
 | `umi_cutoff`        | The minimum UMI count per cell used as a threshold for removing empty droplets. Only present for `filtered` objects where the `filtering_method` is `UMI cutoff` |
@@ -132,6 +133,7 @@ expt_metadata <- metadata(sce)
 ### Sample metadata
 
 Relevant sample metadata is available as a data frame stored in the `metadata(sce)$sample_metadata` slot of the `SingleCellExperiment` object.
+Each row in the data frame will correspond to a sample present in the library.
 The following columns are included in the sample metadata data frame for all libraries.
 
 | Column name   | Contents                                                         |
