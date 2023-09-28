@@ -29,7 +29,7 @@ The folder structure within the zip file is determined by whether individual sam
 Note that if a sample selected for download contains a spatial transcriptomics library, the files included will be different than pictured below.
 See the [description of the Spatial transcriptomics output section below](#spatial-transcriptomics-libraries).
 
-## SingleCellExperiment downloads
+## `SingleCellExperiment` downloads
 
 ### Download folder structure for project downloads:
 ![project download folder](images/project-download-folder.png)
@@ -37,7 +37,7 @@ See the [description of the Spatial transcriptomics output section below](#spati
 ### Download folder structure for individual sample downloads:
 ![sample download folder](images/sample-download-folder.png)
 
-## AnnData downloads
+## `AnnData` downloads
 
 ### Download folder structure for project downloads:
 **TODO**: insert project download image
