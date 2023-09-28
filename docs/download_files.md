@@ -43,10 +43,10 @@ See the [description of the Spatial transcriptomics output section below](#spati
 **TODO**: insert project download image
 
 ### Download folder structure for individual sample downloads:
-To do: insert sample download image
+**TODO**: insert sample download image
 
 ### Download folder structure for individual sample downloads with CITE-seq (ADT) data:
-To do: insert sample download with CITE-seq image
+**TODO**: insert sample download with CITE-seq image
 
 If downloading a sample that contains a CITE-seq library as an `AnnData` object (`hdf5` file), the quantified CITE-seq expression data is included as a separate file.
 
@@ -107,7 +107,7 @@ This file will contain fields equivalent to those found in the `single_cell_meta
 ## Multiplexed sample libraries
 
 For libraries where multiple biological samples were combined via cellhashing or similar technology (see the {ref}`FAQ section about multiplexed samples <faq:What is a multiplexed sample?>`), the organization of the downloaded files and metadata is slightly different.
-Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not available as `AnnData` objects.
+Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not currently available as `AnnData` objects.
 
 For project downloads, the counts and QC files will be organized by the _set_ of samples that comprise each library, rather than in individual sample folders.
 These sample set folders are named with an underscore-separated list of the sample ids for the libraries within, _e.g._, `SCPCS999990_SCPCS999991_SCPCS999992`.
