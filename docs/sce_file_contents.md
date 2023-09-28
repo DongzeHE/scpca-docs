@@ -151,7 +151,7 @@ The following columns are included in the sample metadata data frame for all lib
 | `disease_timing`  | At what stage of disease the sample was obtained, either diagnosis or recurrence |
 | `organism`         | The organism the sample was obtained from (e.g., `Homo_sapiens`) |
 | `development_stage_ontology_term_id` | [`HsapDv` ontology](http://obofoundry.org/ontology/hsapdv.html) term indicating developmental stage. If unavailable, `unknown` is used.  |
-| `sex_ontology_term_id` | [PATO](http://obofoundry.org/ontology/pato.html) term referring to the sex of the sample. If unavailable, `unknown` is used. |
+| `sex_ontology_term_id` | [`PATO`](http://obofoundry.org/ontology/pato.html) term referring to the sex of the sample. If unavailable, `unknown` is used. |
 | `organism_ontology_id` | [NCBI taxonomy](https://www.ncbi.nlm.nih.gov/taxonomy) term for organism, e.g. [`NCBITaxon:9606`](http://purl.obolibrary.org/obo/NCBITaxon_9606). |
 | `self_reported_ethnicity_ontology_term_id` | For _Homo sapiens_, a [`Hancestro` term](http://obofoundry.org/ontology/hancestro.html). `multiethnic` indicates more than one ethnicity is reported. `unknown` indicates unavailable ethnicity and `NA` is used for all other organisms.  |
 | `disease_ontology_term_id` | [`MONDO`](http://obofoundry.org/ontology/mondo.html) term indicating disease type. [`PATO:0000461`](http://purl.obolibrary.org/obo/PATO_0000461) indicates normal or healthy tissue. If unavailable, `NA` is used.  |
