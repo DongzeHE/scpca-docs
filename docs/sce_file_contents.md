@@ -150,11 +150,11 @@ The following columns are included in the sample metadata data frame for all lib
 | `tissue_location` | Where in the body the tumor sample was located                 |
 | `disease_timing`  | At what stage of disease the sample was obtained, either diagnosis or recurrence |
 | `organism`         | The organism the sample was obtained from (e.g., `Homo_sapiens`) |
-| `development_stage_ontology_term_id` | `HsapDv` ontology term indicating developmental stage - for _Homo sapiens_ either one of the terms for [1 - 11 months old](https://ontobee.org/search?ontology=HSAPDV&keywords=month-old&submit=Search+terms) or for [older than 12 months old](https://ontobee.org/search?ontology=HSAPDV&keywords=year-old&submit=Search+terms). If unavailable, `unknown` is used.  |
-| `sex_ontology_term_id` | [PATO](http://obofoundry.org/ontology/pato.html) term referring to the sex of the sample, must be a child of [`PATO:0001894`](https://ontobee.org/ontology/PATO?iri=http://purl.obolibrary.org/obo/PATO_0001894). If unavailable, `unknown` is used.  |
-| `organism_ontology_id` | NCBI taxonomy term for organism, e.g. [`NCBITaxon:9606`](https://ontobee.org/ontology/NCBITaxon?iri=http://purl.obolibrary.org/obo/NCBITaxon_9606). |
+| `development_stage_ontology_term_id` | [`HsapDv` ontology](http://obofoundry.org/ontology/hsapdv.html) term indicating developmental stage. If unavailable, `unknown` is used.  |
+ `sex_ontology_term_id` | [PATO](http://obofoundry.org/ontology/pato.html) term referring to the sex of the sample. If unavailable, `unknown` is used.  |
+| `organism_ontology_id` | [NCBI taxonomy](https://www.ncbi.nlm.nih.gov/taxonomy) term for organism, e.g. [`NCBITaxon:9606`](http://purl.obolibrary.org/obo/NCBITaxon_9606). |
 | `self_reported_ethnicity_ontology_term_id` | For _Homo sapiens_, a [`Hancestro` term](http://obofoundry.org/ontology/hancestro.html). `multiethnic` indicates more than one ethnicity is reported. `unknown` indicates unavailable ethnicity and `NA` is used for all other organisms.  |
-| `disease_ontology_term_id` | [`MONDO`](http://obofoundry.org/ontology/mondo.html) term indicating disease type. [`PATO:0000461`](https://ontobee.org/ontology/PATO?iri=http://purl.obolibrary.org/obo/PATO_0000461) indicates normal or healthy tissue. If unavailable, `NA` is used.  |
+| `disease_ontology_term_id` | [`MONDO`](http://obofoundry.org/ontology/mondo.html) term indicating disease type. [`PATO:0000461`](http://purl.obolibrary.org/obo/PATO_0000461) indicates normal or healthy tissue. If unavailable, `NA` is used.  |
 | `tissue_ontology_term_id`| [`UBERON`](http://obofoundry.org/ontology/uberon.html) term indicating tissue of origin. If unavailable, `NA` is used. |
 
 For some libraries, the sample metadata may also include additional metadata specific to the disease type and experimental design of the project.
