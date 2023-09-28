@@ -7,7 +7,7 @@ These files are delivered as a zip file.
 For all downloads, sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
 Most samples only have one library that has been sequenced.
 For [multiplexed sample libraries](#multiplexed-sample-libraries), the sample folder name will be an underscore-separated list of all samples found in the library files that the folder contains.
-Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not available as `AnnData` objects.
+Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not currently available as `AnnData` objects.
 
 See the {ref}`FAQ section about samples and libraries <faq:What is the difference between samples and libraries?>` for more information.
 
@@ -40,7 +40,7 @@ See the [description of the Spatial transcriptomics output section below](#spati
 ## AnnData downloads
 
 ### Download folder structure for project downloads:
-To do: insert project download image
+**TODO**: insert project download image
 
 ### Download folder structure for individual sample downloads:
 To do: insert sample download image
