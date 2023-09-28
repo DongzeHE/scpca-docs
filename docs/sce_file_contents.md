@@ -105,7 +105,10 @@ expt_metadata <- metadata(sce)
 | `usa_mode`          | Boolean indicating whether quantification was done using `alevin-fry` USA mode                                                 |
 | `af_num_cells`      | Number of cells reported by `alevin-fry`                                                                                       |
 | `tech_version`      | A string indicating the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1              |
+| `assay_ontology_term_id` | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the `tech_version`  |
+| `seq_unit`         | `cell` for single-cell samples or `nucleus` for single-nucleus samples                                                          |
 | `transcript_type`   | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei                       |
+| `sample_metadata`   | Data frame containing metadata for each sample included in the library (see the [`Sample metadata` section below](#sample-metadata)) |
 | `miQC_model`        | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` objects |
 | `filtering_method`  | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`. Only present for `filtered` objects |
 | `umi_cutoff`        | The minimum UMI count per cell used as a threshold for removing empty droplets. Only present for `filtered` objects where the `filtering_method` is `UMI cutoff` |
@@ -119,6 +122,36 @@ expt_metadata <- metadata(sce)
 | `cluster_algorithm` | The algorithm used to perform graph-based clustering of cells. Only present for `processed` objects |
 | `cluster_weighting` | The weighting approach used during graph-based clustering. Only present for `processed` objects |
 | `cluster_nn`        | The nearest neighbor parameter value used for the graph-based clustering. Only present for `processed` objects |
+
+### Sample metadata
+
+Relevant sample metadata is available as a data frame stored in the `metadata(sce)$sample_metadata` slot of the `SingleCellExperiment` object.
+Each row in the data frame will correspond to a sample present in the library.
+The following columns are included in the sample metadata data frame for all libraries.
+
+| Column name   | Contents                                                         |
+| ------------- | ---------------------------------------------------------------- |
+| `sample_id`   | Sample ID in the form `SCPCS000000`                            |
+| `library_id`   | Library ID in the form `SCPCL000000`                             |
+| `particpant_id`  | Unique id corresponding to the donor from which the sample was obtained |
+| `submitter_id`    | Original sample identifier from submitter                      |
+| `submitter`       | Submitter name/id                                              |
+| `age`             | Age at time sample was obtained                                |
+| `sex`             | Sex of patient that the sample was obtained from               |
+| `diagnosis`       | Tumor type                                                     |
+| `subdiagnosis`    | Subcategory of diagnosis or mutation status (if applicable)    |
+| `tissue_location` | Where in the body the tumor sample was located                 |
+| `disease_timing`  | At what stage of disease the sample was obtained, either diagnosis or recurrence |
+| `organism`         | The organism the sample was obtained from (e.g., `Homo_sapiens`) |
+| `development_stage_ontology_term_id` | [`HsapDv` ontology](http://obofoundry.org/ontology/hsapdv.html) term indicating developmental stage. If unavailable, `unknown` is used.  |
+| `sex_ontology_term_id` | [`PATO`](http://obofoundry.org/ontology/pato.html) term referring to the sex of the sample. If unavailable, `unknown` is used. |
+| `organism_ontology_id` | [NCBI taxonomy](https://www.ncbi.nlm.nih.gov/taxonomy) term for organism, e.g. [`NCBITaxon:9606`](http://purl.obolibrary.org/obo/NCBITaxon_9606). |
+| `self_reported_ethnicity_ontology_term_id` | For _Homo sapiens_, a [`Hancestro` term](http://obofoundry.org/ontology/hancestro.html). `multiethnic` indicates more than one ethnicity is reported. `unknown` indicates unavailable ethnicity and `NA` is used for all other organisms.  |
+| `disease_ontology_term_id` | [`MONDO`](http://obofoundry.org/ontology/mondo.html) term indicating disease type. [`PATO:0000461`](http://purl.obolibrary.org/obo/PATO_0000461) indicates normal or healthy tissue. If unavailable, `NA` is used.  |
+| `tissue_ontology_term_id`| [`UBERON`](http://obofoundry.org/ontology/uberon.html) term indicating tissue of origin. If unavailable, `NA` is used. |
+
+For some libraries, the sample metadata may also include additional metadata specific to the disease type and experimental design of the project.
+Examples of this include treatment or outcome.
 
 ### Dimensionality reduction results
 
