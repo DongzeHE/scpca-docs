@@ -140,7 +140,7 @@ The following columns are included in the sample metadata data frame for all lib
 | ------------- | ---------------------------------------------------------------- |
 | `sample_id`   | Sample ID in the form `SCPCS000000`                            |
 | `library_id`   | Library ID in the form `SCPCL000000`                             |
-| `donor_id`  | Unique id corresponding to the donor from which the sample was obtained (equivalent to `particpant_id` included in `single_cell_metadata.tsv`) |
+| `particpant_id`  | Unique id corresponding to the donor from which the sample was obtained |
 | `submitter_id`    | Original sample identifier from submitter                      |
 | `submitter`       | Submitter name/id                                              |
 | `age`             | Age at time sample was obtained                                |

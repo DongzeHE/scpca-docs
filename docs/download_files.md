@@ -87,7 +87,7 @@ The `single_cell_metadata.tsv` file is a tab-separated table with one row per li
 | `technology`      | 10x kit used to process library                                |
 | `filtered_cell_count` | Number of cells after filtering with `emptyDrops`          |
 | `submitter_id`    | Original sample identifier from submitter                      |
-| `participant_id`  | Original participant id                                        |
+| `participant_id`  | Unique id corresponding to the donor from which the sample was obtained |
 | `submitter`       | Submitter name/id                                              |
 | `age`             | Age at time sample was obtained                                |
 | `sex`             | Sex of patient that the sample was obtained from               |
