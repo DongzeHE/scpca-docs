@@ -63,7 +63,7 @@ Further, if cell type annotation was performed, there will be additional columns
 
 | Column name             | Contents                                              |
 | ----------------------- | ----------------------------------------------------- |
-| `clusters`  | Cell cluster identity identified by graph-based clustering |
+| `cluster`  | Cell cluster identity identified by graph-based clustering |
 | `singler_celltype_annotation`  | If cell typing with `SingleR` was performed, the annotated cell type. Cells labeled as `NA` are those which `SingleR` could not confidently annotate |
 | `singler_celltype_ontology`  | If cell typing with `SingleR` was performed, the annotated cell type's ontology ID. Cells labeled as `NA` are those which `SingleR` could not confidently annotate |
 | `cellassign_celltype_annotation`  | If cell typing with `CellAssign` was performed, the annotated cell type. Cells labeled as `"other"` are those which `CellAssign` could not confidently annotate  |
