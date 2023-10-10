@@ -2,6 +2,7 @@
 
 Single-cell or single-nuclei gene expression data (unfiltered, filtered, or processed) is provided for use with R as an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) or with python as an HDF5 file containing an [`AnnData` object](https://anndata.readthedocs.io/en/latest/index.html).
 These objects contain the expression data, cell and gene metrics, associated metadata, and, in the case of multimodal data like ADTs from CITE-seq experiments, data from additional cell-based assays.
+Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not currently available as `AnnData` objects.
 
 Below we present some details about the specific contents of the objects we provide.
 
@@ -16,7 +17,7 @@ library(SingleCellExperiment)
 sce <- readRDS("SCPCL000000_processed.rds")
 ```
 
-### Expression counts
+### `SingleCellExperiment` expression counts
 
 The `counts` assay of the `SingleCellExperiment` object for single-cell and single-nuclei experiments (for all provided file types) contains the primary RNA-seq expression data as integer counts.
 The data is stored as a sparse matrix, and each column represents a cell or droplet, each row a gene.
@@ -27,7 +28,7 @@ The `counts` assay can be accessed with the following R code:
 count_matrix <- counts(sce)
 ```
 
-### Cell metrics
+### `SingleCellExperiment` cell metrics
 
 Cell metrics calculated from the RNA-seq expression data are stored as a `DataFrame` in the `colData` slot, with the cell barcodes as the names of the rows.
 
@@ -69,7 +70,7 @@ Further, if cell type annotation was performed, there will be additional columns
 | `cellassign_celltype_annotation`  | If cell typing with `CellAssign` was performed, the annotated cell type. Cells labeled as `"other"` are those which `CellAssign` could not confidently annotate  |
 | `cellassign_max_prediction`  | If cell typing with `CellAssign` was performed, the annotation's prediction score (probability)  |
 
-### Gene information and metrics
+### `SingleCellExperiment` gene information and metrics
 
 Gene information and metrics calculated from the RNA-seq expression data are stored as a `DataFrame` in the `rowData` slot, with the Ensembl ID as the names of the rows.
 
@@ -86,7 +87,7 @@ Metrics were calculated using the [`scuttle::addPerFeatureQCMetrics`](https://rd
 | `mean`        | Mean count across all cells/droplets                             |
 | `detected`    | Percent of cells in which the gene was detected (gene count > 0 ) |
 
-### Experiment metadata
+### `SingleCellExperiment` experiment metadata
 
 Metadata associated with {ref}`data processing <processing_information:Processing information>` is included in the `metadata` slot as a list.
 
@@ -110,7 +111,7 @@ expt_metadata <- metadata(sce)
 | `assay_ontology_term_id` | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the `tech_version`  |
 | `seq_unit`         | `cell` for single-cell samples or `nucleus` for single-nucleus samples                                                          |
 | `transcript_type`   | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei                       |
-| `sample_metadata`   | Data frame containing metadata for each sample included in the library (see the [`Sample metadata` section below](#sample-metadata)) |
+| `sample_metadata`   | Data frame containing metadata for each sample included in the library (see the [`Sample metadata` section below](#singlecellexperiment-sample-metadata)) |
 | `miQC_model`        | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` objects |
 | `filtering_method`  | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`. Only present for `filtered` objects |
 | `umi_cutoff`        | The minimum UMI count per cell used as a threshold for removing empty droplets. Only present for `filtered` objects where the `filtering_method` is `UMI cutoff` |
@@ -131,7 +132,7 @@ expt_metadata <- metadata(sce)
 | `cellassign_predictions` | If cell typing with `CellAssign` was performed, the full matrix of predictions across cells and cell types. Only present for `processed` objects |
 | `cellassign_reference` | If cell typing with `CellAssign` was performed, is the organ/tissue type for which marker genes were obtained from `PanglaoDB`. Only present for `processed` objects |
 
-### Sample metadata
+### `SingleCellExperiment` sample metadata
 
 Relevant sample metadata is available as a data frame stored in the `metadata(sce)$sample_metadata` slot of the `SingleCellExperiment` object.
 Each row in the data frame will correspond to a sample present in the library.
@@ -161,7 +162,7 @@ The following columns are included in the sample metadata data frame for all lib
 For some libraries, the sample metadata may also include additional metadata specific to the disease type and experimental design of the project.
 Examples of this include treatment or outcome.
 
-### Dimensionality reduction results
+### `SingleCellExperiment` dimensionality reduction results
 
 In the RDS file containing the processed `SingleCellExperiment` object only (`_processed.rds`), the `reducedDim` slot of the object will be occupied with both principal component analysis (`PCA`) and `UMAP` results.
 For all other files, the `reducedDim` slot will be empty as no dimensionality reduction was performed.
@@ -181,7 +182,7 @@ The following command can be used to access the UMAP results:
 reducedDim(sce,"UMAP")
 ```
 
-## Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags)
+### Additional `SingleCellExperiment` components for CITE-seq libraries (with ADT tags)
 
 ADT data from CITE-seq experiments, when present, is included within the `SingleCellExperiment` as an "Alternative Experiment" named `"adt"` , which can be accessed with the following command:
 
@@ -193,10 +194,10 @@ Within this, the main expression matrix is again found in the `counts` assay and
 For each assay, each column corresponds to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponds to an antibody derived tag (ADT).
 Column names are again cell barcode sequences and row names are the antibody targets for each ADT.
 
-Note that only cells which are denoted as "Keep" in  the `colData(sce)$adt_scpca_filter` column (as described [above](#cell-metrics)) have normalized expression values in the `logcounts` assay, and all other cells are assigned `NA` values.
+Note that only cells which are denoted as "Keep" in  the `colData(sce)$adt_scpca_filter` column (as described [above](#singlecellexperiment-singlecellexperiment-cell-metrics)) have normalized expression values in the `logcounts` assay, and all other cells are assigned `NA` values.
 However, as described in the {ref}`processed ADT data section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances, in which case there will be no `logcounts` normalized expression matrix present in the alternative experiment.
 
-The following additional per-cell data columns for the ADT data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#cell-metrics)).
+The following additional per-cell data columns for the ADT data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#singlecellexperiment-singlecellexperiment-cell-metrics)).
 
 | Column name                | Contents                                          |
 | -------------------------- | ------------------------------------------------- |
@@ -232,13 +233,13 @@ This data frame contains the following columns with statistics for each ADT:
 | `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and will be labeled as `target` |
 
 Finally, additional metadata for ADT processing can be found in the metadata slot of the alternative experiment.
-This metadata slot has the same contents as the [parent experiment metadata](#experiment-metadata), along with one additional field, `ambient_profile`, which holds a list of representing the ambient concentrations of each ADT.
+This metadata slot has the same contents as the [parent experiment metadata](#singlecellexperiment-experiment-metadata), along with one additional field, `ambient_profile`, which holds a list of representing the ambient concentrations of each ADT.
 
 ```r
 adt_metadata <- metadata(altExp(sce, "adt"))
 ```
 
-## Additional SingleCellExperiment components for multiplexed libraries
+### Additional `SingleCellExperiment` components for multiplexed libraries
 
 Multiplexed libraries will contain a number of additional components and fields.
 
@@ -251,7 +252,7 @@ altExp(sce, "cellhash")
 Within this, the main data matrix is again found in the `counts` assay, with each column corresponding to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponding to a hashtag oligo (HTO).
 Column names are again cell barcode sequences and row names the HTO ids for all assayed HTOs.
 
-The following additional per-cell data columns for the cellhash data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#cell-metrics)).
+The following additional per-cell data columns for the cellhash data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#singlecellexperiment-singlecellexperiment-cell-metrics)).
 
 | Column name                | Contents                                          |
 | -------------------------- | ------------------------------------------------- |
@@ -309,7 +310,7 @@ import anndata
 adata_object = anndata.read_h5ad("SCPCL000000_processed.rds")
 ```
 
-### Expression counts
+### `AnnData` expression counts
 
 The data matrix, `X`, of the `AnnData` object for single-cell and single-nuclei experiments contains the primary RNA-seq expression data as integer counts in both the unfiltered (`_unfiltered_rna.hdf5`) and filtered (`_filtered_rna.hdf5`) objects.
 The data is stored as a sparse matrix, and each column represents a cell or droplet, each row a gene.
@@ -324,11 +325,11 @@ In processed objects _only_ (`_processed_rna.hdf5`), the data matrix `X` contain
 The counts in the processed object can be accessed with the following python code:
 
 ```python
+raw_count_matrix = adata_obj.raw.X
 normalized_count_matrix = adata_obj.X
-raw_count_matriox = adata_obj.raw.X
 ```
 
-### Cell metrics
+### `AnnData` cell metrics
 
 Cell metrics calculated from the RNA-seq expression data are stored as a `pandas.DataFrame` in the `.obs` slot, with the cell barcodes as the names of the rows.
 
@@ -336,8 +337,8 @@ Cell metrics calculated from the RNA-seq expression data are stored as a `pandas
 cell_metrics = adata_obj.obs
 ```
 
-All of the per-cell data columns included in `SingleCellExperiment` objects are present in the `.obs` slot of the `AnnData` object.
-To see a full description of the included columns, see the [section on cell metrics in `Components of a SingleCellExperiment object`](#cell-metrics).
+All of the per-cell data columns included in the `colData` of the `SingleCellExperiment` objects are present in the `.obs` slot of the `AnnData` object.
+To see a full description of the included columns, see the [section on cell metrics in Components of a SingleCellExperiment object](#singlecellexperiment-cell-metrics).
 
 The `AnnData` object also includes the following additional cell-level metadata columns:
 
@@ -366,7 +367,7 @@ The `AnnData` object also includes the following additional cell-level metadata 
 | `is_primary_data` | Set to `FALSE` for all libraries to reflect that all libraries were obtained from external investigators.Required by `CEllxGENE`             |
 
 
-### Gene information and metrics
+### `AnnData` gene information and metrics
 
 Gene information and metrics calculated from the RNA-seq expression data are stored as a `pandas.DataFrame` in the `.var` slot, with the Ensembl ID as the names of the rows.
 
@@ -374,8 +375,8 @@ Gene information and metrics calculated from the RNA-seq expression data are sto
 gene_info = adata_obj.var
 ```
 
-All of the per-gene data columns included in `SingleCellExperiment` objects are present in the `.var` slot of the `AnnData` object.
-To see a full description of the included columns, see the [section on gene metrics in `Components of a SingleCellExperiment object`](#gene-information-and-metrics).
+All of the per-gene data columns included in the `rowData` of the `SingleCellExperiment` objects are present in the `.var` slot of the `AnnData` object.
+To see a full description of the included columns, see the [section on gene metrics in `Components of a SingleCellExperiment object`](#singlecellexperiment-gene-information-and-metrics).
 
 The `AnnData` object also includes the following additional gene-level metadata columns:
 
@@ -384,7 +385,7 @@ The `AnnData` object also includes the following additional gene-level metadata 
 | `is_feature_filtered` | Boolean indicating if the gene or feature is filtered out in the normalized matrix but is present in the raw matrix     |
 
 
-### Experiment metadata
+### `AnnData` experiment metadata
 
 Metadata associated with {ref}`data processing <processing_information:Processing information>` is included in the `.uns` slot as a list.
 
@@ -393,12 +394,69 @@ expt_metadata = adata_obj.uns
 ```
 
 All of the object metadata included in `SingleCellExperiment` objects are present in the `.uns` slot of the `AnnData` object.
-To see a full description of the included columns, see the [section on experiment metadata in `Components of a SingleCellExperiment object`](#experiment-metadata).
+To see a full description of the included columns, see the [section on experiment metadata in `Components of a SingleCellExperiment object`](#singlecellexperiment-experiment-metadata).
 The only exception is that the `AnnData` object _does not_ contain the `sample_metadata` item in the `.uns` slot.
-Instead, the contents of the `sample_metadata` data frame is stored in the cell-level metadata (`.obs`).
+Instead, the contents of the `sample_metadata` data frame are stored in the cell-level metadata (`.obs`).
 
 The `AnnData` object also includes the following additional items in the `.uns` slot:
 
 | Item name   | Contents                                                         |
 | ------------- | ---------------------------------------------------------------- |
 | `schema_version` | CZI schema version used for `AnnData` formatting, `3.0.0` |
+
+
+### `AnnData` dimensionality reduction results
+
+In the HDF5 file containing the processed `SingleCellExperiment` object only (`_processed_rna.hdf5`), the `.obsm` slot of the object will be occupied with both principal component analysis (`X_PCA`) and `X_UMAP` results.
+For all other HDF5 files, the `.obsm` slot will be empty as no dimensionality reduction was performed.
+
+For information on how PCA and UMAP results were calculated see the {ref}`section on processed gene expression data <processing_information:Processed gene expression data>`.
+
+The following command can be used to access the PCA and UMAP results:
+
+```python
+pca = adata_obj.obsm["X_PCA"]
+umap = adata_obj.obsm["X_UMAP"]
+```
+
+### Additional `AnnData` components for CITE-seq libraries (with ADT tags)
+
+ADT data from CITE-seq experiments, when present, is available as a separate `AnnData` object (`.hdf5` file).
+All files containing ADT data will contain the `_adt.hdf5` suffix.
+
+The data matrix, `X`, of the `AnnData` objects contain the primary ADT expression data as integer counts in both the unfiltered (`_unfiltered_rna.hdf5`) and filtered (`_filtered_rna.hdf5`) objects.
+Each column corresponds to a cell or droplet (in the same order as the main `AnnData` object) and each row corresponds to an antibody derived tag (ADT).
+Column names are again cell barcode sequences and row names are the antibody targets for each ADT.
+
+As with the RNA `AnnData` objects, in processed objects _only_ (`_processed_adt.hdf5`), the data matrix `X` contains the normalized ADT counts and the primary data can be found in `raw.X`.
+Note that only cells which are denoted as "Keep" in  the `adata_obj.uns["adt_scpca_filter"]` column (as described [above](#singlecellexperiment-cell-metrics)) have normalized expression values in the `logcounts` assay, and all other cells are assigned `NA` values.
+However, as described in the {ref}`processed ADT data section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances, in which case there will be no normalized expression matrix present in the `AnnData` object and the primary data will still be stored in `X`.
+
+In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) can be found in the `obs` of the `AnnData` object.
+
+| Column name                | Contents                                          |
+| -------------------------- | ------------------------------------------------- |
+| `zero.ambient`   | Indicates whether the cell has zero ambient contamination   |
+| `sum.controls` |  The sum of counts for all control features. Only present if negative/isotype control ADTs are present |
+| `high.controls`  | Indicates whether the cell has unusually high total control counts. Only present if negative/isotype control ADTs are present |
+| `ambient.scale` |  The relative amount of ambient contamination. Only present if negative control ADTs are _not_ present |
+| `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative/isotype control ADTs are _not_ present |
+| `discard`  | Indicates whether the cell should be discarded based on QC statistics |
+
+
+Metrics for each of the ADTs assayed can be found as a `pandas.DataFrame` in the `.var` slot within the `AnnData` object:
+
+This data frame contains the following columns with statistics for each ADT:
+
+| Column name | Contents                                                       |
+| ----------- | -------------------------------------------------------------- |
+| `mean`      | Mean ADT count across all cells/droplets                       |
+| `detected`  | Percent of cells in which the ADT was detected (ADT count > 0 ) |
+| `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and will be labeled as `target` |
+
+Finally, additional metadata for ADT processing can be found in the `.uns` slot of the `AnnData` object.
+This metadata slot has the same contents as the [RNA experiment metadata](#anndata-experiment-metadata), along with one additional field, `ambient_profile`, which holds a list of representing the ambient concentrations of each ADT.
+
+```r
+adt_metadata <- metadata(altExp(sce, "adt"))
+```
