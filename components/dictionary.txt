@@ -13,6 +13,7 @@ cDNA
 cellhash
 cellhashing
 confounders
+CZI
 Danecek
 de
 deconvolution
@@ -33,6 +34,7 @@ Genomics
 github
 GRCh
 hashedDrops
+HDF5
 hexamer
 HBC
 Hemberg
