@@ -1,8 +1,8 @@
 # Single-cell gene expression file contents
 
 Single-cell or single-nuclei gene expression data (unfiltered, filtered, or processed) is provided in two formats:
-  - As an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) for use in R
-  - An HDF5 file containing an [`AnnData` object](https://anndata.readthedocs.io/en/latest/index.html) for use in Python
+  - As an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) for use in R.
+  - An HDF5 file containing an [`AnnData` object](https://anndata.readthedocs.io/en/latest/index.html) for use in Python.
 
 These objects contain the expression data, cell and gene metrics, associated metadata, and, in the case of multimodal data like ADTs from CITE-seq experiments, data from additional cell-based assays.
 For `SingleCellExperiment` objects the ADT data will be included as an alternative experiment in the same object containing the primary RNA data.
