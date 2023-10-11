@@ -5,9 +5,9 @@ Single-cell or single-nuclei gene expression data (unfiltered, filtered, or proc
   - An HDF5 file containing an [`AnnData` object](https://anndata.readthedocs.io/en/latest/index.html) for use in Python.
 
 These objects contain the expression data, cell and gene metrics, associated metadata, and, in the case of multimodal data like ADTs from CITE-seq experiments, data from additional cell-based assays.
-For `SingleCellExperiment` objects the ADT data will be included as an alternative experiment in the same object containing the primary RNA data.
+For `SingleCellExperiment` objects, the ADT data will be included as an alternative experiment in the same object containing the primary RNA data.
 For `AnnData` objects, the ADT data will be available as a separate object stored in a separate file.
-⚠️ Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not currently available as `AnnData` objects.
+Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not currently available as `AnnData` objects.
 
 Below we present some details about the specific contents of the objects we provide.
 
