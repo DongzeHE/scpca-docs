@@ -238,7 +238,7 @@ This data frame contains the following columns with statistics for each ADT:
 | `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and will be labeled as `target` |
 
 Finally, additional metadata for ADT processing can be found in the metadata slot of the alternative experiment.
-This metadata slot has the same contents as the [parent experiment metadata](#singlecellexperiment-experiment-metadata), along with one additional field, `ambient_profile`, which holds a list of representing the ambient concentrations of each ADT.
+This metadata slot has the same contents as the [parent experiment metadata](#singlecellexperiment-experiment-metadata), along with one additional field, `ambient_profile`, which holds a list of the ambient concentrations of each ADT.
 
 ```r
 metadata(altExp(sce, "adt")) # adt metadata
@@ -366,9 +366,9 @@ The `AnnData` object also includes the following additional cell-level metadata 
 | `development_stage_ontology_term_id` | [`HsapDv` ontology](http://obofoundry.org/ontology/hsapdv.html) term indicating developmental stage. If unavailable, `unknown` is used.  |
 | `sex_ontology_term_id` | [`PATO`](http://obofoundry.org/ontology/pato.html) term referring to the sex of the sample. If unavailable, `unknown` is used. |
 | `organism_ontology_id` | [NCBI taxonomy](https://www.ncbi.nlm.nih.gov/taxonomy) term for organism, e.g. [`NCBITaxon:9606`](http://purl.obolibrary.org/obo/NCBITaxon_9606). |
-| `self_reported_ethnicity_ontology_term_id` | For _Homo sapiens_, a [`Hancestro` term](http://obofoundry.org/ontology/hancestro.html). `multiethnic` indicates more than one ethnicity is reported. `unknown` indicates unavailable ethnicity, and `NA` is used for all other organisms.  |
-| `disease_ontology_term_id` | [`MONDO`](http://obofoundry.org/ontology/mondo.html) term indicating disease type. [`PATO:0000461`](http://purl.obolibrary.org/obo/PATO_0000461) indicates normal or healthy tissue. If unavailable, `NA` is used.  |
-| `tissue_ontology_term_id`| [`UBERON`](http://obofoundry.org/ontology/uberon.html) term indicating tissue of origin. If unavailable, `NA` is used. |
+| `self_reported_ethnicity_ontology_term_id` | For _Homo sapiens_, a [`HANCESTRO` term](http://obofoundry.org/ontology/hancestro.html). `multiethnic` indicates more than one ethnicity is reported. `unknown` indicates unavailable ethnicity, and `NA` is used for all other organisms.  |
+| `disease_ontology_term_id` | [`Mondo`](http://obofoundry.org/ontology/mondo.html) term indicating disease type. [`PATO:0000461`](http://purl.obolibrary.org/obo/PATO_0000461) indicates normal or healthy tissue. If unavailable, `NA` is used.  |
+| `tissue_ontology_term_id`| [`Uberon`](http://obofoundry.org/ontology/uberon.html) term indicating tissue of origin. If unavailable, `NA` is used. |
 | `is_primary_data` | Set to `FALSE` for all libraries to reflect that all libraries were obtained from external investigators. Required by `CELLxGENE`.             |
 
 
@@ -407,12 +407,12 @@ The `AnnData` object also includes the following additional items in the `.uns` 
 
 | Item name   | Contents                                                         |
 | ------------- | ---------------------------------------------------------------- |
-| `schema_version` | CZI schema version used for `AnnData` formatting, `3.0.0` |
+| `schema_version` | CZI schema version used for `AnnData` formatting |
 
 
 ### `AnnData` dimensionality reduction results
 
-In the HDF5 file containing the processed `SingleCellExperiment` object only (`_processed_rna.hdf5`), the `.obsm` slot of the object will be occupied with both principal component analysis (`X_PCA`) and `X_UMAP` results.
+The HDF5 file containing the processed `AnnData` object (`_processed_rna.hdf5`) contains a slot `.obsm` with both principal component analysis (`X_PCA`) and UMAP (`X_UMAP`) results.
 For all other HDF5 files, the `.obsm` slot will be empty as no dimensionality reduction was performed.
 
 For information on how PCA and UMAP results were calculated see the {ref}`section on processed gene expression data <processing_information:Processed gene expression data>`.
@@ -426,18 +426,19 @@ adata_object.obsm["X_UMAP"] # umap results
 
 ### Additional `AnnData` components for CITE-seq libraries (with ADT tags)
 
-ADT data from CITE-seq experiments, when present, is available as a separate `AnnData` object (`.hdf5` file).
+ADT data from CITE-seq experiments, when present, is available as a separate `AnnData` object (HDF5 file).
 All files containing ADT data will contain the `_adt.hdf5` suffix.
 
-The data matrix, `X`, of the `AnnData` objects contain the primary ADT expression data as integer counts in both the unfiltered (`_unfiltered_rna.hdf5`) and filtered (`_filtered_rna.hdf5`) objects.
-Each column corresponds to a cell or droplet (in the same order as the main `AnnData` object) and each row corresponds to an antibody derived tag (ADT).
+The data matrix, `X`, of the `AnnData` objects contain the primary ADT expression data as integer counts in both the unfiltered (`_unfiltered_adt.hdf5`) and filtered (`_filtered_adt.hdf5`) objects.
+Each column corresponds to a cell or droplet (in the same order as the main `AnnData` object), and each row corresponds to an antibody derived tag (ADT).
 Column names are again cell barcode sequences and row names are the antibody targets for each ADT.
 
 As with the RNA `AnnData` objects, in processed objects _only_ (`_processed_adt.hdf5`), the data matrix `X` contains the normalized ADT counts and the primary data can be found in `raw.X`.
 Note that only cells which are denoted as "Keep" in  the `adata_obj.uns["adt_scpca_filter"]` column (as described [above](#singlecellexperiment-cell-metrics)) have normalized expression values in the `logcounts` assay, and all other cells are assigned `NA` values.
-However, as described in the {ref}`processed ADT data section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances, in which case there will be no normalized expression matrix present in the `AnnData` object and the primary data will still be stored in `X`.
+However, as described in the {ref}`processed ADT data section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances.
+In such cases the `AnnData` object will not contain a normalized expression matrix, but the primary data will still be stored in `X`.
 
-In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) can be found in the `obs` of the `AnnData` object.
+In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) can be found in the `obs` slot of each ADT-specific `AnnData` object.
 
 | Column name                | Contents                                          |
 | -------------------------- | ------------------------------------------------- |
@@ -451,7 +452,6 @@ In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`]
 
 Metrics for each of the ADTs assayed can be found as a `pandas.DataFrame` in the `.var` slot within the `AnnData` object:
 
-This data frame contains the following columns with statistics for each ADT:
 
 | Column name | Contents                                                       |
 | ----------- | -------------------------------------------------------------- |
@@ -460,4 +460,4 @@ This data frame contains the following columns with statistics for each ADT:
 | `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and will be labeled as `target` |
 
 Finally, additional metadata for ADT processing can be found in the `.uns` slot of the `AnnData` object.
-This metadata slot has the same contents as the [RNA experiment metadata](#anndata-experiment-metadata), along with one additional field, `ambient_profile`, which holds a list of representing the ambient concentrations of each ADT.
+This metadata slot has the same contents as the [RNA experiment metadata](#anndata-experiment-metadata), along with one additional field, `ambient_profile`, which holds a list of the ambient concentrations of each ADT.
