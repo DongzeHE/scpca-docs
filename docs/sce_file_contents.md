@@ -1,7 +1,7 @@
 # Single-cell gene expression file contents
 
 Single-cell or single-nuclei gene expression data (unfiltered, filtered, or processed) is provided in two formats:
-  - As an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) for use in R.
+  - As an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.17/OSCA.intro/the-singlecellexperiment-class.html) for use in R.
   - An HDF5 file containing an [`AnnData` object](https://anndata.readthedocs.io/en/latest/index.html) for use in Python.
 
 These objects contain the expression data, cell and gene metrics, associated metadata, and, in the case of multimodal data like ADTs from CITE-seq experiments, data from additional cell-based assays.
@@ -30,7 +30,7 @@ Column names are cell barcode sequences and row names are Ensembl gene IDs.
 The `counts` assay can be accessed with the following R code:
 
 ```r
-count_matrix <- counts(sce)
+counts(sce) # counts matrix
 ```
 
 ### `SingleCellExperiment` cell metrics
@@ -38,7 +38,7 @@ count_matrix <- counts(sce)
 Cell metrics calculated from the RNA-seq expression data are stored as a `DataFrame` in the `colData` slot, with the cell barcodes as the names of the rows.
 
 ```r
-cell_metrics <- colData(sce)
+colData(sce) # cell metrics
 ```
 
 The following per-cell data columns are included for each cell, calculated using the [`scuttle::addPerCellQCMetrics()`](https://rdrr.io/github/LTLA/scuttle/man/addPerCellQCMetrics.html) function.
@@ -80,7 +80,7 @@ Further, if cell type annotation was performed, there will be additional columns
 Gene information and metrics calculated from the RNA-seq expression data are stored as a `DataFrame` in the `rowData` slot, with the Ensembl ID as the names of the rows.
 
 ```r
-gene_info <- rowData(sce)
+rowData(sce) # gene metrics
 ```
 
 The following columns are included for all genes.
@@ -97,7 +97,7 @@ Metrics were calculated using the [`scuttle::addPerFeatureQCMetrics`](https://rd
 Metadata associated with {ref}`data processing <processing_information:Processing information>` is included in the `metadata` slot as a list.
 
 ```r
-expt_metadata <- metadata(sce)
+metadata(sce) # experiment metadata
 ```
 
 | Item name           | Contents                                                                                                                       |
@@ -177,14 +177,14 @@ The list of highly variable genes used was selected using `scran::modelGeneVar` 
 The following command can be used to access the PCA results:
 
 ```r
-pca <- reducedDim(sce, "PCA")
+reducedDim(sce, "PCA")
 ```
 
 UMAP results were calculated using `scater::runUMAP()`, with the PCA results as input rather than the full gene expression matrix.
 The following command can be used to access the UMAP results:
 
 ```r
-umap <- reducedDim(sce, "UMAP")
+reducedDim(sce, "UMAP")
 ```
 
 ### Additional `SingleCellExperiment` components for CITE-seq libraries (with ADT tags)
@@ -192,7 +192,7 @@ umap <- reducedDim(sce, "UMAP")
 ADT data from CITE-seq experiments, when present, is included within the `SingleCellExperiment` as an "Alternative Experiment" named `"adt"` , which can be accessed with the following command:
 
 ```r
-adt_data <- altExp(sce, "adt")
+altExp(sce, "adt") # adt experiment
 ```
 
 Within this, the main expression matrix is again found in the `counts` assay and the normalized expression matrix is found in the `logcounts` assay.
@@ -226,7 +226,7 @@ In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`]
 Metrics for each of the ADTs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
 
 ```r
-adt_info <- rowData(altExp(sce, "adt"))
+rowData(altExp(sce, "adt")) # adt metrics
 ```
 
 This data frame contains the following columns with statistics for each ADT:
@@ -241,7 +241,7 @@ Finally, additional metadata for ADT processing can be found in the metadata slo
 This metadata slot has the same contents as the [parent experiment metadata](#singlecellexperiment-experiment-metadata), along with one additional field, `ambient_profile`, which holds a list of representing the ambient concentrations of each ADT.
 
 ```r
-adt_metadata <- metadata(altExp(sce, "adt"))
+metadata(altExp(sce, "adt")) # adt metadata
 ```
 
 ### Additional `SingleCellExperiment` components for multiplexed libraries
@@ -251,7 +251,7 @@ Multiplexed libraries will contain a number of additional components and fields.
 Hashtag oligo (HTO) quantification for each cell is included within the `SingleCellExperiment` as an "Alternative Experiment" named `"cellhash"` , which can be accessed with the following command:
 
 ```r
-hto_data <- altExp(sce, "cellhash")
+altExp(sce, "cellhash") # hto experiment
 ```
 
 Within this, the main data matrix is again found in the `counts` assay, with each column corresponding to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponding to a hashtag oligo (HTO).
@@ -268,7 +268,7 @@ The following additional per-cell data columns for the cellhash data can be foun
 Metrics for each of the HTOs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
 
 ```r
-hto_info <- rowData(altExp(sce, "cellhash"))
+rowData(altExp(sce, "cellhash")) # hto metrics
 ```
 
 This data frame contains the following columns with statistics for each HTO:
@@ -323,15 +323,15 @@ Column names are cell barcode sequences and row names are Ensembl gene IDs.
 The `X` matrix can be accessed with the following python code:
 
 ```python
-adata_obj.X # raw count matrix
+adata_object.X # raw count matrix
 ```
 
 In processed objects _only_ (`_processed_rna.hdf5`), the data matrix `X` contains the normalized data and the primary data can be found in `raw.X`.
 The counts in the processed object can be accessed with the following python code:
 
 ```python
-raw_count_matrix = adata_obj.raw.X
-normalized_count_matrix = adata_obj.X
+adata_object.raw.X # raw count matrix
+adata_object.X # normalized count matrix
 ```
 
 ### `AnnData` cell metrics
@@ -339,7 +339,7 @@ normalized_count_matrix = adata_obj.X
 Cell metrics calculated from the RNA-seq expression data are stored as a `pandas.DataFrame` in the `.obs` slot, with the cell barcodes as the names of the rows.
 
 ```python
-cell_metrics = adata_obj.obs
+adata_object.obs # cell metrics
 ```
 
 All of the per-cell data columns included in the `colData` of the `SingleCellExperiment` objects are present in the `.obs` slot of the `AnnData` object.
@@ -377,7 +377,7 @@ The `AnnData` object also includes the following additional cell-level metadata 
 Gene information and metrics calculated from the RNA-seq expression data are stored as a `pandas.DataFrame` in the `.var` slot, with the Ensembl ID as the names of the rows.
 
 ```python
-gene_info = adata_obj.var
+adata_object.var # gene metrics
 ```
 
 All of the per-gene data columns included in the `rowData` of the `SingleCellExperiment` objects are present in the `.var` slot of the `AnnData` object.
@@ -395,7 +395,7 @@ The `AnnData` object also includes the following additional gene-level metadata 
 Metadata associated with {ref}`data processing <processing_information:Processing information>` is included in the `.uns` slot as a list.
 
 ```python
-expt_metadata = adata_obj.uns
+adata_object.uns # experiment metadata
 ```
 
 All of the object metadata included in `SingleCellExperiment` objects are present in the `.uns` slot of the `AnnData` object.
@@ -420,8 +420,8 @@ For information on how PCA and UMAP results were calculated see the {ref}`sectio
 The following command can be used to access the PCA and UMAP results:
 
 ```python
-pca = adata_obj.obsm["X_PCA"]
-umap = adata_obj.obsm["X_UMAP"]
+adata_object.obsm["X_PCA"] # pca results
+adata_object.obsm["X_UMAP"] # umap results
 ```
 
 ### Additional `AnnData` components for CITE-seq libraries (with ADT tags)
