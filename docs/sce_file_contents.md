@@ -2,8 +2,11 @@
 
 Single-cell or single-nuclei gene expression data (unfiltered, filtered, or processed) is provided in two formats:
   - As an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) for use in R
- - An HDF5 file containing an [`AnnData` object](https://anndata.readthedocs.io/en/latest/index.html) for use in Python
+  - An HDF5 file containing an [`AnnData` object](https://anndata.readthedocs.io/en/latest/index.html) for use in Python
+
 These objects contain the expression data, cell and gene metrics, associated metadata, and, in the case of multimodal data like ADTs from CITE-seq experiments, data from additional cell-based assays.
+For `SingleCellExperiment` objects the ADT data will be included as an alternative experiment in the same object containing the primary RNA data.
+For `AnnData` objects, the ADT data will be available as a separate object stored in a separate file.
 ⚠️ Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not currently available as `AnnData` objects.
 
 Below we present some details about the specific contents of the objects we provide.
@@ -174,14 +177,14 @@ The list of highly variable genes used was selected using `scran::modelGeneVar` 
 The following command can be used to access the PCA results:
 
 ```r
-reducedDim(sce, "PCA")
+pca <- reducedDim(sce, "PCA")
 ```
 
 UMAP results were calculated using `scater::runUMAP()`, with the PCA results as input rather than the full gene expression matrix.
 The following command can be used to access the UMAP results:
 
 ```r
-reducedDim(sce,"UMAP")
+umap <- reducedDim(sce,"UMAP")
 ```
 
 ### Additional `SingleCellExperiment` components for CITE-seq libraries (with ADT tags)
@@ -189,7 +192,7 @@ reducedDim(sce,"UMAP")
 ADT data from CITE-seq experiments, when present, is included within the `SingleCellExperiment` as an "Alternative Experiment" named `"adt"` , which can be accessed with the following command:
 
 ```r
-altExp(sce, "adt")
+adt_data <- altExp(sce, "adt")
 ```
 
 Within this, the main expression matrix is again found in the `counts` assay and the normalized expression matrix is found in the `logcounts` assay.
@@ -248,7 +251,7 @@ Multiplexed libraries will contain a number of additional components and fields.
 Hashtag oligo (HTO) quantification for each cell is included within the `SingleCellExperiment` as an "Alternative Experiment" named `"cellhash"` , which can be accessed with the following command:
 
 ```r
-altExp(sce, "cellhash")
+hto_data <- altExp(sce, "cellhash")
 ```
 
 Within this, the main data matrix is again found in the `counts` assay, with each column corresponding to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponding to a hashtag oligo (HTO).
@@ -309,7 +312,7 @@ To begin, you will need to load the `AnnData` package and read the HDF5 file:
 
 ```python
 import anndata
-adata_object = anndata.read_h5ad("SCPCL000000_processed.rds")
+adata_object = anndata.read_h5ad("SCPCL000000_processed_rna.hdf5")
 ```
 
 ### `AnnData` expression counts
@@ -458,7 +461,3 @@ This data frame contains the following columns with statistics for each ADT:
 
 Finally, additional metadata for ADT processing can be found in the `.uns` slot of the `AnnData` object.
 This metadata slot has the same contents as the [RNA experiment metadata](#anndata-experiment-metadata), along with one additional field, `ambient_profile`, which holds a list of representing the ambient concentrations of each ADT.
-
-```r
-adt_metadata <- metadata(altExp(sce, "adt"))
-```
