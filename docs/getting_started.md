@@ -129,7 +129,7 @@ If you prefer to work with the object prior to removal of any low-quality cells,
 
 Dimensionality reduction is commonly used as a precursor to plotting, clustering, and other downstream analysis.
 
-The obejcts contain results from performing [principal component analysis (PCA)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#principal-components-analysis), a technique that identifies new axes that capture the largest amount of variation in the data, and [uniform manifold approximation and projection(UMAP)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#uniform-manifold-approximation-and-projection), which may be better for visualization.
+The objects contain results from performing [principal component analysis (PCA)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#principal-components-analysis), a technique that identifies new axes that capture the largest amount of variation in the data, and [uniform manifold approximation and projection(UMAP)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#uniform-manifold-approximation-and-projection), which may be better for visualization.
 Use caution when interpreting UMAP results, as location, spacing, and density of clusters can be dependent on parameter choices and random effects and do not always accurately represent the relationships among cells.
 
 Dimensionality reduction results can be accessed in the `SingleCellExperiment` objects using the following command:
@@ -158,7 +158,7 @@ See below for more resources on dimensionality reduction:
 - [Dimension Reductions in R](https://rpubs.com/Saskia/520216)
 - [Understanding UMAP](https://pair-code.github.io/understanding-umap/)
 
-### Higly variable genes
+### Highly variable genes
 
 In the processed objects, principal components were calculated from a set of highly variable genes identified for a given library.
 We encourage you to visit the [Feature selection chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.13/OSCA.basic/feature-selection.html#feature-selection) to read more about modeling gene variance and selecting the highly variable genes.
@@ -181,7 +181,7 @@ processed_adata.uns["highly_variable_genes"]
 
 ### Clustering
 
-Cluster assignments obtained from [Graph-based clustering](http://bioconductor.org/books/3.16/OSCA.basic/clustering.html#clustering-graph) is also availble in the processed objects.
+Cluster assignments obtained from [Graph-based clustering](http://bioconductor.org/books/3.16/OSCA.basic/clustering.html#clustering-graph) is also available in the processed objects.
 Here clustering was performed using the Louvain algorithm with 20 nearest neighbors and Jaccard weighting.
 
 To access the cluster assignments in the `SingleCellExperiment` object, use the following command:
