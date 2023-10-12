@@ -40,13 +40,13 @@ See the [description of the Spatial transcriptomics output section below](#spati
 ## `AnnData` downloads
 
 ### Download folder structure for project downloads:
-**TODO**: insert project download image
+![project download folder](images/anndata-project-download-folder.png)
 
 ### Download folder structure for individual sample downloads:
-**TODO**: insert sample download image
+![sample download folder](images/anndata-sample-download-folder.png)
 
 ### Download folder structure for individual sample downloads with CITE-seq (ADT) data:
-**TODO**: insert sample download with CITE-seq image
+![sample download folder](images/anndata-sample-citeseq-download-folder.png)
 
 If downloading a sample that contains a CITE-seq library as an `AnnData` object (`hdf5` file), the quantified CITE-seq expression data is included as a separate file.
 
