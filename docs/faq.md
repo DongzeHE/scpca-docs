@@ -22,7 +22,8 @@ Recent reports from others support our findings.
 
 ## How do I use the provided RDS files in R?
 
-We are providing the gene expression data to you as a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) in an RDS file.
+If you would like to work with the gene expression data in R, you will need to choose the option for downloading the data as a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
+This download includes RDS files that can be directly read into R.
 
 _Note: You will need to install and load the [`SingleCellExperiment` package](https://bioconductor.org/packages/3.13/bioc/html/SingleCellExperiment.html) from Bioconductor to work with the provided files._
 
@@ -30,8 +31,28 @@ To read in the RDS files you can use the `readRDS` command in base R.
 
 ```r
 library(SingleCellExperiment)
-scpca_sample <- readRDS("SCPCL000000_filtered.rds")
+scpca_sample <- readRDS("SCPCL000000_processed.rds")
 ```
+
+A full description of the contents of the `SingleCellExperiment` object can be found in the section on {ref}`Components of a SingleCellExperiment object <sce_file_contents:Components of a singlecellexperiment object>`.
+For more information on working with the RDS files, see {ref}`Getting started with an ScPCA dataset <getting_started:Getting started with an scpca dataset>`.
+
+## How do I use the provided HDF5 files in Python?
+
+If you would like to work with the gene expression data in Python, you will need to choose the option for downloading the data as an [`AnnData` object](https://anndata.readthedocs.io/en/latest/index.html).
+This download includes HDF5 files that can be directly read into Python.
+
+_Note: You will need to install the [`AnnData` package](https://anndata.readthedocs.io/en/latest/index.html) to work with the provided files._
+
+To read in the HDF5 files you can use the `readh5ad` function from the `AnnData` package.
+
+```python
+import anndata
+scpca_sample = anndata.readh5ad(file = "SCPCL000000_processed_rna.hdf5")
+```
+
+A full description of the contents of the `AnnData` object can be found in the section on {ref}`Components of an AnnData object <sce_file_contents:Components of an anndata object>`.
+For more information on working with the RDS files, see {ref}`Getting started with an ScPCA dataset <getting_started:Getting started with an scpca dataset>`.
 
 ## What is the difference between samples and libraries?
 
@@ -98,7 +119,7 @@ You can find the [function for generating a QC report](https://github.com/AlexsL
 
 ## What if I want to use Seurat instead of Bioconductor?
 
-The files available for download contain [`SingleCellExperiment` objects](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
+The RDS files available for download contain [`SingleCellExperiment` objects](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
 If desired, these can be converted into Seurat objects.
 
 You will need to [install and load the `Seurat` package](https://satijalab.org/seurat/articles/install.html) to work with Seurat objects.
@@ -148,63 +169,3 @@ adt_assay@meta.features <- adt_row_metadata
 # add altExp from SingleCellExperiment as second assay to Seurat
 seurat_object[["ADT"]] <- adt_assay
 ```
-
-## What if I want to use Python instead of R?
-
-We provide single-cell and single-nuclei gene expression data as RDS files, which must be opened in R to view the contents.
-If you prefer to work in Python, there are a variety of ways of converting the count data to Python-compatible formats.
-We have found that one of the more efficient is conversion via the 10x format using [`DropletUtils::write10xCounts()`](https://rdrr.io/bioc/DropletUtils/man/write10xCounts.html).
-Note that you will need to install the [`DropletUtils` package](https://www.bioconductor.org/packages/devel/bioc/html/DropletUtils.html) to use this function.
-
-When used as described below, `DropletUtils::write10xCounts()` will output three files to a new directory, following the format used by Cell Ranger 3.0 (and later):
-- the counts matrix in sparse matrix format - `matrix.mtx.gz`
-- the row names, or gene names, saved as a TSV - `features.tsv.gz`
-- the column names, or cell barcodes, saved as a TSV - `barcodes.tsv.gz`
-
-```r
-library(SingleCellExperiment)
-
-# read in the RDS file to be converted
-sce <- readRDS("SCPCL000000_filtered.rds")
-
-# write counts to 10x format and save to a folder named "SCPCL000000-rna"
-DropletUtils::write10xCounts("SCPCL000000-rna", counts(sce),
-                             barcodes = colnames(sce),
-                             gene.id = rownames(sce),
-                             gene.symbol = rowData(sce)$gene_symbol,
-                             version = "3")
-
-```
-
-If a library has associated ADT data, you will have to save that separately.
-
-```r
-# write ADT counts to 10x format
-DropletUtils::write10xCounts("SCPCL000000-adt", counts(altExp(sce)),
-                             barcodes = colnames(altExp(sce)),
-                             gene.id = rownames(altExp(sce)),
-                             gene.type = "Antibody Capture",
-                             version = "3")
-
-```
-
-These files can then be directly read into Python using the [`scanpy` package](https://scanpy.readthedocs.io/en/stable/), creating an [`AnnData` object](https://anndata.readthedocs.io/en/latest/index.html).
-Note that you will need to [install the `scanpy` package](https://scanpy.readthedocs.io/en/stable/installation.html).
-
-```python
-import scanpy as sc
-
-#read in 10x formatted files
-rna_file_directory = "SCPCL000000-rna"
-anndata_object = sc.read_10x_mtx(rna_file_directory)
-
-adt_file_directory = "SCPCL000000-adt"
-adt_anndata = sc.read_10x_mtx(adt_file_directory)
-
-# append ADT anndata to RNA-seq anndata
-anndata_object["ADT"] = adt_anndata.to_df()
-```
-
-It should be noted that in this conversion the `colData`, `rowData`, and metadata that are found in the original `SingleCellExperiment` objects will not be retained.
-If you would like to include this data, you could write out each table separately and load them manually in Python.
-Alternatively, you might be interested in this [reference from the authors of `scanpy`](https://theislab.github.io/scanpy-in-R/#converting-from-r-to-python) discussing a different approach to  conversion using Rmarkdown notebooks and the `reticulate` package to directly convert `SingleCellExperiment` object components to `AnnData` object components without writing files locally.
