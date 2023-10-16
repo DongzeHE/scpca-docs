@@ -52,7 +52,7 @@ scpca_sample = anndata.readh5ad(file = "SCPCL000000_processed_rna.hdf5")
 ```
 
 A full description of the contents of the `AnnData` object can be found in the section on {ref}`Components of an AnnData object <sce_file_contents:Components of an anndata object>`.
-For more information on working with the RDS files, see {ref}`Getting started with an ScPCA dataset <getting_started:Getting started with an scpca dataset>`.
+For more information on working with the HDF5 files, see {ref}`Getting started with an ScPCA dataset <getting_started:Getting started with an scpca dataset>`.
 
 ## What is the difference between samples and libraries?
 
