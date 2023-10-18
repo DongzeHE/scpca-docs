@@ -68,7 +68,7 @@ More resources for learning about `AnnData` objects:
 
 ## Working with processed objects
 
-### Normalized gene expression data
+### Gene expression data
 
 The processed objects contain both the raw and normalized gene expression data.
 The following commands can be used to access the expression data found in the processed `SingleCellExperiment` objects:
@@ -98,7 +98,7 @@ Here we provide more resources on understanding normalization in single-cell RNA
 - [Stegle _et al._ (2015) Computational and analytical challenges in single-cell transcriptomics](https://doi.org/10.1038/nrg3833).  Includes a discussion of normalization and technical variance in scRNA-seq.
 - [Lun _et al._ (2016) Pooling across cells to normalize single-cell RNA sequencing data with many zero counts](https://doi.org/10.1186/s13059-016-0947-7)
 
-#### Quality control
+### Quality control data
 
 The processed `SingleCellExperiment` objects already have undergone additional quality control steps to remove low quality cells.
 Low quality cells include those with a higher percentage of reads from mitochondrial genes (i.e., those that are damaged or dying) and those with a lower number of total reads and unique genes identified (i.e., those with inefficient reverse transcription or PCR amplification).
@@ -110,45 +110,45 @@ High-quality cells are those with a low probability of being being compromised (
 The probability compromised for each cell as calculated by `miQC` can be found in the `prob_compromised` column of the `colData` of `SingleCellExperiment` objects.
 
 ```r
-# pull out probability compromised for each cell
+# probability compromised for each cell
 processed_sce$prob_compromised
 ```
 
 The probability compromised for each cell as calculated by `miQC` can be found in the `prob_compromised` column of the `.obs` slot of `AnnData` objects.
 
 ```python
-# pull out probability compromised for each cell
+# probability compromised for each cell
 processed_adata.obs["prob_compromised"]
 ```
 
 Additionally we include a column, `scpca_filter`, that labels cells as either `Keep` or `Remove` based on having both a `prob_compromised` < 0.75 and number of unique genes identified > 200.
 All cells included in the processed object will have `Keep` in the `scpca_filter` column.
-If you prefer to work with the object prior to removal of any low-quality cells, please use the filtered object.
+If you prefer to work with the object prior to removal of any low-quality cells, please use the filtered object, which contains all cells that were not discarded as empty droplets.
 
 ### Dimensionality reduction
 
 Dimensionality reduction is commonly used as a precursor to plotting, clustering, and other downstream analysis.
 
-The objects contain results from performing [principal component analysis (PCA)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#principal-components-analysis), a technique that identifies new axes that capture the largest amount of variation in the data, and [uniform manifold approximation and projection(UMAP)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#uniform-manifold-approximation-and-projection), which may be better for visualization.
+The processed objects contain results from performing [principal component analysis (PCA)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#principal-components-analysis), a technique that identifies new axes that capture the largest amount of variation in the data, and [uniform manifold approximation and projection(UMAP)](http://bioconductor.org/books/3.13/OSCA.basic/dimensionality-reduction.html#uniform-manifold-approximation-and-projection), which may be better for visualization.
 Use caution when interpreting UMAP results, as location, spacing, and density of clusters can be dependent on parameter choices and random effects and do not always accurately represent the relationships among cells.
 
-Dimensionality reduction results can be accessed in the `SingleCellExperiment` objects using the following command:
+Dimensionality reduction results can be accessed in the `SingleCellExperiment` objects using the following commands:
 
 ```r
-# extract principal component results
+# principal component analysis results
 reducedDim(processed_sce, "PCA")
 
-# extract UMAP results
+# UMAP results
 reducedDim(processed_sce, "UMAP")
 ```
 
 Dimensionality reduction results can be accessed in the `AnnData` objects using the following command:
 
 ```python
-# extract principal component results
+# principal component analysis results
 processed_adata.obsm["X_PCA"]
 
-# extract UMAP results
+# UMAP results
 processed_adata.obsm["X_UMAP"]
 ```
 
