@@ -86,6 +86,9 @@ We combine these marker genes with all "immune cell" `PanglaoDB` marker genes to
 During annotation, we additionally include an `"other"` cell type that does not express any of these marker genes.
 As a consequence, cells which `CellAssign` cannot confidently annotate from the full marker gene list are labeled as `"other"`.
 
+**Note:** For some libraries, cell type annotations were provided from the group that submitted the original data.
+If this is the case, the cell type annotations obtained from the submitter will be present in addition to cell type annotation performed with `SingleR` and `CellAssign`.
+
 ## ADT quantification from CITE-seq experiments
 
 CITE-seq libraries with reads from antibody-derived tags (ADTs) were also quantified using  [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/), rounded to integer values.
