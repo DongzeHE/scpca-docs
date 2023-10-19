@@ -57,7 +57,7 @@ The following commands can be used to import the HDF5 file into python and save 
 import anndata
 
 # read in the HDF5 file, including the path to the file's location
-processed_adata = anndata.read_h5ad("SCPCS000000/SCPCL000000_processed.rds")
+processed_adata = anndata.read_h5ad("SCPCS000000/SCPCL000000_processed_rna.hdf5")
 ```
 
 More resources for learning about `AnnData` objects:
@@ -218,28 +218,42 @@ Here are some resources that can be used to get you started working with Seurat 
 
 ## Special considerations for CITE-seq experiments
 
-If the dataset you downloaded contains samples with ADT data from a CITE-seq experiment, the raw and normalized ADT expression matrices are stored as an `altExp` named `"adt"`.
-We recommend working with the `SingleCellExperiment` objects stored in the `processed.rds` files as those files contain additional quality control metrics for the CITE-seq experiment:
+If the dataset you downloaded contains samples with ADT data from a CITE-seq experiment, the raw and normalized ADT expression matrices will be provided.
+For `SingleCellExperiment` objects with ADT data, the ADT expression matrices will be stored as an `altExp` named `"adt"` in the same object containing the RNA expression data.
+
+For `AnnData` objects with ADT data, the ADT expression matrices will be available as three separate `AnnData` objects, an unfiltered object (`_unfiltered_adt.hdf5`), a filtered object (`_filtered_adt.hdf5`), and a processed object (`_processed_adt.hdf5`).
+These files will only contain ADT expression data and do not contain RNA expression data.
+
+We recommend working with the processed objects as those files contain both the raw and normalized ADT expression matrices along with additional quality control metrics for the CITE-seq experiment:
+To access the ADT expression matrices in `SingleCellExperiment` objects, use the following commands:
 
 ```r
 # View the ADT alternative experiment
-altExp(processed_sce)
-
-# You can also explicitly specify the altexp's name:
+# Note that the altExp name is optional, as we are using the default name "adt"
 altExp(processed_sce, "adt")
-```
 
-The following commands can be used to access the ADT expression matrices:
-
-```r
 # the raw ADT counts matrix
-raw_adt_counts <- counts(altExp(processed_sce))
+counts(altExp(processed_sce))
 
 # the log normalized ADT counts matrix
-normalized_adt_counts <- logcounts(altExp(processed_sce))
+logcounts(altExp(processed_sce))
 ```
 
-Be aware that the `SingleCellExperiment` object in the `processed.rds` file has been filtered to remove low-quality cells based on RNA expression but has not been filtered based on ADT counts.
+To access the ADT matrices in `AnnData` objects you will need to read in the `_adt.hdf5` file and grab the `raw.X` and `X` matrices as shown below:
+
+```python
+import anndata
+# read in the HDF5 file with ADT data, including the path to the file's location
+adt_adata = anndata.read_h5ad("SCPCS000000/SCPCL000000_processed_adt.hdf5")
+
+# the raw ADT counts matrix
+adt_adata.raw.X
+
+# the log normalized ADT counts matrix
+adt_adata.X
+```
+
+Be aware that the processed objects have been filtered to remove low-quality cells based on RNA expression but has not been filtered based on ADT counts.
 
 ### Filtering cells based on ADT quality control
 
@@ -247,32 +261,33 @@ The `adt_scpca_filter` column indicates which cells should be removed before pro
 This process identified cells with high levels of ambient contamination and/or high levels of negative control ADTs (if available).
 Cells are labeled either as `"Keep"` (cells to retain) or `"Remove"` (cells to filter out).
 
-To filter cells based on this column, use the following command:
+To filter cells based on this column in the `SingleCellExperiment` objects, use the following command:
 
 ```r
 # Filter cells based on ADT QC statistics
-processed_sce <- processed_sce[, which(processed_sce$adt_scpca_filter == "Keep")]
+processed_sce[, which(processed_sce$adt_scpca_filter == "Keep")]
+```
+
+To filter cells based on this column in the `AnnData` objects, use the following command:
+
+```python
+# Filter cells based on ADT QC statistics
+adt_adata[adt_adata.obs["adt_scpca_filter"] == "Keep"]
 ```
 
 Note that the normalized ADT expression matrix only contains values for cells labeled as `"Keep"` in the `adt_scpca_filter` column.
 Any cells labeled `"Remove"` have `NA` values in the normalized expression matrix (see {ref}`Processed ADT Data <processing_information:Processed ADT data>` for more details).
 
-If you are working with the `filtered.rds` file, you can perform the same filtering:
-
-```r
-# Filter cells based on ADT QC statistics
-filtered_sce <- filtered_sce[, which(filtered_sce$adt_scpca_filter == "Keep")]
-```
-
 Alternatively, you can also filter cells out based on your own criteria.
-Quality-control statistics calculated by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) are provided in the `colData` slot of the `altExp` (`colData(altExp(filtered_sce))`), as described in {ref}`Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags) <sce_file_contents:Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags)>`.
-We recommend filtering out these low-quality cells before proceeding with ADT normalization and downstream analyses.
+For `SingleCellExperiment` objects, quality-control statistics calculated by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) are provided in the `colData` slot of the `altExp` (`colData(altExp(filtered_sce))`) as described in {ref}`Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags) <sce_file_contents:Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags)>`.
 
+For `AnnData` objects, these same quality-control statistics are provided in the `obs` slot of the `AnnData` object as described in {ref}`Additional AnnData components for CITE-seq libraries (with ADT tags) <sce_file_contents: Additional AnnData components for CITE-seq libraries (with ADT tags)>`.
+
+We recommend filtering out these low-quality cells before proceeding with ADT normalization and downstream analyses.
 
 Here are some additional resources that can be used for working with ADT counts from CITE-seq experiments:
 - [Integrating with Protein Abundance, Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.15/OSCA.advanced/integrating-with-protein-abundance.html)
 - [Seurat vignette on using with multimodal data](https://satijalab.org/seurat/articles/multimodal_vignette.html)
-
 
 
 ## Special considerations for multiplexed samples
@@ -282,12 +297,14 @@ Here, multiplexed samples refer to samples that have been combined together into
 This means that a single library contains cells or nuclei that correspond to multiple samples.
 Each sample has been tagged with a hashtag oligo (HTO) prior to mixing, and that HTO can be used to identify which cells belong to which sample within a multiplexed library.
 The libraries available for download on the portal have not been separated by sample (i.e. demultiplexed), and therefore contain data from multiple samples.
+Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not currently available as `AnnData` objects.
+
 
 Libraries containing multiplexed samples can be initially processed using the same workflow described above including removal of [low quality cells](#quality-control), [normalization](#normalization), and [dimensionality reduction](#dimensionality-reduction).
 Demultiplexing can then be used to identify the sample that each cell is from.
 Demultiplexing has already been performed using both [`Seurat::HTODemux`](https://satijalab.org/seurat/reference/htodemux) and [`DropletUtils::hashedDrops`](https://rdrr.io/github/MarioniLab/DropletUtils/man/hashedDrops.html).
 For samples where corresponding bulk RNA-sequencing data is available, {ref}`genetic demultiplexing <processing_information:Genetic demultiplexing>` was also conducted.
-The results from demultiplexing using these methods have been summarized and are present in the `colData` of the `SingleCellExperiment` object in the `_filtered.rds` file only.
+The results from demultiplexing using these methods have been summarized and are present in the `colData` of the processed `SingleCellExperiment` object.
 The `hashedDrops_sampleid`, `HTODemux_sampleid`, and `vireo_sampleid` columns in the `colData` report the sample called for each cell by the specified demultiplexing method.
 If a confident call was not made for a cell by the demultiplexing method, the column will have a value of `NA`.
 For more information on how to access the full demultiplexing results, see {ref}`this description of demultiplexing results <sce_file_contents:demultiplexing results>`.
