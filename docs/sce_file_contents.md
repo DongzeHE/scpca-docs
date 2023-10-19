@@ -51,7 +51,7 @@ The following per-cell data columns are included for each cell, calculated using
 | `subsets_mito_detected` | Number of mitochondrial genes detected                                                                                                                                                        |
 | `subsets_mito_percent`  | Percent of all UMI counts assigned to mitochondrial genes                                                                                                                                     |
 | `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., ADT data from CITE-seq)                                                                                                             |
-| `submitter_annotation` | If available, cell type annotations obtained from the submitter. Cells that are not classified by the submitter are labeled as "Unclassified cell" |
+| `submitter_annotation` | If available, cell type annotations obtained from the group that submitted the original data. Cells that are not classified by the submitter are labeled as "Unclassified cell" |
 
 The following additional per-cell data columns are included in both the `filtered` and `processed` objects.
 These columns include metrics calculated by [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected to predict low-quality cells.
@@ -132,7 +132,7 @@ metadata(sce) # experiment metadata
 | `cluster_algorithm` | The algorithm used to perform graph-based clustering of cells. Only present for `processed` objects |
 | `cluster_weighting` | The weighting approach used during graph-based clustering. Only present for `processed` objects |
 | `cluster_nn`        | The nearest neighbor parameter value used for the graph-based clustering. Only present for `processed` objects |
-| `celltype_methods` | If cell type annotation was performed, a vector of the methods used for annotation. May include `"submitter"`, `"singler"` and/or `"cellassign"`. If submitter cell-type annotations are available, this will be present in filtered objects, otherwise this item is only present for `processed` objects |
+| `celltype_methods` | If cell type annotation was performed, a vector of the methods used for annotation. May include `"submitter"`, `"singler"` and/or `"cellassign"`. If submitter cell-type annotations are available, this will be present in all objects, otherwise this item is only present for `processed` objects |
 | `singler_results` | If cell typing with `SingleR` was performed, the full result object returned by `SingleR` annotation. Only present for `processed` objects |
 | `singler_reference` | If cell typing with `SingleR` was performed, the name of the [`celldex`](http://bioconductor.org/packages/release/data/experiment/html/celldex.html) reference dataset used for annotation. Only present for `processed` objects |
 | `cellassign_predictions` | If cell typing with `CellAssign` was performed, the full matrix of predictions across cells and cell types. Only present for `processed` objects |
