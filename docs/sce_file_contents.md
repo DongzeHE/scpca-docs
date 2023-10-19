@@ -51,7 +51,6 @@ The following per-cell data columns are included for each cell, calculated using
 | `subsets_mito_detected` | Number of mitochondrial genes detected                                                                                                                                                        |
 | `subsets_mito_percent`  | Percent of all UMI counts assigned to mitochondrial genes                                                                                                                                     |
 | `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., ADT data from CITE-seq)                                                                                                             |
-| `submitter_annotation` | If available, cell type annotations obtained from the group that submitted the original data. Cells that are not classified by the submitter are labeled as "Unclassified cell" |
 
 The following additional per-cell data columns are included in both the `filtered` and `processed` objects.
 These columns include metrics calculated by [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected to predict low-quality cells.
@@ -64,6 +63,7 @@ See the description of the {ref}`processed gene expression data <processing_info
 | `miQC_pass`             | Indicates whether the cell passed the default miQC filtering. `TRUE` is assigned to cells with a low probability of being compromised (`prob_compromised` < 0.75) or [sufficiently low mitochondrial content](https://bioconductor.org/packages/release/bioc/vignettes/miQC/inst/doc/miQC.html#preventing-exclusion-of-low-mito-cells)  |
 | `scpca_filter` | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200) |
 | `adt_scpca_filter` | If CITE-seq was performed, labels cells as either `Keep` or `Remove` based on ADT filtering criteria (`discard = TRUE` as determined by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html)) |
+| `submitter_annotation` | If available, cell type annotations obtained from the group that submitted the original data. Cells that are not classified by the submitter are labeled as "Unclassified cell" |
 
 
 The `processed` object has one additional `colData` column reflecting cluster assignments.
