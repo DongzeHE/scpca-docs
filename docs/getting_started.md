@@ -284,7 +284,7 @@ For `SingleCellExperiment` objects, quality-control statistics calculated by [`D
 
 For `AnnData` objects, these same quality-control statistics are provided in the `obs` slot of the `AnnData` object as described in {ref}`Additional AnnData components for CITE-seq libraries (with ADT tags) <sce_file_contents: Additional AnnData components for CITE-seq libraries (with ADT tags)>`.
 
-We recommend filtering out these low-quality cells before proceeding with ADT normalization and downstream analyses.
+We recommend filtering out these low-quality cells before proceeding with downstream analyses.
 
 Here are some additional resources that can be used for working with ADT counts from CITE-seq experiments:
 - [Integrating with Protein Abundance, Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.15/OSCA.advanced/integrating-with-protein-abundance.html)
@@ -298,7 +298,9 @@ Here, multiplexed samples refer to samples that have been combined together into
 This means that a single library contains cells or nuclei that correspond to multiple samples.
 Each sample has been tagged with a hashtag oligo (HTO) prior to mixing, and that HTO can be used to identify which cells belong to which sample within a multiplexed library.
 The libraries available for download on the portal have not been separated by sample (i.e. demultiplexed), and therefore contain data from multiple samples.
+
 Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not currently available as `AnnData` objects.
+If you prefer to work with `AnnData` objects, we recommend using the [`zellkonverter` package](https://bioconductor.org/packages/3.17/bioc/html/zellkonverter.html) to convert the `SingleCellExperiment` object to a HDF5 file containing an `AnnData` object.
 
 
 Libraries containing multiplexed samples can be initially processed using the same workflow described above including removal of [low quality cells](#quality-control), [normalization](#normalization), and [dimensionality reduction](#dimensionality-reduction).
@@ -323,6 +325,7 @@ sampleA_cells <- which(multiplexed_sce$vireo_sampleid == "sampleA")
 # create a new sce that only contains cells from sample A
 sampleA_sce <- multiplexed_sce[, sampleA_cells]
 ```
+
 
 Here are some additional resources that can be used for working with multiplexed samples (or those with cell hashing):
 - [Demultiplexing on HTO Abundance, Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.14/OSCA.advanced/droplet-processing.html#demultiplexing-on-hto-abundance)
