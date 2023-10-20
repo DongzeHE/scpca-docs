@@ -219,17 +219,18 @@ Here are some resources that can be used to get you started working with Seurat 
 ## Special considerations for CITE-seq experiments
 
 If the dataset you downloaded contains samples with ADT data from a CITE-seq experiment, the raw and normalized ADT expression matrices will be provided.
+
 For `SingleCellExperiment` objects with ADT data, the ADT expression matrices will be stored as an `altExp` named `"adt"` in the same object containing the RNA expression data.
 
-For `AnnData` objects with ADT data, the ADT expression matrices will be available as three separate `AnnData` objects, an unfiltered object (`_unfiltered_adt.hdf5`), a filtered object (`_filtered_adt.hdf5`), and a processed object (`_processed_adt.hdf5`).
-These files will only contain ADT expression data and do not contain RNA expression data.
+For `AnnData` objects with ADT data, the ADT expression matrices will be provided in separate files corresponding to the same three stages of data processing: an unfiltered object (`_unfiltered_adt.hdf5`), a filtered object (`_filtered_adt.hdf5`), and a processed object (`_processed_adt.hdf5`).
+These files will only contain ADT expression data and not RNA expression data.
 
-We recommend working with the processed objects as those files contain both the raw and normalized ADT expression matrices along with additional quality control metrics for the CITE-seq experiment:
+We recommend working with the processed objects as they contain both the raw and normalized ADT expression matrices along with additional quality control metrics for the CITE-seq experiment.
 To access the ADT expression matrices in `SingleCellExperiment` objects, use the following commands:
 
 ```r
 # View the ADT alternative experiment
-# Note that the altExp name is optional, as we are using the default name "adt"
+# Note that the altExp name is optional, as this is the only altExp present
 altExp(processed_sce, "adt")
 
 # the raw ADT counts matrix
@@ -239,7 +240,7 @@ counts(altExp(processed_sce))
 logcounts(altExp(processed_sce))
 ```
 
-To access the ADT matrices in `AnnData` objects you will need to read in the `_adt.hdf5` file and grab the `raw.X` and `X` matrices as shown below:
+To access the ADT matrices in `AnnData` objects you will first need to read in the `_adt.hdf5` file, and then you can access the `raw.X` and `X` matrices as shown below:
 
 ```python
 import anndata
@@ -253,7 +254,7 @@ adt_adata.raw.X
 adt_adata.X
 ```
 
-Be aware that the processed objects have been filtered to remove low-quality cells based on RNA expression but has not been filtered based on ADT counts.
+Be aware that the processed objects have been filtered to remove low-quality cells based on RNA expression but have not been filtered based on ADT counts.
 
 ### Filtering cells based on ADT quality control
 
@@ -304,7 +305,7 @@ Libraries containing multiplexed samples can be initially processed using the sa
 Demultiplexing can then be used to identify the sample that each cell is from.
 Demultiplexing has already been performed using both [`Seurat::HTODemux`](https://satijalab.org/seurat/reference/htodemux) and [`DropletUtils::hashedDrops`](https://rdrr.io/github/MarioniLab/DropletUtils/man/hashedDrops.html).
 For samples where corresponding bulk RNA-sequencing data is available, {ref}`genetic demultiplexing <processing_information:Genetic demultiplexing>` was also conducted.
-The results from demultiplexing using these methods have been summarized and are present in the `colData` of the processed `SingleCellExperiment` object.
+The associated demultiplexing results were summarized and are available in the `colData` of the processed `SingleCellExperiment` object.
 The `hashedDrops_sampleid`, `HTODemux_sampleid`, and `vireo_sampleid` columns in the `colData` report the sample called for each cell by the specified demultiplexing method.
 If a confident call was not made for a cell by the demultiplexing method, the column will have a value of `NA`.
 For more information on how to access the full demultiplexing results, see {ref}`this description of demultiplexing results <sce_file_contents:demultiplexing results>`.
