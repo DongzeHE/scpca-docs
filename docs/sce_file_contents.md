@@ -63,6 +63,8 @@ See the description of the {ref}`processed gene expression data <processing_info
 | `miQC_pass`             | Indicates whether the cell passed the default miQC filtering. `TRUE` is assigned to cells with a low probability of being compromised (`prob_compromised` < 0.75) or [sufficiently low mitochondrial content](https://bioconductor.org/packages/release/bioc/vignettes/miQC/inst/doc/miQC.html#preventing-exclusion-of-low-mito-cells)  |
 | `scpca_filter` | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200) |
 | `adt_scpca_filter` | If CITE-seq was performed, labels cells as either `Keep` or `Remove` based on ADT filtering criteria (`discard = TRUE` as determined by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html)) |
+| `submitter_celltype_annotation` | If available, cell type annotations obtained from the group that submitted the original data. Cells that the submitter did not annotate are labeled as `NA` |
+
 
 The `processed` object has one additional `colData` column reflecting cluster assignments.
 Further, if cell type annotation was performed, there will be additional columns representing annotation results in the `processed` object's `colData`, as described in the {ref}`cell type annotation processing section <processing_information:Cell type annotation>`.
@@ -71,7 +73,7 @@ Further, if cell type annotation was performed, there will be additional columns
 | ----------------------- | ----------------------------------------------------- |
 | `cluster`  | Cell cluster identity identified by graph-based clustering |
 | `singler_celltype_annotation`  | If cell typing with `SingleR` was performed, the annotated cell type. Cells labeled as `NA` are those which `SingleR` could not confidently annotate |
-| `singler_celltype_ontology`  | If cell typing with `SingleR` was performed, the annotated cell type's ontology ID. Cells labeled as `NA` are those which `SingleR` could not confidently annotate |
+| `singler_celltype_ontology`  | If cell typing with `SingleR` was performed with ontology labels, the annotated cell type's ontology ID. Cells labeled as `NA` are those which `SingleR` could not confidently annotate |
 | `cellassign_celltype_annotation`  | If cell typing with `CellAssign` was performed, the annotated cell type. Cells labeled as `"other"` are those which `CellAssign` could not confidently annotate  |
 | `cellassign_max_prediction`  | If cell typing with `CellAssign` was performed, the annotation's prediction score (probability)  |
 
@@ -130,12 +132,12 @@ metadata(sce) # experiment metadata
 | `cluster_algorithm` | The algorithm used to perform graph-based clustering of cells. Only present for `processed` objects |
 | `cluster_weighting` | The weighting approach used during graph-based clustering. Only present for `processed` objects |
 | `cluster_nn`        | The nearest neighbor parameter value used for the graph-based clustering. Only present for `processed` objects |
-| `celltype_methods` | If cell type annotation was performed, a vector of the methods used for annotation. May include `"singler"` and/or `"cellassign"`. Only present for `processed` objects |
+| `celltype_methods` | If cell type annotation was performed, a vector of the methods used for annotation. May include `"submitter"`, `"singler"` and/or `"cellassign"`. If submitter cell-type annotations are available, this metadata item will be present in all objects. Otherwise, this item will only be in `processed` objects |
 | `singler_results` | If cell typing with `SingleR` was performed, the full result object returned by `SingleR` annotation. Only present for `processed` objects |
-| `singler_reference_name` | If cell typing with `SingleR` was performed, the name of the [`celldex`](http://bioconductor.org/packages/release/data/experiment/html/celldex.html) reference dataset used for annotation. Only present for `processed` objects |
+| `singler_reference` | If cell typing with `SingleR` was performed, the name of the [`celldex`](http://bioconductor.org/packages/release/data/experiment/html/celldex.html) reference dataset used for annotation. Only present for `processed` objects |
 | `singler_reference_label` | If cell typing with `SingleR` was performed, the name of the label in the reference dataset used for annotation. Only present for `processed` objects |
 | `cellassign_predictions` | If cell typing with `CellAssign` was performed, the full matrix of predictions across cells and cell types. Only present for `processed` objects |
-| `cellassign_reference` | If cell typing with `CellAssign` was performed, is the organ/tissue type for which marker genes were obtained from `PanglaoDB`. Only present for `processed` objects |
+| `cellassign_reference` | If cell typing with `CellAssign` was performed, the name of the organ/tissue type for which marker genes were obtained from `PanglaoDB`. Only present for `processed` objects |
 
 ### SingleCellExperiment sample metadata
 

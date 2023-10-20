@@ -54,6 +54,7 @@ Pearson
 pre
 pseudocount
 pseudogenes
+Looney
 Louvain
 Lun
 miQC
@@ -81,3 +82,4 @@ UMI
 UMIs
 unspliced
 xenografts
+Zhang
