@@ -300,7 +300,7 @@ Each sample has been tagged with a hashtag oligo (HTO) prior to mixing, and that
 The libraries available for download on the portal have not been separated by sample (i.e. demultiplexed), and therefore contain data from multiple samples.
 
 Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not currently available as `AnnData` objects.
-If you prefer to work with `AnnData` objects, we recommend using the [`zellkonverter` package](https://bioconductor.org/packages/3.17/bioc/html/zellkonverter.html) to convert the `SingleCellExperiment` object to a HDF5 file containing an `AnnData` object.
+If you prefer to work with `AnnData` objects, we recommend using the [`zellkonverter` package](https://theislab.github.io/zellkonverter/reference/AnnData-Conversion.html) to convert the `SingleCellExperiment` object to a HDF5 file containing an `AnnData` object.
 
 
 Libraries containing multiplexed samples can be initially processed using the same workflow described above including removal of [low quality cells](#quality-control), [normalization](#normalization), and [dimensionality reduction](#dimensionality-reduction).
