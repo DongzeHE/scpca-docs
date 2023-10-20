@@ -87,7 +87,7 @@ During annotation, we additionally include an `"other"` cell type that does not 
 As a consequence, cells which `CellAssign` cannot confidently annotate from the full marker gene list are labeled as `"other"`.
 
 **Note:** For some libraries, cell type annotations were provided from the group that submitted the original data.
-If this is the case, the cell type annotations obtained from the submitter will be present in addition to cell type annotation performed with `SingleR` and `CellAssign`.
+In these cases, the cell type annotations obtained from the submitter will be present in addition to cell type annotation performed with `SingleR` and `CellAssign`.
 
 ## ADT quantification from CITE-seq experiments
 
