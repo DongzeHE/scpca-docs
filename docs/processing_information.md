@@ -40,9 +40,7 @@ In contrast to Cell Ranger, `cr-like-em` keeps multi-mapped reads and invokes an
 
 #### Combining counts from spliced cDNA and intronic regions
 
-For single-cell samples, we only included reads aligning to spliced and ambiguous cDNA transcripts in the counts matrix.
-For single-nuclei samples, all counts for spliced cDNA and intronic regions were summed for each gene to return the total counts summarized by gene in the counts matrix.
-
+For single-cell and single-nuclei samples, the reads from spliced cDNA and intronic regions are combined by gene to produce a gene by cell counts matrix.
 After combining read counts, values are rounded to integer values.
 
 #### Filtering cells
