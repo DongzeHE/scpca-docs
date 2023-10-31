@@ -2,6 +2,7 @@
 
 The ScPCA Portal download packages include gene expression data, a QC report, and associated metadata for each processed sample.
 These files are delivered as a zip file.
+When you uncompress the zip file, the top-most directory name will include the date you downloaded the file from the ScPCA Portal.
 
 For all downloads, sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
 Most samples only have one library that has been sequenced.
