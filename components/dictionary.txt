@@ -3,6 +3,7 @@ ADTs
 al
 alevin
 Alevin
+APA
 barcode
 barcodes
 basepairs
@@ -52,6 +53,7 @@ pseudocount
 pseudogenes
 Lun
 miQC
+MLA
 oligo
 oligos
 repo
