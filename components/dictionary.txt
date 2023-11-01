@@ -78,5 +78,6 @@ TSV
 UMAP
 UMI
 UMIs
+uncompress
 unspliced
 xenografts
