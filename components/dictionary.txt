@@ -3,6 +3,7 @@ ADTs
 al
 alevin
 Alevin
+APA
 barcode
 barcodes
 basepairs
@@ -45,15 +46,17 @@ intronic
 introns
 isotype
 Kaminow
+Lun
 Marioni
+miQC
+MLA
+oligo
+oligos
 Pearson
 pre
 pseudocount
 pseudogenes
-Lun
-miQC
-oligo
-oligos
+README
 repo
 Rmarkdown
 scanpy
@@ -67,6 +70,7 @@ Srivastava
 Stegle
 Stoeckius
 subdiagnosis
+submitter
 Tian
 transcriptome
 transcriptomics
@@ -74,5 +78,6 @@ TSV
 UMAP
 UMI
 UMIs
+uncompress
 unspliced
 xenografts
