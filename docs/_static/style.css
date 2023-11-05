@@ -9,6 +9,7 @@ body {
 }
 
 .wy-nav-content {
+  max-width: 900px !important;
   background: #fdfdfd;
 }
 
@@ -195,8 +196,7 @@ div.version {
 
 @media (min-width: 950px) {
   .wy-grid-for-nav {
-    position: relative;
-    width: 900px;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
   }
