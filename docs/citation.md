@@ -16,7 +16,7 @@ Please consider contacting the project contact (also available on the project pa
 
 ## Citing the ScPCA Portal
 
-The date you accessed the data from the ScPCA Portal can be found in your data download: once you uncompress your download, the top-most directory name will contain the access date.
+The date you accessed the data from the ScPCA Portal can be found in your data download: once you uncompress your download, the root directory name will contain the access date.
 
 ### APA Format
 
