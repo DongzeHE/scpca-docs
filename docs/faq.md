@@ -208,3 +208,8 @@ anndata_object["ADT"] = adt_anndata.to_df()
 It should be noted that in this conversion the `colData`, `rowData`, and metadata that are found in the original `SingleCellExperiment` objects will not be retained.
 If you would like to include this data, you could write out each table separately and load them manually in Python.
 Alternatively, you might be interested in this [reference from the authors of `scanpy`](https://theislab.github.io/scanpy-in-R/#converting-from-r-to-python) discussing a different approach to  conversion using Rmarkdown notebooks and the `reticulate` package to directly convert `SingleCellExperiment` object components to `AnnData` object components without writing files locally.
+
+## Why doesn't my existing code work on a new download from the Portal?
+
+Although we try to maintain backward compatibility, new features added to the ScPCA Portal may result in downloads that are no longer compatible with code written with older downloads from the ScPCA Portal in mind.
+Please see our {ref}`CHANGELOG <CHANGELOG>` for a summary of changes that impact downloads from the Portal.
