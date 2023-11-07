@@ -10,7 +10,7 @@ assignees: ''
 ## Steps for a new release of `scpca-docs`
 <!-- Please include any notes about what will be included in this release -->
 <!-- e.g., you might want to mention if the release is related to a specific portal feature, like addition of AnnData objects -->
-<!-- Feel free to update the title of this issue to reflect the contents of the release -->
+<!-- Feel free to update the title of this issue to reflect the contents of the release (e.g., Prepare for scpca-docs release: AnnData) -->
 
 ### Preparing for the release
 
