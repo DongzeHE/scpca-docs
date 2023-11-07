@@ -11,5 +11,6 @@ download_files
 sce_file_contents
 getting_started
 faq
+CHANGELOG
 citation
 ```
