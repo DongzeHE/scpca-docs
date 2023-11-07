@@ -212,4 +212,4 @@ Alternatively, you might be interested in this [reference from the authors of `s
 ## Why doesn't my existing code work on a new download from the Portal?
 
 Although we try to maintain backward compatibility, new features added to the ScPCA Portal may result in downloads that are no longer compatible with code written with older downloads from the ScPCA Portal in mind.
-Please see our {ref}`CHANGELOG <CHANGELOG>` for a summary of changes that impact downloads from the Portal.
+Please see our {ref}`CHANGELOG <CHANGELOG:CHANGELOG>` for a summary of changes that impact downloads from the Portal.
