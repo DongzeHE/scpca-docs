@@ -78,7 +78,8 @@ The included QC report, `SCPCL000000_qc_report.html`, serves as a general overvi
 
 ## Cell type report
 
-The included cell type report, `SCPCL000000_cell_type_report.html`, includes an overview of cell type annotation, details on reference sources, comparisons among cell type annotation methods, and diagnostic plots.
+The cell type report, `SCPCL000000_cell_type_report.html`, includes an overview of cell type annotations present in the processed objects.
+This report contains details on methodologies used for cell type annotation, information about reference sources, comparisons among cell type annotation methods, and diagnostic plots.
 For more information on how cell types were annotated, see the section on {ref}`Cell type annotation <processing_information:cell type annotation>`.
 
 ## Metadata
