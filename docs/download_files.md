@@ -16,6 +16,7 @@ The files shown below will be included with each library (example shown for a li
 - A filtered counts file: `SCPCL000000_filtered.rds` or `SCPCL00000_filtered_rna.hdf5`,
 - A processed counts file: `SCPCL000000_processed.rds` or `SCPCL00000_processed_rna.hdf5`,
 - A quality control report: `SCPCL000000_qc.html`,
+- A supplemental cell type report: `SCPCL000000_cell_type_report.html`
 
 Every download also includes a single `single_cell_metadata.tsv` file containing metadata for all libraries included in the download.
 
@@ -71,9 +72,14 @@ In addition to the counts matrices, the `SingleCellExperiment` or `AnnData` obje
 See {ref}`Single-cell gene expression file contents <sce_file_contents:Single-cell gene expression file contents>` for more information about the contents of the `SingleCellExperiment` and `AnnData` objects and the included statistics and metadata.
 See also {ref}`Using the provided RDS files in R <faq:how do i use the provided RDS files in r?>` and {ref}`Using the provided HDF5 files in Python <faq:how do i use the provided HDF5 files in python?>`.
 
-## QC Report
+## QC report
 
-The included QC report serves as a general overview of each library, including processing information, summary statistics and general visualizations of cell metrics.
+The included QC report, `SCPCL000000_qc_report.html`, serves as a general overview of each library, including processing information, summary statistics and general visualizations of cell metrics.
+
+## Cell type report
+
+The included cell type report, `SCPCL000000_cell_type_report.html`, includes an overview of cell type annotation, details on reference sources, comparisons among cell type annotation methods, and diagnostic plots.
+For more information on how cell types were annotated, see the section on {ref}`Cell type annotation <processing_information:cell type annotation>`.
 
 ## Metadata
 
