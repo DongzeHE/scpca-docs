@@ -205,21 +205,72 @@ See these resources for more information on clustering:
 
 ### Cell type annotation
 
-Processed `SingleCellExperiment` objects may contain cell type annotations derived from one or more of the following sources:
+Processed objects may contain cell type annotations and associated metadata from one or more of the following sources.
 
 - Submitter-provided annotations
-  - If research group that sequenced the data performed cell type annotation, this information will be available from the `colData` column `submitter_celltype_annotations`.
-   - Cells that submitters did not annotate are labeled with `NA`.
-- Automated annotations from [`SingleR`](https://bioconductor.org/packages/release/bioc/html/SingleR.html)
-  - `SingleR` is a reference-based method ([Looney _et al._ 2019](https://doi.org/10.1038/s41590-018-0276-y)).
-  If annotation was performed with `SingleR`, cell labels will be available from the `colData`
- column `singler_celltype_annotations`.
- - Cells that `SingleR` could not confidently annotate are labeled with `NA`.
-- Automated annotations from [`CellAssign`](https://github.com/Irrationone/cellassign)
-  - `CellAssign` is a marker-gene based method ([Zhang _et al._ 2019](https://doi.org/10.1038/s41592-019-0529-1)).
-  If annotation was performed with `CellAssign`, cell labels will be available from the `colData`
- column `cellassign_celltype_annotations`.
- - Cells that `CellAssign` could not confidently annotate are labeled as `"other"`.
+- Automated annotations from [`SingleR`](https://bioconductor.org/packages/release/bioc/html/SingleR.html), a reference-based method ([Looney _et al._ 2019](https://doi.org/10.1038/s41590-018-0276-y)).
+- Automated annotations from [`CellAssign`](https://github.com/Irrationone/cellassign), a marker-gene based method ([Zhang _et al._ 2019](https://doi.org/10.1038/s41592-019-0529-1)).
+
+Below we provide instructions on how to access each type of cell type annotation, if present.
+
+
+#### Submitter-provided annotations
+
+To access submitter-provided annotations in `SingleCellExperiment` objects, use the following command:
+
+```r
+# submitter-provided annotations for each cell
+processed_sce$submitter_provided_annotations
+```
+
+To access submitter-provided annotations in `AnnData` objects, use the following command:
+
+```python
+# submitter-provided annotations for each cell
+processed_adata.obs["submitter_provided_annotations"]
+```
+
+Cells that submitters did not annotate are labeled with `NA`.
+Note that submitter-provided annotations are also present in unfiltered and filtered objects and can be accessed using the same approach shown here for processed objects.
+
+
+#### `SingleR` annotations
+
+To access automated `SingleR` annotations in `SingleCellExperiment` objects, use the following command:
+
+```r
+# SingleR annotations for each cell
+processed_sce$singler_provided_annotations
+```
+
+To access automated `SingleR` annotations in `AnnData` objects, use the following command:
+
+```python
+# SingleR annotations for each cell
+processed_adata.obs["singler_provided_annotations"]
+```
+
+Cells that `SingleR` could not confidently annotate are labeled with `NA`.
+
+
+#### `CellAssign` annotations
+
+To access automated `CellAssign` annotations in `SingleCellExperiment` objects, use the following command:
+
+```r
+# CellAssign annotations for each cell
+processed_sce$cellassign_celltype_annotations
+```
+
+To access automated `CellAssign` annotations in `AnnData` objects, use the following command:
+
+```python
+# CellAssign annotations for each cell
+processed_adata.obs["cellassign_celltype_annotations"]
+```
+
+Cells that `CellAssign` could not confidently annotate are labeled with `"other"`.
+
 
 
 
