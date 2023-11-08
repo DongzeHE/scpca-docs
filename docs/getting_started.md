@@ -216,18 +216,18 @@ Below we provide instructions on how to access each type of cell type annotation
 
 #### Submitter-provided annotations
 
-To access submitter-provided annotations in `SingleCellExperiment` objects, use the following command:
+To access submitter-provided annotations in the `SingleCellExperiment`, use the following command:
 
 ```r
 # submitter-provided annotations for each cell
-processed_sce$submitter_provided_annotations
+processed_sce$submitter_celltype_annotation
 ```
 
-To access submitter-provided annotations in `AnnData` objects, use the following command:
+To access submitter-provided annotations in the `AnnData` object, use the following command:
 
 ```python
 # submitter-provided annotations for each cell
-processed_adata.obs["submitter_provided_annotations"]
+processed_adata.obs["submitter_celltype_annotation"]
 ```
 
 Cells that submitters did not annotate are labeled with `NA`.
@@ -236,42 +236,51 @@ Note that submitter-provided annotations are also present in unfiltered and filt
 
 #### `SingleR` annotations
 
-To access automated `SingleR` annotations in `SingleCellExperiment` objects, use the following command:
+To access automated `SingleR` annotations in the `SingleCellExperiment`, use the following command:
 
 ```r
 # SingleR annotations for each cell
-processed_sce$singler_provided_annotations
+processed_sce$singler_celltype_annotation
 ```
 
-To access automated `SingleR` annotations in `AnnData` objects, use the following command:
+To access automated `SingleR` annotations in the `AnnData` object, use the following command:
 
 ```python
 # SingleR annotations for each cell
-processed_adata.obs["singler_provided_annotations"]
+processed_adata.obs["singler_celltype_annotation"]
 ```
 
 Cells that `SingleR` could not confidently annotate are labeled with `NA`.
 
+You can access the full object returned by `SingleR` from the `SingleCellExperiment`'s metadata with the following command:
+
+```r
+# SingleR full result
+metadata(processed_sce)$singler_results
+```
+
+Additional information about `SingleR` annotation results are also available from the `SingleCellExperiment`'s metadata, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
+
 
 #### `CellAssign` annotations
 
-To access automated `CellAssign` annotations in `SingleCellExperiment` objects, use the following command:
+To access automated `CellAssign` annotations in the `SingleCellExperiment`, use the following command:
 
 ```r
 # CellAssign annotations for each cell
-processed_sce$cellassign_celltype_annotations
+processed_sce$cellassign_celltype_annotation
 ```
 
-To access automated `CellAssign` annotations in `AnnData` objects, use the following command:
+Additional information about `CellAssign` annotation results are also available from the `SingleCellExperiment`'s metadata, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
+
+To access automated `CellAssign` annotations in the `AnnData` object, use the following command:
 
 ```python
 # CellAssign annotations for each cell
-processed_adata.obs["cellassign_celltype_annotations"]
+processed_adata.obs["cellassign_celltype_annotation"]
 ```
 
 Cells that `CellAssign` could not confidently annotate are labeled with `"other"`.
-
-
 
 
 ## What if I want to use Seurat?
