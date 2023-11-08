@@ -182,7 +182,7 @@ processed_adata.uns["highly_variable_genes"]
 ### Clustering
 
 Cluster assignments obtained from [Graph-based clustering](http://bioconductor.org/books/3.16/OSCA.basic/clustering.html#clustering-graph) is also available in the processed objects.
-Here clustering was performed using the Louvain algorithm with 20 nearest neighbors and Jaccard weighting.
+By default, clustering is performed using the Louvain algorithm with 20 nearest neighbors and Jaccard weighting.
 
 To access the cluster assignments in the `SingleCellExperiment` object, use the following command:
 
@@ -201,6 +201,26 @@ processed_adata.obs["cluster"]
 See these resources for more information on clustering:
  - [Clustering chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.14/OSCA.basic/clustering.html)
  - [Quantifying clustering behavior in Orchestrating Single Cell Analysis](https://bioconductor.org/books/release/OSCA.advanced/clustering-redux.html#quantifying-clustering-behavior)
+
+
+### Cell type annotation
+
+Processed `SingleCellExperiment` objects may contain cell type annotations derived from one or more of the following sources:
+
+- Submitter-provided annotations
+  - If research group that sequenced the data performed cell type annotation, this information will be available from the `colData` column `submitter_celltype_annotations`.
+   - Cells that submitters did not annotate are labeled with `NA`.
+- Automated annotations from [`SingleR`](https://bioconductor.org/packages/release/bioc/html/SingleR.html)
+  - `SingleR` is a reference-based method ([Looney _et al._ 2019](https://doi.org/10.1038/s41590-018-0276-y)).
+  If annotation was performed with `SingleR`, cell labels will be available from the `colData`
+ column `singler_celltype_annotations`.
+ - Cells that `SingleR` could not confidently annotate are labeled with `NA`.
+- Automated annotations from [`CellAssign`](https://github.com/Irrationone/cellassign)
+  - `CellAssign` is a marker-gene based method ([Zhang _et al._ 2019](https://doi.org/10.1038/s41592-019-0529-1)).
+  If annotation was performed with `CellAssign`, cell labels will be available from the `colData`
+ column `cellassign_celltype_annotations`.
+ - Cells that `CellAssign` could not confidently annotate are labeled as `"other"`.
+
 
 
 ## What if I want to use Seurat?
