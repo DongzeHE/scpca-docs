@@ -252,7 +252,23 @@ processed_adata.obs["singler_celltype_annotation"]
 
 Cells that `SingleR` could not confidently annotate are labeled with `NA`.
 
-You can access the full object returned by `SingleR` from the `SingleCellExperiment`'s metadata with the following command:
+
+If `SingleR` annotation was performed using ontology reference labels (default), the cell type annotation ontology terms will also be provided.
+
+To access cell type annotation ontology terms in the `SingleCellExperiment` object, use the following command:
+```r
+# SingleR ontology annotations
+processed_sce$singler_celltype_ontology
+```
+
+To access cell type annotation ontology terms in the `AnnData` object, use the following command:
+```r
+# SingleR ontology annotations
+processed_adata.obs["singler_celltype_ontology"]
+```
+
+
+You can also access the full object returned by `SingleR` from the `SingleCellExperiment`'s metadata with the following command:
 
 ```r
 # SingleR full result
@@ -281,6 +297,13 @@ processed_adata.obs["cellassign_celltype_annotation"]
 ```
 
 Cells that `CellAssign` could not confidently annotate are labeled with `"other"`.
+
+You can also access the full predictions matrix returned by `CellAssign` from the `SingleCellExperiment`'s metadata with the following command:
+
+```r
+# CellAssign full predictions matrix full result
+metadata(processed_sce)$cellassign_predictions
+```
 
 
 ## What if I want to use Seurat?
