@@ -136,8 +136,11 @@ metadata(sce) # experiment metadata
 | `singler_results` | If cell typing with `SingleR` was performed, the full result object returned by `SingleR` annotation. Only present for `processed` objects |
 | `singler_reference` | If cell typing with `SingleR` was performed, the name of the [`celldex`](http://bioconductor.org/packages/release/data/experiment/html/celldex.html) reference dataset used for annotation. Only present for `processed` objects |
 | `singler_reference_label` | If cell typing with `SingleR` was performed, the name of the label in the reference dataset used for annotation. Only present for `processed` objects |
+| `singler_reference_version`  | If cell typing with `SingleR` was performed with ontology labels, the [`celldex`](http://bioconductor.org/packages/release/data/experiment/html/celldex.html) package version used for the reference dataset |
 | `cellassign_predictions` | If cell typing with `CellAssign` was performed, the full matrix of predictions across cells and cell types. Only present for `processed` objects |
-| `cellassign_reference` | If cell typing with `CellAssign` was performed, the name of the organ/tissue type for which marker genes were obtained from `PanglaoDB`. Only present for `processed` objects |
+| `cellassign_reference` | If cell typing with `CellAssign` was performed, the name of the organ/tissue type for which marker genes were obtained from [`PanglaoDB`](https://panglaodb.se/). Only present for `processed` objects |
+| `cellassign_reference_version`  | If cell typing with `CellAssign` was performed, the version (represented as a date) of the [`PanglaoDB`](https://panglaodb.se/) database considered when selecting marker genes |
+
 
 ### SingleCellExperiment sample metadata
 
