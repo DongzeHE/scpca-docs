@@ -306,7 +306,7 @@ processed_adata.uns["singler_reference_version"]
 ```
 
 <!-- TODO: this instead? -->
-Additional information about `SingleR` annotation results are also available from the `SingleCellExperiment`'s metadata, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
+Additional information about `SingleR` annotation results is also available from the `SingleCellExperiment`'s metadata, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
 
 
 #### `CellAssign` annotations
@@ -336,8 +336,7 @@ You can also access the full predictions matrix returned by `CellAssign` from th
 metadata(processed_sce)$cellassign_predictions
 ```
 
-
-`CellAssign` annotation uses a reference set of marker genes from the [PanglaoDB database](https://panglaodb.se/) [[Oscar Franzén _et al._ (2019)](https://doi.org/10.1093/database/baz046)], as compiled by the Data Lab for a given tissue group.
+`CellAssign` annotation uses a reference set of marker genes from the [`PanglaoDB` database](https://panglaodb.se/) [[Oscar Franzén _et al._ (2019)](https://doi.org/10.1093/database/baz046)], as compiled by the Data Lab for a given tissue group.
 
 To access information about the `CellAssign` reference in the `SingleCellExperiment` object, use the following commands:
 
@@ -362,7 +361,7 @@ processed_adata.uns["cellassign_reference_version"]
 ```
 
 <!-- TODO: this instead? -->
-Additional information about `CellAssign` annotation results are also available from the `SingleCellExperiment`'s metadata, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
+Additional information about `CellAssign` annotation results is also available from the `SingleCellExperiment`'s metadata, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
 
 
 ## What if I want to use Seurat?

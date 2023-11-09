@@ -4,6 +4,7 @@ al
 alevin
 Alevin
 AnnData
+Aran
 barcode
 barcodes
 basepairs
@@ -29,6 +30,7 @@ Ensembl
 et
 fastp
 FASTQ
+Franzén
 GC
 Genomics
 github
