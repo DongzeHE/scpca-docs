@@ -268,13 +268,44 @@ processed_adata.obs["singler_celltype_ontology"]
 ```
 
 
-You can also access the full object returned by `SingleR` from the `SingleCellExperiment`'s metadata with the following command:
+You can also access the full object returned by `SingleR` from the `SingleCellExperiment`'s metadata with the following command (note that this information is not provided in the `AnnData` object):
 
 ```r
 # SingleR full result
 metadata(processed_sce)$singler_results
 ```
 
+`SingleR` annotation uses a reference dataset from the [`celldex` package](https://bioconductor.org/packages/release/data/experiment/html/celldex.html) [[Aran _et al._ (2019)](https://doi.org/10.1038/s41590-018-0276-y)].
+
+To access information about the `SingleR` reference in the `SingleCellExperiment` object, use the following commands:
+
+
+```r
+# SingleR reference dataset name
+metadata(processed_sce)$singler_reference
+
+# SingleR reference dataset label used for annotation
+metadata(processed_sce)$singler_reference_label
+
+# SingleR reference version
+metadata(processed_sce)$singler_reference_version
+```
+
+To access the analogous information in the `AnnData` object, use the following commands:
+
+
+```python
+# SingleR reference (celldex) dataset name
+processed_adata.uns["singler_reference"]
+
+# SingleR reference (celldex) dataset label used for annotation
+processed_adata.uns["singler_reference_label"]
+
+# SingleR reference (celldex) version
+processed_adata.uns["singler_reference_version"]
+```
+
+<!-- TODO: this instead? -->
 Additional information about `SingleR` annotation results are also available from the `SingleCellExperiment`'s metadata, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
 
 
@@ -304,6 +335,34 @@ You can also access the full predictions matrix returned by `CellAssign` from th
 # CellAssign full predictions matrix full result
 metadata(processed_sce)$cellassign_predictions
 ```
+
+
+`CellAssign` annotation uses a reference set of marker genes from the [PanglaoDB database](https://panglaodb.se/) [[Oscar Franzén _et al._ (2019)](https://doi.org/10.1093/database/baz046)], as compiled by the Data Lab for a given tissue group.
+
+To access information about the `CellAssign` reference in the `SingleCellExperiment` object, use the following commands:
+
+
+```r
+# CellAssign reference name as labeled by the Data Lab
+metadata(processed_sce)$cellassign_reference
+
+# CellAssign reference (PanglaoDB) version
+metadata(processed_sce)$cellassign_reference_version
+```
+
+To access the analogous information in the `AnnData` object, use the following commands:
+
+
+```python
+# CellAssign reference name as labeled by the Data Lab
+processed_adata.uns["cellassign_reference"]
+
+# CellAssign reference (PanglaoDB) version
+processed_adata.uns["cellassign_reference_version"]
+```
+
+<!-- TODO: this instead? -->
+Additional information about `CellAssign` annotation results are also available from the `SingleCellExperiment`'s metadata, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
 
 
 ## What if I want to use Seurat?
