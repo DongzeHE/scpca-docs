@@ -12,6 +12,7 @@ Bioinformatics
 cDNA
 cellhash
 cellhashing
+CHANGELOG
 confounders
 Danecek
 de
