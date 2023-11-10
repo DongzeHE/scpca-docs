@@ -213,6 +213,21 @@ Processed objects may contain cell type annotations and associated metadata from
 
 Below we provide instructions on how to access each type of cell type annotation, if present.
 
+To determine which cell type annotations are present, use the following command on the processed `SingleCellExperiment` object:
+
+```r
+# show vector of available celltypes
+# values will be one or more of: `submitter`, `singler`, `cellassign`
+metadata(processed_sce)$celltype_methods
+```
+
+Or, on the processed `AnnData` object:
+
+```python
+# show list of available celltypes
+# values will be one or more of: `submitter`, `singler`, `cellassign`
+processed_adata.uns["celltype_methods"]
+```
 
 #### Submitter-provided annotations
 
@@ -235,6 +250,9 @@ Note that submitter-provided annotations are also present in unfiltered and filt
 
 
 #### `SingleR` annotations
+
+`SingleR` annotation uses a reference dataset from the [`celldex` package](https://bioconductor.org/packages/release/data/experiment/html/celldex.html) [[Aran _et al._ (2019)](https://doi.org/10.1038/s41590-018-0276-y)].
+
 
 To access automated `SingleR` annotations in the `SingleCellExperiment`, use the following command:
 
@@ -275,41 +293,12 @@ You can also access the full object returned by `SingleR` from the `SingleCellEx
 metadata(processed_sce)$singler_results
 ```
 
-`SingleR` annotation uses a reference dataset from the [`celldex` package](https://bioconductor.org/packages/release/data/experiment/html/celldex.html) [[Aran _et al._ (2019)](https://doi.org/10.1038/s41590-018-0276-y)].
-
-To access information about the `SingleR` reference in the `SingleCellExperiment` object, use the following commands:
-
-
-```r
-# SingleR reference dataset name
-metadata(processed_sce)$singler_reference
-
-# SingleR reference dataset label used for annotation
-metadata(processed_sce)$singler_reference_label
-
-# SingleR reference version
-metadata(processed_sce)$singler_reference_version
-```
-
-To access the analogous information in the `AnnData` object, use the following commands:
-
-
-```python
-# SingleR reference (celldex) dataset name
-processed_adata.uns["singler_reference"]
-
-# SingleR reference (celldex) dataset label used for annotation
-processed_adata.uns["singler_reference_label"]
-
-# SingleR reference (celldex) version
-processed_adata.uns["singler_reference_version"]
-```
-
-<!-- TODO: this instead? -->
-Additional information about `SingleR` annotation results is also available from the `SingleCellExperiment`'s metadata, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
+Additional information about `SingleR` annotation, including the reference source and version, is also available from the processed `SingleCellExperiment` object's metadata and from the processed `AnnData` object's `uns` slot, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
 
 
 #### `CellAssign` annotations
+
+`CellAssign` annotation uses a reference set of marker genes from the [`PanglaoDB` database](https://panglaodb.se/) [[Oscar Franzén _et al._ (2019)](https://doi.org/10.1093/database/baz046)], as compiled by the Data Lab for a given tissue group.
 
 To access automated `CellAssign` annotations in the `SingleCellExperiment`, use the following command:
 
@@ -336,32 +325,8 @@ You can also access the full predictions matrix returned by `CellAssign` from th
 metadata(processed_sce)$cellassign_predictions
 ```
 
-`CellAssign` annotation uses a reference set of marker genes from the [`PanglaoDB` database](https://panglaodb.se/) [[Oscar Franzén _et al._ (2019)](https://doi.org/10.1093/database/baz046)], as compiled by the Data Lab for a given tissue group.
 
-To access information about the `CellAssign` reference in the `SingleCellExperiment` object, use the following commands:
-
-
-```r
-# CellAssign reference name as labeled by the Data Lab
-metadata(processed_sce)$cellassign_reference
-
-# CellAssign reference (PanglaoDB) version
-metadata(processed_sce)$cellassign_reference_version
-```
-
-To access the analogous information in the `AnnData` object, use the following commands:
-
-
-```python
-# CellAssign reference name as labeled by the Data Lab
-processed_adata.uns["cellassign_reference"]
-
-# CellAssign reference (PanglaoDB) version
-processed_adata.uns["cellassign_reference_version"]
-```
-
-<!-- TODO: this instead? -->
-Additional information about `CellAssign` annotation results is also available from the `SingleCellExperiment`'s metadata, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
+Additional information about `CellAssign` annotation, including the reference source and version, is also available from the processed `SingleCellExperiment` object's metadata and from the processed `AnnData` object's `uns` slot, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
 
 
 ## What if I want to use Seurat?
