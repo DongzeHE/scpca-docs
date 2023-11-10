@@ -213,7 +213,11 @@ Processed objects may contain cell type annotations and associated metadata from
 - Automated annotations from [`CellAssign`](https://github.com/Irrationone/cellassign), a marker-gene based method ([Zhang _et al._ 2019](https://doi.org/10.1038/s41592-019-0529-1)).
 
 If at least one type of cell type annotation is present, a supplemental cell type report will be provided with the download.
-This report provides diagnostic plots for assessing quality of cell type annotations, and if multiple annotations are present, the report further compares different annotations to one another.
+This report evaluates cell annotations results as follows:
+
+- It provides diagnostic plots to assess the quality of cell type annotations
+- If multiple annotations are present, the report compares different annotations to one another.
+Strong agreement between different annotation methods is a qualitative indicator of robustness.
 
 To determine which cell type annotations are present, use the following command on the processed `SingleCellExperiment` object:
 
