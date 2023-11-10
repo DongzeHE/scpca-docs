@@ -208,10 +208,12 @@ See these resources for more information on clustering:
 Processed objects may contain cell type annotations and associated metadata from one or more of the following sources.
 
 - Submitter-provided annotations
+  - Note that these are only present for a subset of libraries.
 - Automated annotations from [`SingleR`](https://bioconductor.org/packages/release/bioc/html/SingleR.html), a reference-based method ([Looney _et al._ 2019](https://doi.org/10.1038/s41590-018-0276-y)).
 - Automated annotations from [`CellAssign`](https://github.com/Irrationone/cellassign), a marker-gene based method ([Zhang _et al._ 2019](https://doi.org/10.1038/s41592-019-0529-1)).
 
-Below we provide instructions on how to access each type of cell type annotation, if present.
+If at least one type of cell type annotation is present, a supplemental cell type report will be provided with the download.
+This report provides diagnostic plots for assessing quality of cell type annotations, and if multiple annotations are present, the report further compares different annotations to one another.
 
 To determine which cell type annotations are present, use the following command on the processed `SingleCellExperiment` object:
 
@@ -228,6 +230,8 @@ Or, on the processed `AnnData` object:
 # values will be one or more of: `submitter`, `singler`, `cellassign`
 processed_adata.uns["celltype_methods"]
 ```
+
+Below we provide instructions on how to access each type of cell type annotation, if present.
 
 #### Submitter-provided annotations
 
