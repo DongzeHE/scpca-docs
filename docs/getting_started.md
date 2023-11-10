@@ -209,8 +209,8 @@ Processed objects may contain cell type annotations and associated metadata from
 
 - Submitter-provided annotations
   - Note that these are only present for a subset of libraries.
-- Automated annotations from [`SingleR`](https://bioconductor.org/packages/release/bioc/html/SingleR.html), a reference-based method ([Looney _et al._ 2019](https://doi.org/10.1038/s41590-018-0276-y)).
-- Automated annotations from [`CellAssign`](https://github.com/Irrationone/cellassign), a marker-gene based method ([Zhang _et al._ 2019](https://doi.org/10.1038/s41592-019-0529-1)).
+- Annotations determined by [`SingleR`](https://bioconductor.org/packages/release/bioc/html/SingleR.html), an automated reference-based method ([Looney _et al._ 2019](https://doi.org/10.1038/s41590-018-0276-y)).
+- Annotations determined by [`CellAssign`](https://github.com/Irrationone/cellassign), an automated marker-gene based method ([Zhang _et al._ 2019](https://doi.org/10.1038/s41592-019-0529-1)).
 
 If at least one type of cell type annotation is present, a supplemental cell type report will be provided with the download.
 This report evaluates cell annotations results as follows:
