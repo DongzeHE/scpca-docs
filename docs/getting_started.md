@@ -230,7 +230,7 @@ To access submitter-provided annotations in the `AnnData` object, use the follow
 processed_adata.obs["submitter_celltype_annotation"]
 ```
 
-Cells that submitters did not annotate are labeled with `NA`.
+Cells that submitters did not annotate are labeled with `submitter-excluded`.
 Note that submitter-provided annotations are also present in unfiltered and filtered objects and can be accessed using the same approach shown here for processed objects.
 
 
