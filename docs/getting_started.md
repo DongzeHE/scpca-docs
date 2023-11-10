@@ -336,6 +336,12 @@ metadata(processed_sce)$cellassign_predictions
 
 Additional information about `CellAssign` annotation, including the reference source and version, is also available from the processed `SingleCellExperiment` object's metadata and from the processed `AnnData` object's `uns` slot, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
 
+#### Additional cell type resources
+
+See these resources for more information on automated cell type annotation:
+
+- [Assigning cell types with `SingleR`](https://bioconductor.org/books/release/SingleRBook/)
+- [Cell type assignment chapter in Orchestrating Single Cell Analysis](https://bioconductor.org/books/3.17/OSCA.advanced/cell-cycle-assignment.html)
 
 ## What if I want to use Seurat?
 
