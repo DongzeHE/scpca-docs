@@ -253,7 +253,7 @@ To access submitter-provided annotations in the `AnnData` object, use the follow
 processed_adata.obs["submitter_celltype_annotation"]
 ```
 
-Cells that submitters did not annotate are labeled with `submitter-excluded`.
+Cells that submitters did not annotate are labeled with `Submitter-excluded`.
 Note that submitter-provided annotations are also present in unfiltered and filtered objects and can be accessed using the same approach shown here for processed objects.
 
 
@@ -262,37 +262,27 @@ Note that submitter-provided annotations are also present in unfiltered and filt
 `SingleR` annotation uses a reference dataset from the [`celldex` package](https://bioconductor.org/packages/release/data/experiment/html/celldex.html) [[Aran _et al._ (2019)](https://doi.org/10.1038/s41590-018-0276-y)].
 
 
-To access automated `SingleR` annotations in the `SingleCellExperiment`, use the following command:
+To access automated `SingleR` annotations as cell type names and/or ontology terms in the process `SingleCellExperiment` object, use the following command(s):
 
 ```r
-# SingleR annotations for each cell
+# SingleR annotatins as cell type names
 processed_sce$singler_celltype_annotation
-```
 
-To access automated `SingleR` annotations in the `AnnData` object, use the following command:
-
-```python
-# SingleR annotations for each cell
-processed_adata.obs["singler_celltype_annotation"]
-```
-
-Cells that `SingleR` could not confidently annotate are labeled with `NA`.
-
-
-If `SingleR` annotation was performed using ontology reference labels (default), the cell type annotation ontology terms will also be provided.
-
-To access cell type annotation ontology terms in the `SingleCellExperiment` object, use the following command:
-```r
-# SingleR ontology annotations
+# Or, SingleR annotatins as cell type ontology terms
 processed_sce$singler_celltype_ontology
 ```
 
-To access cell type annotation ontology terms in the `AnnData` object, use the following command:
+To access automated `SingleR` annotations as cell type names and/or ontology terms in the processed `AnnData` object, use the following command(s):
+
 ```r
-# SingleR ontology annotations
+# SingleR annotatins as cell type names
+processed_adata.obs["singler_celltype_annotation"]
+
+# Or, SingleR annotatins as cell type ontology terms
 processed_adata.obs["singler_celltype_ontology"]
 ```
 
+Cells that `SingleR` could not confidently annotate are labeled with `NA`.
 
 You can also access the full object returned by `SingleR` from the `SingleCellExperiment`'s metadata with the following command (note that this information is not provided in the `AnnData` object):
 
