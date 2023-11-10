@@ -12,7 +12,7 @@ For more information about `AlexsLemonade/scpca-nf` versions, please see [the re
 <!-- PUT THE NEW CHANGELOG ENTRY RIGHT BELOW THIS -->
 <!-------------------------------------------------->
 
-## {RELEASE DATE}
+## 2023.11.10
 
 * The README included in your download now contains the following:
 	* More information about how to cite the ScPCA Portal (see also: {ref}`How to Cite <citation:how to cite>`).
