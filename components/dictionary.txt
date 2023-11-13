@@ -3,6 +3,7 @@ ADTs
 al
 alevin
 Alevin
+APA
 AnnData
 barcode
 barcodes
@@ -12,6 +13,7 @@ Bioinformatics
 cDNA
 cellhash
 cellhashing
+CHANGELOG
 confounders
 CZI
 Danecek
@@ -49,7 +51,12 @@ introns
 isotype
 Jaccard
 Kaminow
+Lun
 Marioni
+miQC
+MLA
+oligo
+oligos
 Pearson
 pre
 pseudocount
@@ -60,6 +67,7 @@ Lun
 miQC
 oligo
 oligos
+README
 repo
 Rmarkdown
 scanpy
@@ -73,6 +81,7 @@ Srivastava
 Stegle
 Stoeckius
 subdiagnosis
+submitter
 Tian
 transcriptome
 transcriptomics
@@ -80,6 +89,7 @@ TSV
 UMAP
 UMI
 UMIs
+uncompress
 unspliced
 xenografts
 Zhang
