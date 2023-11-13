@@ -207,19 +207,18 @@ See these resources for more information on clustering:
 
 Processed objects may contain cell type annotations and associated metadata from one or more of the following sources.
 
-- Submitter-provided annotations
-  - Note that these are only present for a subset of libraries.
+- Submitter-provided annotations (note that these are only present for a subset of libraries). 
 - Annotations determined by [`SingleR`](https://bioconductor.org/packages/release/bioc/html/SingleR.html), an automated reference-based method ([Looney _et al._ 2019](https://doi.org/10.1038/s41590-018-0276-y)).
 - Annotations determined by [`CellAssign`](https://github.com/Irrationone/cellassign), an automated marker-gene based method ([Zhang _et al._ 2019](https://doi.org/10.1038/s41592-019-0529-1)).
 
-If at least one type of cell type annotation is present, a supplemental cell type report will be provided with the download.
+If at least one method was used for cell type annotation, a supplemental cell type report will be provided with the download.
 This report evaluates cell annotations results as follows:
 
 - It provides diagnostic plots to assess the quality of cell type annotations
 - If multiple annotations are present, the report compares different annotations to one another.
 Strong agreement between different annotation methods is a qualitative indicator of robustness.
 
-To determine which cell type annotations are present, use the following command on the processed `SingleCellExperiment` object:
+To determine which methods were used for cell type annotations, use the following command on the processed `SingleCellExperiment` object:
 
 ```r
 # show vector of available celltypes
@@ -235,7 +234,7 @@ Or, on the processed `AnnData` object:
 processed_adata.uns["celltype_methods"]
 ```
 
-Below we provide instructions on how to access each type of cell type annotation, if present.
+Below we provide instructions on how to access annotations from each cell type annotation method used, if present.
 
 #### Submitter-provided annotations
 
@@ -274,7 +273,7 @@ processed_sce$singler_celltype_ontology
 
 To access automated `SingleR` annotations as cell type names and/or ontology terms in the processed `AnnData` object, use the following command(s):
 
-```r
+```python
 # SingleR annotatins as cell type names
 processed_adata.obs["singler_celltype_annotation"]
 
