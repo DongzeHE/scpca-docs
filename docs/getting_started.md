@@ -207,7 +207,7 @@ See these resources for more information on clustering:
 
 Processed objects may contain cell type annotations and associated metadata from one or more of the following sources.
 
-- Submitter-provided annotations (note that these are only present for a subset of libraries). 
+- Submitter-provided annotations (note that these are only present for a subset of libraries).
 - Annotations determined by [`SingleR`](https://bioconductor.org/packages/release/bioc/html/SingleR.html), an automated reference-based method ([Looney _et al._ 2019](https://doi.org/10.1038/s41590-018-0276-y)).
 - Annotations determined by [`CellAssign`](https://github.com/Irrationone/cellassign), an automated marker-gene based method ([Zhang _et al._ 2019](https://doi.org/10.1038/s41592-019-0529-1)).
 
@@ -235,6 +235,8 @@ processed_adata.uns["celltype_methods"]
 ```
 
 Below we provide instructions on how to access annotations from each cell type annotation method used, if present.
+
+Note that additional information about `SingleR` and `CellAssign` annotation, including their respective reference source and versions, is also available from the processed `SingleCellExperiment` object's metadata and from the processed `AnnData` object's `uns` slot, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
 
 #### Submitter-provided annotations
 
@@ -290,9 +292,6 @@ You can also access the full object returned by `SingleR` from the `SingleCellEx
 metadata(processed_sce)$singler_results
 ```
 
-Additional information about `SingleR` annotation, including the reference source and version, is also available from the processed `SingleCellExperiment` object's metadata and from the processed `AnnData` object's `uns` slot, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
-
-
 #### `CellAssign` annotations
 
 `CellAssign` annotation uses a reference set of marker genes from the [`PanglaoDB` database](https://panglaodb.se/) [[Oscar Franzén _et al._ (2019)](https://doi.org/10.1093/database/baz046)], as compiled by the Data Lab for a given tissue group.
@@ -303,8 +302,6 @@ To access automated `CellAssign` annotations in the `SingleCellExperiment`, use 
 # CellAssign annotations for each cell
 processed_sce$cellassign_celltype_annotation
 ```
-
-Additional information about `CellAssign` annotation results are also available from the `SingleCellExperiment`'s metadata, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
 
 To access automated `CellAssign` annotations in the `AnnData` object, use the following command:
 
@@ -321,9 +318,6 @@ You can also access the full predictions matrix returned by `CellAssign` from th
 # CellAssign full predictions matrix full result
 metadata(processed_sce)$cellassign_predictions
 ```
-
-
-Additional information about `CellAssign` annotation, including the reference source and version, is also available from the processed `SingleCellExperiment` object's metadata and from the processed `AnnData` object's `uns` slot, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
 
 #### Additional cell type resources
 
