@@ -36,7 +36,7 @@ counts(sce) # counts matrix
 
 Additionally, the `spliced` assay contains a counts matrix that includes reads from spliced cDNA only.
 
-### Cell metrics
+### SingleCellExperiment Cell metrics
 
 Cell metrics calculated from the RNA-seq expression data are stored as a `DataFrame` in the `colData` slot, with the cell barcodes as the names of the rows.
 
