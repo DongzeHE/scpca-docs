@@ -65,15 +65,12 @@ Multiplexed libraries will have more than one sample ID corresponding to each li
 In most cases, each sample will only have one corresponding single-cell or single-nuclei library, and may also have an associated bulk RNA-seq library.
 However, in some cases multiple libraries were created by separate droplet generation and sequencing from the same sample, resulting in more than one single-cell or single-nuclei library ID being associated with the same sample ID.
 
-## Why do some samples have missing participant IDs?
+## What is a participant ID?
 
-The `participant_id`, when present, indicates the participant from which a collection of samples was obtained.
+The `participant_id` is a unique ID to indicate the participant from which a collection of samples was obtained.
 For example, one participant may have a sample collected both at initial diagnosis and at relapse.
 This would result in two different sample ID's, but the same participant ID.
 However, for most participants, only a single sample was collected and submitted for sequencing.
-Because of this, many of the samples do not have a separate participant ID.
-A `participant_id` is required for all samples that were derived from the same participant as at least one other sample.
-They may also be present for samples in which only one sample is collected from a participant, but for this scenario, the presence of a `participant_id` is optional.
 
 ## What is a multiplexed sample?
 
