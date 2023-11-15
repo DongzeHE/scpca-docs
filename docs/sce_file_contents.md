@@ -137,13 +137,13 @@ metadata(sce) # experiment metadata
 | `cluster_nn`        | The nearest neighbor parameter value used for the graph-based clustering. Only present for `processed` objects |
 | `celltype_methods` | If cell type annotation was performed, a vector of the methods used for annotation. May include `"submitter"`, `"singler"` and/or `"cellassign"`. If submitter cell-type annotations are available, this metadata item will be present in all objects. Otherwise, this item will only be in `processed` objects |
 | `singler_results` | If cell typing with `SingleR` was performed, the full result object returned by `SingleR` annotation. Only present for `processed` objects |
-| `singler_reference` | If cell typing with `SingleR` was performed, the name of reference dataset used for annotation. Only present for `processed` objects |
+| `singler_reference` | If cell typing with `SingleR` was performed, the name of the reference dataset used for annotation. Only present for `processed` objects |
 | `singler_reference_label` | If cell typing with `SingleR` was performed, the name of the label in the reference dataset used for annotation. Only present for `processed` objects |
 | `singler_reference_source`  | If cell typing with `SingleR` was performed, the source of the reference dataset (default is [`celldex`](http://bioconductor.org/packages/release/data/experiment/html/celldex.html)). Only present for `processed` objects |
 | `singler_reference_version`  | If cell typing with `SingleR` was performed, the version of `celldex` used to create the reference dataset source, with periods replaced as dashes (`-`). Only present for `processed` objects |
 | `cellassign_predictions` | If cell typing with `CellAssign` was performed, the full matrix of predictions across cells and cell types. Only present for `processed` objects |
 | `cellassign_reference` | If cell typing with `CellAssign` was performed, the name of the organ/tissue grouping for which marker genes were obtained. Only present for `processed` objects |
-| `cellassign_reference_source`  | If cell typing with `CellAssign` was performed, the source of the reference dataset (default is `PanglaoDB`). Only present for `processed` objects |
+| `cellassign_reference_source`  | If cell typing with `CellAssign` was performed, the source of the reference dataset (default is [`PanglaoDB`](https://panglaodb.se/)). Only present for `processed` objects |
 | `cellassign_reference_version`  | If cell typing with `CellAssign` was performed, the version of the reference dataset source. For references obtained from `PanglaoDB`, the version scheme is a date in ISO8601 format. Only present for `processed` objects |
 
 
