@@ -260,7 +260,7 @@ Note that submitter-provided annotations are also present in unfiltered and filt
 
 #### `SingleR` annotations
 
-`SingleR` annotation uses a reference dataset from the [`celldex` package](https://bioconductor.org/packages/release/data/experiment/html/celldex.html) [[Aran _et al._ (2019)](https://doi.org/10.1038/s41590-018-0276-y)].
+`SingleR` annotation uses a reference dataset from the [`celldex` package](https://bioconductor.org/packages/release/data/experiment/html/celldex.html) ([Aran _et al._ (2019)](https://doi.org/10.1038/s41590-018-0276-y)).
 
 
 To access automated `SingleR` annotations as cell type names and/or ontology terms in the process `SingleCellExperiment` object, use the following command(s):
@@ -294,7 +294,7 @@ metadata(processed_sce)$singler_results
 
 #### `CellAssign` annotations
 
-`CellAssign` annotation uses a reference set of marker genes from the [`PanglaoDB` database](https://panglaodb.se/) [[Oscar Franzén _et al._ (2019)](https://doi.org/10.1093/database/baz046)], as compiled by the Data Lab for a given tissue group.
+`CellAssign` annotation uses a reference set of marker genes from the [`PanglaoDB` database](https://panglaodb.se/) ([Oscar Franzén _et al._ (2019)](https://doi.org/10.1093/database/baz046)), as compiled by the Data Lab for a given tissue group.
 
 To access automated `CellAssign` annotations in the `SingleCellExperiment`, use the following command:
 
