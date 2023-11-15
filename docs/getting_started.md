@@ -240,7 +240,7 @@ Note that additional information about `SingleR` and `CellAssign` annotation, in
 
 #### Submitter-provided annotations
 
-To access submitter-provided annotations in the `SingleCellExperiment`, use the following command:
+To access submitter-provided annotations, if available, in the `SingleCellExperiment`, use the following command:
 
 ```r
 # submitter-provided annotations for each cell
