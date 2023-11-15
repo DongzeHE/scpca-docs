@@ -214,7 +214,7 @@ Processed objects may contain cell type annotations and associated metadata from
 If at least one method was used for cell type annotation, a supplemental cell type report will be provided with the download.
 This report evaluates cell annotations results as follows:
 
-- It provides diagnostic plots to assess the quality of cell type annotations
+- It provides diagnostic plots to assess the quality of cell type annotations.
 - If multiple annotations are present, the report compares different annotations to one another.
 Strong agreement between different annotation methods is a qualitative indicator of robustness.
 
