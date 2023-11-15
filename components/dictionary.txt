@@ -5,6 +5,7 @@ alevin
 Alevin
 APA
 AnnData
+Aran
 barcode
 barcodes
 basepairs
@@ -31,6 +32,7 @@ Ensembl
 et
 fastp
 FASTQ
+Franzén
 GC
 Genomics
 github
@@ -82,6 +84,7 @@ Stegle
 Stoeckius
 subdiagnosis
 submitter
+submitters
 Tian
 transcriptome
 transcriptomics

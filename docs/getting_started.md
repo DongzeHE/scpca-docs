@@ -182,7 +182,7 @@ processed_adata.uns["highly_variable_genes"]
 ### Clustering
 
 Cluster assignments obtained from [Graph-based clustering](http://bioconductor.org/books/3.16/OSCA.basic/clustering.html#clustering-graph) is also available in the processed objects.
-Here clustering was performed using the Louvain algorithm with 20 nearest neighbors and Jaccard weighting.
+By default, clustering is performed using the Louvain algorithm with 20 nearest neighbors and Jaccard weighting.
 
 To access the cluster assignments in the `SingleCellExperiment` object, use the following command:
 
@@ -202,6 +202,129 @@ See these resources for more information on clustering:
  - [Clustering chapter in Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.14/OSCA.basic/clustering.html)
  - [Quantifying clustering behavior in Orchestrating Single Cell Analysis](https://bioconductor.org/books/release/OSCA.advanced/clustering-redux.html#quantifying-clustering-behavior)
 
+
+### Cell type annotation
+
+Processed objects may contain cell type annotations and associated metadata from one or more of the following sources.
+
+- Submitter-provided annotations (note that these are only present for a subset of libraries).
+- Annotations determined by [`SingleR`](https://bioconductor.org/packages/release/bioc/html/SingleR.html), an automated reference-based method ([Looney _et al._ 2019](https://doi.org/10.1038/s41590-018-0276-y)).
+- Annotations determined by [`CellAssign`](https://github.com/Irrationone/cellassign), an automated marker-gene based method ([Zhang _et al._ 2019](https://doi.org/10.1038/s41592-019-0529-1)).
+
+If at least one method was used for cell type annotation, a supplemental cell type report will be provided with the download.
+This report evaluates cell annotations results as follows:
+
+- It provides diagnostic plots to assess the quality of cell type annotations.
+- If multiple annotations are present, the report compares different annotations to one another.
+Strong agreement between different annotation methods is a qualitative indicator of robustness.
+
+To determine which methods were used for cell type annotations, use the following command on the processed `SingleCellExperiment` object:
+
+```r
+# show vector of available celltypes
+# values will be one or more of: `submitter`, `singler`, `cellassign`
+metadata(processed_sce)$celltype_methods
+```
+
+Or, on the processed `AnnData` object:
+
+```python
+# show list of available celltypes
+# values will be one or more of: `submitter`, `singler`, `cellassign`
+processed_adata.uns["celltype_methods"]
+```
+
+Below we provide instructions on how to access annotations from each cell type annotation method used, if present.
+
+Note that additional information about `SingleR` and `CellAssign` annotation, including their respective reference source and versions, is also available from the processed `SingleCellExperiment` object's metadata and from the processed `AnnData` object's `uns` slot, as described in the {ref}`experiment metadata table<sce_file_contents:SingleCellExperiment experiment metadata>`.
+
+#### Submitter-provided annotations
+
+To access submitter-provided annotations, if available, in the `SingleCellExperiment`, use the following command:
+
+```r
+# submitter-provided annotations for each cell
+processed_sce$submitter_celltype_annotation
+```
+
+To access submitter-provided annotations in the `AnnData` object, use the following command:
+
+```python
+# submitter-provided annotations for each cell
+processed_adata.obs["submitter_celltype_annotation"]
+```
+
+Cells that submitters did not annotate are labeled with `Submitter-excluded`.
+Note that submitter-provided annotations are also present in unfiltered and filtered objects and can be accessed using the same approach shown here for processed objects.
+
+
+#### `SingleR` annotations
+
+`SingleR` annotation uses a reference dataset from the [`celldex` package](https://bioconductor.org/packages/release/data/experiment/html/celldex.html) [[Aran _et al._ (2019)](https://doi.org/10.1038/s41590-018-0276-y)].
+
+
+To access automated `SingleR` annotations as cell type names and/or ontology terms in the process `SingleCellExperiment` object, use the following command(s):
+
+```r
+# SingleR annotatins as cell type names
+processed_sce$singler_celltype_annotation
+
+# Or, SingleR annotatins as cell type ontology terms
+processed_sce$singler_celltype_ontology
+```
+
+To access automated `SingleR` annotations as cell type names and/or ontology terms in the processed `AnnData` object, use the following command(s):
+
+```python
+# SingleR annotatins as cell type names
+processed_adata.obs["singler_celltype_annotation"]
+
+# Or, SingleR annotatins as cell type ontology terms
+processed_adata.obs["singler_celltype_ontology"]
+```
+
+Cells that `SingleR` could not confidently annotate are labeled with `NA`.
+
+You can also access the full object returned by `SingleR` from the `SingleCellExperiment`'s metadata with the following command (note that this information is not provided in the `AnnData` object):
+
+```r
+# SingleR full result
+metadata(processed_sce)$singler_results
+```
+
+#### `CellAssign` annotations
+
+`CellAssign` annotation uses a reference set of marker genes from the [`PanglaoDB` database](https://panglaodb.se/) [[Oscar Franzén _et al._ (2019)](https://doi.org/10.1093/database/baz046)], as compiled by the Data Lab for a given tissue group.
+
+To access automated `CellAssign` annotations in the `SingleCellExperiment`, use the following command:
+
+```r
+# CellAssign annotations for each cell
+processed_sce$cellassign_celltype_annotation
+```
+
+To access automated `CellAssign` annotations in the `AnnData` object, use the following command:
+
+```python
+# CellAssign annotations for each cell
+processed_adata.obs["cellassign_celltype_annotation"]
+```
+
+Cells that `CellAssign` could not confidently annotate are labeled with `"other"`.
+
+You can also access the full predictions matrix returned by `CellAssign` from the `SingleCellExperiment`'s metadata with the following command:
+
+```r
+# CellAssign full predictions matrix full result
+metadata(processed_sce)$cellassign_predictions
+```
+
+#### Additional cell type resources
+
+See these resources for more information on automated cell type annotation:
+
+- [Assigning cell types with `SingleR`](https://bioconductor.org/books/release/SingleRBook/)
+- [Cell type assignment chapter in Orchestrating Single Cell Analysis](https://bioconductor.org/books/3.17/OSCA.advanced/cell-cycle-assignment.html)
 
 ## What if I want to use Seurat?
 
