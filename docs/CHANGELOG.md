@@ -12,6 +12,15 @@ For more information about `AlexsLemonade/scpca-nf` versions, please see [the re
 <!-- PUT THE NEW CHANGELOG ENTRY RIGHT BELOW THIS -->
 <!-------------------------------------------------->
 
+## PLACEHOLDER FOR RELEASE DATE
+
+* The data for all samples, other than multiplexed samples, can now be downloaded as either a `SingleCellExperiment(R)` or `AnnData(Python)` object contained in a RDS or HDF5 file, respectively.
+* The sample metadata has been updated to include ontology term ids for age, sex, organism, diagnosis, and tissue location.
+* All samples now have an assigned `participant_id`.
+* All data files now include both the gene expression data and metadata for each sample (e.g., age, sex, organism, diagnosis, and tissue location).
+For more information on the contents of the data files, see {ref}`the Single-cell gene expression file contents page<sce_file_contents:Single-cell gene expression file contents>`.
+* If provided by the original submitter, data files will also include cell type annotations.
+
 ## 2023.11.10
 
 * The README included in your download now contains the following:
