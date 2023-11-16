@@ -67,7 +67,7 @@ However, in some cases multiple libraries were created by separate droplet gener
 
 ## What is a participant ID?
 
-The `participant_id` is a unique ID to indicate the participant from which a collection of samples was obtained.
+The `participant_id` is a unique ID provided by the submitter to indicate the participant from which a collection of samples was obtained.
 For example, one participant may have a sample collected both at initial diagnosis and at relapse.
 This would result in two different sample ID's, but the same participant ID.
 However, for most participants, only a single sample was collected and submitted for sequencing.
