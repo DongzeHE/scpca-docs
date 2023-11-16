@@ -46,6 +46,7 @@ HVGs
 intronic
 introns
 isotype
+Jaccard
 Kaminow
 Lun
 Marioni
@@ -57,7 +58,11 @@ Pearson
 pre
 pseudocount
 pseudogenes
-README
+Louvain
+Lun
+miQC
+oligo
+oligos
 repo
 Rmarkdown
 scanpy
