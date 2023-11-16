@@ -71,8 +71,8 @@ The filtered counts file is further filtered to remove low quality cells, such a
 This file contains the raw and normalized counts data for cell barcodes that have passed both levels of filtering.
 In addition to the counts matrices, the `SingleCellExperiment` or `AnnData` object stored in the file includes the results of dimensionality reduction using both principal component analysis (PCA) and UMAP.
 
-See {ref}`Single-cell gene expression file contents <sce_file_contents:Single-cell gene expression file contents>` for more information about the contents of the `SingleCellExperiment` objects and the included statistics and metadata.
-See also {ref}`Using the provided RDS files in R <faq:how do i use the provided RDS files in r?>`.
+See {ref}`Single-cell gene expression file contents <sce_file_contents:Single-cell gene expression file contents>` for more information about the contents of the `SingleCellExperiment` and `AnnData` objects and the included statistics and metadata.
+See also {ref}`Using the provided RDS files in R <faq:how do i use the provided RDS files in r?>` and {ref}`Using the provided HDF5 files in Python <faq:how do i use the provided HDF5 files in python?>`.
 
 ## QC Report
 
@@ -102,7 +102,8 @@ The `single_cell_metadata.tsv` file is a tab-separated table with one row per li
 Additional metadata may also be included, specific to the disease type and experimental design of the project.
 Examples of this include treatment or outcome.
 Metadata pertaining to processing will also be available in this table and inside of the `SingleCellExperiment` object.
-See the {ref}`Experiment metadata <sce_file_contents:experiment metadata>` section for more information on metadata columns that can be found in this file as well as inside the `SingleCellExperiment` object.
+See the {ref}`SingleCellExperiment experiment metadata <sce_file_contents:singlecellexperiment experiment metadata>` section for more information on metadata columns that can be found in the `SingleCellExperiment` object.
+See the {ref}`AnnData experiment metadata <sce_file_contents:anndata experiment metadata>` section for more information on metadata columns that can be found in the `AnnData` object.
 
 For projects with bulk RNA-seq data, the `bulk_metadata.tsv` file will be included for project downloads.
 This file will contain fields equivalent to those found in the `single_cell_metadata.tsv` related to processing the sample, but will not contain patient or disease specific metadata (e.g. `age`, `sex`, `diagnosis`, `subdiagnosis`, `tissue_location`, or `disease_timing`).
