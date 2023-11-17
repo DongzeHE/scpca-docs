@@ -106,7 +106,7 @@ The `single_cell_metadata.tsv` file is a tab-separated table with one row per li
 | `tissue_location` | Where in the body the tumor sample was located                 |
 | `disease_timing`  | At what stage of disease the sample was obtained, either diagnosis or recurrence |
 | `organism`         | The organism the sample was obtained from (e.g., `Homo_sapiens`) |
-| `development_stage_ontology_term_id` | `HsapDv` ontology term indicating developmental stage. `unknown` indicates age is unavailable. |
+| `development_stage_ontology_term_id` | [`HsapDv`](http://obofoundry.org/ontology/hsapdv.html) ontology term indicating the age at which the sample was collected. `unknown` indicates age is unavailable. |
 | `sex_ontology_term_id`| [`PATO`](http://obofoundry.org/ontology/pato.html) term referring to the sex of the sample. `unknown` indicates sex is unavailable. |
 | `organism_ontology_id`| NCBI taxonomy term for organism, e.g. [`NCBITaxon:9606`](https://ontobee.org/ontology/NCBITaxon?iri=http://purl.obolibrary.org/obo/NCBITaxon_9606). |
 | `self_reported_ethnicity_ontology_term_id` | For _Homo sapiens_ samples, a [`Hancestro` term](http://obofoundry.org/ontology/hancestro.html). `multiethnic` indicates more than one ethnicity is reported. `unknown` indicates unavailable ethnicity and `NA` is used for all other organisms. |
