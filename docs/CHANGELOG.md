@@ -17,8 +17,9 @@ For more information about `AlexsLemonade/scpca-nf` versions, please see [the re
 * Downloads for most projects are now available in [`AnnData`](https://anndata.readthedocs.io/en/latest/index.html) format as HDF5 files.
 Multiplexed samples are not yet supported.
 * The sample metadata found in `single_cell_metadata.tsv` has been updated to include ontology term ids for age, sex, organism, ethnicity, diagnosis, and tissue location, when available.
+See {ref}`the section describing Metadata on the Downloadable Files page<download_files:Metadata>`.
 * All samples now have an assigned `participant_id`, which can be found in `single_cell_metadata.tsv`.
-Previously, `participant_id` were only assigned when multiple samples mapped to the same participant for most projects.
+Previously, a `participant_id` was only assigned when multiple samples mapped to the same participant for most projects.
 * All data files now include both the gene expression data and metadata for each sample (e.g., age, sex, organism, ethnicity, diagnosis, and tissue location).
 For more information on the contents of the data files, see {ref}`the Single-cell gene expression file contents page<sce_file_contents:Single-cell gene expression file contents>`.
 * Data files will include cell type annotations provided by submitters when applicable.
