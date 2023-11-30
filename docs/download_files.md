@@ -3,6 +3,9 @@
 The ScPCA Portal download packages include gene expression data, a QC report, and associated metadata for each processed sample.
 Gene expression data is available as either [`SingleCellExperiment` objects (`.rds` files)](#singlecellexperiment-downloads) or [`AnnData` objects (`.hdf5` files)](#anndata-downloads).
 These files are delivered as a zip file.
+When you uncompress the zip file, the root directory name of your download will include the date you accessed the data on the ScPCA Portal.
+We recommend you record this date in case there are future updates to the Portal that change the underlying data or if you need to cite the data in the future (see {ref}`How to Cite <citation:how to cite>` for more information).
+Please see our {ref}`CHANGELOG <CHANGELOG:CHANGELOG>` for a summary of changes that impact downloads from the Portal.
 
 For all downloads, sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
 Most samples only have one library that has been sequenced.
@@ -16,6 +19,7 @@ The files shown below will be included with each library (example shown for a li
 - A filtered counts file: `SCPCL000000_filtered.rds` or `SCPCL00000_filtered_rna.hdf5`,
 - A processed counts file: `SCPCL000000_processed.rds` or `SCPCL00000_processed_rna.hdf5`,
 - A quality control report: `SCPCL000000_qc.html`,
+- A supplemental cell type report: `SCPCL000000_cell_type_report.html`
 
 Every download also includes a single `single_cell_metadata.tsv` file containing metadata for all libraries included in the download.
 
@@ -71,9 +75,15 @@ In addition to the counts matrices, the `SingleCellExperiment` or `AnnData` obje
 See {ref}`Single-cell gene expression file contents <sce_file_contents:Single-cell gene expression file contents>` for more information about the contents of the `SingleCellExperiment` and `AnnData` objects and the included statistics and metadata.
 See also {ref}`Using the provided RDS files in R <faq:how do i use the provided RDS files in r?>` and {ref}`Using the provided HDF5 files in Python <faq:how do i use the provided HDF5 files in python?>`.
 
-## QC Report
+## QC report
 
-The included QC report serves as a general overview of each library, including processing information, summary statistics and general visualizations of cell metrics.
+The included QC report, `SCPCL000000_qc_report.html`, serves as a general overview of each library, including processing information, summary statistics and general visualizations of cell metrics.
+
+## Cell type report
+
+The cell type report, `SCPCL000000_cell_type_report.html`, includes an overview of cell type annotations present in the processed objects.
+This report contains details on methodologies used for cell type annotation, information about reference sources, comparisons among cell type annotation methods, and diagnostic plots.
+For more information on how cell types were annotated, see the section on {ref}`Cell type annotation <processing_information:cell type annotation>`.
 
 ## Metadata
 
@@ -95,6 +105,13 @@ The `single_cell_metadata.tsv` file is a tab-separated table with one row per li
 | `subdiagnosis`    | Subcategory of diagnosis or mutation status (if applicable)    |
 | `tissue_location` | Where in the body the tumor sample was located                 |
 | `disease_timing`  | At what stage of disease the sample was obtained, either diagnosis or recurrence |
+| `organism`         | The organism the sample was obtained from (e.g., `Homo_sapiens`) |
+| `development_stage_ontology_term_id` | [`HsapDv`](http://obofoundry.org/ontology/hsapdv.html) ontology term indicating the age at which the sample was collected. `unknown` indicates age is unavailable. |
+| `sex_ontology_term_id`| [`PATO`](http://obofoundry.org/ontology/pato.html) term referring to the sex of the sample. `unknown` indicates sex is unavailable. |
+| `organism_ontology_id`| NCBI taxonomy term for organism, e.g. [`NCBITaxon:9606`](https://ontobee.org/ontology/NCBITaxon?iri=http://purl.obolibrary.org/obo/NCBITaxon_9606). |
+| `self_reported_ethnicity_ontology_term_id` | For _Homo sapiens_ samples, a [`Hancestro` term](http://obofoundry.org/ontology/hancestro.html). `multiethnic` indicates more than one ethnicity is reported. `unknown` indicates unavailable ethnicity and `NA` is used for all other organisms. |
+| `disease_ontology_term_id` | [`MONDO`](http://obofoundry.org/ontology/mondo.html) term indicating disease type. [`PATO:0000461`](https://ontobee.org/ontology/PATO?iri=http://purl.obolibrary.org/obo/PATO_0000461) is used for normal or healthy tissue. |
+| `tissue_ontology_term_id` | [`UBERON`](http://obofoundry.org/ontology/uberon.html) term indicating tissue of origin. `NA` indicates tissue is unavailable.  |
 
 Additional metadata may also be included, specific to the disease type and experimental design of the project.
 Examples of this include treatment or outcome.
