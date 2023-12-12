@@ -143,7 +143,7 @@ metadata(sce) # experiment metadata
 | `singler_reference_version`  | If cell typing with `SingleR` was performed, the version of `celldex` used to create the reference dataset source, with periods replaced as dashes (`-`). Only present for `processed` objects |
 | `cellassign_predictions` | If cell typing with `CellAssign` was performed, the full matrix of predictions across cells and cell types. Only present for `processed` objects |
 | `cellassign_reference` | If cell typing with `CellAssign` was performed, the reference name as established by the Data Lab used for cell type annotation. Only present for `processed` objects |
-| `cellassign_reference_organs` | If cell typing with `CellAssign` was performed, a comma-separated list of organs and/or tissue groupings for which marker genes were obtained to create the reference. Only present for `processed` objects |
+| `cellassign_reference_organs` | If cell typing with `CellAssign` was performed, a comma-separated list of organs and/or tissue compartments from which marker genes were obtained to create the reference. Only present for `processed` objects |
 | `cellassign_reference_source`  | If cell typing with `CellAssign` was performed, the source of the reference dataset (default is [`PanglaoDB`](https://panglaodb.se/)). Only present for `processed` objects |
 | `cellassign_reference_version`  | If cell typing with `CellAssign` was performed, the version of the reference dataset source. For references obtained from `PanglaoDB`, the version scheme is a date in ISO8601 format. Only present for `processed` objects |
 
