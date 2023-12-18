@@ -15,7 +15,8 @@ For more information about `AlexsLemonade/scpca-nf` versions, please see [the re
 
 ## PLACEHOLDER FOR CELL TYPING RELEASE DATE
 
-* Downloads will now contain cell type annotations as inferred with [`SingleR`](https://bioconductor.org/packages/release/bioc/html/SingleR.html) and [`CellAssign`](https://github.com/Irrationone/cellassign).
+* Cell type annotations are now included in each download. 
+Cells were annotated using both [`SingleR`](https://bioconductor.org/packages/release/bioc/html/SingleR.html) and [`CellAssign`](https://github.com/Irrationone/cellassign).
   * You can find more information about the cell type annotation procedure in the {ref}`the section describing cell type annotation procedures on the Processing Information page<processing_information:cell type annotation>`, as well as more information about available cell type annotation information in downloadable files from {ref}`the Single-cell gene expression file contents page<processing_information:components of a singlecellexperiment object>`.
 * Downloads will also contain a separate cell type report providing more information about cell type annotations, including comparisons between different cell type annotations and diagnostic assessments of cell type annotation reliability.
 
