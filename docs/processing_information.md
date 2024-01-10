@@ -192,5 +192,5 @@ For any projects with cell hash data, only the associated RNA data was merged in
 
 After merging, new principal component analysis (PCA) coordinates and UMAP embedding were calculated so that each library in the merged object is equally weighted.
 For this, the top 2000 high-variance genes (HVGs) were calculated by modeling variance separately for each library in the merged object.
-These HVGs were used as input to the PCA, which was calcualted using the [`batchelor::multiBatchPCA` function](https://rdrr.io/bioc/batchelor/man/multiBatchPCA.html) and specifying libraries as batches, and the top 50 principal components were selected.
+These HVGs were used as input to the PCA, which was calculated using the [`batchelor::multiBatchPCA` function](https://rdrr.io/bioc/batchelor/man/multiBatchPCA.html) and specifying libraries as batches, and the top 50 principal components were selected.
 These new principal components were used to calculate the new UMAP embeddings.
