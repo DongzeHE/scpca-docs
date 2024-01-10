@@ -182,6 +182,7 @@ In addition to downloadable objects containing a single library, we also offer a
 This section describes how these merged objects were prepared.
 
 Merged objects were created from the processed `SingleCellExperiment` objects for each ScPCA project.
+**These merged objects were not batch-corrected; they do not represent integrated objects.**
 
 If at least one library in the given project contained ADT data from CITE-seq experiments, the associated ADT "alternative experiment" was also merged.
 Any libraries in the given project which did not contain ADT data will contain `NA` values in the merged `counts` and `logcounts` matrices.
