@@ -175,3 +175,21 @@ The [decoy-aware reference transcriptome](https://salmon.readthedocs.io/en/lates
 
 A benefit of using `salmon` is the ability to incorporate RNA-seq specific technical biases and correct counts accordingly.
 We chose to enable the [`--seqBias`](https://salmon.readthedocs.io/en/latest/salmon.html#seqbias) and [`--gcBias`](https://salmon.readthedocs.io/en/latest/salmon.html#gcbias) flags, to correct for sequence-specific biases due to random hexamer primer and fragment-level GC biases, respectively.
+
+## Merged objects
+
+In addition to downloadable objects containing a single library, we also offer a merged object to download for each project, representing all libraries contained in a single file.
+This section describes how these merged objects were prepared.
+
+Merged objects were created from the processed `SingleCellExperiment` objects for each ScPCA project.
+
+If at least one library in the given project contained ADT data from CITE-seq experiments, the associated ADT "alternative experiment" was also merged.
+Any libraries in the given project which did not contain ADT data will contain `NA` values in the merged `counts` and `logcounts` matrices.
+
+By contrast, cell hashing alternative experiments were not merged.
+For any projects with cell hash data, only the associated RNA data was merged in the final object.
+
+After merging, new principal component analysis (PCA) coordinates and UMAP embedding were calculated so that each library in the merged object is equally weighted.
+For this, the top 2000 high-variance genes (HVGs) were calculated by modeling variance separately for each library in the merged object.
+These HVGs were used as input to the PCA, which was calcualted using the [`batchelor::multiBatchPCA` function](https://rdrr.io/bioc/batchelor/man/multiBatchPCA.html) and specifying libraries as batches, and the top 50 principal components were selected.
+These new principal components were used to calculate the new UMAP embeddings.
