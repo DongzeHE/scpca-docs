@@ -218,7 +218,8 @@ This report evaluates cell annotations results as follows:
 - If multiple annotations are present, the report compares different annotations to one another.
 Strong agreement between different annotation methods is a qualitative indicator of robustness.
 
-To determine which methods were used for cell type annotations, use the following command on the processed `SingleCellExperiment` object:
+To determine which methods were used for cell type annotations, use the following command on the processed `SingleCellExperiment` object.
+If this returns `NULL`, then no cell type annotation was performed for the given library.
 
 ```r
 # show vector of available celltypes
@@ -226,7 +227,8 @@ To determine which methods were used for cell type annotations, use the followin
 metadata(processed_sce)$celltype_methods
 ```
 
-Or, on the processed `AnnData` object:
+Or, use the following command on the processed `AnnData` object.
+If this returns an empty list, then no cell type annotation was performed for the given library.
 
 ```python
 # show list of available celltypes
