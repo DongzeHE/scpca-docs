@@ -24,19 +24,23 @@ sce <- readRDS("SCPCL000000_processed.rds")
 
 ### SingleCellExperiment expression counts
 
-The `counts` assay of the `SingleCellExperiment` object for single-cell and single-nuclei experiments (for all provided file types) contains the primary RNA-seq expression data as integer counts.
-The counts here include reads aligned to both spliced and unspliced cDNA (see the section on {ref}`Post Alevin-fry processing <processing_information:post alevin-fry processing>`).
-The data is stored as a sparse matrix, and each column represents a cell or droplet, each row a gene.
+
+The `counts` and `logcounts` assays of the `SingleCellExperiment` object for single-cell and single-nuclei experiments contains the primary RNA-seq expression data.
+The `counts` assay contains raw counts represented as integers, and the `logcounts` assay contains normalized (on a per-library basis) counts as described in {ref}`the data post-processing section <processing_information:processed gene expression data>`.
+
+Both assays include reads aligned to both spliced and unspliced cDNA (see the section on {ref}`Post Alevin-fry processing <processing_information:post alevin-fry processing>`).
+The data is stored as a sparse matrix, and each column represents a cell or droplet, and each row represents a gene.
 Column names are cell barcode sequences and row names are Ensembl gene IDs.
-The `counts` assay can be accessed with the following R code:
+The `counts` and `logcounts` assays can be accessed with the following R code:
 
 ```r
 counts(sce) # counts matrix
+logcounts(merged_sce) # logcounts matrix
 ```
 
 Additionally, the `spliced` assay contains a counts matrix that includes reads from spliced cDNA only.
 
-### SingleCellExperiment Cell metrics
+### SingleCellExperiment cell metrics
 
 Cell metrics calculated from the RNA-seq expression data are stored as a `DataFrame` in the `colData` slot, with the cell barcodes as the names of the rows.
 
