@@ -182,7 +182,7 @@ In addition to providing separate objects for each library, we also offer an opt
 This merged object contains the gene expression data for all libraries from a single project in a single file.
 This section describes how these merged objects were prepared.
 
-Following post-processing of each `SingleCellExperiment` (see XXX section above on post-processing) object, all objects belonging to a single ScPCA project were merged together. 
+Following post-processing of each `SingleCellExperiment` ([see the section above on post-processing](#processed-gene-expression-data)) object, all objects belonging to a single ScPCA project were merged together.
 **These merged objects were not batch-corrected; they do not represent integrated objects.**
 
 If at least one library in the given project contained ADT data from CITE-seq experiments, the associated ADT "alternative experiment" was also merged.
