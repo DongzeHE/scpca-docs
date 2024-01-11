@@ -377,7 +377,7 @@ The `AnnData` object also includes the following additional cell-level metadata 
 | `disease_timing`  | At what stage of disease the sample was obtained, either diagnosis or recurrence |
 | `organism`         | The organism the sample was obtained from (e.g., `Homo_sapiens`) |
 | `is_xenograft`    | Whether the sample is a patient-derived xenograft |
-| `is_cell_line`    | Whether the sample derived from a cell line |
+| `is_cell_line`    | Whether the sample was derived from a cell line |
 | `development_stage_ontology_term_id` | [`HsapDv` ontology](http://obofoundry.org/ontology/hsapdv.html) term indicating developmental stage. If unavailable, `unknown` is used  |
 | `sex_ontology_term_id` | [`PATO`](http://obofoundry.org/ontology/pato.html) term referring to the sex of the sample. If unavailable, `unknown` is used |
 | `organism_ontology_id` | [NCBI taxonomy](https://www.ncbi.nlm.nih.gov/taxonomy) term for organism, e.g. [`NCBITaxon:9606`](http://purl.obolibrary.org/obo/NCBITaxon_9606) |
