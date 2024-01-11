@@ -178,19 +178,20 @@ We chose to enable the [`--seqBias`](https://salmon.readthedocs.io/en/latest/sal
 
 ## Merged objects
 
-In addition to downloadable objects containing a single library, we also offer a merged object to download for each project, representing all libraries contained in a single file.
+In addition to providing separate objects for each library, we also offer an option to download all files for a project as a single merged object.
+This merged object contains the gene expression data for all libraries from a single project in a single file.
 This section describes how these merged objects were prepared.
 
-Merged objects were created from the processed `SingleCellExperiment` objects for each ScPCA project.
+Following post-processing of each `SingleCellExperiment` (see XXX section above on post-processing) object, all objects belonging to a single ScPCA project were merged together. 
 **These merged objects were not batch-corrected; they do not represent integrated objects.**
 
 If at least one library in the given project contained ADT data from CITE-seq experiments, the associated ADT "alternative experiment" was also merged.
-Any libraries in the given project which did not contain ADT data will contain `NA` values in the merged `counts` and `logcounts` matrices.
+Any libraries in the given project which did not contain ADT data will contain `NA` values in the merged gene by counts matrices.
 
 By contrast, cell hashing alternative experiments were not merged.
 For any projects with cell hash data, only the associated RNA data was merged in the final object.
 
-After merging, new principal component analysis (PCA) coordinates and UMAP embedding were calculated so that each library in the merged object is equally weighted.
+After merging, new principal component analysis (PCA) coordinates and UMAP embeddings were calculated so that each library in the merged object is equally weighted.
 For this, the top 2000 high-variance genes (HVGs) were calculated by modeling variance separately for each library in the merged object.
 These HVGs were used as input to the PCA, which was calculated using the [`batchelor::multiBatchPCA` function](https://rdrr.io/bioc/batchelor/man/multiBatchPCA.html) and specifying libraries as batches, and the top 50 principal components were selected.
 These new principal components were used to calculate the new UMAP embeddings.
