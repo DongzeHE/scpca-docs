@@ -178,3 +178,23 @@ The [decoy-aware reference transcriptome](https://salmon.readthedocs.io/en/lates
 
 A benefit of using `salmon` is the ability to incorporate RNA-seq specific technical biases and correct counts accordingly.
 We chose to enable the [`--seqBias`](https://salmon.readthedocs.io/en/latest/salmon.html#seqbias) and [`--gcBias`](https://salmon.readthedocs.io/en/latest/salmon.html#gcbias) flags, to correct for sequence-specific biases due to random hexamer primer and fragment-level GC biases, respectively.
+
+## Merged objects
+
+In addition to providing separate objects for each library, we also offer an option to download all files for a project as a single merged object.
+This merged object contains the gene expression data for all libraries from a single project in a single file.
+This section describes how these merged objects were prepared.
+
+Following post-processing of each `SingleCellExperiment` ([see the section above on post-processing](#processed-gene-expression-data)) object, all objects belonging to a single ScPCA project were merged together.
+**These merged objects were not batch-corrected; they do not represent integrated objects.**
+
+If at least one library in the given project contained ADT data from CITE-seq experiments, the associated ADT "alternative experiment" was also merged.
+Any libraries in the given project which did not contain ADT data will contain `NA` values in the merged gene by counts matrices.
+
+By contrast, cell hashing alternative experiments were not merged.
+For any projects with cell hash data, only the associated RNA data was merged in the final object.
+
+After merging, new principal component analysis (PCA) coordinates and UMAP embeddings were calculated so that each library in the merged object is equally weighted.
+For this, the top 2000 high-variance genes (HVGs) were calculated by modeling variance separately for each library in the merged object.
+These HVGs were used as input to the PCA, which was calculated using the [`batchelor::multiBatchPCA` function](https://rdrr.io/bioc/batchelor/man/multiBatchPCA.html) and specifying libraries as batches, and the top 50 principal components were selected.
+These new principal components were used to calculate the new UMAP embeddings found in the merged object.
