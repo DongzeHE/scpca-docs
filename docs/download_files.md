@@ -77,7 +77,7 @@ See also {ref}`Using the provided RDS files in R <faq:how do i use the provided 
 
 ## QC report
 
-The included QC report, `SCPCL000000_qc_report.html`, serves as a general overview of each library, including processing information, summary statistics and general visualizations of cell metrics.
+The included QC report, `SCPCL000000_qc.html`, serves as a general overview of each library, including processing information, summary statistics and general visualizations of cell metrics.
 
 ## Cell type report
 
