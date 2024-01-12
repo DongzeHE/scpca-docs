@@ -16,7 +16,7 @@ To begin, you will need to load the `SingleCellExperiment` package and read the 
 
 ```r
 library(SingleCellExperiment)
-merged_sce <- readRDS("SCPCL000000_merged.rds")
+merged_sce <- readRDS("SCPCP000000_merged.rds")
 ```
 
 ### SingleCellExperiment expression counts
@@ -35,5 +35,42 @@ logcounts(merged_sce) # logcounts matrix
 ```
 
 Additionally, the `spliced` assay contains a counts matrix that includes reads from spliced cDNA only.
+
+
+
+
+
+
+## Components of an AnnData merged object
+
+Before getting started, we highly encourage you to familiarize yourself with the general `AnnData` object structure and functions available as part of the [`AnnData` package](https://anndata.readthedocs.io/en/latest/index.html).
+For the most part, the `AnnData` objects that we provide are formatted to match the expected data format for [`CELLxGENE`](https://cellxgene.cziscience.com/) following [schema version `3.0.0`](https://github.com/chanzuckerberg/single-cell-curation/blob/main/schema/3.0.0/schema.md).
+
+To begin, you will need to load the `AnnData` package and read the HDF5 file:
+
+```python
+import anndata
+merged_adata_object = anndata.read_h5ad("SCPCP000000_merged_rna.hdf5")
+```
+
+### AnnData expression counts
+
+The data matrix `raw.X` of the merged `AnnData` object contains the RNA-seq expression data as primary integer counts, and the data matrix `X` contains the RNA-seq expression data as normalized counts.
+The data matrices are each stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a gene.
+The `raw.X` and `X` matrices can be accessed with the following python code:
+
+```python
+merged_adata_object.raw.X # raw count matrix
+merged_adata_object.X # normalized count matrix
+```
+
+Column names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL00000-{barcode}`, and row names are Ensembl gene IDs.
+These names can be accessed as with the following python code:
+
+
+```python
+merged_adata_object.obs_names # matrix column names
+merged_adata_object.var_names # matrix row names
+```
 
 

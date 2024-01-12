@@ -335,15 +335,21 @@ adata_object = anndata.read_h5ad("SCPCL000000_processed_rna.hdf5")
 ### AnnData expression counts
 
 The data matrix, `X`, of the `AnnData` object for single-cell and single-nuclei experiments contains the primary RNA-seq expression data as integer counts in both the unfiltered (`_unfiltered_rna.hdf5`) and filtered (`_filtered_rna.hdf5`) objects.
-The data is stored as a sparse matrix, and each column represents a cell or droplet, each row a gene.
-Column names are cell barcode sequences and row names are Ensembl gene IDs.
+The data is stored as a sparse matrix, and each column represents a cell or droplet, and each row represents a gene.
 The `X` matrix can be accessed with the following python code:
 
 ```python
 adata_object.X # raw count matrix
 ```
+Column names are cell barcode sequences, and row names are Ensembl gene IDs.
+These names can be accessed as with the following python code:
 
-In processed objects _only_ (`_processed_rna.hdf5`), the data matrix `X` contains the normalized data and the primary data can be found in `raw.X`.
+```python
+adata_object.obs_names # matrix column names
+adata_object.var_names # matrix row names
+```
+
+In processed objects _only_ (`_processed_rna.hdf5`), the data matrix `X` contains the normalized data, while the primary data can be found in `raw.X`.
 The counts in the processed object can be accessed with the following python code:
 
 ```python
