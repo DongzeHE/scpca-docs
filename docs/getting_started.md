@@ -1,6 +1,8 @@
 # Getting started with an ScPCA dataset
 
 This section provides information on next steps you might take after downloading a dataset from the ScPCA portal.
+For information on getting starting working with a merged ScPCA dataset, please refer to the [merged objects section of this page](#getting-started-with-a-merged-scpca-object).
+
 Quantified single-cell or single-nuclei gene expression data is provided as either [`SingleCellExperiment` objects (`.rds` files)](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) or [`AnnData` objects (`.hdf5` files)](https://anndata.readthedocs.io/en/latest/index.html).
 A full description of the contents of the `SingleCellExperiment` and `AnnData` objects can be found in the {ref}`single cell gene expression file contents section<sce_file_contents:single-cell gene expression file contents>`.
 
@@ -456,3 +458,11 @@ Here are some additional resources that can be used for working with multiplexed
 - [Demultiplexing on HTO Abundance, Orchestrating Single Cell Analysis](http://bioconductor.org/books/3.14/OSCA.advanced/droplet-processing.html#demultiplexing-on-hto-abundance)
 - [Seurat vignette on demultiplexing with Seurat::HTODemux](https://satijalab.org/seurat/articles/hashing_vignette.html)
 - [Weber _et al._ (2021) Genetic demultiplexing of pooled single-cell RNA-sequencing samples in cancer facilitates effective experimental design](https://doi.org/10.1093/gigascience/giab062)
+
+
+## Getting started with a merged ScPCA object
+
+Merged ScPCA objects contain all processed results for a given ScPCA project within a single object.
+For more information on how these objects were prepared, see {ref}`the section on merged object preparation<processing_information:merged objects`.
+Merged object can facilitate joint analysis on multiple examples at the same time.
+**However, please be aware that data in merged objects has not been integrated or batch-corrected.**
