@@ -26,7 +26,6 @@ The `counts` assay contains raw counts represented as integers, and the `logcoun
 
 Both assays include reads aligned to both spliced and unspliced cDNA (see the section on {ref}`Post Alevin-fry processing <processing_information:post alevin-fry processing>`).
 The data is stored as a sparse matrix, and each column represents a cell or droplet, and each row represents a gene.
-Column names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL00000-{barcode}`, and row names are Ensembl gene IDs.
 The `counts` and `logcounts` assays can be accessed with the following R code:
 
 ```r
@@ -34,8 +33,19 @@ counts(merged_sce) # counts matrix
 logcounts(merged_sce) # logcounts matrix
 ```
 
-Additionally, the `spliced` assay contains a counts matrix that includes reads from spliced cDNA only.
+Column names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL00000-{barcode}`, and row names are Ensembl gene IDs.
+These names can be accessed with the following R code:
 
+```r
+colnames(merged_sce) # matrix column names
+rownames(merged_sce) # matrix row names
+```
+
+There is an additional `spliced` assay which contains the counts matrix with only reads from spliced cDNA:
+
+```r
+assay(merged_sce, "spliced") # spliced-only counts matrix
+```
 
 
 
