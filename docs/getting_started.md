@@ -338,6 +338,46 @@ For more information on how these objects were prepared, see {ref}`the section o
 Merged object can facilitate joint analysis on multiple examples at the same time.
 **However, please be aware that data in merged objects has not been integrated or batch-corrected.**
 
+To work with a merged object, you will first have to read it in.
+
+You can read in a `SingleCellExperiment` merged object with the following R code:
+
+```r
+library(SingleCellExperiment)
+merged_sce <- readRDS("SCPCP000000_merged.rds")
+```
+
+You can read in an `AnnData` merged object with the following python code:
+
+```r
+import anndata
+adata_merged_object = anndata.read_h5ad("SCPCP000000_merged_rna.hdf5")
+```
+
+### Subsetting libraries in the merged object
+
+You may wish to only work with a subset of libraries present in the merged object.
+
+To subset a `SingleCellExperiment` merged object to a given set of libraries, use the following R code:
+
+```r
+# Define vector of library ids of interest
+libraries <- c("SCPCL00000X", "SCPCL00000Y", "SCPCL00000Z")
+
+# Create a subsetted merged object
+subsetted_merged_sce <- merged_sce[,merged_sce$library_id %in% libraries]
+```
+
+To subset an `AnnData` merged object to a given set of libraries, use the following R code:
+
+```r
+# Define list of library ids of interest
+libraries = ["SCPCL00000X", "SCPCL00000Y", "SCPCL00000Z"]
+
+# Create a subsetted merged object
+subsetted_adata_merged_object = adata_merged_object[adata_merged_object.obs["library_id"].isin(libraries)]
+```
+
 
 ## What if I want to use Seurat?
 
