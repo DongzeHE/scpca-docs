@@ -1,7 +1,6 @@
 # Getting started with an ScPCA dataset
 
 This section provides information on next steps you might take after downloading a dataset from the ScPCA portal.
-
 Quantified single-cell or single-nuclei gene expression data is provided as either [`SingleCellExperiment` objects (`.rds` files)](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) or [`AnnData` objects (`.hdf5` files)](https://anndata.readthedocs.io/en/latest/index.html).
 A full description of the contents of the `SingleCellExperiment` and `AnnData` objects can be found in the {ref}`single cell gene expression file contents section<sce_file_contents:single-cell gene expression file contents>`.
 
