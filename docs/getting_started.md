@@ -335,8 +335,13 @@ See these resources for more information on automated cell type annotation:
 Merged ScPCA objects contain all information present in `processed` objects for a given ScPCA project.
 For more information on how these objects were prepared, see {ref}`the section on merged object preparation<processing_information:merged objects`.
 
-Merged object can facilitate joint analysis on multiple examples at the same time.
-**However, please be aware that data in merged objects has not been integrated or batch-corrected.**
+Merged object can facilitate joint analysis on multiple samples at the same time, for example to perform [differential expression analysis](https://bioconductor.org/books/3.16/OSCA.multisample/multi-sample-comparisons.html) or integration (i.e., batch correction).
+**However, please be aware that data in merged objects has not been integrated/batch-corrected.**
+If you are interested in performing integration, we recommend consulting with the following resources:
+
+- [Correcting batch effects chapter in Orchestrating Single Cell Analysis](https://bioconductor.org/books/3.17/OSCA.multisample/integrating-datasets.html)
+- [Luecken _et al._ (2021) Benchmarking atlas-level data integration in single-cell genomics](https://doi.org/10.1038/s41592-021-01336-8)
+
 
 To work with a merged object, you will first have to read it in.
 
