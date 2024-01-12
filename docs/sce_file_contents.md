@@ -29,7 +29,7 @@ The `counts` and `logcounts` assays of the `SingleCellExperiment` object for sin
 The `counts` assay contains raw counts represented as integers, and the `logcounts` assay contains normalized (on a per-library basis) counts as described in {ref}`the data post-processing section <processing_information:processed gene expression data>`.
 
 Both assays include reads aligned to both spliced and unspliced cDNA (see the section on {ref}`Post Alevin-fry processing <processing_information:post alevin-fry processing>`).
-The data is stored as a sparse matrix, and each column represents a cell or droplet, and each row represents a gene.
+The data is stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a gene.
 The `counts` and `logcounts` assays can be accessed with the following R code:
 
 ```r
@@ -347,7 +347,7 @@ adata_object = anndata.read_h5ad("SCPCL000000_processed_rna.hdf5")
 ### AnnData expression counts
 
 The data matrix, `X`, of the `AnnData` object for single-cell and single-nuclei experiments contains the primary RNA-seq expression data as integer counts in both the unfiltered (`_unfiltered_rna.hdf5`) and filtered (`_filtered_rna.hdf5`) objects.
-The data is stored as a sparse matrix, and each column represents a cell or droplet, and each row represents a gene.
+The data is stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a gene.
 The `X` matrix can be accessed with the following python code:
 
 ```python
