@@ -378,7 +378,7 @@ We recommend consulting with the following resources before performing integrati
 - [Luecken _et al._ (2021) Benchmarking atlas-level data integration in single-cell genomics](https://doi.org/10.1038/s41592-021-01336-8)
 
 
-### Subsetting libraries in the merged object
+### Subsetting the merged object
 
 You may wish to only work with a subset of libraries present in the merged object.
 
@@ -401,6 +401,31 @@ libraries = ["SCPCL00000X", "SCPCL00000Y", "SCPCL00000Z"]
 # Create a subsetted merged object
 subsetted_adata_merged_object = adata_merged_object[adata_merged_object.obs["library_id"].isin(libraries)]
 ```
+
+The merged object additionally contains metadata such as information about sample diagnosis, subdiagnosis, or tissue location that may be useful for subsetting.
+A full set of merged object contents which can support subsetting is available in <TODO: the forthcoming section forthcoming in `merged_objects.md` about file contents>.
+
+As one example, to subset a `SingleCellExperiment` merged object to a given diagnosis, use the following R code:
+
+```r
+# Define diagnosis of interest
+diagnosis <- "example diagnosis"
+
+# Create a subsetted merged object
+subsetted_merged_sce <- merged_sce[,merged_sce$diagnosis == diagnosis]
+```
+
+
+To subset an `AnnData` merged object to a given diagnosis, use the following python code:
+
+```r
+# Define diagnosis of interest
+diagnosis = "example diagnosis"
+
+# Create a subsetted merged object
+subsetted_adata_merged_object = adata_merged_object[adata_merged_object.obs["diagnosis"] == diagnosis]
+```
+
 
 
 ## What if I want to use Seurat?
