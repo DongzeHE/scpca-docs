@@ -46,11 +46,7 @@ colnames(sce) # matrix column names
 rownames(sce) # matrix row names
 ```
 
-There is an additional `spliced` assay which contains the counts matrix with only reads from spliced cDNA:
-
-```r
-assay(sce, "spliced") # spliced-only counts matrix
-```
+There is also a `spliced` assay which contains the counts matrix with only reads from spliced cDNA.
 
 ### SingleCellExperiment cell metrics
 
