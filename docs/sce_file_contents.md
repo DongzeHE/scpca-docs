@@ -24,19 +24,31 @@ sce <- readRDS("SCPCL000000_processed.rds")
 
 ### SingleCellExperiment expression counts
 
-The `counts` assay of the `SingleCellExperiment` object for single-cell and single-nuclei experiments (for all provided file types) contains the primary RNA-seq expression data as integer counts.
-The counts here include reads aligned to both spliced and unspliced cDNA (see the section on {ref}`Post Alevin-fry processing <processing_information:post alevin-fry processing>`).
-The data is stored as a sparse matrix, and each column represents a cell or droplet, each row a gene.
-Column names are cell barcode sequences and row names are Ensembl gene IDs.
-The `counts` assay can be accessed with the following R code:
 
-```r
+The `counts` and `logcounts` assays of the `SingleCellExperiment` object for single-cell and single-nuclei experiments contain the main RNA-seq expression data.
+The `counts` assay contains the primary raw counts represented as integers, and the `logcounts` assay contains normalized counts as described in {ref}`the data post-processing section <processing_information:processed gene expression data>`.
+
+The `counts` assay includes reads aligned to both spliced and unspliced cDNA (see the section on {ref}`Post Alevin-fry processing <processing_information:post alevin-fry processing>`).
+Each assay is stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a gene.
+The `counts` and `logcounts` assays can be accessed with the following R code:
+
+```
 counts(sce) # counts matrix
+logcounts(sce) # logcounts matrix
 ```
 
-Additionally, the `spliced` assay contains a counts matrix that includes reads from spliced cDNA only.
 
-### SingleCellExperiment Cell metrics
+Column names are cell barcode sequences, and row names are Ensembl gene IDs.
+These names can be accessed with the following R code:
+
+```r
+colnames(sce) # matrix column names
+rownames(sce) # matrix row names
+```
+
+There is also a `spliced` assay which contains the counts matrix with only reads from spliced cDNA.
+
+### SingleCellExperiment cell metrics
 
 Cell metrics calculated from the RNA-seq expression data are stored as a `DataFrame` in the `colData` slot, with the cell barcodes as the names of the rows.
 
@@ -331,15 +343,21 @@ adata_object = anndata.read_h5ad("SCPCL000000_processed_rna.hdf5")
 ### AnnData expression counts
 
 The data matrix, `X`, of the `AnnData` object for single-cell and single-nuclei experiments contains the primary RNA-seq expression data as integer counts in both the unfiltered (`_unfiltered_rna.hdf5`) and filtered (`_filtered_rna.hdf5`) objects.
-The data is stored as a sparse matrix, and each column represents a cell or droplet, each row a gene.
-Column names are cell barcode sequences and row names are Ensembl gene IDs.
+The data is stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a gene.
 The `X` matrix can be accessed with the following python code:
 
 ```python
 adata_object.X # raw count matrix
 ```
+Column names are cell barcode sequences, and row names are Ensembl gene IDs.
+These names can be accessed as with the following python code:
 
-In processed objects _only_ (`_processed_rna.hdf5`), the data matrix `X` contains the normalized data and the primary data can be found in `raw.X`.
+```python
+adata_object.obs_names # matrix column names
+adata_object.var_names # matrix row names
+```
+
+In processed objects _only_ (`_processed_rna.hdf5`), the data matrix `X` contains the normalized data, while the primary data can be found in `raw.X`.
 The counts in the processed object can be accessed with the following python code:
 
 ```python
