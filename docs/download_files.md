@@ -2,12 +2,15 @@
 
 The ScPCA Portal download packages include gene expression data, a QC report, and associated metadata for each processed sample.
 Gene expression data is available as either [`SingleCellExperiment` objects (`.rds` files)](#singlecellexperiment-downloads) or [`AnnData` objects (`.hdf5` files)](#anndata-downloads).
+Further, each object is available either for a [given sample](#individual-sample-object-downloads) or for [all samples within a given ScPCA project](#merged-sample-object-downloads).
 These files are delivered as a zip file.
 When you uncompress the zip file, the root directory name of your download will include the date you accessed the data on the ScPCA Portal.
 We recommend you record this date in case there are future updates to the Portal that change the underlying data or if you need to cite the data in the future (see {ref}`How to Cite <citation:how to cite>` for more information).
 Please see our {ref}`CHANGELOG <CHANGELOG:CHANGELOG>` for a summary of changes that impact downloads from the Portal.
 
-For all downloads, sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
+## Individual sample object downloads
+
+For all individual sample downloads, sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
 Most samples only have one library that has been sequenced.
 For [multiplexed sample libraries](#multiplexed-sample-libraries), the sample folder name will be an underscore-separated list of all samples found in the library files that the folder contains.
 Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not currently available as `AnnData` objects.
@@ -33,7 +36,7 @@ The folder structure within the zip file is determined by whether individual sam
 Note that if a sample selected for download contains a spatial transcriptomics library, the files included will be different than pictured below.
 See the [description of the Spatial transcriptomics output section below](#spatial-transcriptomics-libraries).
 
-## `SingleCellExperiment` downloads
+### `SingleCellExperiment` downloads
 
 ### Download folder structure for project downloads:
 ![project download folder](images/project-download-folder.png)
@@ -41,33 +44,20 @@ See the [description of the Spatial transcriptomics output section below](#spati
 ### Download folder structure for individual sample downloads:
 ![sample download folder](images/sample-download-folder.png)
 
-## `AnnData` downloads
+### `AnnData` downloads
 
-### Download folder structure for project downloads:
+#### Download folder structure for project downloads:
 ![project download folder](images/anndata-project-download-folder.png)
 
-### Download folder structure for individual sample downloads:
+#### Download folder structure for individual sample downloads:
 ![sample download folder](images/anndata-sample-download-folder.png)
 
-### Download folder structure for individual sample downloads with CITE-seq (ADT) data:
+#### Download folder structure for individual sample downloads with CITE-seq (ADT) data:
 ![sample download folder](images/anndata-sample-citeseq-download-folder.png)
 
 If downloading a sample that contains a CITE-seq library as an `AnnData` object (`hdf5` file), the quantified CITE-seq expression data is included as a separate file.
 
-## Merged object downloads
-
-### Download folder structure for `SingleCellExperiment` merged downloads:
-![merged download folder](images/merged-download-folder.png)
-
-### Download folder structure for `AnnData` merged downloads:
-![merged download folder](images/anndata-merged-download-folder.png)
-
-### Download folder structure for `AnnData` merged downloads with CITE-seq (ADT) data:
-![merged download folder](images/anndata-merged-citeseq-download-folder.png)
-
-Merged object downloads
-
-## Gene expression data
+### Gene expression data
 
 Single-cell or single-nuclei gene expression data is provided as either [`SingleCellExperiment` objects (`.rds` files)](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) or [`AnnData` objects (`.hdf5` files)](https://anndata.readthedocs.io/en/latest/index.html).
 Three files will be provided for each library included in the download - an unfiltered counts file, a filtered counts file, and a processed counts file.
@@ -88,17 +78,17 @@ In addition to the counts matrices, the `SingleCellExperiment` or `AnnData` obje
 See {ref}`Single-cell gene expression file contents <sce_file_contents:Single-cell gene expression file contents>` for more information about the contents of the `SingleCellExperiment` and `AnnData` objects and the included statistics and metadata.
 See also {ref}`Using the provided RDS files in R <faq:how do i use the provided RDS files in r?>` and {ref}`Using the provided HDF5 files in Python <faq:how do i use the provided HDF5 files in python?>`.
 
-## QC report
+### QC report
 
 The included QC report, `SCPCL000000_qc.html`, serves as a general overview of each library, including processing information, summary statistics and general visualizations of cell metrics.
 
-## Cell type report
+### Cell type report
 
 The cell type report, `SCPCL000000_celltype-report.html`, includes an overview of cell type annotations present in the processed objects.
 This report contains details on methodologies used for cell type annotation, information about reference sources, comparisons among cell type annotation methods, and diagnostic plots.
 For more information on how cell types were annotated, see the section on {ref}`Cell type annotation <processing_information:cell type annotation>`.
 
-## Metadata
+### Metadata
 
 The `single_cell_metadata.tsv` file is a tab-separated table with one row per library and the following columns.
 
@@ -135,7 +125,7 @@ See the {ref}`AnnData experiment metadata <sce_file_contents:anndata experiment 
 For projects with bulk RNA-seq data, the `bulk_metadata.tsv` file will be included for project downloads.
 This file will contain fields equivalent to those found in the `single_cell_metadata.tsv` related to processing the sample, but will not contain patient or disease specific metadata (e.g. `age`, `sex`, `diagnosis`, `subdiagnosis`, `tissue_location`, or `disease_timing`).
 
-## Multiplexed sample libraries
+### Multiplexed sample libraries
 
 For libraries where multiple biological samples were combined via cellhashing or similar technology (see the {ref}`FAQ section about multiplexed samples <faq:What is a multiplexed sample?>`), the organization of the downloaded files and metadata is slightly different.
 Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not currently available as `AnnData` objects.
@@ -152,7 +142,7 @@ For more on the specific contents of multiplexed library `SingleCellExperiment` 
 
 The [metadata file](#metadata) for multiplexed libraries (`single_cell_metadata.tsv`) will have the same format as for individual samples, but each row will represent a particular sample/library pair, meaning that there may be multiple rows for each `scpca_library_id`, one for each `scpca_sample_id` within that library.
 
-## Spatial transcriptomics libraries
+### Spatial transcriptomics libraries
 
 If a sample includes a library processed using spatial transcriptomics, the spatial transcriptomics output files will be available as a separate download from the single-cell/single-nuclei gene expression data.
 
@@ -170,3 +160,18 @@ A full description of all files included in the download for spatial transcripto
 Every download also includes a single `spatial_metadata.tsv` file containing metadata for all libraries included in the download.
 
 ![sample download with spatial](images/spatial-download-folder.png)
+
+
+## Merged sample object downloads
+
+_text describing downloads goes here._
+
+
+### Download folder structure for `SingleCellExperiment` merged downloads:
+![merged download folder](images/merged-download-folder.png)
+
+### Download folder structure for `AnnData` merged downloads:
+![merged download folder](images/anndata-merged-download-folder.png)
+
+### Download folder structure for `AnnData` merged downloads with CITE-seq (ADT) data:
+![merged download folder](images/anndata-merged-citeseq-download-folder.png)
