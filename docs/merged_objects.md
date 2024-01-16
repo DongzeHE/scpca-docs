@@ -1,8 +1,8 @@
 # Merged objects
 
 Each merged object contain _combined information_ for all individual libraries in a given ScPCA project.
-While each individual object, as described on the {ref}`Single-cell gene expression file contents page <sce_file_contents>`, contains expression results for a single library, each merged object contains all expression results, including expression counts and metadata, for all libraries in a given ScPCA project
-This information includes expression data, cell and gene metrics, and associated metadata for all libraries.
+While each individual object, as described on the {ref}`Single-cell gene expression file contents page <sce_file_contents>`, contains quantified gene expression results for a single library, each merged object contains all gene expression results, including gene expression counts and metadata, for all libraries in a given ScPCA project
+This information includes quantified gene expression data, cell and gene metrics, and associated metadata for all libraries.
 See {ref}`the section on merged object processing <processing_information:merged objects` for more information on how these objects were prepared.
 
 
