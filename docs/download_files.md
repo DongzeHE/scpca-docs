@@ -54,6 +54,19 @@ See the [description of the Spatial transcriptomics output section below](#spati
 
 If downloading a sample that contains a CITE-seq library as an `AnnData` object (`hdf5` file), the quantified CITE-seq expression data is included as a separate file.
 
+## Merged object downloads
+
+### Download folder structure for `SingleCellExperiment` merged downloads:
+![merged download folder](images/merged-download-folder.png)
+
+### Download folder structure for `AnnData` merged downloads:
+![merged download folder](images/anndata-merged-download-folder.png)
+
+### Download folder structure for `AnnData` merged downloads with CITE-seq (ADT) data:
+![merged download folder](images/anndata-merged-citeseq-download-folder.png)
+
+Merged object downloads
+
 ## Gene expression data
 
 Single-cell or single-nuclei gene expression data is provided as either [`SingleCellExperiment` objects (`.rds` files)](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) or [`AnnData` objects (`.hdf5` files)](https://anndata.readthedocs.io/en/latest/index.html).
@@ -157,4 +170,3 @@ A full description of all files included in the download for spatial transcripto
 Every download also includes a single `spatial_metadata.tsv` file containing metadata for all libraries included in the download.
 
 ![sample download with spatial](images/spatial-download-folder.png)
-
