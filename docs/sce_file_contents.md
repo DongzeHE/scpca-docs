@@ -29,7 +29,7 @@ The `counts` and `logcounts` assays of the `SingleCellExperiment` object for sin
 The `counts` assay contains the primary raw counts represented as integers, and the `logcounts` assay contains normalized counts as described in {ref}`the data post-processing section <processing_information:processed gene expression data>`.
 
 The `counts` assay includes reads aligned to both spliced and unspliced cDNA (see the section on {ref}`Post Alevin-fry processing <processing_information:post alevin-fry processing>`).
-Each assay stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a gene.
+Each assay is stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a gene.
 The `counts` and `logcounts` assays can be accessed with the following R code:
 
 ```
