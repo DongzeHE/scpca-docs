@@ -66,7 +66,7 @@ The filtered counts file, `SCPCL000000_filtered.rds` or `SCPCL000000_filtered_rn
 The cells in this file are those that remain after filtering using {ref}`emptyDrops <processing_information:filtering cells>`.
 As a result, this file only contains cell barcodes that are likely to correspond to true cells.
 
-The processed counts file, `SCPCL000000_processed.rds` or `SCPCL000000_filtered_rna.hdf5`, contains both the raw and normalized counts matrices.
+The processed counts file, `SCPCL000000_processed.rds` or `SCPCL000000_processed_rna.hdf5`, contains both the raw and normalized counts matrices.
 The filtered counts file is further filtered to remove low quality cells, such as those with a low number of genes detected or high mitochondrial content.
 This file contains the raw and normalized counts data for cell barcodes that have passed both levels of filtering.
 In addition to the counts matrices, the `SingleCellExperiment` or `AnnData` object stored in the file includes the results of dimensionality reduction using both principal component analysis (PCA) and UMAP.
