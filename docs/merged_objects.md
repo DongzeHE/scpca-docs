@@ -24,7 +24,7 @@ merged_sce <- readRDS("SCPCP000000_merged.rds")
 
 ### SingleCellExperiment expression counts
 
-The `counts` and `logcounts` assays of the `SingleCellExperiment` object for single-cell and single-nuclei experiments contains the primary RNA-seq expression data.
+Merged `SingleCellExperiment` objects contain two main assays, `counts` and `logcounts`, each containing RNA-seq expression data for all libraries in a given ScPCA project combined into a single matrix.
 The `counts` assay contains raw counts represented as integers, and the `logcounts` assay contains normalized (on a per-library basis) counts as described in {ref}`the data post-processing section <processing_information:processed gene expression data>`.
 
 Both assays include reads aligned to both spliced and unspliced cDNA (see the section on {ref}`Post Alevin-fry processing <processing_information:post alevin-fry processing>`).
@@ -63,6 +63,7 @@ merged_adata_object = anndata.read_h5ad("SCPCP000000_merged_rna.hdf5")
 
 ### AnnData expression counts
 
+Merged `AnnData` objects contain two data matrices, each containing RNA-seq expression data for all libraries in a given ScPCA project combined into a single matrix.
 The data matrix `raw.X` of the merged `AnnData` object contains the RNA-seq expression data as primary integer counts, and the data matrix `X` contains the RNA-seq expression data as normalized counts.
 The data is stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a gene.
 The `raw.X` and `X` matrices can be accessed with the following python code:
