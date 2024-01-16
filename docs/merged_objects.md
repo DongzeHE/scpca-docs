@@ -1,7 +1,10 @@
 # Merged objects
 
-These objects contain processed gene expression data, cell and gene metrics, associated metadata, and, in the case of multimodal data like ADTs from CITE-seq experiments, data from additional cell-based assays for all libraries in a given ScPCA project.
+Each merged object contain _combined information_ for all individual libraries in a given ScPCA project.
+While each individual object, as described on the {ref}`Single-cell gene expression file contents page <sce_file_contents>`, contains expression results for a single library, each merged object contains all expression results, including expression counts and metadata, for all libraries in a given ScPCA project
+This information includes expression data, cell and gene metrics, and associated metadata for all libraries.
 See {ref}`the section on merged object processing <processing_information:merged objects` for more information on how these objects were prepared.
+
 
 Merged objects are provided in two formats:
   - As an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.17/OSCA.intro/the-singlecellexperiment-class.html) for use in R.
