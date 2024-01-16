@@ -333,14 +333,7 @@ See these resources for more information on automated cell type annotation:
 
 Merged ScPCA objects contain all information found in `processed` objects for all individual libraries that compile a given ScPCA project.
 For more information on how these objects were prepared, see {ref}`the section on merged object preparation<processing_information:merged objects`.
-
-Merged object can facilitate joint analysis on multiple samples at the same time, for example to perform [differential expression analysis](https://bioconductor.org/books/3.16/OSCA.multisample/multi-sample-comparisons.html) or integration (i.e., batch correction).
-**However, please be aware that data in merged objects has not been integrated/batch-corrected.**
-If you are interested in performing integration, we recommend consulting with the following resources:
-
-- [Correcting batch effects chapter in Orchestrating Single Cell Analysis](https://bioconductor.org/books/3.17/OSCA.multisample/integrating-datasets.html)
-- [Luecken _et al._ (2021) Benchmarking atlas-level data integration in single-cell genomics](https://doi.org/10.1038/s41592-021-01336-8)
-
+**Please be aware that data in merged objects has not been integrated/batch-corrected.**
 
 To work with a merged object, you will first have to read it in.
 
@@ -357,6 +350,33 @@ You can read in an `AnnData` merged object with the following python code:
 import anndata
 adata_merged_object = anndata.read_h5ad("SCPCP000000_merged_rna.hdf5")
 ```
+
+### Analyses with merged objects
+
+Merged object can facilitate joint analysis on multiple samples at the same time.
+Specifically, merged objects are useful for comparing _gene-level metrics_ among different samples.
+
+Some examples of analyses you can perform with a merged object include the following:
+
+- Differential expression analysis
+  - [Differential expression analysis chapter in Orchestrating Single Cell Analysis](https://bioconductor.org/books/3.17/OSCA.multisample/multi-sample-comparisons.html)
+  - [Differential gene expression analysis chapter in Single-cell Best Practices](https://www.sc-best-practices.org/conditions/differential_gene_expression.html)
+  - [10x resource: Differential gene expression analysis in scRNA-seq data between conditions with biological replicates](https://www.10xgenomics.com/resources/analysis-guides/differential-gene-expression-analysis-in-scrna-seq-data-between-conditions-with-biological-replicates)
+- Gene-set enrichment analysis
+  - [Gene set enrichment and pathway analysis chapter in Single-cell Best Practices](https://www.sc-best-practices.org/conditions/gsea_pathway.html)
+
+
+By contrast, analyses which compare _cell-level metrics_ among different samples require an **integrated/batch-corrected** object.
+These types of analyses include, for example, [differential cell abundance](https://bioconductor.org/books/3.17/OSCA.multisample/differential-abundance.html) or [differential cell composition analysis](https://www.sc-best-practices.org/conditions/compositional.html).
+
+The merged object provided in the ScPCA Portal has _not_ been integrated, so you will need to integrate your samples of interest to remove technical batch effects before proceeding.
+We recommend consulting with the following resources before performing integration:
+
+- [Correcting batch effects chapter in Orchestrating Single Cell Analysis](https://bioconductor.org/books/3.17/OSCA.multisample/integrating-datasets.html)
+- [Correction diagnostics chapter in Orchestrating Single Cell Analysis](https://bioconductor.org/books/3.17/OSCA.multisample/correction-diagnostics.html)
+- [Integration chapter in Single-cell Best Practices](https://www.sc-best-practices.org/cellular_structure/integration.html)
+- [Luecken _et al._ (2021) Benchmarking atlas-level data integration in single-cell genomics](https://doi.org/10.1038/s41592-021-01336-8)
+
 
 ### Subsetting libraries in the merged object
 
