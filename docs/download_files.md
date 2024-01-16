@@ -19,7 +19,7 @@ The files shown below will be included with each library (example shown for a li
 - A filtered counts file: `SCPCL000000_filtered.rds` or `SCPCL00000_filtered_rna.hdf5`,
 - A processed counts file: `SCPCL000000_processed.rds` or `SCPCL00000_processed_rna.hdf5`,
 - A quality control report: `SCPCL000000_qc.html`,
-- A supplemental cell type report: `SCPCL000000_cell_type_report.html`
+- A supplemental cell type report: `SCPCL000000_celltype-report.html`
 
 Every download also includes a single `single_cell_metadata.tsv` file containing metadata for all libraries included in the download.
 
@@ -81,7 +81,7 @@ The included QC report, `SCPCL000000_qc.html`, serves as a general overview of e
 
 ## Cell type report
 
-The cell type report, `SCPCL000000_cell_type_report.html`, includes an overview of cell type annotations present in the processed objects.
+The cell type report, `SCPCL000000_celltype-report.html`, includes an overview of cell type annotations present in the processed objects.
 This report contains details on methodologies used for cell type annotation, information about reference sources, comparisons among cell type annotation methods, and diagnostic plots.
 For more information on how cell types were annotated, see the section on {ref}`Cell type annotation <processing_information:cell type annotation>`.
 
