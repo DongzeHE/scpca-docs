@@ -33,7 +33,7 @@ counts(merged_sce) # counts matrix
 logcounts(merged_sce) # logcounts matrix
 ```
 
-Column names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL00000-{barcode}`, and row names are Ensembl gene IDs.
+Column names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are Ensembl gene IDs.
 These names can be accessed with the following R code:
 
 ```r
@@ -74,7 +74,7 @@ merged_adata_object.raw.X # raw count matrix
 merged_adata_object.X # normalized count matrix
 ```
 
-Column names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL00000-{barcode}`, and row names are Ensembl gene IDs.
+Column names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are Ensembl gene IDs.
 These names can be accessed as with the following python code:
 
 
