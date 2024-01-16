@@ -25,14 +25,14 @@ sce <- readRDS("SCPCL000000_processed.rds")
 ### SingleCellExperiment expression counts
 
 
-The `counts` and `logcounts` assays of the `SingleCellExperiment` object for single-cell and single-nuclei experiments contain the primary RNA-seq expression data.
-The `counts` assay contains raw counts represented as integers, and the `logcounts` assay contains normalized counts as described in {ref}`the data post-processing section <processing_information:processed gene expression data>`.
+The `counts` and `logcounts` assays of the `SingleCellExperiment` object for single-cell and single-nuclei experiments contain the main RNA-seq expression data.
+The `counts` assay contains the primary raw counts represented as integers, and the `logcounts` assay contains normalized counts as described in {ref}`the data post-processing section <processing_information:processed gene expression data>`.
 
 The `counts` assay includes reads aligned to both spliced and unspliced cDNA (see the section on {ref}`Post Alevin-fry processing <processing_information:post alevin-fry processing>`).
-The data is stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a gene.
+Each assay stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a gene.
 The `counts` and `logcounts` assays can be accessed with the following R code:
 
-```r
+```
 counts(sce) # counts matrix
 logcounts(sce) # logcounts matrix
 ```

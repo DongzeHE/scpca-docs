@@ -25,15 +25,15 @@ merged_sce <- readRDS("SCPCP000000_merged.rds")
 ### SingleCellExperiment expression counts
 
 Merged `SingleCellExperiment` objects contain two main assays, `counts` and `logcounts`, each containing RNA-seq expression data for all libraries in a given ScPCA project combined into a single matrix.
-The `counts` assay contains raw counts represented as integers, and the `logcounts` assay contains normalized (on a per-library basis) counts as described in {ref}`the data post-processing section <processing_information:processed gene expression data>`.
+The `counts` assay contains the primary raw counts represented as integers, and the `logcounts` assay contains normalized counts as described in {ref}`the data post-processing section <processing_information:processed gene expression data>`.
 
-Both assays include reads aligned to both spliced and unspliced cDNA (see the section on {ref}`Post Alevin-fry processing <processing_information:post alevin-fry processing>`).
-The data is stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a gene.
+The `counts` assay includes reads aligned to both spliced and unspliced cDNA (see the section on {ref}`Post Alevin-fry processing <processing_information:post alevin-fry processing>`).
+Each assay is stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a gene.
 The `counts` and `logcounts` assays can be accessed with the following R code:
 
 ```r
-counts(merged_sce) # counts matrix
-logcounts(merged_sce) # logcounts matrix
+counts(merged_sce) # combined counts matrix
+logcounts(merged_sce) # combined logcounts matrix
 ```
 
 Column names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are Ensembl gene IDs.
