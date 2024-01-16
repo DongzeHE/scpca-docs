@@ -366,11 +366,13 @@ Some examples of analyses you can perform with a merged object include the follo
   - [Gene set enrichment and pathway analysis chapter in Single-cell Best Practices](https://www.sc-best-practices.org/conditions/gsea_pathway.html)
 
 
-By contrast, it is recommended to control for batch effects when performing analyses that compare _cell-level metrics_ among different samples. 
-In order to do this, a **integrated/batch-corrected** object should be created.
+By contrast, it is recommended to control for batch effects when performing analyses that compare _cell-level metrics_ among different samples.
+In order to do this, an _integrated/batch-corrected_ object should be created.
 These types of analyses include, for example, [differential cell abundance](https://bioconductor.org/books/3.17/OSCA.multisample/differential-abundance.html) or [differential cell composition analysis](https://www.sc-best-practices.org/conditions/compositional.html).
 
-The merged object provided in the ScPCA Portal has _not_ been integrated, so you will need to integrate your samples of interest to remove technical batch effects before proceeding.
+**The merged object provided in the ScPCA Portal has not been integrated**, so you will need to integrate your samples of interest to remove technical batch effects before proceeding.
+Note that the merged object does not contain cell clusters, which you may wish to re-compute after removing batch effects.
+
 We recommend consulting with the following resources before performing integration:
 
 - [Correcting batch effects chapter in Orchestrating Single Cell Analysis](https://bioconductor.org/books/3.17/OSCA.multisample/integrating-datasets.html)
