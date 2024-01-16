@@ -4,3 +4,6 @@ env
 # ignore local build directory
 _build/
 docs/_build/
+
+# ignore .DS_Store
+.DS_Store

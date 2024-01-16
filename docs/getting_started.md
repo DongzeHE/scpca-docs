@@ -328,6 +328,109 @@ See these resources for more information on automated cell type annotation:
 - [Assigning cell types with `SingleR`](https://bioconductor.org/books/release/SingleRBook/)
 - [Cell type assignment chapter in Orchestrating Single Cell Analysis](https://bioconductor.org/books/3.17/OSCA.advanced/cell-cycle-assignment.html)
 
+
+## Working with a merged ScPCA object
+
+Merged ScPCA objects contain all information found in `processed` objects for all individual libraries that compile a given ScPCA project.
+For more information on how these objects were prepared, see {ref}`the section on merged object preparation<processing_information:merged objects`.
+**Please be aware that data in merged objects has not been integrated/batch-corrected.**
+
+To work with a merged object, you will first have to read it in.
+
+You can read in a `SingleCellExperiment` merged object with the following R code:
+
+```r
+library(SingleCellExperiment)
+merged_sce <- readRDS("SCPCP000000_merged.rds")
+```
+
+You can read in an `AnnData` merged object with the following python code:
+
+```r
+import anndata
+adata_merged_object = anndata.read_h5ad("SCPCP000000_merged_rna.hdf5")
+```
+
+### Analyses with merged objects
+
+Merged object can facilitate joint analysis on multiple samples at the same time.
+Specifically, merged objects are useful for comparing _gene-level metrics_ among different samples.
+
+Some examples of analyses you can perform with a merged object include the following:
+
+- Differential expression analysis
+  - [Differential expression analysis chapter in Orchestrating Single Cell Analysis](https://bioconductor.org/books/3.17/OSCA.multisample/multi-sample-comparisons.html)
+  - [Differential gene expression analysis chapter in Single-cell Best Practices](https://www.sc-best-practices.org/conditions/differential_gene_expression.html)
+  - [10x resource: Differential gene expression analysis in scRNA-seq data between conditions with biological replicates](https://www.10xgenomics.com/resources/analysis-guides/differential-gene-expression-analysis-in-scrna-seq-data-between-conditions-with-biological-replicates)
+- Gene-set enrichment analysis
+  - [Gene set enrichment and pathway analysis chapter in Single-cell Best Practices](https://www.sc-best-practices.org/conditions/gsea_pathway.html)
+
+
+By contrast, it is recommended to control for batch effects when performing analyses that compare _cell-level metrics_ among different samples.
+In order to do this, an _integrated/batch-corrected_ object should be created.
+These types of analyses include, for example, [differential cell abundance](https://bioconductor.org/books/3.17/OSCA.multisample/differential-abundance.html) or [differential cell composition analysis](https://www.sc-best-practices.org/conditions/compositional.html).
+
+**The merged object provided in the ScPCA Portal has not been integrated**, so you will need to integrate your samples of interest to remove technical batch effects before proceeding.
+Note that the merged object does not contain cell clusters, which you may wish to re-compute after removing batch effects.
+
+We recommend consulting with the following resources before performing integration:
+
+- [Correcting batch effects chapter in Orchestrating Single Cell Analysis](https://bioconductor.org/books/3.17/OSCA.multisample/integrating-datasets.html)
+- [Correction diagnostics chapter in Orchestrating Single Cell Analysis](https://bioconductor.org/books/3.17/OSCA.multisample/correction-diagnostics.html)
+- [Integration chapter in Single-cell Best Practices](https://www.sc-best-practices.org/cellular_structure/integration.html)
+- [Luecken _et al._ (2021) Benchmarking atlas-level data integration in single-cell genomics](https://doi.org/10.1038/s41592-021-01336-8)
+
+
+### Subsetting the merged object
+
+You may wish to only work with a subset of libraries present in the merged object.
+
+To subset a `SingleCellExperiment` merged object to a given set of libraries, use the following R code:
+
+```r
+# Define vector of library ids of interest
+libraries <- c("SCPCL00000X", "SCPCL00000Y", "SCPCL00000Z")
+
+# Create a subsetted merged object
+subsetted_merged_sce <- merged_sce[,merged_sce$library_id %in% libraries]
+```
+
+To subset an `AnnData` merged object to a given set of libraries, use the following R code:
+
+```r
+# Define list of library ids of interest
+libraries = ["SCPCL00000X", "SCPCL00000Y", "SCPCL00000Z"]
+
+# Create a subsetted merged object
+subsetted_adata_merged_object = adata_merged_object[adata_merged_object.obs["library_id"].isin(libraries)]
+```
+
+The merged object additionally contains metadata such as information about sample diagnosis, subdiagnosis, or tissue location that may be useful for subsetting.
+A full set of merged object contents which can support subsetting is available in <TODO: the forthcoming section forthcoming in `merged_objects.md` about file contents>.
+
+As one example, to subset a `SingleCellExperiment` merged object to a given diagnosis, use the following R code:
+
+```r
+# Define diagnosis of interest
+diagnosis <- "example diagnosis"
+
+# Create a subsetted merged object
+subsetted_merged_sce <- merged_sce[,merged_sce$diagnosis == diagnosis]
+```
+
+
+To subset an `AnnData` merged object to a given diagnosis, use the following python code:
+
+```r
+# Define diagnosis of interest
+diagnosis = "example diagnosis"
+
+# Create a subsetted merged object
+subsetted_adata_merged_object = adata_merged_object[adata_merged_object.obs["diagnosis"] == diagnosis]
+```
+
+
+
 ## What if I want to use Seurat?
 
 The files available for download that contain [`SingleCellExperiment` objects](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) can also be converted into Seurat objects.
