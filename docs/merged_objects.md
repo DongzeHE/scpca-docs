@@ -76,7 +76,7 @@ The following per-cell data columns are included for each cell, calculated using
 | `cellassign_max_prediction`  | If cell typing with `CellAssign` was performed, the annotation's prediction score (probability)  |
 
 
-Note that, unlike for {ref}`individual SCE objects<sce_file_contents:singlecellexperiment cell metrics`, cluster assignments are not included in the `colData`.
+Unlike for {ref}`individual SCE objects<sce_file_contents:singlecellexperiment cell metrics`, cluster assignments are not included in the `colData`.
 
 
 ### SingleCellExperiment gene information and metrics
@@ -97,6 +97,80 @@ Metrics were calculated for each library using the [`scuttle::addPerFeatureQCMet
 | `gene_symbol` | [HUGO](https://www.genenames.org) gene symbol, if defined        |
 | `mean-SCPCL000000`        | Mean count across all cells/droplets for library `SCPCL000000`                            |
 | `detected-SCPCL000000`    | Percent of cells in which the gene was detected (gene count > 0 ) for library `SCPCL000000`|
+
+
+
+
+### SingleCellExperiment experiment metadata
+
+Metadata associated with {ref}`data processing <processing_information:Processing information>` is included in the `metadata` slot as a list.
+
+
+```r
+metadata(merged_sce) # experiment metadata
+```
+
+| Item name          | Contents                                                                                                                                                                                                                         |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `library_id`       | Library ID in the form `SCPCL000000`                                                                                                                                                                                             |
+| `sample_id`        | Sample ID in the form `SCPCS000000`. If there are multiple samples in this library, sample IDs will be given as a comma-separated list                                                                                           |
+| `library_metadata` | A named list of lists, for each library ID. Each list contains the SCE metadata fields for the given library `{ref}as they would appear in an individual library object<sce_file_contents:singlecellexperiment sample metadata>` |
+| `merged_hvgs`      | A vector of **h**ighly **v**ariable **g**enes used for performing dimensionality reduction on the merged object, determined using `scran::modelGeneVar`, specifying each library as a separate block, and `scran::getTopHVGs`    |
+
+
+Each metadata list in the `library_metadata` field can be accessed, for example for a library named `SCPCL000000`, with the code:
+
+```r
+# Access individual library metadata for SCPCL000000
+metadata(merged_sce)$library_metadata$SCPCL000000
+```
+
+Each such list will contain the following fields:
+
+
+| Item name           | Contents                                                                                                                       |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `salmon_version`    | Version of `salmon` used for initial mapping                                                                                   |
+| `reference_index`   | Transcriptome reference file used for mapping                                                                                  |
+| `total_reads`       | Total number of reads processed by `salmon`                                                                                    |
+| `mapped_reads`      | Number of reads successfully mapped                                                                                            |
+| `mapping_tool`      | Pipeline used for mapping and quantification (`alevin-fry` for all current data in ScPCA)                                      |
+| `alevinfry_version` | Version of `alevin-fry` used for mapping and quantification                                                                    |
+| `af_permit_type`    | `alevin-fry generate-permit-list` method used for filtering cell barcodes                                                      |
+| `af_resolution`     | `alevin-fry quant` resolution mode used                                                                                        |
+| `usa_mode`          | Boolean indicating whether quantification was done using `alevin-fry` USA mode                                                 |
+| `af_num_cells`      | Number of cells reported by `alevin-fry`                                                                                       |
+| `tech_version`      | A string indicating the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1              |
+| `assay_ontology_term_id` | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the `tech_version`  |
+| `seq_unit`         | `cell` for single-cell samples or `nucleus` for single-nucleus samples                                                          |
+| `transcript_type`   | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei                       |
+| `sample_metadata`   | Data frame containing metadata for each sample included in the library (see the [`Sample metadata` section below](#singlecellexperiment-sample-metadata)) |
+| `miQC_model`        | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` objects |
+| `filtering_method`  | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`. Only present for `filtered` objects |
+| `umi_cutoff`        | The minimum UMI count per cell used as a threshold for removing empty droplets. Only present for `filtered` objects where the `filtering_method` is `UMI cutoff` |
+| `prob_compromised_cutoff`        | The minimum cutoff for the probability of a cell being compromised, as calculated by `miQC`. Only present for `filtered` objects |
+| `scpca_filter_method`        | Method used by the Data Lab to filter low quality cells prior to normalization. Either `miQC` or `Minimum_gene_cutoff`  |
+| `adt_scpca_filter_method`        | If CITE-seq was performed, the method used by the Data Lab to identify cells to be filtered prior to normalization, based on ADT counts. Either `cleanTagCounts with isotype controls` or `cleanTagCounts without isotype controls`. If filtering failed (i.e. `DropletUtils::cleanTagCounts()` could not reliably determine which cells to filter), the value will be `No filter` |
+| `min_gene_cutoff`        | The minimum cutoff for the number of unique genes detected per cell. Only present for `filtered` objects |
+| `normalization`        | The method used for normalization of raw RNA counts. Either `deconvolution`, described in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7), or `log-normalization`. Only present for `processed` objects |
+| `adt_normalization`        | If CITE-seq was performed, the method used for normalization of raw ADT counts. Either `median-based` or  `log-normalization`, as explained in the {ref}`processed ADT data section <processing_information:Processed ADT data>`. Only present for `processed` objects |
+| `highly_variable_genes`        | A list of highly variable genes used for dimensionality reduction, determined using `scran::modelGeneVar` and `scran::getTopHVGs`. Only present for `processed` objects |
+| `celltype_methods` | If cell type annotation was performed, a vector of the methods used for annotation. May include `"submitter"`, `"singler"` and/or `"cellassign"`. If submitter cell-type annotations are available, this metadata item will be present in all objects. Otherwise, this item will only be in `processed` objects |
+| `singler_results` | If cell typing with `SingleR` was performed, the full result object returned by `SingleR` annotation. Only present for `processed` objects |
+| `singler_reference` | If cell typing with `SingleR` was performed, the name of the reference dataset used for annotation. Only present for `processed` objects |
+| `singler_reference_label` | If cell typing with `SingleR` was performed, the name of the label in the reference dataset used for annotation. Only present for `processed` objects |
+| `singler_reference_source`  | If cell typing with `SingleR` was performed, the source of the reference dataset (default is [`celldex`](http://bioconductor.org/packages/release/data/experiment/html/celldex.html)). Only present for `processed` objects |
+| `singler_reference_version`  | If cell typing with `SingleR` was performed, the version of `celldex` used to create the reference dataset source, with periods replaced as dashes (`-`). Only present for `processed` objects |
+| `cellassign_predictions` | If cell typing with `CellAssign` was performed, the full matrix of predictions across cells and cell types. Only present for `processed` objects |
+| `cellassign_reference` | If cell typing with `CellAssign` was performed, the reference name as established by the Data Lab used for cell type annotation. Only present for `processed` objects |
+| `cellassign_reference_organs` | If cell typing with `CellAssign` was performed, a comma-separated list of organs and/or tissue compartments from which marker genes were obtained to create the reference. Only present for `processed` objects |
+| `cellassign_reference_source`  | If cell typing with `CellAssign` was performed, the source of the reference dataset (default is [`PanglaoDB`](https://panglaodb.se/)). Only present for `processed` objects |
+| `cellassign_reference_version`  | If cell typing with `CellAssign` was performed, the version of the reference dataset source. For references obtained from `PanglaoDB`, the version scheme is a date in ISO8601 format. Only present for `processed` objects |
+
+
+Unlike for {ref}`individual SCE objects<sce_file_contents:singlecellexperiment sample metadata`, cluster algorithm parameters are not included in these metadata lists because clusters themselves are not included in the merged object.
+
+
 
 
 
