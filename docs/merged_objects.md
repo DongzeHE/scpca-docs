@@ -76,7 +76,7 @@ The following per-cell data columns are included for each cell, calculated using
 | `cellassign_max_prediction`  | If cell typing with `CellAssign` was performed, the annotation's prediction score (probability)  |
 
 
-
+Note that, unlike for {ref}`individual SCE objects<sce_file_contents:singlecellexperiment cell metrics`, cluster assignments are not included in the `colData`.
 
 
 ## Components of an AnnData merged object
