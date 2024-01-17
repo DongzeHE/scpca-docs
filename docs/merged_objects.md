@@ -114,7 +114,7 @@ metadata(merged_sce) # experiment metadata
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `library_id`       | A vector of library IDs which are included in the merged object, each in the form `SCPCL000000`                                                                                                                                                                                             |
 | `sample_id`        | A vector of sample IDs which are included in the merged object, each in the form  `SCPCS000000`. If there are multiple samples in this library, sample IDs will be given as a comma-separated list                                                                                           |
-| `library_metadata` | A named list of lists, for each library ID. Each list contains the SCE metadata fields for the given library `{ref}as they would appear in an individual library object<sce_file_contents:singlecellexperiment sample metadata>` |
+| `library_metadata` | A named list of lists, for each library ID. Each list contains the metadata fields for the given library `{ref}as they would appear in an individual library object<sce_file_contents:singlecellexperiment sample metadata>` |
 | `merged_highly_variable_genes`      | A vector of highly variable genes used for performing dimensionality reduction on the merged object, determined using `scran::modelGeneVar`, specifying each library as a separate block, and `scran::getTopHVGs`    |
 
 
@@ -168,8 +168,7 @@ Each such list will contain the following fields:
 | `cellassign_reference_version`  | If cell typing with `CellAssign` was performed, the version of the reference dataset source. For references obtained from `PanglaoDB`, the version scheme is a date in ISO8601 format. Only present for `processed` objects |
 
 
-Unlike for {ref}`individual SCE objects<sce_file_contents:singlecellexperiment sample metadata`, cluster algorithm parameters are not included in these metadata lists because clusters themselves are not included in the merged object.
-
+Unlike for {ref}`individual SingleCellExperiment objects<sce_file_contents:singlecellexperiment sample metadata`, cluster algorithm parameters are not included in these metadata lists because clusters themselves are not included in the merged object.
 
 
 
