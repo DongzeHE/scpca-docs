@@ -112,10 +112,10 @@ metadata(merged_sce) # experiment metadata
 
 | Item name          | Contents                                                                                                                                                                                                                         |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `library_id`       | Library ID in the form `SCPCL000000`                                                                                                                                                                                             |
-| `sample_id`        | Sample ID in the form `SCPCS000000`. If there are multiple samples in this library, sample IDs will be given as a comma-separated list                                                                                           |
+| `library_id`       | A vector of library IDs which are included in the merged object, each in the form `SCPCL000000`                                                                                                                                                                                             |
+| `sample_id`        | A vector of sample IDs which are included in the merged object, each in the form  `SCPCS000000`. If there are multiple samples in this library, sample IDs will be given as a comma-separated list                                                                                           |
 | `library_metadata` | A named list of lists, for each library ID. Each list contains the SCE metadata fields for the given library `{ref}as they would appear in an individual library object<sce_file_contents:singlecellexperiment sample metadata>` |
-| `merged_hvgs`      | A vector of **h**ighly **v**ariable **g**enes used for performing dimensionality reduction on the merged object, determined using `scran::modelGeneVar`, specifying each library as a separate block, and `scran::getTopHVGs`    |
+| `merged_highly_variable_genes`      | A vector of highly variable genes used for performing dimensionality reduction on the merged object, determined using `scran::modelGeneVar`, specifying each library as a separate block, and `scran::getTopHVGs`    |
 
 
 Each metadata list in the `library_metadata` field can be accessed, for example for a library named `SCPCL000000`, with the code:
