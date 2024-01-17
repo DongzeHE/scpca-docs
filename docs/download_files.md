@@ -52,20 +52,7 @@ See the [description of the Spatial transcriptomics output section below](#spati
 ### Download folder structure for individual sample downloads with CITE-seq (ADT) data:
 ![sample download folder](images/anndata-sample-citeseq-download-folder.png)
 
-If downloading a sample that contains a CITE-seq library as an `AnnData` object (`hdf5` file), the quantified CITE-seq expression data is included as a separate file.
-
-## Merged object downloads
-
-### Download folder structure for `SingleCellExperiment` merged downloads:
-![merged download folder](images/merged-download-folder.png)
-
-### Download folder structure for `AnnData` merged downloads:
-![merged download folder](images/anndata-merged-download-folder.png)
-
-### Download folder structure for `AnnData` merged downloads with CITE-seq (ADT) data:
-![merged download folder](images/anndata-merged-citeseq-download-folder.png)
-
-Merged object downloads
+If downloading a sample that contains a CITE-seq library as an `AnnData` object (`hdf5` file), the quantified CITE-seq expression data is included as a separate file with the suffix `_adt.hdf5`.
 
 ## Gene expression data
 
@@ -151,6 +138,33 @@ Because we do not perform demultiplexing to separate cells from multiplexed libr
 For more on the specific contents of multiplexed library `SingleCellExperiment` objects, see the {ref}`Additional SingleCellExperiment components for multiplexed libraries <sce_file_contents:additional singlecellexperiment components for multiplexed libraries>` section.
 
 The [metadata file](#metadata) for multiplexed libraries (`single_cell_metadata.tsv`) will have the same format as for individual samples, but each row will represent a particular sample/library pair, meaning that there may be multiple rows for each `scpca_library_id`, one for each `scpca_sample_id` within that library.
+
+
+## Merged object downloads
+
+Merged object downloads contain all single-cell or single-nuclei gene expression data for a given ScPCA project within a single object, provided as either a [`SingleCellExperiment` object (`.rds` file)](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) or an [`AnnData` object (`.hdf5` file)](https://anndata.readthedocs.io/en/latest/index.html).
+
+The object file, `SCPCP000000_merged.rds` or `SCPCP000000_merged_rna.hdf5`, contains both a raw and normalized counts matrix, each with combined counts for all libraries in an ScPCA project.
+In addition to the counts matrices, the `SingleCellExperiment` or `AnnData` object stored in the file includes the results of library-weighted dimensionality reduction using both principal component analysis (PCA) and UMAP.
+See the {ref}`section on merged object processing<processing_information:merged objects>` for more information about how merged objects were created.
+
+If downloading a project that contains at least one CITE-seq library as an `AnnData` object (`hdf5` file), the quantified CITE-seq expression data is included as a separate file, `SCPCP000000_merged_adt.hdf5`.
+
+The download will also include a summary report, `SCPCL000000_merged-summary-report.html`, which provides brief information about each library, including technology and sample diagnoses, as well as UMAP visualizations highlighting each library.
+
+Finally, the download will include the individual [QC report](#qc-report) and, if applicable, [cell type annotation reports](#cell-type-report) for each library included in the merged object.
+
+
+### Download folder structure for `SingleCellExperiment` merged downloads:
+![merged download folder](images/merged-download-folder.png)
+
+### Download folder structure for `AnnData` merged downloads:
+![merged download folder](images/anndata-merged-download-folder.png)
+
+### Download folder structure for `AnnData` merged downloads with CITE-seq (ADT) data:
+![merged download folder](images/anndata-merged-citeseq-download-folder.png)
+
+
 
 ## Spatial transcriptomics libraries
 
