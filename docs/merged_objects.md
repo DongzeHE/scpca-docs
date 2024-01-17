@@ -46,6 +46,36 @@ rownames(merged_sce) # matrix row names
 
 There is also a `spliced` assay which contains the counts matrix with only reads from spliced cDNA.
 
+### SingleCellExperiment cell metrics
+
+
+Cell metrics calculated from the RNA-seq expression data are stored as a `DataFrame` in the `colData` slot, where row names are the cell barcode prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`.
+
+```r
+colData(merged_sce) # cell metrics
+```
+
+The following per-cell data columns are included for each cell, calculated using the [`scuttle::addPerCellQCMetrics()`](https://rdrr.io/github/LTLA/scuttle/man/addPerCellQCMetrics.html) function.
+
+| Column name             | Contents                                                                                                                                                                                      |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sum`                   | UMI count for RNA-seq data                                                                                                                                                                    |
+| `detected`              | Number of genes detected (gene count > 0 )                                                                                                                                                    |
+| `subsets_mito_sum`      | UMI count of mitochondrial genes                                                                                                                                                              |
+| `subsets_mito_detected` | Number of mitochondrial genes detected                                                                                                                                                        |
+| `subsets_mito_percent`  | Percent of all UMI counts assigned to mitochondrial genes                                                                                                                                     |
+| `total`                 | Total UMI count for RNA-seq data and any alternative experiments (i.e., ADT data from CITE-seq)                                                                                                             |
+| `prob_compromised`      | Probability that a cell is compromised (i.e., dead or damaged), as calculated by `miQC`                                                                                                       |
+| `miQC_pass`             | Indicates whether the cell passed the default miQC filtering. `TRUE` is assigned to cells with a low probability of being compromised (`prob_compromised` < 0.75) or [sufficiently low mitochondrial content](https://bioconductor.org/packages/release/bioc/vignettes/miQC/inst/doc/miQC.html#preventing-exclusion-of-low-mito-cells)  |
+| `scpca_filter` | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200) |
+| `adt_scpca_filter` | If CITE-seq was performed, labels cells as either `Keep` or `Remove` based on ADT filtering criteria (`discard = TRUE` as determined by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html)) |
+| `submitter_celltype_annotation` | If available, cell type annotations obtained from the group that submitted the original data. Cells that the submitter did not annotate are labeled as `"Submitter-excluded"` |
+| `singler_celltype_annotation`  | If cell typing with `SingleR` was performed, the annotated cell type. Cells labeled as `NA` are those which `SingleR` could not confidently annotate. If cell typing was performed for some but not all libraries in the merged object, libraries without annotations will be labeled `"Cell type annotation not performed"` |
+| `singler_celltype_ontology`  | If cell typing with `SingleR` was performed with ontology labels, the annotated cell type's ontology ID. Cells labeled as `NA` are those which `SingleR` could not confidently annotate. If cell typing was performed for some but not all libraries in the merged object, libraries without annotations will be labeled `"Cell type annotation not performed"` |
+| `cellassign_celltype_annotation`  | If cell typing with `CellAssign` was performed, the annotated cell type. Cells labeled as `"other"` are those which `CellAssign` could not confidently annotate. If cell typing was performed for some but not all libraries in the merged object, libraries without annotations will be labeled `"Cell type annotation not performed"`  |
+| `cellassign_max_prediction`  | If cell typing with `CellAssign` was performed, the annotation's prediction score (probability)  |
+
+
 
 
 
