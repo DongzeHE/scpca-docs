@@ -79,6 +79,27 @@ The following per-cell data columns are included for each cell, calculated using
 Note that, unlike for {ref}`individual SCE objects<sce_file_contents:singlecellexperiment cell metrics`, cluster assignments are not included in the `colData`.
 
 
+### SingleCellExperiment gene information and metrics
+
+Gene information and metrics calculated from the RNA-seq expression data are stored as a `DataFrame` in the `rowData` slot, with the Ensembl ID as the names of the rows.
+
+```r
+rowData(merged_sce) # gene metrics
+```
+
+The following columns are included for all genes.
+The columns `mean` and `detected` will appear for each library id included in the merged object, named as shown in the table below.
+However, there will only be a single `gene_symbol` column, as this information equally pertains to all libraries.
+Metrics were calculated for each library using the [`scuttle::addPerFeatureQCMetrics`](https://rdrr.io/github/LTLA/scuttle/man/addPerFeatureQCMetrics.html) function.
+
+| Column name   | Contents                                                         |
+| ------------- | ---------------------------------------------------------------- |
+| `gene_symbol` | [HUGO](https://www.genenames.org) gene symbol, if defined        |
+| `mean-SCPCL000000`        | Mean count across all cells/droplets for library `SCPCL000000`                            |
+| `detected-SCPCL000000`    | Percent of cells in which the gene was detected (gene count > 0 ) for library `SCPCL000000`|
+
+
+
 ## Components of an AnnData merged object
 
 Before getting started, we highly encourage you to familiarize yourself with the general `AnnData` object structure and functions available as part of the [`AnnData` package](https://anndata.readthedocs.io/en/latest/index.html).
