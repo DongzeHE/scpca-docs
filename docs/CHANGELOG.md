@@ -20,7 +20,7 @@ Cells were annotated using both [`SingleR`](https://bioconductor.org/packages/re
   * You can find more information about how cell types were annotated in the {ref}`cell type annotation procedures section on the Processing Information page<processing_information:cell type annotation>`.
   For more information on locating cell type annotations and any associated processing information in the downloaded objects see {ref}`the Single-cell gene expression file contents page<processing_information:components of a singlecellexperiment object>`.
 * Downloads will also contain a separate cell type report providing more information about cell type annotations, including comparisons between different cell type annotations and diagnostic assessments of cell type annotation reliability.
-* This release additionally includes community-contributed datasets.
+* This release additionally includes new projects containing community-contributed datasets.
 Like all other projects in the ScPCA Portal, all community-contributed projects are 10x Genomics single-cell or single-nuclei datasets that have been processed with the ScPCA pipeline.
 
 
