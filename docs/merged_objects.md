@@ -50,7 +50,7 @@ There is also a `spliced` assay which contains the counts matrix with only reads
 
 
 Cell metrics calculated from the RNA-seq expression data are stored as a `DataFrame` in the `colData` slot, where row names are the cell barcode prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`.
-There is also additional sample metadata information stored in the `colData` slot `DataFrame`, as described in [`Sample metadata` section below](#singlecellexperiment-sample-metadata).
+There is also additional sample metadata information stored in the `colData` slot `DataFrame`, as described in [`Sample metadata` section below](#singlecellexperiment-sample-metadata), for non-multiplexed samples.
 
 ```r
 colData(merged_sce) # cell metrics and sample metadata
@@ -85,12 +85,16 @@ Unlike for {ref}`individual SCE objects<sce_file_contents:singlecellexperiment c
 
 ### SingleCellExperiment sample metadata
 
+Sample metadata describing each sample included in the merged object is stored in one of two locations, depending on the sample type:
 
-Sample metadata describing each sample included in the merged object is also stored in the `colData` slot's `DataFrame`, along with [cell metrics](#singlecellexperiment-cell-metrics).
+If the sample is not multiplexed, this information is stored in the `colData` slot's `DataFrame`, along with [cell metrics](#singlecellexperiment-cell-metrics).
 
 ```r
 colData(merged_sce) # cell metrics and sample metadata
 ```
+
+If the sample is multiplexed, this information is stored in the `metadata` slot as a list, along with [cell metrics](#singlecellexperiment-cell-metrics).
+
 
 Note that, in `{ref}in individual library objects<sce_file_contents:singlecellexperiment sample metadata>`, this sample metadata information is instead stored in the `SingleCellExperiment` object's `metadata` slot.
 
@@ -191,13 +195,13 @@ Each such list will contain the following fields:
 | `seq_unit`         | `cell` for single-cell samples or `nucleus` for single-nucleus samples                                                          |
 | `transcript_type`   | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei                       |
 | `sample_metadata`   | Data frame containing metadata for each sample included in the library (see the [`Sample metadata` section below](#singlecellexperiment-sample-metadata)) |
-| `miQC_model`        | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` objects |
-| `filtering_method`  | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`. Only present for `filtered` objects |
-| `umi_cutoff`        | The minimum UMI count per cell used as a threshold for removing empty droplets. Only present for `filtered` objects where the `filtering_method` is `UMI cutoff` |
-| `prob_compromised_cutoff`        | The minimum cutoff for the probability of a cell being compromised, as calculated by `miQC`. Only present for `filtered` objects |
+| `miQC_model`        | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` and `processed` objects |
+| `filtering_method`  | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`. Only present for `filtered` and `processed` objects |
+| `umi_cutoff`        | The minimum UMI count per cell used as a threshold for removing empty droplets. Only present for `filtered` and `processed` objects where the `filtering_method` is `UMI cutoff` |
+| `prob_compromised_cutoff`        | The minimum cutoff for the probability of a cell being compromised, as calculated by `miQC`. Only present for `filtered` and `processed` objects |
 | `scpca_filter_method`        | Method used by the Data Lab to filter low quality cells prior to normalization. Either `miQC` or `Minimum_gene_cutoff`  |
 | `adt_scpca_filter_method`        | If CITE-seq was performed, the method used by the Data Lab to identify cells to be filtered prior to normalization, based on ADT counts. Either `cleanTagCounts with isotype controls` or `cleanTagCounts without isotype controls`. If filtering failed (i.e. `DropletUtils::cleanTagCounts()` could not reliably determine which cells to filter), the value will be `No filter` |
-| `min_gene_cutoff`        | The minimum cutoff for the number of unique genes detected per cell. Only present for `filtered` objects |
+| `min_gene_cutoff`        | The minimum cutoff for the number of unique genes detected per cell. Only present for `filtered` and `processed` objects |
 | `normalization`        | The method used for normalization of raw RNA counts. Either `deconvolution`, described in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7), or `log-normalization`. Only present for `processed` objects |
 | `adt_normalization`        | If CITE-seq was performed, the method used for normalization of raw ADT counts. Either `median-based` or  `log-normalization`, as explained in the {ref}`processed ADT data section <processing_information:Processed ADT data>`. Only present for `processed` objects |
 | `highly_variable_genes`        | A list of highly variable genes used for dimensionality reduction, determined using `scran::modelGeneVar` and `scran::getTopHVGs`. Only present for `processed` objects |
