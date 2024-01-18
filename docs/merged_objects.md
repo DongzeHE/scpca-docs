@@ -51,7 +51,7 @@ There is also a `spliced` assay which contains the counts matrix with only reads
 
 Cell metrics calculated from the RNA-seq expression data are stored as a `DataFrame` in the `colData` slot, where row names are the cell barcode prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`.
 This `DataFrame` also contains additional sample metadata information stored in the `colData` slot `DataFrame` for all projects that do not contain multiplexed libraries.
-Read more about the sample metadata that is included in the [`Sample metadata` section](#singlecellexperiment-sample-metadata), 
+Read more about the included sample metadata in the [`Sample metadata` section](#singlecellexperiment-sample-metadata),
 
 ```r
 colData(merged_sce) # cell metrics
