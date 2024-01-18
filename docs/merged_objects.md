@@ -94,7 +94,7 @@ rowData(merged_sce) # gene metrics
 
 The following columns are included for all genes.
 The columns `mean` and `detected` will appear for each library id included in the merged object, named as shown in the table below.
-However, there will only be a single `gene_symbol` column, as this information equally pertains to all libraries.
+However, there will only be a single `gene_symbol` and `gene_ids` column, as this information equally pertains to all libraries.
 Metrics were calculated for each library using the [`scuttle::addPerFeatureQCMetrics`](https://rdrr.io/github/LTLA/scuttle/man/addPerFeatureQCMetrics.html) function.
 
 | Column name            | Contents                                                                                    |
