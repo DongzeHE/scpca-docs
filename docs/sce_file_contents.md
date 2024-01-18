@@ -196,7 +196,7 @@ Examples of this include treatment or outcome.
 ### SingleCellExperiment dimensionality reduction results
 
 In the RDS file containing the processed `SingleCellExperiment` object only (`_processed.rds`), the `reducedDim` slot of the object will be occupied with both principal component analysis (`PCA`) and `UMAP` results.
-For all other object, the `reducedDim` slot will be empty as no dimensionality reduction was performed.
+For all other objects, the `reducedDim` slot will be empty as no dimensionality reduction was performed.
 
 PCA results were calculated using `scater::runPCA()`, using only highly variable genes.
 The list of highly variable genes used was selected using `scran::modelGeneVar` and `scran::getTopHVGs`, and are stored in the `SingleCellExperiment` object in `metadata(sce)$highly_variable_genes`.
