@@ -180,20 +180,20 @@ Unlike for {ref}`individual SingleCellExperiment objects<sce_file_contents:singl
 
 Sample metadata describing each sample included in the merged object is stored in one of two locations, depending on the sample type:
 
-If the project does not contain multiplexed samples, this information is stored in the `colData` slot's `DataFrame`, along with [cell metrics](#singlecellexperiment-cell-metrics).
+If the project does_not_ contain multiplexed libraries, this information can be found as additional columns in the `colData` slot's `DataFrame`, along with [cell metrics](#singlecellexperiment-cell-metrics).
 
 ```r
 colData(merged_sce) # sample metadata for projects without multiplexing
 ```
 
-If the project contains is multiplexed samples, this information is stored in the `metadata` slot in the field `sample_metadata` as a `data.frame`:
+If the project contains multiplexed libraries, this information is stored in the `metadata` slot in the `sample_metadata` field as a `data.frame`:
 
 ```r
 metadata(merged_sce)$sample_metadata # sample metadata for proejcts with multiplexed samples
 ```
 
 
-Note that, in `{ref}in individual library objects<sce_file_contents:singlecellexperiment sample metadata>`, this sample metadata information is instead stored in the `SingleCellExperiment` object's `metadata` slot.
+Note that, in {ref} `individual library objects<sce_file_contents:singlecellexperiment sample metadata>`, this sample metadata information is instead stored in the `SingleCellExperiment` object's `metadata` slot.
 
 
 | Column name                   | Contents                                                                                                                                                                                                                                 |
