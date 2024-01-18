@@ -23,7 +23,8 @@ Cells were annotated using both [`SingleR`](https://bioconductor.org/packages/re
 * Sample metadata will now include two additional pieces of information which can be used to filter datasets: Whether the given sample is a patient-derived xenograft, and whether the sample is derived from a cell line.
 * This release additionally includes new projects containing community-contributed datasets.
 Like all other projects in the ScPCA Portal, all community-contributed projects are 10x Genomics single-cell or single-nuclei datasets that have been processed with the ScPCA pipeline.
-Community-contributed projects will be indicated with badge on their project page.
+  * Community-contributed projects will be indicated with badge on their project page.
+  * Please refer to the [contributions page](https://scpca.alexslemonade.org/contribute) for more information about community contributions.
 
 
 ## PLACEHOLDER FOR RELEASE DATE
