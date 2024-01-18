@@ -118,7 +118,7 @@ metadata(merged_sce) # experiment metadata
 | `merged_highly_variable_genes`      | A vector of highly variable genes used for performing dimensionality reduction on the merged object, determined using `scran::modelGeneVar`, specifying each library as a separate block, and `scran::getTopHVGs`    |
 
 
-Each metadata list in the `library_metadata` field can be accessed, for example for a library named `SCPCL000000`, with the code:
+To access the `library_metadata` field for a specific library, use the following code: 
 
 ```r
 # Access individual library metadata for SCPCL000000
