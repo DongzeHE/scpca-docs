@@ -103,10 +103,11 @@ rowData(sce) # gene metrics
 The following columns are included for all genes.
 Metrics were calculated using the [`scuttle::addPerFeatureQCMetrics`](https://rdrr.io/github/LTLA/scuttle/man/addPerFeatureQCMetrics.html) function.
 
-| Column name   | Contents                                                         |
-| ------------- | ---------------------------------------------------------------- |
-| `gene_symbol` | [HUGO](https://www.genenames.org) gene symbol, if defined        |
-| `mean`        | Mean count across all cells/droplets                             |
+| Column name   | Contents                                                          |
+| ------------- | ----------------------------------------------------------------- |
+| `gene_symbol` | [HUGO](https://www.genenames.org) gene symbol, if defined         |
+| `gene_ids`    | Ensembl gene ID                                                   |
+| `mean`        | Mean count across all cells/droplets                              |
 | `detected`    | Percent of cells in which the gene was detected (gene count > 0 ) |
 
 ### SingleCellExperiment experiment metadata
