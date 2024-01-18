@@ -384,7 +384,7 @@ The `AnnData` object also includes the following additional cell-level metadata 
 | `library_id`   | Library ID in the form `SCPCL000000`                             |
 | `assay_ontology_term_id` | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1 |
 | `suspension_type`         | `cell` for single-cell samples or `nucleus` for single-nucleus samples  |
-| `particpant_id`  | Unique id corresponding to the donor from which the sample was obtained |
+| `participant_id`  | Unique id corresponding to the donor from which the sample was obtained |
 | `submitter_id`    | Original sample identifier from submitter                      |
 | `submitter`       | Submitter name/id                                              |
 | `age`             | Age at time sample was obtained                                |
