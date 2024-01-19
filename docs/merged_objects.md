@@ -186,14 +186,12 @@ If the project does_not_ contain multiplexed libraries, this information can be 
 colData(merged_sce) # sample metadata for projects without multiplexing
 ```
 
-If the project contains multiplexed libraries, this information is stored in the `metadata` slot in the `sample_metadata` field as a `data.frame`:
+If the project contains multiplexed libraries, this information is stored in the `metadata` slot in the `sample_metadata` field as a `data.frame`.
+Similar to merged objects with multiplexed libraries, all {ref} `individual library objects<sce_file_contents:singlecellexperiment sample metadata>` will contain this sample metadata in the `SingleCellExperiment` object's `metadata` slot.
 
 ```r
 metadata(merged_sce)$sample_metadata # sample metadata for proejcts with multiplexed samples
 ```
-
-
-Note that, in {ref} `individual library objects<sce_file_contents:singlecellexperiment sample metadata>`, this sample metadata information is instead stored in the `SingleCellExperiment` object's `metadata` slot.
 
 
 | Column name                   | Contents                                                                                                                                                                                                                                 |
