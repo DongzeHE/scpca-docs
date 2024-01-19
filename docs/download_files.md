@@ -85,6 +85,9 @@ The cell type report, `SCPCL000000_celltype-report.html`, includes an overview o
 This report contains details on methodologies used for cell type annotation, information about reference sources, comparisons among cell type annotation methods, and diagnostic plots.
 For more information on how cell types were annotated, see the section on {ref}`Cell type annotation <processing_information:cell type annotation>`.
 
+If the downloaded library was from a cell line sample, no cell type annotation will have been performed.
+Therefore, there will be no cell type report in the download for these libraries.
+
 ## Metadata
 
 The `single_cell_metadata.tsv` file is a tab-separated table with one row per library and the following columns.
