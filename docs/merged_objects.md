@@ -224,6 +224,25 @@ Some merged objects may have some additional sample metadata columns specific to
 Examples of this include treatment or outcome.
 
 
+### SingleCellExperiment dimensionality reduction results
+
+The `reducedDim` slot of the merged object will be contain both principal component analysis (`PCA`) and `UMAP` results.
+
+PCA results were calculated using [`batchelor::multiBatchPCA`](https://rdrr.io/bioc/batchelor/man/multiBatchPCA.html), specifying libraries as batches to ensure that each library in the merged object was equally weighted, and specifying a list of highly variable genes.
+The highly variable genes were selected with `scran::modelGeneVar`, with libraries specified as blocks, and `scran::getTopHVGs`, and they are stored in the `SingleCellExperiment` object in `metadata(sce)$merged_highly_variable_genes`.
+The following command can be used to access the PCA results:
+
+```r
+reducedDim(merged_sce, "PCA")
+```
+
+UMAP results were calculated using `scater::runUMAP()`, with the PCA results as input rather than the full gene expression matrix.
+The following command can be used to access the UMAP results:
+
+```r
+reducedDim(merged_sce, "UMAP")
+```
+
 
 
 
