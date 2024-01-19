@@ -150,7 +150,9 @@ See the {ref}`section on merged object processing<processing_information:merged 
 
 If downloading a project that contains at least one CITE-seq library as an `AnnData` object (`hdf5` file), the quantified CITE-seq expression data is included as a separate file, `SCPCP000000_merged_adt.hdf5`.
 
-Every download includes summary report, `SCPCL000000_merged-summary-report.html`, which provides brief information about each library, including technology and sample diagnoses, as well as UMAP visualizations highlighting each library.
+Every download includes a summary report, `SCPCL000000_merged-summary-report.html`, which provides a 
+ a brief summary of the libraries included in the merged object.
+This includes a summary of the types of libraries (e.g., single-cell, single-nuclei, with CITE-seq) and sample diagnoses included in the object, as well as UMAP visualizations highlighting each library.
 
 Every download also includes the individual [QC report](#qc-report) and, if applicable, [cell type annotation reports](#cell-type-report) for each library included in the merged object.
 
@@ -166,7 +168,7 @@ _image pending_
 
 ### Merged object metadata
 
-Every download includes a single `single_cell_metadata.tsv` file containing metadata for all libraries included in the download.
+Similar to downloading the project with individual files for each sample, downloading the project as a merged object includes a single `single_cell_metadata.tsv` file containing metadata for all libraries included in the download.
 
 If downloading a project containing bulk RNA-seq data, two tab-separated value files, `bulk_quant.tsv` and `bulk_metadata.tsv`, will be included in the project download.
 The `bulk_quant.tsv` file contains a gene by sample matrix (each row a gene, each column a sample) containing raw gene expression counts quantified by Salmon.
