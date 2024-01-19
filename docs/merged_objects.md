@@ -243,7 +243,65 @@ The following command can be used to access the UMAP results:
 reducedDim(merged_sce, "UMAP")
 ```
 
+### Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags)
 
+ADT data from CITE-seq experiments, when present, is included within the merged `SingleCellExperiment` object as an "Alternative Experiment" named `"adt"` , which can be accessed with the following command:
+
+```r
+altExp(merged_sce, "adt") # adt experiment
+```
+
+Within this, the main expression matrix is again found in the `counts` assay and the normalized expression matrix is found in the `logcounts` assay.
+For each assay, each column corresponds to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponds to an antibody derived tag (ADT).
+In some cases, only some libraries in the merged object will have associated CITE-seq data.
+These libraries are included in the assay matrices with all `NA` count values.
+Column names are again cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are the antibody targets for each ADT.
+
+Only cells which are denoted as "Keep" in the `colData(merged_sce)$adt_scpca_filter` column (as described [above](#singlecellexperiment-cell-metrics)) have normalized expression values in the `logcounts` assay, and all other cells are assigned `NA` values.
+However, as described in the {ref}`processed ADT data section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances.
+If a given ADT library failed normalization, it will also have `NA` values in the merged object.
+
+The following additional per-cell data columns for the ADT data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#singlecellexperiment-cell-metrics)).
+
+| Column name                | Contents                                          |
+| -------------------------- | ------------------------------------------------- |
+| `altexps_adt_sum`      | UMI count for CITE-seq ADTs                       |
+| `altexps_adt_detected` | Number of ADTs detected per cell (ADT count > 0 ) |
+| `altexps_adt_percent`  | Percent of `total` UMI count from ADT reads       |
+
+
+In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) can be found in the `colData` of the `"adt"` alternative experiment, accessed with `colData(altExp(sce, "adt"))`.
+
+| Column name                | Contents                                          |
+| -------------------------- | ------------------------------------------------- |
+| `zero.ambient`   | Indicates whether the cell has zero ambient contamination   |
+| `sum.controls` |  The sum of counts for all control features. Only present if negative/isotype control ADTs are present |
+| `high.controls`  | Indicates whether the cell has unusually high total control counts. Only present if negative/isotype control ADTs are present |
+| `ambient.scale` |  The relative amount of ambient contamination. Only present if negative control ADTs are _not_ present |
+| `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative/isotype control ADTs are _not_ present |
+| `discard`  | Indicates whether the cell should be discarded based on QC statistics |
+
+
+Metrics for each of the ADTs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
+
+```r
+rowData(altExp(sce, "adt")) # adt metrics
+```
+
+This data frame contains the following columns with statistics for each ADT:
+
+| Column name | Contents                                                       |
+| ----------- | -------------------------------------------------------------- |
+| `mean`      | Mean ADT count across all cells/droplets                       |
+| `detected`  | Percent of cells in which the ADT was detected (ADT count > 0 ) |
+| `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and will be labeled as `target` |
+
+Finally, additional metadata for ADT processing can be found in the metadata slot of the alternative experiment.
+This metadata slot has the same contents as the [parent experiment metadata](#singlecellexperiment-experiment-metadata), along with one additional field, `ambient_profile`, which holds a list of the ambient concentrations of each ADT.
+
+```r
+metadata(altExp(sce, "adt")) # adt metadata
+```
 
 
 
