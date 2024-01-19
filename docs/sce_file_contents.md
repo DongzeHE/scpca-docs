@@ -103,10 +103,11 @@ rowData(sce) # gene metrics
 The following columns are included for all genes.
 Metrics were calculated using the [`scuttle::addPerFeatureQCMetrics`](https://rdrr.io/github/LTLA/scuttle/man/addPerFeatureQCMetrics.html) function.
 
-| Column name   | Contents                                                         |
-| ------------- | ---------------------------------------------------------------- |
-| `gene_symbol` | [HUGO](https://www.genenames.org) gene symbol, if defined        |
-| `mean`        | Mean count across all cells/droplets                             |
+| Column name   | Contents                                                          |
+| ------------- | ----------------------------------------------------------------- |
+| `gene_symbol` | [HUGO](https://www.genenames.org) gene symbol, if defined         |
+| `gene_ids`    | Ensembl gene ID                                                   |
+| `mean`        | Mean count across all cells/droplets                              |
 | `detected`    | Percent of cells in which the gene was detected (gene count > 0 ) |
 
 ### SingleCellExperiment experiment metadata
@@ -134,16 +135,16 @@ metadata(sce) # experiment metadata
 | `seq_unit`         | `cell` for single-cell samples or `nucleus` for single-nuclei samples                                                          |
 | `transcript_type`   | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei                       |
 | `sample_metadata`   | Data frame containing metadata for each sample included in the library (see the [`Sample metadata` section below](#singlecellexperiment-sample-metadata)) |
-| `miQC_model`        | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` objects |
-| `filtering_method`  | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`. Only present for `filtered` objects |
+| `miQC_model`        | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` objects and `processed` objects|
+| `filtering_method`  | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`. Only present for `filtered`  and `processed` objects |
 | `umi_cutoff`        | The minimum UMI count per cell used as a threshold for removing empty droplets. Only present for `filtered` objects where the `filtering_method` is `UMI cutoff` |
-| `prob_compromised_cutoff`        | The minimum cutoff for the probability of a cell being compromised, as calculated by `miQC`. Only present for `filtered` objects |
+| `prob_compromised_cutoff`        | The minimum cutoff for the probability of a cell being compromised, as calculated by `miQC`. Only present for `filtered` and `processed` objects |
 | `scpca_filter_method`        | Method used by the Data Lab to filter low quality cells prior to normalization. Either `miQC` or `Minimum_gene_cutoff`  |
 | `adt_scpca_filter_method`        | If CITE-seq was performed, the method used by the Data Lab to identify cells to be filtered prior to normalization, based on ADT counts. Either `cleanTagCounts with isotype controls` or `cleanTagCounts without isotype controls`. If filtering failed (i.e. `DropletUtils::cleanTagCounts()` could not reliably determine which cells to filter), the value will be `No filter` |
-| `min_gene_cutoff`        | The minimum cutoff for the number of unique genes detected per cell. Only present for `filtered` objects |
+| `min_gene_cutoff`        | The minimum cutoff for the number of unique genes detected per cell. Only present for `filtered` and `processed` objects |
 | `normalization`        | The method used for normalization of raw RNA counts. Either `deconvolution`, described in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7), or `log-normalization`. Only present for `processed` objects |
 | `adt_normalization`        | If CITE-seq was performed, the method used for normalization of raw ADT counts. Either `median-based` or  `log-normalization`, as explained in the {ref}`processed ADT data section <processing_information:Processed ADT data>`. Only present for `processed` objects |
-| `highly_variable_genes`        | A list of highly variable genes used for dimensionality reduction, determined using `scran::modelGeneVar` and `scran::getTopHVGs`. Only present for `processed` objects |
+| `highly_variable_genes`        | A vector of highly variable genes used for dimensionality reduction, determined using `scran::modelGeneVar` and `scran::getTopHVGs`. Only present for `processed` objects |
 | `cluster_algorithm` | The algorithm used to perform graph-based clustering of cells. Only present for `processed` objects |
 | `cluster_weighting` | The weighting approach used during graph-based clustering. Only present for `processed` objects |
 | `cluster_nn`        | The nearest neighbor parameter value used for the graph-based clustering. Only present for `processed` objects |
@@ -195,7 +196,7 @@ Examples of this include treatment or outcome.
 ### SingleCellExperiment dimensionality reduction results
 
 In the RDS file containing the processed `SingleCellExperiment` object only (`_processed.rds`), the `reducedDim` slot of the object will be occupied with both principal component analysis (`PCA`) and `UMAP` results.
-For all other files, the `reducedDim` slot will be empty as no dimensionality reduction was performed.
+For all other objects, the `reducedDim` slot will be empty as no dimensionality reduction was performed.
 
 PCA results were calculated using `scater::runPCA()`, using only highly variable genes.
 The list of highly variable genes used was selected using `scran::modelGeneVar` and `scran::getTopHVGs`, and are stored in the `SingleCellExperiment` object in `metadata(sce)$highly_variable_genes`.
@@ -302,14 +303,14 @@ This data frame contains the following columns with statistics for each HTO:
 | ----------- | -------------------------------------------------------------- |
 | `mean`      | Mean HTO count across all cells/droplets                       |
 | `detected`  | Percent of cells in which the HTO was detected (HTO count > 0 ) |
-| `sample_id` | Sample ID for this library that corresponds to the HTO (only present in `_filtered.rds` files) |
+| `sample_id` | Sample ID for this library that corresponds to the HTO. Only present in `filtered` and `processed` objects |
 
 Note that in the unfiltered `SingleCellExperiment` objects, this may include hashtag oligos that do not correspond to any included sample, but were part of the reference set used for mapping.
 
 ### Demultiplexing results
 
-Demultiplexing results are included only in the `_filtered.rds` files.
-The demultiplexing methods applied for these files are as described in the {ref}`multiplex data processing section <processing_information:Multiplexed libraries>`.
+Demultiplexing results are included only in the `filtered` and `processed` objects.
+The demultiplexing methods applied for these objects are described in the {ref}`multiplex data processing section <processing_information:Multiplexed libraries>`.
 
 Demultiplexing analysis adds the following additional fields to the `colData(sce)` data frame:
 
@@ -384,7 +385,7 @@ The `AnnData` object also includes the following additional cell-level metadata 
 | `library_id`   | Library ID in the form `SCPCL000000`                             |
 | `assay_ontology_term_id` | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1 |
 | `suspension_type`         | `cell` for single-cell samples or `nucleus` for single-nuclei samples  |
-| `particpant_id`  | Unique id corresponding to the donor from which the sample was obtained |
+| `participant_id`  | Unique id corresponding to the donor from which the sample was obtained |
 | `submitter_id`    | Original sample identifier from submitter                      |
 | `submitter`       | Submitter name/id                                              |
 | `age`             | Age at time sample was obtained                                |
