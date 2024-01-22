@@ -142,11 +142,11 @@ The [metadata file](#metadata) for multiplexed libraries (`single_cell_metadata.
 
 ## Merged object downloads
 
-When downloading a full ScPCA project, you can choose to download data from all samples as individual files, or you can download {ref}`a single file containing all libraries from all samples merged into a single object<faq:INCOMING MERGED OBJECT SECTION>`. TODO!
+When downloading a full ScPCA project, you can choose to download data from all samples as individual files, or you can download {ref}`a single file containing all samples merged into a single object<faq:When should I download a project as a merged object?>`.
 
 Merged object downloads contain all single-cell or single-nuclei gene expression data for a given ScPCA project within a single object, provided as either a [`SingleCellExperiment` object (`.rds` file)](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) or an [`AnnData` object (`.hdf5` file)](https://anndata.readthedocs.io/en/latest/index.html).
 
-The object file, `SCPCP000000_merged.rds` or `SCPCP000000_merged_rna.hdf5`, contains both a raw and normalized counts matrix, each with combined counts for all libraries in an ScPCA project.
+The object file, `SCPCP000000_merged.rds` or `SCPCP000000_merged_rna.hdf5`, contains both a raw and normalized counts matrix, each with combined counts for all samples in an ScPCA project.
 In addition to the counts matrices, the `SingleCellExperiment` or `AnnData` object stored in the file includes the results of library-weighted dimensionality reduction using both principal component analysis (PCA) and UMAP.
 See the {ref}`section on merged object processing<processing_information:merged objects>` for more information about how merged objects were created.
 
