@@ -83,6 +83,7 @@ For `CellAssign` annotation, we identify an appropriate set of marker genes for 
 We combine these marker genes with all "immune cell" `PanglaoDB` marker genes to create a full marker gene list for for cell type annotation.
 During annotation, we additionally include an `"other"` cell type that does not express any of these marker genes.
 As a consequence, cells which `CellAssign` cannot confidently annotate from the full marker gene list are labeled as `"other"`.
+In addition, `CellAssign` annotation is only performed if there are at least 30 cells present in the `processed` object.
 
 **Note:** For some libraries, cell type annotations were provided from the group that submitted the original data.
 In these cases, the cell type annotations obtained from the submitter will be present in addition to cell type annotation performed with `SingleR` and `CellAssign`.
