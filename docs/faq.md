@@ -215,6 +215,7 @@ Although we try to maintain backward compatibility, new features added to the Sc
 Please see our {ref}`CHANGELOG <CHANGELOG:CHANGELOG>` for a summary of changes that impact downloads from the Portal.
 
 ## I previously downloaded a sample that is no longer on the Portal. Why can't I find it?
+
 If a sample you downloaded previously is no longer available, a submitter has requested it to be removed.
 We process and release all data provided to us on the Portal, without filtering out samples based on quality.
 Instead, we provide a QC report with each download so that users may assess library quality themselves.
