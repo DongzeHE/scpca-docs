@@ -214,10 +214,8 @@ Alternatively, you might be interested in this [reference from the authors of `s
 Although we try to maintain backward compatibility, new features added to the ScPCA Portal may result in downloads that are no longer compatible with code written with older downloads from the ScPCA Portal in mind.
 Please see our {ref}`CHANGELOG <CHANGELOG:CHANGELOG>` for a summary of changes that impact downloads from the Portal.
 
-## I previously downloaded a sample that is no longer on the Portal, why can't I find it?
-
-We process and release all data provided to us on the Portal.
-We do not conduct any quality screening before releasing the data.
-However, to assess library quality, we provide a QC report with each download.
-There have been instances where submitters have conducted their own analysis and discovered low-quality libraries after they have been released on the Portal.
-If they request to remove those libraries and associated samples, we respect their wishes and that sample will no longer be available.
+## I previously downloaded a sample that is no longer on the Portal. Why can't I find it?
+If a sample you downloaded previously is no longer available, a submitter has requested it to be removed.
+We process and release all data provided to us on the Portal, without filtering out samples based on quality.
+Instead, we provide a QC report with each download so that users may assess library quality themselves.
+However, we respect submitters' requests to remove samples if they have deemed they are low quality based on their own analyses.
