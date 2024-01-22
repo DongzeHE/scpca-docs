@@ -165,11 +165,11 @@ Each such list will contain the following fields:
 | `singler_reference_label` | If cell typing with `SingleR` was performed, the name of the label in the reference dataset used for annotation |
 | `singler_reference_source`  | If cell typing with `SingleR` was performed, the source of the reference dataset (default is [`celldex`](http://bioconductor.org/packages/release/data/experiment/html/celldex.html)) |
 | `singler_reference_version`  | If cell typing with `SingleR` was performed, the version of `celldex` used to create the reference dataset source, with periods replaced as dashes (`-`) |
-| `cellassign_predictions` | If cell typing with `CellAssign` was performed, the full matrix of predictions across cells and cell types |
-| `cellassign_reference` | If cell typing with `CellAssign` was performed, the reference name as established by the Data Lab used for cell type annotation |
-| `cellassign_reference_organs` | If cell typing with `CellAssign` was performed, a comma-separated list of organs and/or tissue compartments from which marker genes were obtained to create the reference |
-| `cellassign_reference_source`  | If cell typing with `CellAssign` was performed, the source of the reference dataset (default is [`PanglaoDB`](https://panglaodb.se/)) |
-| `cellassign_reference_version`  | If cell typing with `CellAssign` was performed, the version of the reference dataset source. For references obtained from `PanglaoDB`, the version scheme is a date in ISO8601 format |
+| `cellassign_predictions` | If cell typing with `CellAssign` was performed and completed successfully, the full matrix of predictions across cells and cell types |
+| `cellassign_reference` | If cell typing with `CellAssign` was performed and completed successfully, the reference name as established by the Data Lab used for cell type annotation |
+| `cellassign_reference_organs` | If cell typing with `CellAssign` was performed and completed successfully, a comma-separated list of organs and/or tissue compartments from which marker genes were obtained to create the reference |
+| `cellassign_reference_source`  | If cell typing with `CellAssign` was performed and completed successfully, the source of the reference dataset (default is [`PanglaoDB`](https://panglaodb.se/)) |
+| `cellassign_reference_version`  | If cell typing with `CellAssign` was performed and completed successfully, the version of the reference dataset source. For references obtained from `PanglaoDB`, the version scheme is a date in ISO8601 format |
 
 
 Unlike for {ref}`individual SingleCellExperiment objects<sce_file_contents:singlecellexperiment sample metadata`, cluster algorithm parameters are not included in these metadata lists because clusters themselves are not included in the merged object.
