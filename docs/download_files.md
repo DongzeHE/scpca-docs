@@ -154,8 +154,7 @@ If downloading a project that contains at least one CITE-seq library, the quanti
 In `SingleCellExperiment` objects (`rds` files), the  CITE-seq expression data is be provided as an alternative experiment in the same object as the gene expression data.
 However, for `AnnData` objects, (`hdf5` files), the quantified CITE-seq expression is instead provided as a separate file called `SCPCP000000_merged_adt.hdf5`.
 
-Every download includes a summary report, `SCPCL000000_merged-summary-report.html`, which provides a
- a brief summary of the libraries included in the merged object.
+Every download includes a summary report, `SCPCL000000_merged-summary-report.html`, which provides a brief summary of the samples and libraries included in the merged object.
 This includes a summary of the types of libraries (e.g., single-cell, single-nuclei, with CITE-seq) and sample diagnoses included in the object, as well as UMAP visualizations highlighting each library.
 
 Every download also includes the individual [QC report](#qc-report) and, if applicable, [cell type annotation reports](#cell-type-report) for each library included in the merged object.
