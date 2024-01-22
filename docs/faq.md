@@ -166,3 +166,13 @@ adt_assay@meta.features <- adt_row_metadata
 # add altExp from SingleCellExperiment as second assay to Seurat
 seurat_object[["ADT"]] <- adt_assay
 ```
+
+## When should I download a merged object?
+
+When downloading an ScPCA project, you will have the option to either download each library as a separate file, or download a single  file containing a "merged object."
+This merged object contains combined data from all libraries, including expression count matrices and associated metadata.
+The libraries have simply been merged into a single file - _they have not been integrated/batch-corrected_.
+
+You may prefer to download this merged object instead of individual library files to facilitate downstream analyses that consider multiple libraries at once, such as differential expression analysis, integrating multiple samples, or jointly clustering multiple samples.
+
+Please refer to {ref}`the getting started with a merged object section<getting_started:working with a merged scpca object` for more details on working with merged objects.
