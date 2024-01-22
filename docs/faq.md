@@ -169,9 +169,9 @@ seurat_object[["ADT"]] <- adt_assay
 
 ## When should I download a project as a merged object?
 
-When you download all data for a ScPCA project, you will be presented with two options. 
+When you download all data for a ScPCA project, you will be presented with two options.
 You can either download the project such that the data for each sample is stored in separate files, or you can download a single file that contains a merged object with data from all samples in the project.
-This merged object contains combined data from all libraries, including expression count matrices and associated metadata.
+This merged object contains combined data from all samples (and therefore all libraries), including expression count matrices and associated metadata.
 The libraries have simply been merged into a single file - _they have not been integrated/batch-corrected_.
 
 You may prefer to download this merged object instead of individual library files to facilitate downstream analyses that consider multiple libraries at once, such as differential expression analysis, integrating multiple samples, or jointly clustering multiple samples.
