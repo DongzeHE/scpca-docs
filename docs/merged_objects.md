@@ -306,6 +306,75 @@ The `library_metadata` contains the same list of metadata as its corresponding p
 metadata(altExp(merged_sce, "adt")) # adt metadata
 ```
 
+### Additional SingleCellExperiment components for multiplexed libraries
+
+Multiplexed libraries will contain a number of additional components and fields.
+
+Hashtag oligo (HTO) quantification for each cell is included within the merged `SingleCellExperiment` as an "Alternative Experiment" named `"cellhash"` , which can be accessed with the following command:
+
+```r
+altExp(merged_sce, "cellhash") # hto experiment
+```
+
+Within this, the main data matrix is again found in the `counts` assay, with each column corresponding to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponding to a hashtag oligo (HTO).
+Column names are again cell barcode sequences and row names the HTO ids for all assayed HTOs.
+
+The following additional per-cell data columns for the cellhash data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#singlecellexperiment-cell-metrics)).
+
+| Column name                | Contents                                          |
+| -------------------------- | ------------------------------------------------- |
+| `altexps_cellhash_sum`    | UMI count for cellhash HTOs                       |
+| `altexps_cellhash_detected` | Number of HTOs detected per cell (HTO count > 0 ) |
+| `altexps_cellhash_percent`  | Percent of `total` UMI count from HTO reads       |
+
+Metrics for each of the HTOs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
+
+```r
+rowData(altExp(sce, "cellhash")) # hto metrics
+```
+
+This data frame contains the following columns with statistics for each HTO:
+
+| Column name | Contents                                                       |
+| ----------- | -------------------------------------------------------------- |
+| `mean`      | Mean HTO count across all cells/droplets                       |
+| `detected`  | Percent of cells in which the HTO was detected (HTO count > 0 ) |
+| `sample_id` | Sample ID for this library that corresponds to the HTO. Only present in `filtered` and `processed` objects |
+
+Note that in the unfiltered `SingleCellExperiment` objects, this may include hashtag oligos that do not correspond to any included sample, but were part of the reference set used for mapping.
+
+### Demultiplexing results
+
+Demultiplexing results are included only in the `filtered` and `processed` objects.
+The demultiplexing methods applied for these objects are described in the {ref}`multiplex data processing section <processing_information:Multiplexed libraries>`.
+
+Demultiplexing analysis adds the following additional fields to the `colData(sce)` data frame:
+
+| Column name | Contents                                                       |
+| ----------- | -------------------------------------------------------------- |
+| `hashedDrops_sampleid`  | Most likely sample as called by `DropletUtils::hashedDrops` |
+| `HTODemux_sampleid`  | Most likely sample as called by `Seurat::HTODemux` |
+| `vireo_sampleid`  | Most likely sample as called by `vireo` (genetic demultiplexing) |
+
+### Additional demultiplexing statistics
+
+Each demultiplexing method generates additional statistics specific to the method that you may wish to access, including probabilities, alternative calls, and potential doublet information.
+
+For methods that rely on the HTO data, these statistics are found in the `colData(altExp(sce, "cellhash"))` data frame;
+`DropletUtils::hashedDrops()` statistics have the prefix `hashedDrops_` and `Seurat::HTODemux()` statistics have the prefix `HTODemux`.
+
+Genetic demultiplexing statistics are found in the main `colData(sce)` data frame, with the prefix `vireo_`.
+
+
+
+
+
+
+
+
+
+
+
 ## Components of an AnnData merged object
 
 Before getting started, we highly encourage you to familiarize yourself with the general `AnnData` object structure and functions available as part of the [`AnnData` package](https://anndata.readthedocs.io/en/latest/index.html).
