@@ -176,6 +176,7 @@ The `bulk_metadata.tsv` file contains associated metadata for all samples with b
 ### Merged object metadata
 
 Similar to downloading the project with individual files for each sample, downloading the project as a merged object includes a single `single_cell_metadata.tsv` file containing metadata for all samples included in the download.
+For a full description of this file's contents, refer to the [metadata section above ](#metadata).
 
 
 
