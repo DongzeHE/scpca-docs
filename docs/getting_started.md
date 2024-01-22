@@ -331,7 +331,7 @@ See these resources for more information on automated cell type annotation:
 
 ## Working with a merged ScPCA object
 
-Merged ScPCA objects contain all information found in `processed` objects for all individual libraries that compile a given ScPCA project.
+Merged ScPCA objects contain all information found in `processed` objects for all individual libraries that comprise a given ScPCA project.
 For more information on how these objects were prepared, see {ref}`the section on merged object preparation<processing_information:merged objects`.
 **Please be aware that data in merged objects has not been integrated/batch-corrected.**
 
