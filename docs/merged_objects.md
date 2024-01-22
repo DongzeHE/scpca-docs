@@ -254,11 +254,11 @@ altExp(merged_sce, "adt") # adt experiment
 Within this, the main expression matrix is again found in the `counts` assay and the normalized expression matrix is found in the `logcounts` assay.
 For each assay, each column corresponds to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponds to an antibody derived tag (ADT).
 In some cases, only some libraries in the merged object will have associated CITE-seq data.
-These libraries are included in the assay matrices with all `NA` count values.
+Libraries which do not have CITE-seq expression data are included in the assay matrices with all `NA` count values.
 Column names are again cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are the antibody targets for each ADT.
 
 Only cells which are denoted as "Keep" in the `colData(merged_sce)$adt_scpca_filter` column (as described [above](#singlecellexperiment-cell-metrics)) have normalized expression values in the `logcounts` assay, and all other cells are assigned `NA` values.
-However, as described in the {ref}`processed ADT data section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances.
+However, as described in the {ref}`ADT data processing section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances.
 If a given ADT library failed normalization, it will also have `NA` values in the merged object.
 
 The following additional per-cell data columns for the ADT data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#singlecellexperiment-cell-metrics)).
@@ -270,40 +270,41 @@ The following additional per-cell data columns for the ADT data can be found in 
 | `altexps_adt_percent`  | Percent of `total` UMI count from ADT reads       |
 
 
-In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) can be found in the `colData` of the `"adt"` alternative experiment, accessed with `colData(altExp(sce, "adt"))`.
+In addition, the following library-specific QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) can be found in the `colData` of the `"adt"` alternative experiment, accessed with `colData(altExp(merged_sce, "adt"))`.
 
 | Column name                | Contents                                          |
 | -------------------------- | ------------------------------------------------- |
 | `zero.ambient`   | Indicates whether the cell has zero ambient contamination   |
-| `sum.controls` |  The sum of counts for all control features. Only present if negative/isotype control ADTs are present |
-| `high.controls`  | Indicates whether the cell has unusually high total control counts. Only present if negative/isotype control ADTs are present |
-| `ambient.scale` |  The relative amount of ambient contamination. Only present if negative control ADTs are _not_ present |
-| `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative/isotype control ADTs are _not_ present |
+| `sum.controls` |  The sum of counts for all control features. If negative/isotype control ADTs _were not_ used, all values will be `NA` |
+| `high.controls`  | Indicates whether the cell has unusually high total control counts. If negative/isotype control ADTs _were not_ used, all values will be `NA` |
+| `ambient.scale` |  The relative amount of ambient contamination.  If negative/isotype control ADTs _were_ used, all values will be `NA` |
+| `high.ambient`  | Indicates whether the cell has unusually high contamination.  If negative/isotype control ADTs _were_ used, all values will be `NA` |
 | `discard`  | Indicates whether the cell should be discarded based on QC statistics |
 
 
 Metrics for each of the ADTs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
 
 ```r
-rowData(altExp(sce, "adt")) # adt metrics
+rowData(altExp(merged_sce, "adt")) # adt metrics
 ```
 
 This data frame contains the following columns with statistics for each ADT:
 
 | Column name | Contents                                                       |
 | ----------- | -------------------------------------------------------------- |
-| `mean`      | Mean ADT count across all cells/droplets                       |
-| `detected`  | Percent of cells in which the ADT was detected (ADT count > 0 ) |
+| `mean-SCPCL000000`      | Mean ADT count across all cells/droplets                       |
+| `detected-SCPCL000000`  | Percent of cells in which the ADT was detected (ADT count > 0 ) |
 | `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and will be labeled as `target` |
 
-Finally, additional metadata for ADT processing can be found in the metadata slot of the alternative experiment.
-This metadata slot has the same contents as the [parent experiment metadata](#singlecellexperiment-experiment-metadata), along with one additional field, `ambient_profile`, which holds a list of the ambient concentrations of each ADT.
+Finally, additional metadata for ADT processing can be found in the metadata slot of the alternative experiment
+
+Metadata associated with {ref}`data processing <processing_information:Processing information>` is included in the `metadata` slot as a list.
+Similar to the [parent experiment metadata](#singlecellexperiment-experiment-metadata), the `metadata` will contain three items: `library_id`, `sample_id`, and `library_metadata`.
+The `library_metadata` contains the same list of metadata as its corresponding parent experiment library's metadata and includes one additional field `ambient_profile`, which holds a list of the ambient concentrations of each ADT for the given library.
 
 ```r
-metadata(altExp(sce, "adt")) # adt metadata
+metadata(altExp(merged_sce, "adt")) # adt metadata
 ```
-
-
 
 ## Components of an AnnData merged object
 
