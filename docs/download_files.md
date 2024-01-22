@@ -142,7 +142,7 @@ The [metadata file](#metadata) for multiplexed libraries (`single_cell_metadata.
 
 ## Merged object downloads
 
-When downloading a full ScPCA project, you can choose to download each library as an individual file, or you can download {ref}`a single file containing all libraries merged into a single object<faq:INCOMING MERGED OBJECT SECTION>`. TODO!
+When downloading a full ScPCA project, you can choose to download data from all samples as individual files, or you can download {ref}`a single file containing all libraries from all samples merged into a single object<faq:INCOMING MERGED OBJECT SECTION>`. TODO!
 
 Merged object downloads contain all single-cell or single-nuclei gene expression data for a given ScPCA project within a single object, provided as either a [`SingleCellExperiment` object (`.rds` file)](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) or an [`AnnData` object (`.hdf5` file)](https://anndata.readthedocs.io/en/latest/index.html).
 
