@@ -168,14 +168,11 @@ _image pending_
 ### Download folder structure for `AnnData` merged downloads with CITE-seq (ADT) data:
 _image pending_
 
-
-### Merged object metadata
+Similar to downloading the project with individual files for each sample, downloading the project as a merged object includes a single `single_cell_metadata.tsv` file containing metadata for all samples included in the download.
 
 If downloading a project containing bulk RNA-seq data, two tab-separated value files, `bulk_quant.tsv` and `bulk_metadata.tsv`, will be included in the project download.
 The `bulk_quant.tsv` file contains a gene by sample matrix (each row a gene, each column a sample) containing raw gene expression counts quantified by Salmon.
 The `bulk_metadata.tsv` file contains associated metadata for all samples with bulk RNA-seq data.
-
-Similar to downloading the project with individual files for each sample, downloading the project as a merged object includes a single `single_cell_metadata.tsv` file containing metadata for all samples included in the download.
 
 
 
