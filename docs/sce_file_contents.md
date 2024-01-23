@@ -89,8 +89,8 @@ Further, if cell type annotation was performed, there will be additional columns
 | `cluster`  | Cell cluster identity identified by graph-based clustering |
 | `singler_celltype_annotation`  | If cell typing with `SingleR` was performed, the annotated cell type. Cells labeled as `NA` are those which `SingleR` could not confidently annotate |
 | `singler_celltype_ontology`  | If cell typing with `SingleR` was performed with ontology labels, the annotated cell type's ontology ID. Cells labeled as `NA` are those which `SingleR` could not confidently annotate |
-| `cellassign_celltype_annotation`  | If cell typing with `CellAssign` was performed, the annotated cell type. Cells labeled as `"other"` are those which `CellAssign` could not confidently annotate  |
-| `cellassign_max_prediction`  | If cell typing with `CellAssign` was performed, the annotation's prediction score (probability)  |
+| `cellassign_celltype_annotation`  | If cell typing with `CellAssign` was performed, the annotated cell type. Cells labeled as `"other"` are those which `CellAssign` could not confidently annotate. If `CellAssign` was unable to complete successfully, cells will be labeled as `Not run`  |
+| `cellassign_max_prediction`  | If cell typing with `CellAssign` was performed and completed successfully, the annotation's prediction score (probability)  |
 
 ### SingleCellExperiment gene information and metrics
 
@@ -132,7 +132,7 @@ metadata(sce) # experiment metadata
 | `af_num_cells`      | Number of cells reported by `alevin-fry`                                                                                       |
 | `tech_version`      | A string indicating the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1              |
 | `assay_ontology_term_id` | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the `tech_version`  |
-| `seq_unit`         | `cell` for single-cell samples or `nucleus` for single-nucleus samples                                                          |
+| `seq_unit`         | `cell` for single-cell samples or `nucleus` for single-nuclei samples                                                          |
 | `transcript_type`   | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei                       |
 | `sample_metadata`   | Data frame containing metadata for each sample included in the library (see the [`Sample metadata` section below](#singlecellexperiment-sample-metadata)) |
 | `miQC_model`        | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` objects and `processed` objects|
@@ -154,11 +154,11 @@ metadata(sce) # experiment metadata
 | `singler_reference_label` | If cell typing with `SingleR` was performed, the name of the label in the reference dataset used for annotation. Only present for `processed` objects |
 | `singler_reference_source`  | If cell typing with `SingleR` was performed, the source of the reference dataset (default is [`celldex`](http://bioconductor.org/packages/release/data/experiment/html/celldex.html)). Only present for `processed` objects |
 | `singler_reference_version`  | If cell typing with `SingleR` was performed, the version of `celldex` used to create the reference dataset source, with periods replaced as dashes (`-`). Only present for `processed` objects |
-| `cellassign_predictions` | If cell typing with `CellAssign` was performed, the full matrix of predictions across cells and cell types. Only present for `processed` objects |
-| `cellassign_reference` | If cell typing with `CellAssign` was performed, the reference name as established by the Data Lab used for cell type annotation. Only present for `processed` objects |
-| `cellassign_reference_organs` | If cell typing with `CellAssign` was performed, a comma-separated list of organs and/or tissue compartments from which marker genes were obtained to create the reference. Only present for `processed` objects |
-| `cellassign_reference_source`  | If cell typing with `CellAssign` was performed, the source of the reference dataset (default is [`PanglaoDB`](https://panglaodb.se/)). Only present for `processed` objects |
-| `cellassign_reference_version`  | If cell typing with `CellAssign` was performed, the version of the reference dataset source. For references obtained from `PanglaoDB`, the version scheme is a date in ISO8601 format. Only present for `processed` objects |
+| `cellassign_predictions` | If cell typing with `CellAssign` was performed and completed successfully, the full matrix of predictions across cells and cell types. Only present for `processed` objects |
+| `cellassign_reference` | If cell typing with `CellAssign` was performed and completed successfully, the reference name as established by the Data Lab used for cell type annotation. Only present for `processed` objects |
+| `cellassign_reference_organs` | If cell typing with `CellAssign` was performed and completed successfully, a comma-separated list of organs and/or tissue compartments from which marker genes were obtained to create the reference. Only present for `processed` objects |
+| `cellassign_reference_source`  | If cell typing with `CellAssign` was performed and completed successfully, the source of the reference dataset (default is [`PanglaoDB`](https://panglaodb.se/)). Only present for `processed` objects |
+| `cellassign_reference_version`  | If cell typing with `CellAssign` was performed and completed successfully, the version of the reference dataset source. For references obtained from `PanglaoDB`, the version scheme is a date in ISO8601 format. Only present for `processed` objects |
 
 
 ### SingleCellExperiment sample metadata
@@ -384,7 +384,7 @@ The `AnnData` object also includes the following additional cell-level metadata 
 | `sample_id`   | Sample ID in the form `SCPCS000000`                            |
 | `library_id`   | Library ID in the form `SCPCL000000`                             |
 | `assay_ontology_term_id` | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1 |
-| `suspension_type`         | `cell` for single-cell samples or `nucleus` for single-nucleus samples  |
+| `suspension_type`         | `cell` for single-cell samples or `nucleus` for single-nuclei samples  |
 | `participant_id`  | Unique id corresponding to the donor from which the sample was obtained |
 | `submitter_id`    | Original sample identifier from submitter                      |
 | `submitter`       | Submitter name/id                                              |
