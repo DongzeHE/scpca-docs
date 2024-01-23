@@ -1,7 +1,7 @@
 # Merged objects
 
-Each merged object contain _combined information_ for all individual libraries in a given ScPCA project.
-While each individual object, as described on the {ref}`Single-cell gene expression file contents page <sce_file_contents>`, contains quantified gene expression results for a single library, each merged object contains all gene expression results, including gene expression counts and metadata, for all libraries in a given ScPCA project
+Each merged object contain _combined information_ for all individual samples in a given ScPCA project.
+While each individual object, as described on the {ref}`Single-cell gene expression file contents page <sce_file_contents>`, contains quantified gene expression results for a single library, each merged object contains all gene expression results, including gene expression counts and metadata, for all libraries and samples in a given ScPCA project.
 This information includes quantified gene expression data, cell and gene metrics, and associated metadata for all libraries.
 See {ref}`the section on merged object processing <processing_information:merged objects` for more information on how these objects were prepared.
 
@@ -229,7 +229,7 @@ Examples of this include treatment or outcome.
 The `reducedDim` slot of the merged object will be contain both principal component analysis (`PCA`) and `UMAP` results.
 
 PCA results were calculated using [`batchelor::multiBatchPCA`](https://rdrr.io/bioc/batchelor/man/multiBatchPCA.html), specifying libraries as batches to ensure that each library in the merged object was equally weighted, and specifying a list of highly variable genes.
-The highly variable genes were selected with `scran::modelGeneVar`, with libraries specified as blocks, and `scran::getTopHVGs`, and they are stored in the `SingleCellExperiment` object in `metadata(sce)$merged_highly_variable_genes`.
+The highly variable genes were selected with `scran::modelGeneVar`, with libraries specified as blocks, and `scran::getTopHVGs`, and they are stored in the `SingleCellExperiment` object in `metadata(merged_sce)$merged_highly_variable_genes`.
 The following command can be used to access the PCA results:
 
 ```r
@@ -245,7 +245,7 @@ reducedDim(merged_sce, "UMAP")
 
 ### Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags)
 
-ADT data from CITE-seq experiments, when present, is included within the merged `SingleCellExperiment` object as an "Alternative Experiment" named `"adt"` , which can be accessed with the following command:
+ADT data from CITE-seq experiments, when present, is included within the merged `SingleCellExperiment` object as an "Alternative Experiment" named `"adt"`, which can be accessed with the following command:
 
 ```r
 altExp(merged_sce, "adt") # adt experiment
@@ -261,7 +261,7 @@ Only cells which are denoted as "Keep" in the `colData(merged_sce)$adt_scpca_fil
 However, as described in the {ref}`ADT data processing section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances.
 If a given ADT library failed normalization, it will also have `NA` values in the merged object.
 
-The following additional per-cell data columns for the ADT data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#singlecellexperiment-cell-metrics)).
+The following additional per-cell data columns for the ADT data can be found in the main `colData` data frame (accessed with `colData(merged_sce)` [as above](#singlecellexperiment-cell-metrics)).
 
 | Column name                | Contents                                          |
 | -------------------------- | ------------------------------------------------- |
@@ -275,11 +275,11 @@ In addition, the following library-specific QC statistics from [`DropletUtils::c
 | Column name                | Contents                                          |
 | -------------------------- | ------------------------------------------------- |
 | `zero.ambient`   | Indicates whether the cell has zero ambient contamination   |
-| `sum.controls` |  The sum of counts for all control features. If negative/isotype control ADTs _were not_ used, all values will be `NA` |
-| `high.controls`  | Indicates whether the cell has unusually high total control counts. If negative/isotype control ADTs _were not_ used, all values will be `NA` |
-| `ambient.scale` |  The relative amount of ambient contamination.  If negative/isotype control ADTs _were_ used, all values will be `NA` |
-| `high.ambient`  | Indicates whether the cell has unusually high contamination.  If negative/isotype control ADTs _were_ used, all values will be `NA` |
-| `discard`  | Indicates whether the cell should be discarded based on QC statistics |
+| `sum.controls` |  The sum of counts for all control features. Only present if negative/isotype control ADTs were used |
+| `high.controls`  | Indicates whether the cell has unusually high total control counts. Only present if negative/isotype control ADTs were used |
+| `ambient.scale` |  The relative amount of ambient contamination. Only present if negative/isotype control ADTs were not used |
+| `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative/isotype control ADTs were not used |
+| `discard`  | Indicates whether the cell should be discarded based on ADT QC statistics |
 
 
 Metrics for each of the ADTs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
@@ -308,71 +308,20 @@ metadata(altExp(merged_sce, "adt")) # adt metadata
 
 ### Additional SingleCellExperiment components for multiplexed libraries
 
-Multiplexed libraries will contain a number of additional components and fields.
 
-Hashtag oligo (HTO) quantification for each cell is included within the merged `SingleCellExperiment` as an "Alternative Experiment" named `"cellhash"` , which can be accessed with the following command:
+Multiplexed libraries will contain several additional per-cell data columns in the main `colData` data frame (accessed with `colData(merged_sce)` [as above](#singlecellexperiment-cell-metrics)), including cellhash HTO QC statistics and results from demultiplexing analysis.
 
-```r
-altExp(merged_sce, "cellhash") # hto experiment
-```
-
-Within this, the main data matrix is again found in the `counts` assay, with each column corresponding to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponding to a hashtag oligo (HTO).
-Column names are again cell barcode sequences and row names the HTO ids for all assayed HTOs.
-
-The following additional per-cell data columns for the cellhash data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#singlecellexperiment-cell-metrics)).
-
-| Column name                | Contents                                          |
-| -------------------------- | ------------------------------------------------- |
-| `altexps_cellhash_sum`    | UMI count for cellhash HTOs                       |
-| `altexps_cellhash_detected` | Number of HTOs detected per cell (HTO count > 0 ) |
-| `altexps_cellhash_percent`  | Percent of `total` UMI count from HTO reads       |
-
-Metrics for each of the HTOs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
-
-```r
-rowData(altExp(sce, "cellhash")) # hto metrics
-```
-
-This data frame contains the following columns with statistics for each HTO:
-
-| Column name | Contents                                                       |
-| ----------- | -------------------------------------------------------------- |
-| `mean`      | Mean HTO count across all cells/droplets                       |
-| `detected`  | Percent of cells in which the HTO was detected (HTO count > 0 ) |
-| `sample_id` | Sample ID for this library that corresponds to the HTO. Only present in `filtered` and `processed` objects |
-
-Note that in the unfiltered `SingleCellExperiment` objects, this may include hashtag oligos that do not correspond to any included sample, but were part of the reference set used for mapping.
-
-### Demultiplexing results
-
-Demultiplexing results are included only in the `filtered` and `processed` objects.
-The demultiplexing methods applied for these objects are described in the {ref}`multiplex data processing section <processing_information:Multiplexed libraries>`.
-
-Demultiplexing analysis adds the following additional fields to the `colData(sce)` data frame:
-
-| Column name | Contents                                                       |
-| ----------- | -------------------------------------------------------------- |
-| `hashedDrops_sampleid`  | Most likely sample as called by `DropletUtils::hashedDrops` |
-| `HTODemux_sampleid`  | Most likely sample as called by `Seurat::HTODemux` |
-| `vireo_sampleid`  | Most likely sample as called by `vireo` (genetic demultiplexing) |
-
-### Additional demultiplexing statistics
-
-Each demultiplexing method generates additional statistics specific to the method that you may wish to access, including probabilities, alternative calls, and potential doublet information.
-
-For methods that rely on the HTO data, these statistics are found in the `colData(altExp(sce, "cellhash"))` data frame;
-`DropletUtils::hashedDrops()` statistics have the prefix `hashedDrops_` and `Seurat::HTODemux()` statistics have the prefix `HTODemux`.
-
-Genetic demultiplexing statistics are found in the main `colData(sce)` data frame, with the prefix `vireo_`.
+| Column name                 | Contents                                                         |
+| --------------------------- | ---------------------------------------------------------------- |
+| `altexps_cellhash_sum`      | UMI count for cellhash HTOs                                      |
+| `altexps_cellhash_detected` | Number of HTOs detected per cell (HTO count > 0 )                |
+| `altexps_cellhash_percent`  | Percent of `total` UMI count from HTO reads                      |
+| `hashedDrops_sampleid`      | Most likely sample as called by `DropletUtils::hashedDrops`      |
+| `HTODemux_sampleid`         | Most likely sample as called by `Seurat::HTODemux`               |
+| `vireo_sampleid`            | Most likely sample as called by `vireo` (genetic demultiplexing) |
 
 
-
-
-
-
-
-
-
+However, unlike in {ref}`individual SingleCellExperiment objects<sce_file_contents:additional SingleCellExperiment components for multiplexed libraries`, hashtag oligo (HTO) quantification will not be included in the merged `SingleCellExperiment` as an "Alternative Experiment, as described in the <TODO: FORTHCOMING FAQ ABOUT WHY IT'S NOT THERE>.
 
 
 ## Components of an AnnData merged object
