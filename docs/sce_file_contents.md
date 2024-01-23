@@ -132,7 +132,7 @@ metadata(sce) # experiment metadata
 | `af_num_cells`      | Number of cells reported by `alevin-fry`                                                                                       |
 | `tech_version`      | A string indicating the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1              |
 | `assay_ontology_term_id` | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the `tech_version`  |
-| `seq_unit`         | `cell` for single-cell samples or `nucleus` for single-nucleus samples                                                          |
+| `seq_unit`         | `cell` for single-cell samples or `nucleus` for single-nuclei samples                                                          |
 | `transcript_type`   | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei                       |
 | `sample_metadata`   | Data frame containing metadata for each sample included in the library (see the [`Sample metadata` section below](#singlecellexperiment-sample-metadata)) |
 | `miQC_model`        | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` objects and `processed` objects|
@@ -384,7 +384,7 @@ The `AnnData` object also includes the following additional cell-level metadata 
 | `sample_id`   | Sample ID in the form `SCPCS000000`                            |
 | `library_id`   | Library ID in the form `SCPCL000000`                             |
 | `assay_ontology_term_id` | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1 |
-| `suspension_type`         | `cell` for single-cell samples or `nucleus` for single-nucleus samples  |
+| `suspension_type`         | `cell` for single-cell samples or `nucleus` for single-nuclei samples  |
 | `participant_id`  | Unique id corresponding to the donor from which the sample was obtained |
 | `submitter_id`    | Original sample identifier from submitter                      |
 | `submitter`       | Submitter name/id                                              |
