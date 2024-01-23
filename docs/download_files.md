@@ -151,7 +151,7 @@ In addition to the counts matrices, the `SingleCellExperiment` or `AnnData` obje
 See the {ref}`section on merged object processing<processing_information:merged objects>` for more information about how merged objects were created.
 
 If downloading a project that contains at least one CITE-seq library, the quantified CITE-seq expression data will also be merged.
-In `SingleCellExperiment` objects (`rds` files), the  CITE-seq expression data is provided as an alternative experiment in the same object as the gene expression data.
+In `SingleCellExperiment` objects (`rds` files), the CITE-seq expression data is provided as an alternative experiment in the same object as the gene expression data.
 However, for `AnnData` objects, (`hdf5` files), the quantified CITE-seq expression is instead provided as a separate file called `SCPCP000000_merged_adt.hdf5`.
 
 Every download includes a summary report, `SCPCL000000_merged-summary-report.html`, which provides a brief summary of the samples and libraries included in the merged object.
