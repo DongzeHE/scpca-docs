@@ -229,7 +229,7 @@ Examples of this include treatment or outcome.
 The `reducedDim` slot of the merged object will be contain both principal component analysis (`PCA`) and `UMAP` results.
 
 PCA results were calculated using [`batchelor::multiBatchPCA`](https://rdrr.io/bioc/batchelor/man/multiBatchPCA.html), specifying libraries as batches to ensure that each library in the merged object was equally weighted, and specifying a list of highly variable genes.
-The highly variable genes were selected in a library-aware manner with `scran::modelGeneVar` and `scran::getTopHVGs`. 
+The highly variable genes were selected in a library-aware manner with `scran::modelGeneVar` and `scran::getTopHVGs`.
 The vector of highly variable genes are stored in the `SingleCellExperiment` object in `metadata(merged_sce)$merged_highly_variable_genes`.
 The following command can be used to access the PCA results:
 
@@ -271,7 +271,7 @@ The following additional per-cell data columns for the ADT data can be found in 
 | `altexps_adt_percent`  | Percent of `total` UMI count from ADT reads       |
 
 
-In addition, the following library-specific QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) can be found in the `colData` of the `"adt"` alternative experiment, accessed with `colData(altExp(merged_sce, "adt"))`.
+In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html), which were calculated on individual libraries before objects were merged, can be found in the `colData` of the `"adt"` alternative experiment, accessed with `colData(altExp(merged_sce, "adt"))`.
 
 | Column name                | Contents                                          |
 | -------------------------- | ------------------------------------------------- |
@@ -311,6 +311,7 @@ metadata(altExp(merged_sce, "adt")) # adt metadata
 
 
 Multiplexed libraries will contain several additional per-cell data columns in the main `colData` data frame (accessed with `colData(merged_sce)` [as above](#singlecellexperiment-cell-metrics)), including cellhash HTO QC statistics and results from demultiplexing analysis.
+Statistics were calculated and demultiplexing was performed separately on each library before objects were merged.
 
 | Column name                 | Contents                                                         |
 | --------------------------- | ---------------------------------------------------------------- |
