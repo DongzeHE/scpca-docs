@@ -1,6 +1,6 @@
 # Merged objects
 
-Each merged object contain _combined information_ for all individual samples in a given ScPCA project.
+Each merged object contains _combined information_ for all individual samples in a given ScPCA project.
 While each individual object, as described on the {ref}`Single-cell gene expression file contents page <sce_file_contents>`, contains quantified gene expression results for a single library, each merged object contains all gene expression results, including gene expression counts and metadata, for all libraries and samples in a given ScPCA project.
 This information includes quantified gene expression data, cell and gene metrics, and associated metadata for all libraries.
 See {ref}`the section on merged object processing <processing_information:merged objects` for more information on how these objects were prepared.
@@ -229,14 +229,15 @@ Examples of this include treatment or outcome.
 The `reducedDim` slot of the merged object will be contain both principal component analysis (`PCA`) and `UMAP` results.
 
 PCA results were calculated using [`batchelor::multiBatchPCA`](https://rdrr.io/bioc/batchelor/man/multiBatchPCA.html), specifying libraries as batches to ensure that each library in the merged object was equally weighted, and specifying a list of highly variable genes.
-The highly variable genes were selected with `scran::modelGeneVar`, with libraries specified as blocks, and `scran::getTopHVGs`, and they are stored in the `SingleCellExperiment` object in `metadata(merged_sce)$merged_highly_variable_genes`.
+The highly variable genes were selected in a library-aware manner with `scran::modelGeneVar` and `scran::getTopHVGs`. 
+The vector of highly variable genes are stored in the `SingleCellExperiment` object in `metadata(merged_sce)$merged_highly_variable_genes`.
 The following command can be used to access the PCA results:
 
 ```r
 reducedDim(merged_sce, "PCA")
 ```
 
-UMAP results were calculated using `scater::runUMAP()`, with the PCA results as input rather than the full gene expression matrix.
+UMAP results were calculated using `scater::runUMAP()`, with the batch-aware PCA results as input rather than the full gene expression matrix.
 The following command can be used to access the UMAP results:
 
 ```r
@@ -253,9 +254,9 @@ altExp(merged_sce, "adt") # adt experiment
 
 Within this, the main expression matrix is again found in the `counts` assay and the normalized expression matrix is found in the `logcounts` assay.
 For each assay, each column corresponds to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponds to an antibody derived tag (ADT).
+Column names are again cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are the antibody targets for each ADT.
 In some cases, only some libraries in the merged object will have associated CITE-seq data.
 Libraries which do not have CITE-seq expression data are included in the assay matrices with all `NA` count values.
-Column names are again cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are the antibody targets for each ADT.
 
 Only cells which are denoted as "Keep" in the `colData(merged_sce)$adt_scpca_filter` column (as described [above](#singlecellexperiment-cell-metrics)) have normalized expression values in the `logcounts` assay, and all other cells are assigned `NA` values.
 However, as described in the {ref}`ADT data processing section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances.
