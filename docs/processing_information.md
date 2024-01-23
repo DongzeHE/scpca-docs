@@ -181,8 +181,8 @@ We chose to enable the [`--seqBias`](https://salmon.readthedocs.io/en/latest/sal
 
 ## Merged objects
 
-In addition to providing separate objects for each library, we also offer an option to download all files for a project as a single merged object.
-This merged object contains the gene expression data for all libraries from a single project in a single file.
+In addition to providing separate objects for each sample, we also offer an option to download all samples (and therefore libraries) for a project as a single merged object.
+This merged object contains the gene expression data for all samples from a single project in a single file.
 This section describes how these merged objects were prepared.
 
 Following post-processing of each `SingleCellExperiment` ([see the section above on post-processing](#processed-gene-expression-data)) object, all objects belonging to a single ScPCA project were merged together.
