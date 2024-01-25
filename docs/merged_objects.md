@@ -227,7 +227,7 @@ Examples of this include treatment or outcome.
 
 ### SingleCellExperiment dimensionality reduction results
 
-The `reducedDim` slot of the merged object will be contain both principal component analysis (`PCA`) and `UMAP` results.
+The `reducedDim` slot of the merged object will contain both principal component analysis (`PCA`) and `UMAP` results.
 
 PCA results were calculated using [`batchelor::multiBatchPCA`](https://rdrr.io/bioc/batchelor/man/multiBatchPCA.html), specifying libraries as batches to ensure that each library in the merged object was equally weighted, and specifying a list of highly variable genes.
 The highly variable genes were selected in a library-aware manner with `scran::modelGeneVar` and `scran::getTopHVGs`.
@@ -291,7 +291,7 @@ rowData(altExp(merged_sce, "adt")) # adt metrics
 ```
 
 This data frame contains the following columns with statistics for each ADT.
-The columns `mean-SCPCL000000` and `detected-SCPCL000000` are present for each CITE-seq library in the merged object.
+The columns `mean-SCPCL000000` and `detected-SCPCL000000` are present for each library in the merged object that has associated CITE-seq data.
 
 | Column name | Contents                                                       |
 | ----------- | -------------------------------------------------------------- |
