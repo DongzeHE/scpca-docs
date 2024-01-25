@@ -312,20 +312,27 @@ metadata(altExp(merged_sce, "adt")) # adt metadata
 ### Additional SingleCellExperiment components for multiplexed libraries
 
 
-Multiplexed libraries will contain several additional per-cell data columns in the main `colData` data frame (accessed with `colData(merged_sce)` [as above](#singlecellexperiment-cell-metrics)), including cellhash HTO QC statistics and results from demultiplexing analysis.
-Statistics were calculated and demultiplexing was performed separately on each library before objects were merged.
+Multiplexed libraries will contain several additional per-cell data columns in the `colData` slot (accessed with `colData(merged_sce)` [as above](#singlecellexperiment-cell-metrics)), including cellhash HTO QC statistics and results from demultiplexing analysis.
+
+The following columns in the `colData` slot `DataFrame` contain cellhash QC statistics for multiplexed libraries:
 
 | Column name                 | Contents                                                         |
 | --------------------------- | ---------------------------------------------------------------- |
 | `altexps_cellhash_sum`      | UMI count for cellhash HTOs                                      |
 | `altexps_cellhash_detected` | Number of HTOs detected per cell (HTO count > 0 )                |
 | `altexps_cellhash_percent`  | Percent of `total` UMI count from HTO reads                      |
+
+In addition, the following columns in the `colData` slot `DataFrame` contain demultiplexing results, although note that demultiplexing itself was not performed:
+
+
+| Column name                 | Contents                                                         |
+| --------------------------- | ---------------------------------------------------------------- |
 | `hashedDrops_sampleid`      | Most likely sample as called by `DropletUtils::hashedDrops`      |
 | `HTODemux_sampleid`         | Most likely sample as called by `Seurat::HTODemux`               |
 | `vireo_sampleid`            | Most likely sample as called by `vireo` (genetic demultiplexing) |
 
 
-However, unlike in {ref}`individual SingleCellExperiment objects<sce_file_contents:additional SingleCellExperiment components for multiplexed libraries`, hashtag oligo (HTO) quantification will not be included in the merged `SingleCellExperiment` as an "Alternative Experiment, as described in the <TODO: FORTHCOMING FAQ ABOUT WHY IT'S NOT THERE>.
+Unlike in {ref}`individual SingleCellExperiment objects<sce_file_contents:additional SingleCellExperiment components for multiplexed libraries`, hashtag oligo (HTO) quantification will not be included in the merged `SingleCellExperiment` as an alternative experiment, as described in the <TODO: FORTHCOMING FAQ ABOUT WHY IT'S NOT THERE>.
 
 
 ## Components of an AnnData merged object
