@@ -312,7 +312,7 @@ metadata(altExp(merged_sce, "adt")) # adt metadata
 ### Additional SingleCellExperiment components for multiplexed libraries
 
 
-Multiplexed libraries will contain several additional per-cell data columns in the `colData` slot (accessed with `colData(merged_sce)` [as above](#singlecellexperiment-cell-metrics)), including cellhash HTO QC statistics and results from demultiplexing analysis.
+Multiplexed libraries will contain several additional per-cell data columns in the `colData` slot (accessed with `colData(merged_sce)` [as above](#singlecellexperiment-cell-metrics)).
 
 The following columns in the `colData` slot `DataFrame` contain cellhash QC statistics for multiplexed libraries:
 
@@ -323,7 +323,6 @@ The following columns in the `colData` slot `DataFrame` contain cellhash QC stat
 | `altexps_cellhash_percent`  | Percent of `total` UMI count from HTO reads                      |
 
 In addition, the following columns in the `colData` slot `DataFrame` contain demultiplexing results, although note that demultiplexing itself was not performed:
-
 
 | Column name                 | Contents                                                         |
 | --------------------------- | ---------------------------------------------------------------- |
