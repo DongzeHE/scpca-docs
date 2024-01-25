@@ -176,6 +176,7 @@ For a full description of this file's contents, refer to the [metadata section a
 If downloading a project containing bulk RNA-seq data, two tab-separated value files, `bulk_quant.tsv` and `bulk_metadata.tsv`, will be included in the project download.
 The `bulk_quant.tsv` file contains a gene by sample matrix (each row a gene, each column a sample) containing raw gene expression counts quantified by Salmon.
 The `bulk_metadata.tsv` file contains associated metadata for all samples with bulk RNA-seq data.
+This file will contain fields equivalent to those found in the `single_cell_metadata.tsv` related to processing the sample, but will not contain patient or disease specific metadata (e.g. `age`, `sex`, `diagnosis`, `subdiagnosis`, `tissue_location`, or `disease_timing`).
 
 ## Spatial transcriptomics libraries
 
