@@ -107,9 +107,6 @@ Metrics were calculated for each library using the [`scuttle::addPerFeatureQCMet
 
 ### SingleCellExperiment experiment metadata
 
-Metadata associated with {ref}`data processing <processing_information:Processing information>` is included in the `metadata` slot as a list.
-
-
 ```r
 metadata(merged_sce) # experiment metadata
 ```
@@ -426,3 +423,36 @@ The `AnnData` object also includes the following additional gene-level metadata 
 | Column name   | Contents                                                         |
 | ------------- | ---------------------------------------------------------------- |
 | `is_feature_filtered` | Boolean indicating if the gene or feature is filtered out in the normalized matrix but is present in the raw matrix     |
+
+
+### AnnData experiment metadata
+
+TODO: THIS DOESN'T MATCH INDIVIDUAL OBJECT.
+
+```
+>>> merged_adata_object.uns.keys()
+dict_keys(['X_name', 'library_id', 'merged_highly_variable_genes', 'sample_id', 'schema_version'])
+>>> adata_object.uns.keys()
+dict_keys(['X_name', 'af_num_cells', 'af_permit_type', 'af_resolution', 'alevinfry_version', 'assay_ontology_term_id', 'cellassign_reference', 'cellassign_reference_organs', 'cellassign_reference_source', 'cellassign_reference_version', 'celltype_methods', 'cluster_algorithm', 'cluster_nn', 'cluster_weighting', 'filtering_method', 'highly_variable_genes', 'include_unspliced', 'library_id', 'mapped_reads', 'mapping_tool', 'min_gene_cutoff', 'normalization', 'prob_compromised_cutoff', 'project_id', 'reference_index', 'salmon_version', 'sample_id', 'schema_version', 'scpca_filter_method', 'seq_unit', 'singler_reference', 'singler_reference_label', 'singler_reference_source', 'singler_reference_version', 'tech_version', 'total_reads', 'transcript_type', 'usa_mode'])
+```
+
+Metadata associated with {ref}`data processing <processing_information:Processing information>` is included in the `metadata` slot as a list.
+
+
+
+Metadata associated with {ref}`data processing <processing_information:Processing information>` is included in the `.uns` slot as a list.
+
+```python
+merged_adata_object.uns # experiment metadata
+```
+
+All of the object metadata included in `SingleCellExperiment` objects are present in the `.uns` slot of the `AnnData` object.
+To see a full description of the included columns, see the [section on experiment metadata in `Components of a SingleCellExperiment object`](#singlecellexperiment-experiment-metadata).
+The only exception is that the `AnnData` object _does not_ contain the `sample_metadata` item in the `.uns` slot.
+Instead, the contents of the `sample_metadata` data frame are stored in the cell-level metadata (`.obs`).
+
+The `AnnData` object also includes the following additional items in the `.uns` slot:
+
+| Item name   | Contents                                                         |
+| ------------- | ---------------------------------------------------------------- |
+| `schema_version` | CZI schema version used for `AnnData` formatting |
