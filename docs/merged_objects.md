@@ -368,7 +368,7 @@ merged_adata_object.var_names # matrix row names
 
 ### AnnData cell metrics
 
-Cell metrics calculated separately for each library's RNA-seq expression data are stored as a `pandas.DataFrame` in the `.obs` slot.
+Cell metrics calculated from the RNA-seq expression data, which were calculated separately for each library, are stored as a `pandas.DataFrame` in the `.obs` slot.
 The slot's row names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`.
 
 ```python
@@ -379,15 +379,13 @@ All of the per-cell data columns included in the `colData` of the `SingleCellExp
 To see a full description of the included columns, see the [section on cell metrics in Components of a merged SingleCellExperiment object](#singlecellexperiment-cell-metrics).
 
 
-
 The `AnnData` object also includes the following additional cell-level metadata columns:
 
 | Column name                                | Contents                                                                                                                                                                                                                                  |
 | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sample_id`                                | Sample ID in the form `SCPCS000000`                                                                                                                                                                                                       |
+| `scpca_project_id`                         | Project ID in the form `SCPCP000000`                                                                                                                                                                                                      |
 | `library_id`                               | Library ID in the form `SCPCL000000`                                                                                                                                                                                                      |
-| `assay_ontology_term_id`                   | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1                    |
-| `suspension_type`                          | `cell` for single-cell samples or `nucleus` for single-nuclei samples                                                                                                                                                                     |
 | `participant_id`                           | Unique id corresponding to the donor from which the sample was obtained                                                                                                                                                                   |
 | `submitter_id`                             | Original sample identifier from submitter                                                                                                                                                                                                 |
 | `submitter`                                | Submitter name/id                                                                                                                                                                                                                         |
@@ -406,4 +404,6 @@ The `AnnData` object also includes the following additional cell-level metadata 
 | `self_reported_ethnicity_ontology_term_id` | For _Homo sapiens_, a [`HANCESTRO` term](http://obofoundry.org/ontology/hancestro.html). `multiethnic` indicates more than one ethnicity is reported. `unknown` indicates unavailable ethnicity, and `NA` is used for all other organisms |
 | `disease_ontology_term_id`                 | [`Mondo`](http://obofoundry.org/ontology/mondo.html) term indicating disease type. [`PATO:0000461`](http://purl.obolibrary.org/obo/PATO_0000461) indicates normal or healthy tissue. If unavailable, `NA` is used                         |
 | `tissue_ontology_term_id`                  | [`Uberon`](http://obofoundry.org/ontology/uberon.html) term indicating tissue of origin. If unavailable, `NA` is used                                                                                                                     |
+| `assay_ontology_term_id`                   | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1                    |
+| `suspension_type`                          | `cell` for single-cell samples or `nucleus` for single-nuclei samples                                                                                                                                                                     |
 | `is_primary_data`                          | Set to `FALSE` for all libraries to reflect that all libraries were obtained from external investigators. Required by `CELLxGENE`                                                                                                         |
