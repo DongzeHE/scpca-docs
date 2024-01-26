@@ -376,7 +376,7 @@ adata_object.obs # cell metrics
 ```
 
 All of the per-cell data columns included in the `colData` of the `SingleCellExperiment` objects are present in the `.obs` slot of the `AnnData` object.
-To see a full description of the included columns, see the [section on cell metrics in Components of a SingleCellExperiment object](#singlecellexperiment-cell-metrics).
+To see a full description of the included columns, see the [section on cell metrics in `Components of a SingleCellExperiment object`](#singlecellexperiment-cell-metrics).
 
 The `AnnData` object also includes the following additional cell-level metadata columns:
 
