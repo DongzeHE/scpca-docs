@@ -419,7 +419,7 @@ adata_object.var # gene metrics
 All of the per-gene data columns included in the `rowData` of the `SingleCellExperiment` objects are present in the `.var` slot of the `AnnData` object.
 To see a full description of the included columns, see the [section on gene metrics in `Components of a SingleCellExperiment object`](#singlecellexperiment-gene-information-and-metrics).
 
-The `AnnData` object also includes the following additional gene-level metadata columns:
+The `AnnData` object also includes the following additional gene-level metadata column:
 
 | Column name   | Contents                                                         |
 | ------------- | ---------------------------------------------------------------- |
