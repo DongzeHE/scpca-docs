@@ -295,6 +295,7 @@ The columns `mean-SCPCL000000` and `detected-SCPCL000000` are present for each l
 
 | Column name | Contents                                                       |
 | ----------- | -------------------------------------------------------------- |
+| `adt_name`  | Name of the ADT                                                |
 | `mean-SCPCL000000`      | Mean ADT count across all cells/droplets. Only present for libraries with CITE-seq data                       |
 | `detected-SCPCL000000`  | Percent of cells in which the ADT was detected (ADT count > 0 ). Only present for libraries with CITE-seq data |
 | `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and will be labeled as `target` |
