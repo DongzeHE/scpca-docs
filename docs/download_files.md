@@ -154,6 +154,14 @@ If downloading a project that contains at least one CITE-seq library, the quanti
 In `SingleCellExperiment` objects (`rds` files), the CITE-seq expression data is provided as an alternative experiment in the same object as the gene expression data.
 However, for `AnnData` objects, (`hdf5` files), the quantified CITE-seq expression is instead provided as a separate file called `SCPCP000000_merged_adt.hdf5`.
 
+Every download also includes a single `single_cell_metadata.tsv` file containing metadata for all libraries included in the merged object.
+For a full description of this file's contents, refer to the [metadata section above](#metadata).
+
+If downloading a project containing bulk RNA-seq data, two tab-separated value files, `bulk_quant.tsv` and `bulk_metadata.tsv`, will be included in the merged object download.
+The `bulk_quant.tsv` file contains a gene by sample matrix (each row a gene, each column a sample) containing raw gene expression counts quantified by Salmon.
+The `bulk_metadata.tsv` file contains associated metadata for all samples with bulk RNA-seq data.
+This file will contain fields equivalent to those found in the `single_cell_metadata.tsv` related to processing the sample, but will not contain patient or disease specific metadata (e.g. `age`, `sex`, `diagnosis`, `subdiagnosis`, `tissue_location`, or `disease_timing`).
+
 Every download includes a summary report, `SCPCL000000_merged-summary-report.html`, which provides a brief summary of the samples and libraries included in the merged object.
 This includes a summary of the types of libraries (e.g., single-cell, single-nuclei, with CITE-seq) and sample diagnoses included in the object, as well as UMAP visualizations highlighting each library.
 
@@ -168,15 +176,6 @@ Every download also includes the individual [QC report](#qc-report) and, if appl
 ### Download folder structure for `AnnData` merged downloads with CITE-seq (ADT) data:
 ![project download folder](images/merged-anndata-project-citeseq-download-folder.png)
 
-### Merged object metadata
-
-Similar to downloading the project with individual files for each sample, downloading the project as a merged object includes a single `single_cell_metadata.tsv` file containing metadata for all samples included in the download.
-For a full description of this file's contents, refer to the [metadata section above ](#metadata).
-
-If downloading a project containing bulk RNA-seq data, two tab-separated value files, `bulk_quant.tsv` and `bulk_metadata.tsv`, will be included in the project download.
-The `bulk_quant.tsv` file contains a gene by sample matrix (each row a gene, each column a sample) containing raw gene expression counts quantified by Salmon.
-The `bulk_metadata.tsv` file contains associated metadata for all samples with bulk RNA-seq data.
-This file will contain fields equivalent to those found in the `single_cell_metadata.tsv` related to processing the sample, but will not contain patient or disease specific metadata (e.g. `age`, `sex`, `diagnosis`, `subdiagnosis`, `tissue_location`, or `disease_timing`).
 
 ## Spatial transcriptomics libraries
 
