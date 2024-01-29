@@ -22,8 +22,11 @@ Cells were annotated using both [`SingleR`](https://bioconductor.org/packages/re
 * Downloads will also contain a separate cell type report providing more information about cell type annotations, including comparisons between different cell type annotations and diagnostic assessments of cell type annotation reliability.
 * Sample metadata will now include two additional pieces of information which can be used to filter datasets: Whether the given sample is a patient-derived xenograft, and whether the sample is derived from a cell line.
 * This release additionally includes community-contributed projects.
-Community-contributed projects are 10x Genomics single-cell or single-nuclei datasets that have been processed with the ScPCA pipeline. 
+Community-contributed projects are 10x Genomics single-cell or single-nuclei datasets that have been processed with the ScPCA pipeline.
 Please refer to the [contributions page](https://scpca.alexslemonade.org/contribute) for more information about community contributions.
+* Spatial transcriptomics summary reports are now named `SCPCL000000_spatial-summary.html`, where `SCPCL000000` represents the given library ID.
+  * They were previously named `SCPCL000000_spatial_summary.html`; the new name contains a dash where there was previously an underscore.
+
 
 
 ## PLACEHOLDER FOR RELEASE DATE
