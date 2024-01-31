@@ -89,7 +89,7 @@ Further, if cell type annotation was performed, there will be additional columns
 | `cluster`  | Cell cluster identity identified by graph-based clustering |
 | `singler_celltype_annotation`  | If cell typing with `SingleR` was performed, the annotated cell type. Cells labeled as `NA` are those which `SingleR` could not confidently annotate |
 | `singler_celltype_ontology`  | If cell typing with `SingleR` was performed with ontology labels, the annotated cell type's ontology ID. Cells labeled as `NA` are those which `SingleR` could not confidently annotate |
-| `cellassign_celltype_annotation`  | If cell typing with `CellAssign` was performed, the annotated cell type. Cells labeled as `"other"` are those which `CellAssign` could not confidently annotate. If `CellAssign` was unable to complete successfully, cells will be labeled as `Not run`  |
+| `cellassign_celltype_annotation`  | If cell typing with `CellAssign` was performed, the annotated cell type. Cells labeled as `"other"` are those which `CellAssign` could not confidently annotate. If `CellAssign` was unable to complete successfully, cells will be labeled as `"Not run"`  |
 | `cellassign_max_prediction`  | If cell typing with `CellAssign` was performed and completed successfully, the annotation's prediction score (probability)  |
 
 ### SingleCellExperiment gene information and metrics
@@ -260,6 +260,7 @@ This data frame contains the following columns with statistics for each ADT:
 
 | Column name | Contents                                                       |
 | ----------- | -------------------------------------------------------------- |
+| `adt_name`  | Name or ID of the ADT                                          |
 | `mean`      | Mean ADT count across all cells/droplets                       |
 | `detected`  | Percent of cells in which the ADT was detected (ADT count > 0 ) |
 | `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and will be labeled as `target` |
