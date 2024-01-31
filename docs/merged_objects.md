@@ -405,7 +405,6 @@ The `AnnData` object also includes the following additional cell-level metadata 
 | `tissue_ontology_term_id`                  | [`Uberon`](http://obofoundry.org/ontology/uberon.html) term indicating tissue of origin. If unavailable, `NA` is used                                                                                                                     |
 | `assay_ontology_term_id`                   | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1                    |
 | `suspension_type`                          | `cell` for single-cell samples or `nucleus` for single-nuclei samples                                                                                                                                                                     |
-| `is_primary_data`                          | Set to `FALSE` for all libraries to reflect that all libraries were obtained from external investigators. Required by `CELLxGENE`                                                                                                         |
 
 
 ### AnnData gene information and metrics
@@ -419,9 +418,3 @@ merged_adata_object.var # gene metrics
 All of the per-gene data columns included in the `rowData` of the `SingleCellExperiment` objects are present in the `.var` slot of the `AnnData` object.
 Note that the `SingleCellExperiment` columns named `SCPCL000000-mean` and `SCPCL000000-detected` are instead named `SCPCL000000.mean` and `SCPCL000000.detected`, respectively, in the merged `AnnData` object.
 To see a full description of the included columns, see the [section on gene metrics in `Components of a SingleCellExperiment object`](#singlecellexperiment-gene-information-and-metrics).
-
-The `AnnData` object also includes the following additional gene-level metadata column:
-
-| Column name   | Contents                                                         |
-| ------------- | ---------------------------------------------------------------- |
-| `is_feature_filtered` | Boolean indicating if the gene or feature is filtered out in the normalized matrix but is present in the raw matrix     |
