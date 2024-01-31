@@ -371,40 +371,11 @@ Cell metrics calculated from the RNA-seq expression data, which were calculated 
 The slot's row names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`.
 
 ```python
-merged_adata_object.obs # cell metrics
+merged_adata_object.obs # cell metrics and metadata
 ```
 
 All of the per-cell data columns included in the `colData` of the `SingleCellExperiment` merged objects are present in the `.obs` slot of the `AnnData` object.
-To see a full description of the included columns, see the [section on cell metrics in `Components of a merged SingleCellExperiment object`](#singlecellexperiment-cell-metrics).
-
-
-The `AnnData` object also includes the following additional cell-level metadata columns:
-
-| Column name                                | Contents                                                                                                                                                                                                                                  |
-| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample_id`                                | Sample ID in the form `SCPCS000000`                                                                                                                                                                                                       |
-| `scpca_project_id`                         | Project ID in the form `SCPCP000000`                                                                                                                                                                                                      |
-| `library_id`                               | Library ID in the form `SCPCL000000`                                                                                                                                                                                                      |
-| `participant_id`                           | Unique id corresponding to the donor from which the sample was obtained                                                                                                                                                                   |
-| `submitter_id`                             | Original sample identifier from submitter                                                                                                                                                                                                 |
-| `submitter`                                | Submitter name/id                                                                                                                                                                                                                         |
-| `age`                                      | Age at time sample was obtained                                                                                                                                                                                                           |
-| `sex`                                      | Sex of patient that the sample was obtained from                                                                                                                                                                                          |
-| `diagnosis`                                | Tumor type                                                                                                                                                                                                                                |
-| `subdiagnosis`                             | Subcategory of diagnosis or mutation status (if applicable)                                                                                                                                                                               |
-| `tissue_location`                          | Where in the body the tumor sample was located                                                                                                                                                                                            |
-| `disease_timing`                           | At what stage of disease the sample was obtained, either diagnosis or recurrence                                                                                                                                                          |
-| `organism`                                 | The organism the sample was obtained from (e.g., `Homo_sapiens`)                                                                                                                                                                          |
-| `is_xenograft`                             | Whether the sample is a patient-derived xenograft                                                                                                                                                                                         |
-| `is_cell_line`                             | Whether the sample was derived from a cell line                                                                                                                                                                                           |
-| `development_stage_ontology_term_id`       | [`HsapDv` ontology](http://obofoundry.org/ontology/hsapdv.html) term indicating developmental stage. If unavailable, `unknown` is used                                                                                                    |
-| `sex_ontology_term_id`                     | [`PATO`](http://obofoundry.org/ontology/pato.html) term referring to the sex of the sample. If unavailable, `unknown` is used                                                                                                             |
-| `organism_ontology_id`                     | [NCBI taxonomy](https://www.ncbi.nlm.nih.gov/taxonomy) term for organism, e.g. [`NCBITaxon:9606`](http://purl.obolibrary.org/obo/NCBITaxon_9606)                                                                                          |
-| `self_reported_ethnicity_ontology_term_id` | For _Homo sapiens_, a [`HANCESTRO` term](http://obofoundry.org/ontology/hancestro.html). `multiethnic` indicates more than one ethnicity is reported. `unknown` indicates unavailable ethnicity, and `NA` is used for all other organisms |
-| `disease_ontology_term_id`                 | [`Mondo`](http://obofoundry.org/ontology/mondo.html) term indicating disease type. [`PATO:0000461`](http://purl.obolibrary.org/obo/PATO_0000461) indicates normal or healthy tissue. If unavailable, `NA` is used                         |
-| `tissue_ontology_term_id`                  | [`Uberon`](http://obofoundry.org/ontology/uberon.html) term indicating tissue of origin. If unavailable, `NA` is used                                                                                                                     |
-| `assay_ontology_term_id`                   | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1                    |
-| `suspension_type`                          | `cell` for single-cell samples or `nucleus` for single-nuclei samples                                                                                                                                                                     |
+To see a full description of the included columns, see the sections on [cell metrics](#singlecellexperiment-cell-metrics) and [sample metadata](#singlecellexperiment-sample-metadata) in [`Components of a SingleCellExperiment merged object`](#components-of-a-singlecellexperiment-merged-object).
 
 
 ### AnnData gene information and metrics
@@ -417,4 +388,4 @@ merged_adata_object.var # gene metrics
 
 All of the per-gene data columns included in the `rowData` of the `SingleCellExperiment` objects are present in the `.var` slot of the `AnnData` object.
 Note that the `SingleCellExperiment` columns named `SCPCL000000-mean` and `SCPCL000000-detected` are instead named `SCPCL000000.mean` and `SCPCL000000.detected`, respectively, in the merged `AnnData` object.
-To see a full description of the included columns, see the [section on gene metrics in `Components of a SingleCellExperiment object`](#singlecellexperiment-gene-information-and-metrics).
+To see a full description of the included columns, see the [section on gene metrics in `Components of a SingleCellExperiment merged object`](#singlecellexperiment-gene-information-and-metrics).
