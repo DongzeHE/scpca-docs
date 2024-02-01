@@ -1,7 +1,7 @@
 # Merged objects
 
-Each merged object contains _combined information_ for all individual samples in a given ScPCA project.
-While each individual object, as described on the {ref}`Single-cell gene expression file contents page <sce_file_contents>`, contains quantified gene expression results for a single library, each merged object contains all gene expression results, including gene expression counts and metadata, for all libraries and samples in a given ScPCA project.
+Each merged object contains _combined information_ for all individual samples in the given ScPCA project.
+While each individual object, as described on the {ref}`Single-cell gene expression file contents page <sce_file_contents>`, contains quantified gene expression results for a single library, each merged object contains all gene expression results, including gene expression counts and metadata, for all libraries and samples in the given ScPCA project.
 This information includes quantified gene expression data, cell and gene metrics, and associated metadata for all libraries.
 See {ref}`the section on merged object processing <processing_information:merged objects` for more information on how these objects were prepared.
 
@@ -24,7 +24,7 @@ merged_sce <- readRDS("SCPCP000000_merged.rds")
 
 ### SingleCellExperiment expression counts
 
-Merged `SingleCellExperiment` objects contain two main assays, `counts` and `logcounts`, each containing RNA-seq expression data for all libraries in a given ScPCA project combined into a single matrix.
+Merged `SingleCellExperiment` objects contain two main assays, `counts` and `logcounts`, each containing RNA-seq expression data for all libraries in the given ScPCA project combined into a single matrix.
 The `counts` assay contains the primary raw counts represented as integers, and the `logcounts` assay contains normalized counts as described in {ref}`the data post-processing section <processing_information:processed gene expression data>`.
 
 The `counts` assay includes reads aligned to both spliced and unspliced cDNA (see the section on {ref}`Post Alevin-fry processing <processing_information:post alevin-fry processing>`).
@@ -250,7 +250,8 @@ ADT data from CITE-seq experiments, when present, is included within the merged 
 altExp(merged_sce, "adt") # adt experiment
 ```
 
-Within this, the main expression matrix is again found in the `counts` assay and the normalized expression matrix is found in the `logcounts` assay.
+Within this, the primary expression matrix is again found in the `counts` assay, and the normalized expression matrix is found in the `logcounts` assay.
+Each expression matrix contains the ADT expression data from the CITE-seq experiment for all libraries in the given ScPCA project combined into a single matrix.
 For each assay, each column corresponds to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponds to an antibody derived tag (ADT).
 Column names are again cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are the antibody targets for each ADT.
 In some cases, only some libraries in the merged object will have associated CITE-seq data.
@@ -347,7 +348,7 @@ merged_adata_object = anndata.read_h5ad("SCPCP000000_merged_rna.hdf5")
 
 ### AnnData expression counts
 
-Merged `AnnData` objects contain two data matrices, each containing RNA-seq expression data for all libraries in a given ScPCA project combined into a single matrix.
+Merged `AnnData` objects contain two data matrices, each containing RNA-seq expression data for all libraries in the given ScPCA project combined into a single matrix.
 The data matrix `raw.X` of the merged `AnnData` object contains the RNA-seq expression data as primary integer counts, and the data matrix `X` contains the RNA-seq expression data as normalized counts.
 The data is stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a gene.
 The `raw.X` and `X` matrices can be accessed with the following python code:
