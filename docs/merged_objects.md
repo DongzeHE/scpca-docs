@@ -96,8 +96,8 @@ Metrics were calculated for each library using the [`scuttle::addPerFeatureQCMet
 | ---------------------- | ------------------------------------------------------------------------------------------- |
 | `gene_ids`             | Ensembl gene ID                                                                             |
 | `gene_symbol`          | [HUGO](https://www.genenames.org) gene symbol, if defined                                   |
-| `mean-SCPCL000000`     | Mean count across all cells/droplets for library `SCPCL000000`                              |
-| `detected-SCPCL000000` | Percent of cells in which the gene was detected (gene count > 0 ) for library `SCPCL000000` |
+| `SCPCL000000-mean`     | Mean count across all cells/droplets for library `SCPCL000000`                              |
+| `SCPCL000000-detected` | Percent of cells in which the gene was detected (gene count > 0 ) for library `SCPCL000000` |
 
 
 ### SingleCellExperiment experiment metadata
@@ -270,14 +270,15 @@ The following additional per-cell data columns for the ADT data can be found in 
 
 
 In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html), which were calculated on individual libraries before objects were merged, can be found in the `colData` of the `"adt"` alternative experiment, accessed with `colData(altExp(merged_sce, "adt"))`.
+As in the [main experiment's `colData` slot](#singlecellexperiment-cell-metrics), the `"adt"` alternative experiment `colData` also contains the columns `library_id` and `cell_id`.
 
 | Column name                | Contents                                          |
 | -------------------------- | ------------------------------------------------- |
 | `zero.ambient`   | Indicates whether the cell has zero ambient contamination   |
-| `sum.controls` |  The sum of counts for all control features. Only present if negative/isotype control ADTs were used |
 | `high.controls`  | Indicates whether the cell has unusually high total control counts. Only present if negative/isotype control ADTs were used |
-| `ambient.scale` |  The relative amount of ambient contamination. Only present if negative/isotype control ADTs were not used |
+| `sum.controls` |  The sum of counts for all control features. Only present if negative/isotype control ADTs were used |
 | `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative/isotype control ADTs were not used |
+| `ambient.scale` |  The relative amount of ambient contamination. Only present if negative/isotype control ADTs were not used |
 | `discard`  | Indicates whether the cell should be discarded based on ADT QC statistics |
 
 
@@ -288,20 +289,20 @@ rowData(altExp(merged_sce, "adt")) # adt metrics
 ```
 
 This data frame contains the following columns with statistics for each ADT.
-The columns `mean-SCPCL000000` and `detected-SCPCL000000` are present for each library in the merged object that has associated CITE-seq data.
+The columns `SCPCL000000-mean` and `SCPCL000000-detected` are present for each library in the merged object that has associated CITE-seq data.
 
-| Column name | Contents                                                       |
-| ----------- | -------------------------------------------------------------- |
-| `adt_id`  | Name or ID of the ADT                                              |
-| `mean-SCPCL000000`      | Mean ADT count across all cells/droplets. Only present for libraries with CITE-seq data                       |
-| `detected-SCPCL000000`  | Percent of cells in which the ADT was detected (ADT count > 0 ). Only present for libraries with CITE-seq data |
-| `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and will be labeled as `target` |
+| Column name            | Contents                                                                                                                                                                                                                                 |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `adt_id`               | Name or ID of the ADT                                                                                                                                                                                                                    |
+| `target_type`          | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and will be labeled as `target` |
+| `SCPCL000000-mean`     | Mean ADT count across all cells/droplets. Only present for libraries with CITE-seq data                                                                                                                                                  |
+| `SCPCL000000-detected` | Percent of cells in which the ADT was detected (ADT count > 0 ). Only present for libraries with CITE-seq data                                                                                                                           |
 
 Finally, additional metadata for ADT processing can be found in the metadata slot of the alternative experiment.
 
 Metadata associated with {ref}`data processing <processing_information:Processing information>` is included in the `metadata` slot as a list.
 Similar to the [parent experiment metadata](#singlecellexperiment-experiment-metadata), the `metadata` will contain three items: `library_id`, `sample_id`, and `library_metadata`.
-The `library_metadata` contains the same list of metadata as its corresponding parent experiment library's metadata and includes one additional field `ambient_profile`, which holds a list of the ambient concentrations of each ADT for the given library.
+The `library_metadata` contains the same list of metadata as its corresponding parent experiment library's metadata and includes one additional field `ambient_profile`, which holds a named list of the ambient concentrations of each ADT in the given library.
 
 ```r
 metadata(altExp(merged_sce, "adt")) # adt metadata
