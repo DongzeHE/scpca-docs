@@ -484,7 +484,7 @@ In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`]
 | `high.controls` | Indicates whether the cell has unusually high total control counts. Only present if negative/isotype control ADTs are present |
 | `ambient.scale` | The relative amount of ambient contamination. Only present if negative control ADTs are _not_ present                         |
 | `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative/isotype control ADTs are _not_ present  |
-| `discard`       | Indicates whether the cell should be discarded based on QC statistics                                                         |
+| `discard`       | Indicates whether the cell should be discarded based on QC statistics. The `TRUE` and `FALSE` values in this column correspond, respectively, to values `"Discard"` and `"Keep"` in the `adata_obj.obs["adt_scpca_filter"]` column                                                         |
 
 
 Metrics for each of the ADTs assayed can be found as a `pandas.DataFrame` in the `.var` slot within the `AnnData` object:
