@@ -470,7 +470,7 @@ Each column corresponds to a cell or droplet (in the same order as the main `Ann
 Column names are again cell barcode sequences and row names are the antibody targets for each ADT.
 
 As with the RNA `AnnData` objects, in processed objects _only_ (`_processed_adt.hdf5`), the data matrix `X` contains the normalized ADT counts and the primary data can be found in `raw.X`.
-Note that only cells which are denoted as `"Keep"` in  the `adata_obj.uns["adt_scpca_filter"]` column (as described [above](#singlecellexperiment-cell-metrics)) have normalized expression values in the `X` matrix, and all other cells are assigned `NA` values.
+Note that only cells which are denoted as `"Keep"` in the `adata_obj.obs["adt_scpca_filter"]` column (as described [above](#singlecellexperiment-cell-metrics)) have normalized expression values in the `X` matrix, and all other cells are assigned `NA` values.
 However, as described in the {ref}`processed ADT data section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances.
 In such cases the `AnnData` object will not contain a normalized expression matrix, but the primary data will still be stored in `X`.
 
