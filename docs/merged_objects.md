@@ -434,7 +434,7 @@ ADT data from CITE-seq experiments, when present, is available as a separate `An
 Merged `AnnData` objects contain two data matrices, each containing CITE-seq expression data for all libraries in a given ScPCA project combined into a single matrix.
 The data matrix `raw.X` of the merged `AnnData` object contains the CITE-seq expression data as primary integer counts, and the data matrix `X` contains the RNA-seq expression data as normalized counts.
 Note that only cells which are denoted as `"Keep"` in  the `merged_adata_object.uns["adt_scpca_filter"]` column (as described [above](#singlecellexperiment-cell-metrics)) have normalized expression values in the `X` matrix, and all other cells are assigned `NA` values.
-The data is stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a gene.
+The data is stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a single ADT. 
 The `raw.X` and `X` matrices can be accessed with the following python code:
 
 ```python
