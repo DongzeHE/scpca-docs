@@ -282,7 +282,7 @@ As in the [main experiment's `colData` slot](#singlecellexperiment-cell-metrics)
 | `sum.controls` |  The sum of counts for all control features. Only present if negative/isotype control ADTs were used |
 | `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative/isotype control ADTs were not used |
 | `ambient.scale` |  The relative amount of ambient contamination. Only present if negative/isotype control ADTs were not used |
-| `discard`  | Indicates whether the cell should be discarded based on ADT QC statistics |
+| `discard`  | Indicates whether the cell should be discarded based on ADT QC statistics. The `TRUE` and `FALSE` values in this column correspond, respectively, to values `"Discard"` and `"Keep"` in the `colData(merged_sce)$adt_scpca_filter` column |
 
 
 Metrics for each of the ADTs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
