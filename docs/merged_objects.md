@@ -425,3 +425,64 @@ The following command can be used to access the PCA and UMAP results:
 merged_adata_object.obsm["X_PCA"] # pca results
 merged_adata_object.obsm["X_UMAP"] # umap results
 ```
+
+
+### Additional AnnData components for CITE-seq libraries (with ADT tags)
+
+ADT data from CITE-seq experiments, when present, is available as a separate `AnnData` object in an HDF5 file named with the `_adt.hdf5` suffix.
+
+Merged `AnnData` objects contain two data matrices, each containing CITE-seq expression data for all libraries in a given ScPCA project combined into a single matrix.
+The data matrix `raw.X` of the merged `AnnData` object contains the CITE-seq expression data as primary integer counts, and the data matrix `X` contains the RNA-seq expression data as normalized counts.
+Note that only cells which are denoted as `"Keep"` in  the `merged_adata_object.uns["adt_scpca_filter"]` column (as described [above](#singlecellexperiment-cell-metrics)) have normalized expression values in the `X` matrix, and all other cells are assigned `NA` values.
+The data is stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a gene.
+The `raw.X` and `X` matrices can be accessed with the following python code:
+
+```python
+merged_citeseq_adata_object.raw.X # raw count matrix
+merged_citeseq_adata_object.X # normalized count matrix
+```
+
+Column names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are the ADT IDs.
+
+```python
+merged_citeseq_adata_object.obs_names # matrix column names
+merged_citeseq_adata_object.var_names # matrix row names
+```
+
+
+All of the per-cell data columns included in the `colData` of the `SingleCellExperiment` merged objects are present in the `.obs` slot of the `AnnData` object.
+To see a full description of the included columns, see the sections on [cell metrics](#singlecellexperiment-cell-metrics) and [sample metadata](#singlecellexperiment-sample-metadata) in [`Components of a SingleCellExperiment merged object`](#components-of-a-singlecellexperiment-merged-object).
+
+
+The data matrix, `X`, of the `AnnData` objects contain the primary ADT expression data as integer counts.
+Each column corresponds to a cell or droplet (in the same order as the main `AnnData` object), and each row corresponds to an antibody derived tag (ADT).
+Column names are again cell barcode sequences and row names are the antibody targets for each ADT.
+
+As with the RNA `AnnData` objects, in processed objects _only_ (`_processed_adt.hdf5`), the data matrix `X` contains the normalized ADT counts and the primary data can be found in `raw.X`.
+Note that only cells which are denoted as `"Keep"` in the `adata_obj.obs["adt_scpca_filter"]` column (as described [above](#singlecellexperiment-cell-metrics)) have normalized expression values in the `X` matrix, and all other cells are assigned `NA` values.
+Note that this filtering information is also available in the `discard` column of the object's `.obs` slot, as described in the table below.
+However, as described in the {ref}`processed ADT data section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances.
+In such cases the `AnnData` object will not contain a normalized expression matrix, but the primary data will still be stored in `X`.
+
+In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) can be found in the `obs` slot of each ADT-specific `AnnData` object.
+
+| Column name                | Contents                                          |
+| -------------------------- | ------------------------------------------------- |
+| `zero.ambient`   | Indicates whether the cell has zero ambient contamination   |
+| `sum.controls` |  The sum of counts for all control features. Only present if negative/isotype control ADTs are present |
+| `high.controls`  | Indicates whether the cell has unusually high total control counts. Only present if negative/isotype control ADTs are present |
+| `ambient.scale` |  The relative amount of ambient contamination. Only present if negative control ADTs are _not_ present |
+| `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative/isotype control ADTs are _not_ present |
+| `discard`       | Indicates whether the cell should be discarded based on QC statistics. The `TRUE` and `FALSE` values in this column correspond, respectively, to values `"Discard"` and `"Keep"` in the `adata_obj.obs["adt_scpca_filter"]` column                                                         |
+
+Metrics for each of the ADTs assayed can be found as a `pandas.DataFrame` in the `.var` slot within the CITE-seq `AnnData` object:
+
+| Column name | Contents                                                       |
+| ----------- | -------------------------------------------------------------- |
+| `adt_id`  | Name or ID of the ADT                                              |
+| `mean-SCPCL000000`      | Mean ADT count across all cells/droplets. Only present for libraries with CITE-seq data                       |
+| `detected-SCPCL000000`  | Percent of cells in which the ADT was detected (ADT count > 0 ). Only present for libraries with CITE-seq data |
+| `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and will be labeled as `target` |
+
+
+The `.uns` slot of the CITE-seq `AnnData` object contains a limited set of experiment metadata information, including a list of library IDs (`library_id`) and sample IDs (`sample_id`) included in the merged object.
