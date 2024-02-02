@@ -476,11 +476,13 @@ Note that this filtering information is also available in the `discard` column o
 However, as described in the {ref}`processed ADT data section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances.
 In such cases the `AnnData` object will not contain a normalized expression matrix, but the primary data will still be stored in `X`.
 
-QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) can be found in the `obs` slot of each ADT-specific `AnnData` object.
-This slot has the same contents as does the `colData` slot of `SingleCellExperiment` alternative experiment containing CITE-seq data, [as described above](#additional-singlecellexperiment-components-for-cite-seq-libraries-with-adt-tags).
+All of the per-cell data columns included in the `colData` of the `"adt"` alternative experiment in `SingleCellExperiment` objects are present in the `.obs` slot of the CITE-seq `AnnData` object.
+To see a full description of the included columns, see the section [on additional `SingleCellExperiment` components for CITE-seq libraries](#additional-singlecellexperiment-components-for-cite-seq-libraries-with-adt-tags).
 
-In addition, metrics for each of the ADTs assayed can be found as a `pandas.DataFrame` in the `.var` slot within the `AnnData` object.
-This slot has the same contents as does the `rowData` slot of `SingleCellExperiment` alternative experiment containing CITE-seq data, [as described above](#additional-singlecellexperiment-components-for-cite-seq-libraries-with-adt-tags).
+
+In addition, all of the per-ADT data columns included in the `rowData` of the `"adt"` alternative experiment in `SingleCellExperiment` merged objects are present in the `.var` slot of the CITE-seq `AnnData` object.
+To see a full description of the included columns, see the section [on additional `SingleCellExperiment` components for CITE-seq libraries](#additional-singlecellexperiment-components-for-cite-seq-libraries-with-adt-tags).
+
 
 Finally, additional metadata for ADT processing can be found in the `.uns` slot of the `AnnData` object.
 This metadata slot has the same contents as the [RNA experiment metadata](#anndata-experiment-metadata), along with one additional field, `ambient_profile`, which holds a list of the ambient concentrations of each ADT.
