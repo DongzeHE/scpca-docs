@@ -1,9 +1,9 @@
 # Merged objects
 
 Each merged object contains _combined information_ for all individual samples in the given ScPCA project.
-While each individual object, as described on the {ref}`Single-cell gene expression file contents page <sce_file_contents>`, contains quantified gene expression results for a single library, each merged object contains all gene expression results, including gene expression counts and metadata, for all libraries and samples in the given ScPCA project.
+While each individual object, as described on the {ref}`Single-cell gene expression file contents page <sce_file_contents:Single-cell gene expression file contents>`, contains quantified gene expression results for a single library, each merged object contains all gene expression results, including gene expression counts and metadata, for all libraries and samples in the given ScPCA project.
 This information includes quantified gene expression data, cell and gene metrics, and associated metadata for all libraries.
-See {ref}`the section on merged object processing <processing_information:merged objects` for more information on how these objects were prepared.
+See {ref}`the section on merged object processing <processing_information:merged objects>` for more information on how these objects were prepared.
 
 
 Merged objects are provided in two formats:
@@ -76,7 +76,7 @@ Columns representing quality control statistics were calculated using the [`scut
 | `scpca_filter`                   | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200)                                                                                                                                                                                                                                                                                                            |
 | `adt_scpca_filter`               | If CITE-seq was performed, labels cells as either `Keep` or `Remove` based on ADT filtering criteria (`discard = TRUE` as determined by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html))                                                                                                                                                                                                    |
 
-Unlike for {ref}`individual SCE objects<sce_file_contents:singlecellexperiment cell metrics`, cluster assignments are not included in the `colData`.
+Unlike for {ref}`individual SCE objects<sce_file_contents:singlecellexperiment cell metrics>`, cluster assignments are not included in the `colData`.
 
 
 ### SingleCellExperiment gene information and metrics
@@ -167,7 +167,8 @@ Each such list will contain the following fields:
 | `cellassign_reference_source`  | If cell typing with `CellAssign` was performed and completed successfully, the source of the reference dataset (default is [`PanglaoDB`](https://panglaodb.se/))                                                                                                                                                                                                                   |
 | `cellassign_reference_version` | If cell typing with `CellAssign` was performed and completed successfully, the version of the reference dataset source. For references obtained from `PanglaoDB`, the version scheme is a date in ISO8601 format                                                                                                                                                                   |
 
-Unlike for {ref}`individual SingleCellExperiment objects<sce_file_contents:singlecellexperiment sample metadata`, cluster algorithm parameters are not included in these metadata lists because clusters themselves are not included in the merged object.
+
+Unlike for {ref}`individual SingleCellExperiment objects<sce_file_contents:singlecellexperiment sample metadata>`, cluster algorithm parameters are not included in these metadata lists because clusters themselves are not included in the merged object.
 
 
 ### SingleCellExperiment sample metadata
@@ -333,7 +334,7 @@ In addition, the following columns in the `colData` slot `DataFrame` contain dem
 | `vireo_sampleid`            | Most likely sample as called by `vireo` (genetic demultiplexing) |
 
 
-Unlike in {ref}`individual SingleCellExperiment objects<sce_file_contents:additional SingleCellExperiment components for multiplexed libraries`, hashtag oligo (HTO) quantification will not be included in the merged `SingleCellExperiment` as an alternative experiment, as described in the ref`{frequently asked questions:faq:which projects can I download as a merged objects?}`.
+Unlike in {ref}`individual SingleCellExperiment objects<sce_file_contents:additional SingleCellExperiment components for multiplexed libraries>`, hashtag oligo (HTO) quantification will not be included in the merged `SingleCellExperiment` as an alternative experiment, as described in the ref`{frequently asked questions:faq:which projects can I download as a merged objects?}>`.
 
 
 ## Components of an AnnData merged object
