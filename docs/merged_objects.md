@@ -412,3 +412,16 @@ The following items are available in the `.uns` slot:
 | `merged_highly_variable_genes` | A list of highly variable genes used for performing dimensionality reduction on the merged object, determined using `scran::modelGeneVar`, specifying each library as a separate block, and `scran::getTopHVGs` |
 
 Additional experiment metadata is available in the {ref}`metadata TSV file included in the ScPCA Portal download folder <download_files:Metadata>`.
+
+### AnnData dimensionality reduction results
+
+The merged `AnnData` object contains a slot `.obsm` with both principal component analysis (`X_PCA`) and UMAP (`X_UMAP`) results.
+
+For information on how PCA and UMAP results were calculated see the {ref}`section on processed gene expression data <processing_information:Processed gene expression data>`.
+
+The following command can be used to access the PCA and UMAP results:
+
+```python
+merged_adata_object.obsm["X_PCA"] # pca results
+merged_adata_object.obsm["X_UMAP"] # umap results
+```
