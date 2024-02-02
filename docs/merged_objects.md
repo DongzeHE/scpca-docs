@@ -393,3 +393,22 @@ merged_adata_object.var # gene metrics
 All of the per-gene data columns included in the `rowData` of the `SingleCellExperiment` objects are present in the `.var` slot of the `AnnData` object.
 Note that the `SingleCellExperiment` columns named `SCPCL000000-mean` and `SCPCL000000-detected` are instead named `SCPCL000000.mean` and `SCPCL000000.detected`, respectively, in the merged `AnnData` object.
 To see a full description of the included columns, see the [section on gene metrics in `Components of a SingleCellExperiment merged object`](#singlecellexperiment-gene-information-and-metrics).
+
+
+### AnnData experiment metadata
+
+A partial set of the metadata associated with {ref}`data processing <processing_information:Processing information>` is included in the `.uns` slot of the `AnnData` object as a list.
+
+```python
+merged_adata_object.uns # experiment metadata
+```
+
+The following items are available in the `.uns` slot:
+
+| Item name                      | Contents                                                                                                                                                                                                          |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `library_id`                   | A list of library IDs which are included in the merged object, each in the form `SCPCL000000`                                                                                                                   |
+| `sample_id`                    | A list of sample IDs which are included in the merged object, each in the form `SCPCS000000`                                                                                                                |
+| `merged_highly_variable_genes` | A list of highly variable genes used for performing dimensionality reduction on the merged object, determined using `scran::modelGeneVar`, specifying each library as a separate block, and `scran::getTopHVGs` |
+
+Additional experiment metadata is available in the {ref}`metadata TSV file included in the ScPCA Portal download folder <download_files:Metadata>`.
