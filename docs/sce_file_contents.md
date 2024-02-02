@@ -260,7 +260,7 @@ This data frame contains the following columns with statistics for each ADT:
 
 | Column name | Contents                                                       |
 | ----------- | -------------------------------------------------------------- |
-| `adt_name`  | Name or ID of the ADT                                          |
+| `adt_id`  | Name or ID of the ADT                                          |
 | `mean`      | Mean ADT count across all cells/droplets                       |
 | `detected`  | Percent of cells in which the ADT was detected (ADT count > 0 ) |
 | `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and will be labeled as `target` |
@@ -485,7 +485,7 @@ In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`]
 | `high.controls` | Indicates whether the cell has unusually high total control counts. Only present if negative/isotype control ADTs are present |
 | `ambient.scale` | The relative amount of ambient contamination. Only present if negative control ADTs are _not_ present                         |
 | `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative/isotype control ADTs are _not_ present  |
-| `discard`       | Indicates whether the cell should be discarded based on QC statistics. The `TRUE` and `FALSE` values in this column correspond, respectively, to values `"Discard"` and `"Keep"` in the `adata_obj.obs["adt_scpca_filter"]` column                                                         |
+| `discard`       | Indicates whether the cell should be discarded based on QC statistics. The `TRUE` and `FALSE` values in this column correspond, respectively, to values `"Discard"` and `"Keep"` in the `adata_obj.obs["adt_scpca_filter"]` column    |
 
 
 Metrics for each of the ADTs assayed can be found as a `pandas.DataFrame` in the `.var` slot within the `AnnData` object:
@@ -493,6 +493,7 @@ Metrics for each of the ADTs assayed can be found as a `pandas.DataFrame` in the
 
 | Column name | Contents                                                       |
 | ----------- | -------------------------------------------------------------- |
+| `adt_id`    | Name or ID of the ADT                                         |
 | `mean`      | Mean ADT count across all cells/droplets                       |
 | `detected`  | Percent of cells in which the ADT was detected (ADT count > 0 ) |
 | `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and will be labeled as `target` |
