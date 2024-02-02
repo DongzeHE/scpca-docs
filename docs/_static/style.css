@@ -36,6 +36,11 @@ a, a:visited {
   color: #145ECC;
 }
 
+a code span
+{
+  color: #003595;
+}
+
 .wy-side-nav-search {
   padding: 56px 24px 24px 24px;
   position: relative;
