@@ -103,7 +103,7 @@ Here we provide more resources on understanding normalization in single-cell RNA
 The processed `SingleCellExperiment` objects already have undergone additional quality control steps to remove low quality cells.
 Low quality cells include those with a higher percentage of reads from mitochondrial genes (i.e., those that are damaged or dying) and those with a lower number of total reads and unique genes identified (i.e., those with inefficient reverse transcription or PCR amplification).
 
-All processed objects include [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html) results found in the {ref}`colData() of the SingleCellExperiment object<sce_file_contents:Singlecellexperiment cell metrics>` or the {ref}`.obs slot of the AnnData object<sce_file_contents:Anndata cell metrics`.
+All processed objects include [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html) results found in the {ref}`colData() of the SingleCellExperiment object<sce_file_contents:Singlecellexperiment cell metrics>` or the {ref}`.obs slot of the AnnData object<sce_file_contents:Anndata cell metrics>`.
 `miQC` jointly models the proportion of mitochondrial reads and the number of unique genes detected in each cell to calculate the probability of a cell being compromised (i.e., dead or damaged).
 High-quality cells are those with a low probability of being being compromised (< 0.75) or sufficiently low mitochondrial content.
 
@@ -332,7 +332,7 @@ See these resources for more information on automated cell type annotation:
 ## Working with a merged ScPCA object
 
 Merged ScPCA objects contain all information found in `processed` objects for all individual libraries that comprise a given ScPCA project.
-For more information on how these objects were prepared, see {ref}`the section on merged object preparation<processing_information:merged objects`.
+For more information on how these objects were prepared, see {ref}`the section on merged object preparation<processing_information:merged objects>`.
 **Please be aware that data in merged objects has not been integrated/batch-corrected.**
 
 To work with a merged object, you will first have to read it in.

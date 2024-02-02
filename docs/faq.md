@@ -176,7 +176,7 @@ The samples have simply been merged into a single file - _they have not been int
 
 You may prefer to download this merged object instead of individual sample files to facilitate downstream analyses that consider multiple samples at once, such as differential expression analysis, integrating multiple samples, or jointly clustering multiple samples.
 
-Please refer to {ref}`the getting started with a merged object section<getting_started:working with a merged scpca object` for more details on working with merged objects.
+Please refer to {ref}`the getting started with a merged object section<getting_started:Working with a Merged ScPCA object>` for more details on working with merged objects.
 
 
 ## Which projects can I download as a merged objects?
@@ -184,7 +184,7 @@ Please refer to {ref}`the getting started with a merged object section<getting_s
 Most projects in the ScPCA Portal are available for download as a merged object, with a few exceptions.
 
 First, merged object downloads are not provided for projects comprised of spatial transcriptomics.
-As described in {ref}`the spatial transcriptomics processing section<processing_information:spatial transcriptomics`, no post-processing is performed on these libraries after running Space Ranger.
+As described in {ref}`the spatial transcriptomics processing section<processing_information:spatial transcriptomics>`, no post-processing is performed on these libraries after running Space Ranger.
 Therefore, merging samples into a single object is beyond the scope of the ScPCA pipeline.
 
 Second, although projects with multiplexing will have associated merged objects, those merged objects will not contain the hashtag oligonucleotide (HTO) results; they will only contain gene expression results.

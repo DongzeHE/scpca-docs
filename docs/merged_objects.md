@@ -1,9 +1,9 @@
 # Merged objects
 
 Each merged object contains _combined information_ for all individual samples in the given ScPCA project.
-While each individual object, as described on the {ref}`Single-cell gene expression file contents page <sce_file_contents>`, contains quantified gene expression results for a single library, each merged object contains all gene expression results, including gene expression counts and metadata, for all libraries and samples in the given ScPCA project.
+While each individual object, as described on the {ref}`Single-cell gene expression file contents page <sce_file_contents:Single-cell gene expression file contents>`, contains quantified gene expression results for a single library, each merged object contains all gene expression results, including gene expression counts and metadata, for all libraries and samples in the given ScPCA project.
 This information includes quantified gene expression data, cell and gene metrics, and associated metadata for all libraries.
-See {ref}`the section on merged object processing <processing_information:merged objects` for more information on how these objects were prepared.
+See {ref}`the section on merged object processing <processing_information:merged objects>` for more information on how these objects were prepared.
 
 
 Merged objects are provided in two formats:
@@ -76,7 +76,7 @@ Columns representing quality control statistics were calculated using the [`scut
 | `scpca_filter`                   | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200)                                                                                                                                                                                                                                                                                                            |
 | `adt_scpca_filter`               | If CITE-seq was performed, labels cells as either `Keep` or `Remove` based on ADT filtering criteria (`discard = TRUE` as determined by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html))                                                                                                                                                                                                    |
 
-Unlike for {ref}`individual SCE objects<sce_file_contents:singlecellexperiment cell metrics`, cluster assignments are not included in the `colData`.
+Unlike for {ref}`individual SCE objects<sce_file_contents:singlecellexperiment cell metrics>`, cluster assignments are not included in the `colData`.
 
 
 ### SingleCellExperiment gene information and metrics
@@ -167,7 +167,7 @@ Each such list will contain the following fields:
 | `cellassign_reference_source`  | If cell typing with `CellAssign` was performed and completed successfully, the source of the reference dataset (default is [`PanglaoDB`](https://panglaodb.se/))                                                                                                                                                                                                                   |
 | `cellassign_reference_version` | If cell typing with `CellAssign` was performed and completed successfully, the version of the reference dataset source. For references obtained from `PanglaoDB`, the version scheme is a date in ISO8601 format                                                                                                                                                                   |
 
-Unlike for {ref}`individual SingleCellExperiment objects<sce_file_contents:singlecellexperiment sample metadata`, cluster algorithm parameters are not included in these metadata lists because clusters themselves are not included in the merged object.
+Unlike for {ref}`individual SingleCellExperiment objects<sce_file_contents:singlecellexperiment sample metadata>`, cluster algorithm parameters are not included in these metadata lists because clusters themselves are not included in the merged object.
 
 
 ### SingleCellExperiment sample metadata
@@ -282,7 +282,7 @@ As in the [main experiment's `colData` slot](#singlecellexperiment-cell-metrics)
 | `sum.controls` |  The sum of counts for all control features. Only present if negative/isotype control ADTs were used |
 | `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative/isotype control ADTs were not used |
 | `ambient.scale` |  The relative amount of ambient contamination. Only present if negative/isotype control ADTs were not used |
-| `discard`  | Indicates whether the cell should be discarded based on ADT QC statistics |
+| `discard`  | Indicates whether the cell should be discarded based on ADT QC statistics. The `TRUE` and `FALSE` values in this column correspond, respectively, to values `"Discard"` and `"Keep"` in the `colData(merged_sce)$adt_scpca_filter` column |
 
 
 Metrics for each of the ADTs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
@@ -333,7 +333,7 @@ In addition, the following columns in the `colData` slot `DataFrame` contain dem
 | `vireo_sampleid`            | Most likely sample as called by `vireo` (genetic demultiplexing) |
 
 
-Unlike in {ref}`individual SingleCellExperiment objects<sce_file_contents:additional SingleCellExperiment components for multiplexed libraries`, hashtag oligo (HTO) quantification will not be included in the merged `SingleCellExperiment` as an alternative experiment, as described in the ref`{frequently asked questions:faq:which projects can I download as a merged objects?}`.
+Unlike in {ref}`individual SingleCellExperiment objects<sce_file_contents:additional SingleCellExperiment components for multiplexed libraries>`, hashtag oligo (HTO) quantification will not be included in the merged `SingleCellExperiment` as an alternative experiment, as described in the ref`{frequently asked questions:faq:which projects can I download as a merged objects?}>`.
 
 
 ## Components of an AnnData merged object
@@ -393,3 +393,68 @@ merged_adata_object.var # gene metrics
 All of the per-gene data columns included in the `rowData` of the `SingleCellExperiment` objects are present in the `.var` slot of the `AnnData` object.
 Note that the `SingleCellExperiment` columns named `SCPCL000000-mean` and `SCPCL000000-detected` are instead named `SCPCL000000.mean` and `SCPCL000000.detected`, respectively, in the merged `AnnData` object.
 To see a full description of the included columns, see the [section on gene metrics in `Components of a SingleCellExperiment merged object`](#singlecellexperiment-gene-information-and-metrics).
+
+
+### AnnData experiment metadata
+
+A partial set of the metadata associated with {ref}`data processing <processing_information:Processing information>` is included in the `.uns` slot of the `AnnData` object as a list.
+
+```python
+merged_adata_object.uns # experiment metadata
+```
+
+The following items are available in the `.uns` slot:
+
+| Item name                      | Contents                                                                                                                                                                                                          |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `library_id`                   | A list of library IDs which are included in the merged object, each in the form `SCPCL000000`                                                                                                                   |
+| `sample_id`                    | A list of sample IDs which are included in the merged object, each in the form `SCPCS000000`                                                                                                                |
+| `merged_highly_variable_genes` | A list of highly variable genes used for performing dimensionality reduction on the merged object, determined using `scran::modelGeneVar`, specifying each library as a separate block, and `scran::getTopHVGs` |
+
+Additional experiment metadata is available in the {ref}`metadata TSV file included in the ScPCA Portal download folder <download_files:Metadata>`.
+
+### AnnData dimensionality reduction results
+
+The merged `AnnData` object contains a slot `.obsm` with both principal component analysis (`X_PCA`) and UMAP (`X_UMAP`) results.
+
+For information on how PCA and UMAP results were calculated see the {ref}`section on processed gene expression data <processing_information:Processed gene expression data>`.
+
+The following command can be used to access the PCA and UMAP results:
+
+```python
+merged_adata_object.obsm["X_PCA"] # pca results
+merged_adata_object.obsm["X_UMAP"] # umap results
+```
+
+
+### Additional AnnData components for CITE-seq libraries (with ADT tags)
+
+ADT data from CITE-seq experiments, when present, is available as a separate `AnnData` object in an HDF5 file named with the `_adt.hdf5` suffix.
+
+Merged `AnnData` objects contain two data matrices, each containing CITE-seq expression data for all libraries in a given ScPCA project combined into a single matrix.
+The data matrix `raw.X` of the merged `AnnData` object contains the CITE-seq expression data as primary integer counts, and the data matrix `X` contains the RNA-seq expression data as normalized counts.
+Note that only cells which are denoted as `"Keep"` in  the `merged_adata_object.uns["adt_scpca_filter"]` column (as described [above](#singlecellexperiment-cell-metrics)) have normalized expression values in the `X` matrix, and all other cells are assigned `NA` values.
+The data is stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a single ADT.
+The `raw.X` and `X` matrices can be accessed with the following python code:
+
+```python
+merged_citeseq_adata_object.raw.X # raw count matrix
+merged_citeseq_adata_object.X # normalized count matrix
+```
+
+Column names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are the ADT IDs.
+
+```python
+merged_citeseq_adata_object.obs_names # matrix column names
+merged_citeseq_adata_object.var_names # matrix row names
+```
+
+All of the per-cell data columns included in the `colData` of the `"adt"` alternative experiment in `SingleCellExperiment` merged objects are present in the `.obs` slot of the CITE-seq `AnnData` object.
+To see a full description of the included columns, see the section [on additional `SingleCellExperiment` components for CITE-seq libraries](#additional-singlecellexperiment-components-for-cite-seq-libraries-with-adt-tags).
+
+
+In addition, all of the per-ADT data columns included in the `rowData` of the `"adt"` alternative experiment in `SingleCellExperiment` merged objects are present in the `.var` slot of the CITE-seq `AnnData` object.
+To see a full description of the included columns, see the section [on additional `SingleCellExperiment` components for CITE-seq libraries](#additional-singlecellexperiment-components-for-cite-seq-libraries-with-adt-tags).
+
+
+Finally, the `.uns` slot of the CITE-seq `AnnData` object contains a limited set of experiment metadata information, including a list of library IDs (`library_id`) and sample IDs (`sample_id`) included in the merged object.
