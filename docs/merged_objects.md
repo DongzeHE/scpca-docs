@@ -167,7 +167,6 @@ Each such list will contain the following fields:
 | `cellassign_reference_source`  | If cell typing with `CellAssign` was performed and completed successfully, the source of the reference dataset (default is [`PanglaoDB`](https://panglaodb.se/))                                                                                                                                                                                                                   |
 | `cellassign_reference_version` | If cell typing with `CellAssign` was performed and completed successfully, the version of the reference dataset source. For references obtained from `PanglaoDB`, the version scheme is a date in ISO8601 format                                                                                                                                                                   |
 
-
 Unlike for {ref}`individual SingleCellExperiment objects<sce_file_contents:singlecellexperiment sample metadata>`, cluster algorithm parameters are not included in these metadata lists because clusters themselves are not included in the merged object.
 
 
@@ -450,22 +449,11 @@ merged_citeseq_adata_object.obs_names # matrix column names
 merged_citeseq_adata_object.var_names # matrix row names
 ```
 
+All of the per-cell data columns included in the `colData` of the `"adt"` alternative experiment in `SingleCellExperiment` merged objects are present in the `.obs` slot of the CITE-seq `AnnData` object.
+To see a full description of the included columns, see the section [on additional `SingleCellExperiment` components for CITE-seq libraries](#additional-singlecellexperiment-components-for-cite-seq-libraries-with-adt-tags).
 
-All of the per-cell data columns included in the `colData` of the `SingleCellExperiment` merged objects are present in the `.obs` slot of the `AnnData` object.
-To see a full description of the included columns, see the sections on [cell metrics](#singlecellexperiment-cell-metrics) and [sample metadata](#singlecellexperiment-sample-metadata) in [`Components of a SingleCellExperiment merged object`](#components-of-a-singlecellexperiment-merged-object).
 
-
-The data matrix, `X`, of the `AnnData` objects contain the primary ADT expression data as integer counts.
-Each column corresponds to a cell or droplet (in the same order as the main `AnnData` object), and each row corresponds to an antibody derived tag (ADT).
-Column names are again cell barcode sequences and row names are the antibody targets for each ADT.
-
-As with the RNA `AnnData` objects, in processed objects _only_ (`_processed_adt.hdf5`), the data matrix `X` contains the normalized ADT counts and the primary data can be found in `raw.X`.
-Note that only cells which are denoted as `"Keep"` in the `adata_obj.obs["adt_scpca_filter"]` column (as described [above](#singlecellexperiment-cell-metrics)) have normalized expression values in the `X` matrix, and all other cells are assigned `NA` values.
-Note that this filtering information is also available in the `discard` column of the object's `.obs` slot, as described in the table below.
-However, as described in the {ref}`processed ADT data section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances.
-In such cases the `AnnData` object will not contain a normalized expression matrix, but the primary data will still be stored in `X`.
-
-In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) can be found in the `obs` slot of each ADT-specific `AnnData` object.
+The following QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) can be found in the `obs` slot of each ADT-specific `AnnData` object.
 
 | Column name                | Contents                                          |
 | -------------------------- | ------------------------------------------------- |
