@@ -131,7 +131,7 @@ metadata(sce) # experiment metadata
 | `usa_mode`                     | Boolean indicating whether quantification was done using `alevin-fry` USA mode                                                                                                                                                                                                                                                                                                     |
 | `af_num_cells`                 | Number of cells reported by `alevin-fry`                                                                                                                                                                                                                                                                                                                                           |
 | `tech_version`                 | A string indicating the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1                                                                                                                                                                                                                                                                  |
-| `assay_ontology_term_id`       | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the `tech_version`                                                                                                                                                                                                                                        |
+| `assay_ontology_term_id`       | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term ID associated with the `tech_version`                                                                                                                                                                                                                                        |
 | `seq_unit`                     | `cell` for single-cell samples or `nucleus` for single-nuclei samples                                                                                                                                                                                                                                                                                                              |
 | `transcript_type`              | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei                                                                                                                                                                                                                                                                           |
 | `sample_metadata`              | Data frame containing metadata for each sample included in the library (see the [`Sample metadata` section below](#singlecellexperiment-sample-metadata))                                                                                                                                                                                                                          |
@@ -172,9 +172,9 @@ The following columns are included in the sample metadata data frame for all lib
 | ------------- | ---------------------------------------------------------------- |
 | `sample_id`   | Sample ID in the form `SCPCS000000`                            |
 | `library_id`   | Library ID in the form `SCPCL000000`                             |
-| `particpant_id`  | Unique id corresponding to the donor from which the sample was obtained |
+| `particpant_id`  | Unique ID corresponding to the donor from which the sample was obtained |
 | `submitter_id`    | Original sample identifier from submitter                      |
-| `submitter`       | Submitter name/id                                              |
+| `submitter`       | Submitter name/ID                                              |
 | `age`             | Age at time sample was obtained                                |
 | `sex`             | Sex of patient that the sample was obtained from               |
 | `diagnosis`       | Tumor type                                                     |
@@ -283,7 +283,7 @@ altExp(sce, "cellhash") # hto experiment
 ```
 
 Within this, the main data matrix is again found in the `counts` assay, with each column corresponding to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponding to a hashtag oligo (HTO).
-Column names are again cell barcode sequences and row names the HTO ids for all assayed HTOs.
+Column names are again cell barcode sequences and row names the HTO IDs for all assayed HTOs.
 
 The following additional per-cell data columns for the cellhash data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#singlecellexperiment-cell-metrics)).
 
@@ -386,9 +386,9 @@ The `AnnData` object also includes the following additional cell-level metadata 
 | `sample_id`                                | Sample ID in the form `SCPCS000000`                                                                                                                                                                                                       |
 | `library_id`                               | Library ID in the form `SCPCL000000`                                                                                                                                                                                                      |
 | `scpca_project_id`                         | Project ID in the form `SCPCP000000`                                                                                                                                                                                                      |
-| `participant_id`                           | Unique id corresponding to the donor from which the sample was obtained                                                                                                                                                                   |
+| `participant_id`                           | Unique ID corresponding to the donor from which the sample was obtained                                                                                                                                                                   |
 | `submitter_id`                             | Original sample identifier from submitter                                                                                                                                                                                                 |
-| `submitter`                                | Submitter name/id                                                                                                                                                                                                                         |
+| `submitter`                                | Submitter name/ID                                                                                                                                                                                                                         |
 | `age`                                      | Age at time sample was obtained                                                                                                                                                                                                           |
 | `sex`                                      | Sex of patient that the sample was obtained from                                                                                                                                                                                          |
 | `diagnosis`                                | Tumor type                                                                                                                                                                                                                                |

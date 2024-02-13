@@ -36,7 +36,7 @@ counts(merged_sce) # combined counts matrix
 logcounts(merged_sce) # combined logcounts matrix
 ```
 
-Column names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are Ensembl gene IDs.
+Column names are cell barcode sequences prefixed with the originating library ID, e.g. `SCPCL000000-{barcode}`, and row names are Ensembl gene IDs.
 These names can be accessed with the following R code:
 
 ```r
@@ -49,7 +49,7 @@ There is also a `spliced` assay which contains the counts matrix with only reads
 ### SingleCellExperiment cell metrics
 
 
-Cell metrics calculated from the RNA-seq expression data are stored as a `DataFrame` in the `colData` slot, where row names are the cell barcode prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`.
+Cell metrics calculated from the RNA-seq expression data are stored as a `DataFrame` in the `colData` slot, where row names are the cell barcode prefixed with the originating library ID, e.g. `SCPCL000000-{barcode}`.
 This `DataFrame` also contains additional sample metadata information stored in the `colData` slot for all projects that do not contain multiplexed libraries.
 Read more about the included sample metadata in the [`Sample metadata` section](#singlecellexperiment-sample-metadata),
 
@@ -88,7 +88,7 @@ rowData(merged_sce) # gene metrics
 ```
 
 The following columns are included for all genes.
-The columns `mean` and `detected` will appear for each library id included in the merged object, named as shown in the table below.
+The columns `mean` and `detected` will appear for each library ID included in the merged object, named as shown in the table below.
 However, there will only be a single `gene_symbol` and `gene_ids` column, as this information equally pertains to all libraries.
 Metrics were calculated for each library using the [`scuttle::addPerFeatureQCMetrics`](https://rdrr.io/github/LTLA/scuttle/man/addPerFeatureQCMetrics.html) function.
 
@@ -141,7 +141,7 @@ Each such list will contain the following fields:
 | `usa_mode`                     | Boolean indicating whether quantification was done using `alevin-fry` USA mode                                                                                                                                                                                                                                                                                                     |
 | `af_num_cells`                 | Number of cells reported by `alevin-fry`                                                                                                                                                                                                                                                                                                                                           |
 | `tech_version`                 | A string indicating the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1                                                                                                                                                                                                                                                                  |
-| `assay_ontology_term_id`       | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the `tech_version`                                                                                                                                                                                                                                        |
+| `assay_ontology_term_id`       | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term ID associated with the `tech_version`                                                                                                                                                                                                                                        |
 | `seq_unit`                     | `cell` for single-cell samples or `nucleus` for single-nucleus samples                                                                                                                                                                                                                                                                                                             |
 | `transcript_type`              | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei                                                                                                                                                                                                                                                                           |
 | `sample_type`                  | A string indicating the type of sample, with one of the following values: `"patient-derived xenograft"`, `"cell line"`, or `"patient tissue"`. If the library is multiplexed, this will be a named vector giving the sample type for each sample ID in the library                                                                                                                 |
@@ -193,12 +193,12 @@ metadata(merged_sce)$sample_metadata # sample metadata only for projects with mu
 | `sample_id`                                | Sample ID in the form `SCPCS000000`                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `scpca_project_id`                         | Project ID in the form `SCPCP000000`                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `tech_version`                             | A string indicating the technology and version used for the sample's single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1                                                                                                                                                                                                                                                                                                                             |
-| `assay_ontology_term_id`                   | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the `tech_version`                                                                                                                                                                                                                                                                                                            |
+| `assay_ontology_term_id`                   | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term ID associated with the `tech_version`                                                                                                                                                                                                                                                                                                            |
 | `suspension_type`                          | `cell` for single-cell samples or `nucleus` for single-nucleus samples                                                                                                                                                                                                                                                                                                                                                                                 |
 | `additional_modalities`                    | Any additional modalities associated with the library, represented as alternative experiment names such as `"adt"` or `"cellhash"`. If there are no additional modalities, this value will be `NA`. If the library has multiple additional modalities, this will be a single string with modalities separated by a semicolon, e.g. `"adt;cellhash"`                                                                                                    |
-| `participant_id`                           | Unique id corresponding to the donor from which the sample was obtained                                                                                                                                                                                                                                                                                                                                                                                |
+| `participant_id`                           | Unique ID corresponding to the donor from which the sample was obtained                                                                                                                                                                                                                                                                                                                                                                                |
 | `submitter_id`                             | Original sample identifier from submitter                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `submitter`                                | Submitter name/id                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `submitter`                                | Submitter name/ID                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `age`                                      | Age at time sample was obtained                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `sex`                                      | Sex of patient that the sample was obtained from                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `diagnosis`                                | Tumor type                                                                                                                                                                                                                                                                                                                                                                                                                                             |
@@ -255,7 +255,7 @@ altExp(merged_sce, "adt") # adt experiment
 Within this, the primary expression matrix is again found in the `counts` assay, and the normalized expression matrix is found in the `logcounts` assay.
 Each expression matrix contains the ADT expression data from the CITE-seq experiment for all libraries in the given ScPCA project combined into a single matrix.
 For each assay, each column corresponds to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponds to an antibody derived tag (ADT).
-Column names are again cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are the antibody targets for each ADT.
+Column names are again cell barcode sequences prefixed with the originating library ID, e.g. `SCPCL000000-{barcode}`, and row names are the antibody targets for each ADT.
 In some cases, only some libraries in the merged object will have associated CITE-seq data.
 Libraries which do not have CITE-seq expression data are included in the assay matrices with all `NA` count values.
 
@@ -360,7 +360,7 @@ merged_adata_object.raw.X # raw count matrix
 merged_adata_object.X # normalized count matrix
 ```
 
-Column names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are Ensembl gene IDs.
+Column names are cell barcode sequences prefixed with the originating library ID, e.g. `SCPCL000000-{barcode}`, and row names are Ensembl gene IDs.
 These names can be accessed as with the following python code:
 
 
@@ -372,7 +372,7 @@ merged_adata_object.var_names # matrix row names
 ### AnnData cell metrics
 
 Cell metrics calculated from the RNA-seq expression data, which were calculated separately for each library, are stored as a `pandas.DataFrame` in the `.obs` slot.
-The slot's row names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`.
+The slot's row names are cell barcode sequences prefixed with the originating library ID, e.g. `SCPCL000000-{barcode}`.
 
 ```python
 merged_adata_object.obs # cell metrics and metadata
@@ -442,7 +442,7 @@ merged_citeseq_adata_object.raw.X # raw count matrix
 merged_citeseq_adata_object.X # normalized count matrix
 ```
 
-Column names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are the ADT IDs.
+Column names are cell barcode sequences prefixed with the originating library ID, e.g. `SCPCL000000-{barcode}`, and row names are the ADT IDs.
 
 ```python
 merged_citeseq_adata_object.obs_names # matrix column names

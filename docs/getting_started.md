@@ -388,7 +388,7 @@ You may wish to only work with a subset of libraries present in the merged objec
 To subset a `SingleCellExperiment` merged object to a given set of libraries, use the following R code:
 
 ```r
-# Define vector of library ids of interest
+# Define vector of library IDs of interest
 libraries <- c("SCPCL00000X", "SCPCL00000Y", "SCPCL00000Z")
 
 # Create a subsetted merged object
@@ -398,7 +398,7 @@ subsetted_merged_sce <- merged_sce[,merged_sce$library_id %in% libraries]
 To subset an `AnnData` merged object to a given set of libraries, use the following R code:
 
 ```r
-# Define list of library ids of interest
+# Define list of library IDs of interest
 libraries = ["SCPCL00000X", "SCPCL00000Y", "SCPCL00000Z"]
 
 # Create a subsetted merged object
