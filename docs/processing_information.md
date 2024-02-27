@@ -84,7 +84,7 @@ We combine these marker genes with all "immune cell" `PanglaoDB` marker genes to
 During annotation, we additionally include an `"other"` cell type that does not express any of these marker genes.
 As a consequence, cells which `CellAssign` cannot confidently annotate from the full marker gene list are labeled as `"other"`.
 
-Please be aware that all cell type annotation reference datasets include only normal (not tumor) tissue.
+Please be aware that all cell type annotation reference datasets are derived from normal (not tumor) tissue.
 In addition, `CellAssign` annotation is only performed if there are at least 30 cells present in the `processed` object.
 
 Cell type annotation is not performed for cell line samples.
