@@ -20,7 +20,7 @@ assignees: ''
   - [ ] If a CHANGELOG entry was required, add the date to the entry's header as part of this PR.
 
 ### Creating a release
-- [ ] On the [releases page](https://github.com/AlexsLemonade/scpca-nf/releases), choose `Draft a new release`.
+- [ ] On the [releases page](https://github.com/AlexsLemonade/scpca-docs/releases), choose `Draft a new release`.
 - [ ] In `Choose a tag`, use the current date as the release tag (`YYYY.MM.DD`), then click `Create a new tag: YYYY.MM.DD on publish`.
 - [ ] Write a description of the major changes in this release. You may want to start with the auto-generated release notes to save time.
 - [ ] Optional: If not all issues have been addressed, save a draft to return to later.
