@@ -191,3 +191,9 @@ Second, although projects with multiplexing will have associated merged objects,
 This is because, although the ScPCA pipeline {ref}`reports demultiplexing results<processing_information:HTO demultiplexing>`, the libraries do not actually undergo demultiplexing itself.
 As there is no guarantee that a unique HTO was used for each sample in a given project, it would not necessarily be possible to determine which HTO corresponds to which sample in a merged object.
 Therefore, we do not merge the cellhash components of multiplexed projects.
+
+
+## Why doesn't my existing code work on a new download from the Portal?
+
+Although we try to maintain backward compatibility, new features added to the ScPCA Portal may result in downloads that are no longer compatible with code written with older downloads from the ScPCA Portal in mind.
+Please see our {ref}`CHANGELOG <CHANGELOG:CHANGELOG>` for a summary of changes that impact downloads from the Portal.

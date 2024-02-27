@@ -85,6 +85,7 @@ During annotation, we additionally include an `"other"` cell type that does not 
 As a consequence, cells which `CellAssign` cannot confidently annotate from the full marker gene list are labeled as `"other"`.
 
 Please be aware that all cell type annotation reference datasets are derived from normal (not tumor) tissue.
+In addition, `CellAssign` annotation is only performed if there are at least 30 cells present in the `processed` object.
 
 Cell type annotation is not performed for cell line samples.
 For information on how to determine if a given sample was derived from a cell line, refer to section(s) describing {ref}`SingleCellExperiment file contents <sce_file_contents:singlecellexperiment sample metadata>` and/or {ref}`AnnData file contents <sce_file_contents:anndata cell metrics>`.
