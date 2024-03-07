@@ -68,7 +68,6 @@ Looney
 Louvain
 Luecken
 Lun
-miQC
 oligo
 oligos
 README
