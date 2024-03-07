@@ -181,8 +181,8 @@ Please refer to {ref}`the getting started with a merged object section<getting_s
 
 ## Which projects can I download as a merged objects?
 
-Most projects in the ScPCA Portal are available for download as a merged object, with a few exceptions.
-Merged object downloads are not provided for two types of projects:
+Most projects in the ScPCA Portal are available for download as a merged object.
+There are two types of projects for which merged objects are not available:
 
 - Projects comprised of spatial transcriptomics
     - As described in {ref}`the spatial transcriptomics processing section<processing_information:spatial transcriptomics>`, no post-processing is performed on these libraries after running Space Ranger.
