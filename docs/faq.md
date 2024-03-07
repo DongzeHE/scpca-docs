@@ -181,17 +181,16 @@ Please refer to {ref}`the getting started with a merged object section<getting_s
 
 ## Which projects can I download as a merged objects?
 
-Most projects in the ScPCA Portal are available for download as a merged object, with a few exceptions.
+Most projects in the ScPCA Portal are available for download as a merged object.
+There are two types of projects for which merged objects are not available:
 
-First, merged object downloads are not provided for projects comprised of spatial transcriptomics.
-As described in {ref}`the spatial transcriptomics processing section<processing_information:spatial transcriptomics>`, no post-processing is performed on these libraries after running Space Ranger.
-Therefore, merging samples into a single object is beyond the scope of the ScPCA pipeline.
+- Projects comprised of spatial transcriptomics
+    - As described in {ref}`the spatial transcriptomics processing section<processing_information:spatial transcriptomics>`, no post-processing is performed on these libraries after running Space Ranger.
+    Therefore, merging samples into a single object is beyond the scope of the ScPCA pipeline.
 
-Second, although projects with multiplexing will have associated merged objects, those merged objects will not contain the hashtag oligonucleotide (HTO) results; they will only contain gene expression results.
-This is because, although the ScPCA pipeline {ref}`reports demultiplexing results<processing_information:HTO demultiplexing>`, the libraries do not actually undergo demultiplexing itself.
-As there is no guarantee that a unique HTO was used for each sample in a given project, it would not necessarily be possible to determine which HTO corresponds to which sample in a merged object.
-Therefore, we do not merge the cellhash components of multiplexed projects.
-
+- Projects containing multiplexed libraries
+    - Although the ScPCA pipeline {ref}`reports demultiplexing results<processing_information:HTO demultiplexing>`, it does not actually perform demultiplexing.
+    As there is no guarantee that a unique HTO was used for each sample in a given project, it would not necessarily be possible to determine which HTO corresponds to which sample in a merged object.
 
 ## Why doesn't my existing code work on a new download from the Portal?
 
