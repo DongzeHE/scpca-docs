@@ -1,6 +1,7 @@
 # Downloadable files
 
 The ScPCA Portal download packages include gene expression data, a QC report, and associated metadata for each processed sample.
+Gene expression data is available as either [`SingleCellExperiment` objects (`.rds` files)](#singlecellexperiment-downloads) or [`AnnData` objects (`.hdf5` files)](#anndata-downloads).
 These files are delivered as a zip file.
 When you uncompress the zip file, the root directory name of your download will include the date you accessed the data on the ScPCA Portal.
 We recommend you record this date in case there are future updates to the Portal that change the underlying data or if you need to cite the data in the future (see {ref}`How to Cite <citation:how to cite>` for more information).
@@ -9,58 +10,73 @@ Please see our {ref}`CHANGELOG <CHANGELOG:CHANGELOG>` for a summary of changes t
 For all downloads, sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
 Most samples only have one library that has been sequenced.
 For [multiplexed sample libraries](#multiplexed-sample-libraries), the sample folder name will be an underscore-separated list of all samples found in the library files that the folder contains.
+Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not currently available as `AnnData` objects.
 
 See the {ref}`FAQ section about samples and libraries <faq:What is the difference between samples and libraries?>` for more information.
 
-The files associated with each library are (example shown for a library with ID `SCPCL000000`):
-- An unfiltered counts file: `SCPCL000000_unfiltered.rds`,
-- A filtered counts file: `SCPCL000000_filtered.rds`,
-- A processed counts file: `SCPCL000000_processed.rds`,
+The files shown below will be included with each library (example shown for a library with ID `SCPCL000000`):
+- An unfiltered counts file: `SCPCL000000_unfiltered.rds` or `SCPCL00000_unfiltered_rna.hdf5`,
+- A filtered counts file: `SCPCL000000_filtered.rds` or `SCPCL00000_filtered_rna.hdf5`,
+- A processed counts file: `SCPCL000000_processed.rds` or `SCPCL00000_processed_rna.hdf5`,
 - A quality control report: `SCPCL000000_qc.html`,
 
 Every download also includes a single `single_cell_metadata.tsv` file containing metadata for all libraries included in the download.
 
-The folder structure within the zip file is determined by whether individual samples or all samples associated with a project are selected for download.
-
-## Download folder structure for project downloads:
-![project download folder](images/project-download-folder.png)
-
-If a project contains bulk RNA-seq data, two tab-separated value files, `bulk_quant.tsv` and `bulk_metadata.tsv`, will be included in the download.
+If downloading a project containing bulk RNA-seq data, two tab-separated value files, `bulk_quant.tsv` and `bulk_metadata.tsv`, will be included in the project download.
 The `bulk_quant.tsv` file contains a gene by sample matrix (each row a gene, each column a sample) containing raw gene expression counts quantified by Salmon.
 The `bulk_metadata.tsv` file contains associated metadata for all samples with bulk RNA-seq data.
 
 See also {ref}`processing bulk RNA samples <processing_information:Bulk RNA samples>`.
 
-## Download folder structure for individual sample downloads:
+The folder structure within the zip file is determined by whether individual samples or all samples associated with a project are selected for download.
+Note that if a sample selected for download contains a spatial transcriptomics library, the files included will be different than pictured below.
+See the [description of the Spatial transcriptomics output section below](#spatial-transcriptomics-libraries).
+
+## `SingleCellExperiment` downloads
+
+### Download folder structure for project downloads:
+![project download folder](images/project-download-folder.png)
+
+### Download folder structure for individual sample downloads:
 ![sample download folder](images/sample-download-folder.png)
 
-Note that if a sample selected for download contains a spatial transcriptomics library, the files included will be different than pictured above.
-See the [description of the Spatial transcriptomics output section below](#spatial-transcriptomics-libraries).
+## `AnnData` downloads
+
+### Download folder structure for project downloads:
+![project download folder](images/anndata-project-download-folder.png)
+
+### Download folder structure for individual sample downloads:
+![sample download folder](images/anndata-sample-download-folder.png)
+
+### Download folder structure for individual sample downloads with CITE-seq (ADT) data:
+![sample download folder](images/anndata-sample-citeseq-download-folder.png)
+
+If downloading a sample that contains a CITE-seq library as an `AnnData` object (`hdf5` file), the quantified CITE-seq expression data is included as a separate file.
 
 ## Gene expression data
 
-Single-cell or single-nuclei gene expression data is provided in three forms - as an unfiltered counts file, a filtered counts file, and a processed counts file.
+Single-cell or single-nuclei gene expression data is provided as either [`SingleCellExperiment` objects (`.rds` files)](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) or [`AnnData` objects (`.hdf5` files)](https://anndata.readthedocs.io/en/latest/index.html).
+Three files will be provided for each library included in the download - an unfiltered counts file, a filtered counts file, and a processed counts file.
 
-The unfiltered counts file, `SCPCL000000_unfiltered.rds`, is an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
-Within the `SingleCellExperiment` object is the counts matrix, where the rows correspond to genes or features and the columns correspond to cell barcodes.
+The unfiltered counts file, `SCPCL000000_unfiltered.rds` or `SCPCL000000_unfiltered_rna.hdf5`, contains the counts matrix, where the rows correspond to genes or features and the columns correspond to cell barcodes.
 Here, all potential cell barcodes that are identified after running {ref}`alevin-fry <processing_information:mapping and quantification using alevin-fry>` are included in the counts matrix.
 The object also includes summary statistics for each cell barcode and gene, as well as metadata about that particular library, such as the reference index and software versions used for mapping and quantification.
 
-The filtered counts file, `SCPCL000000_filtered.rds` is also an RDS file containing a `SingleCellExperiment` object with the same structure as above.
+The filtered counts file, `SCPCL000000_filtered.rds` or `SCPCL000000_filtered_rna.hdf5` contains a counts matrix with the same structure as above.
 The cells in this file are those that remain after filtering using {ref}`emptyDrops <processing_information:filtering cells>`.
 As a result, this file only contains cell barcodes that are likely to correspond to true cells.
 
-The processed counts file, `SCPCL000000_processed.rds` is an RDS file containing a `SingleCellExperiment` object containing both the raw and normalized counts matrices.
+The processed counts file, `SCPCL000000_processed.rds` or `SCPCL000000_processed_rna.hdf5`, contains both the raw and normalized counts matrices.
 The filtered counts file is further filtered to remove low quality cells, such as those with a low number of genes detected or high mitochondrial content.
 This file contains the raw and normalized counts data for cell barcodes that have passed both levels of filtering.
-In addition to the counts matrices, the `SingleCellExperiment` object stored in the file includes the results of dimensionality reduction using both principal component analysis (PCA) and UMAP.
+In addition to the counts matrices, the `SingleCellExperiment` or `AnnData` object stored in the file includes the results of dimensionality reduction using both principal component analysis (PCA) and UMAP.
 
-See {ref}`Single-cell gene expression file contents <sce_file_contents:Single-cell gene expression file contents>` for more information about the contents of the `SingleCellExperiment` objects and the included statistics and metadata.
-See also {ref}`Using the provided RDS files in R <faq:how do i use the provided RDS files in r?>`.
+See {ref}`Single-cell gene expression file contents <sce_file_contents:Single-cell gene expression file contents>` for more information about the contents of the `SingleCellExperiment` and `AnnData` objects and the included statistics and metadata.
+See also {ref}`Using the provided RDS files in R <faq:how do i use the provided RDS files in r?>` and {ref}`Using the provided HDF5 files in Python <faq:how do i use the provided HDF5 files in python?>`.
 
 ## QC Report
 
-The included QC report serves as a general overview of each library, including processing information, summary statistics and general visualizations of cell metrics.
+The included QC report, `SCPCL000000_qc.html`, serves as a general overview of each library, including processing information, summary statistics and general visualizations of cell metrics.
 
 ## Metadata
 
@@ -74,7 +90,7 @@ The `single_cell_metadata.tsv` file is a tab-separated table with one row per li
 | `technology`      | 10x kit used to process library                                |
 | `filtered_cell_count` | Number of cells after filtering with `emptyDrops`          |
 | `submitter_id`    | Original sample identifier from submitter                      |
-| `participant_id`  | Original participant id, required when there are multiple samples from the same participant, optional for all other samples                                                                        |
+| `participant_id`  | Unique id corresponding to the donor from which the sample was obtained |
 | `submitter`       | Submitter name/id                                              |
 | `age`             | Age at time sample was obtained                                |
 | `sex`             | Sex of patient that the sample was obtained from               |
@@ -82,11 +98,19 @@ The `single_cell_metadata.tsv` file is a tab-separated table with one row per li
 | `subdiagnosis`    | Subcategory of diagnosis or mutation status (if applicable)    |
 | `tissue_location` | Where in the body the tumor sample was located                 |
 | `disease_timing`  | At what stage of disease the sample was obtained, either diagnosis or recurrence |
+| `organism`         | The organism the sample was obtained from (e.g., `Homo_sapiens`) |
+| `development_stage_ontology_term_id` | [`HsapDv`](http://obofoundry.org/ontology/hsapdv.html) ontology term indicating the age at which the sample was collected. `unknown` indicates age is unavailable. |
+| `sex_ontology_term_id`| [`PATO`](http://obofoundry.org/ontology/pato.html) term referring to the sex of the sample. `unknown` indicates sex is unavailable. |
+| `organism_ontology_id`| NCBI taxonomy term for organism, e.g. [`NCBITaxon:9606`](https://ontobee.org/ontology/NCBITaxon?iri=http://purl.obolibrary.org/obo/NCBITaxon_9606). |
+| `self_reported_ethnicity_ontology_term_id` | For _Homo sapiens_ samples, a [`Hancestro` term](http://obofoundry.org/ontology/hancestro.html). `multiethnic` indicates more than one ethnicity is reported. `unknown` indicates unavailable ethnicity and `NA` is used for all other organisms. |
+| `disease_ontology_term_id` | [`MONDO`](http://obofoundry.org/ontology/mondo.html) term indicating disease type. [`PATO:0000461`](https://ontobee.org/ontology/PATO?iri=http://purl.obolibrary.org/obo/PATO_0000461) is used for normal or healthy tissue. |
+| `tissue_ontology_term_id` | [`UBERON`](http://obofoundry.org/ontology/uberon.html) term indicating tissue of origin. `NA` indicates tissue is unavailable.  |
 
 Additional metadata may also be included, specific to the disease type and experimental design of the project.
 Examples of this include treatment or outcome.
 Metadata pertaining to processing will also be available in this table and inside of the `SingleCellExperiment` object.
-See the {ref}`Experiment metadata <sce_file_contents:experiment metadata>` section for more information on metadata columns that can be found in this file as well as inside the `SingleCellExperiment` object.
+See the {ref}`SingleCellExperiment experiment metadata <sce_file_contents:singlecellexperiment experiment metadata>` section for more information on metadata columns that can be found in the `SingleCellExperiment` object.
+See the {ref}`AnnData experiment metadata <sce_file_contents:anndata experiment metadata>` section for more information on metadata columns that can be found in the `AnnData` object.
 
 For projects with bulk RNA-seq data, the `bulk_metadata.tsv` file will be included for project downloads.
 This file will contain fields equivalent to those found in the `single_cell_metadata.tsv` related to processing the sample, but will not contain patient or disease specific metadata (e.g. `age`, `sex`, `diagnosis`, `subdiagnosis`, `tissue_location`, or `disease_timing`).
@@ -94,6 +118,7 @@ This file will contain fields equivalent to those found in the `single_cell_meta
 ## Multiplexed sample libraries
 
 For libraries where multiple biological samples were combined via cellhashing or similar technology (see the {ref}`FAQ section about multiplexed samples <faq:What is a multiplexed sample?>`), the organization of the downloaded files and metadata is slightly different.
+Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not currently available as `AnnData` objects.
 
 For project downloads, the counts and QC files will be organized by the _set_ of samples that comprise each library, rather than in individual sample folders.
 These sample set folders are named with an underscore-separated list of the sample ids for the libraries within, _e.g._, `SCPCS999990_SCPCS999991_SCPCS999992`.
