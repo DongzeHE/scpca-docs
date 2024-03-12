@@ -26,7 +26,7 @@ Community-contributed projects are 10x Genomics single-cell or single-nuclei dat
 Please refer to the [contributions page](https://scpca.alexslemonade.org/contribute) for more information about community contributions.
 
 
-## PLACEHOLDER FOR RELEASE DATE
+## 2024.03.08
 
 * Downloads for most projects are now available in [`AnnData`](https://anndata.readthedocs.io/en/latest/index.html) format as HDF5 files.
 Multiplexed samples are not yet supported.
