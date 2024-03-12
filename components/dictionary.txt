@@ -67,7 +67,6 @@ pseudogenes
 Looney
 Louvain
 Lun
-miQC
 oligo
 oligos
 README
