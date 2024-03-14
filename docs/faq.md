@@ -179,7 +179,7 @@ You may prefer to download this merged object instead of individual sample files
 Please refer to {ref}`the getting started with a merged object section<getting_started:Working with a Merged ScPCA object>` for more details on working with merged objects.
 
 
-## Which projects can I download as a merged objects?
+## Which projects can I download as merged objects?
 
 Most projects in the ScPCA Portal are available for download as a merged object.
 There are two types of projects for which merged objects are not available:
