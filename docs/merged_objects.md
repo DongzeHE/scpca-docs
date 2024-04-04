@@ -311,28 +311,8 @@ metadata(altExp(merged_sce, "adt")) # adt metadata
 
 ### Additional SingleCellExperiment components for multiplexed libraries
 
-
-Multiplexed libraries will contain several additional per-cell data columns in the `colData` slot (accessed with `colData(merged_sce)` [as above](#singlecellexperiment-cell-metrics)).
-
-The following columns in the `colData` slot `DataFrame` contain cellhash QC statistics for multiplexed libraries:
-
-| Column name                 | Contents                                                         |
-| --------------------------- | ---------------------------------------------------------------- |
-| `altexps_cellhash_sum`      | UMI count for cellhash HTOs                                      |
-| `altexps_cellhash_detected` | Number of HTOs detected per cell (HTO count > 0 )                |
-| `altexps_cellhash_percent`  | Percent of `total` UMI count from HTO reads                      |
-
-In addition, the following columns in the `colData` slot `DataFrame` contain demultiplexing results, although note that demultiplexing itself was not performed:
-
-| Column name                 | Contents                                                         |
-| --------------------------- | ---------------------------------------------------------------- |
-| `hashedDrops_sampleid`      | Most likely sample as called by `DropletUtils::hashedDrops`      |
-| `HTODemux_sampleid`         | Most likely sample as called by `Seurat::HTODemux`               |
-| `vireo_sampleid`            | Most likely sample as called by `vireo` (genetic demultiplexing) |
-
-
-Unlike in {ref}`individual SingleCellExperiment objects<sce_file_contents:additional SingleCellExperiment components for multiplexed libraries>`, hashtag oligo (HTO) quantification will not be included in the merged `SingleCellExperiment` as an alternative experiment, as described in the ref`{frequently asked questions:faq:which projects can I download as a merged objects?}>`.
-
+Merged objects are not available for any projects that contain multiplexed libraries.
+As there is no guarantee that a unique HTO was used for each sample in a given project, it would not necessarily be possible to determine which HTO corresponds to which sample in a merged object.
 
 ## Components of an AnnData merged object
 
