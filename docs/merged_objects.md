@@ -312,7 +312,7 @@ metadata(altExp(merged_sce, "adt")) # adt metadata
 ### Additional SingleCellExperiment components for multiplexed libraries
 
 Merged objects are not available for any projects that contain multiplexed libraries.
-As there is no guarantee that a unique HTO was used for each sample in a given project, it would not necessarily be possible to determine which HTO corresponds to which sample in a merged object.
+This is because there is no guarantee that a unique HTO was used for each sample in a given project, so it would not necessarily be possible to determine which HTO corresponds to which sample in a merged object.
 
 ## Components of an AnnData merged object
 
