@@ -15,12 +15,12 @@ For more information about `AlexsLemonade/scpca-nf` versions, please see [the re
 ## PLACEHOLDER FOR MERGED RELEASE DATE
 
 
-* When downloading data for an entire project, you will now have the option to download a single file with a single merged object containing all gene expression and metadata for all samples in that project. 
+* When downloading data for an entire project, you have the option to download a single file with a single merged object containing all gene expression and metadata for all samples in that project. 
   * These merged objects are available as either `SingleCellExperiment` (`.rds` files) or `AnnData` (`.hdf5` files) objects.
-  * This option is now available for most projects. 
+  * This option is available for most projects. 
   If the project you are interested in does not have this option, see our {ref}`FAQ on which projects can be downloaded as merged objects<faq:Which projects can I download as merged objects?>`. 
-  * Merged project downloads will contain a brief summary report about the merged object as well as the individual QC and cell type annotation reports for all libraries in the merged object.
-  * See our {ref}`documentation on how merged objects were created<processing_information:merged objects>` and our {ref}`FAQ about merged objects<faq:When should I download a project as a merged object?>` for more information.
+* Merged project downloads will contain a brief summary report about the merged object as well as the individual QC and cell type annotation reports for all libraries in the merged object.
+* See our {ref}`documentation on how merged objects were created<processing_information:merged objects>` and our {ref}`FAQ about merged objects<faq:When should I download a project as a merged object?>` for more information.
 
 
 ## PLACEHOLDER FOR CELL TYPING/COMMUNITY CONTRIBUTIONS RELEASE DATE
