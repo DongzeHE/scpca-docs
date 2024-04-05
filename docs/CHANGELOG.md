@@ -12,6 +12,16 @@ For more information about `AlexsLemonade/scpca-nf` versions, please see [the re
 <!-- PUT THE NEW CHANGELOG ENTRY RIGHT BELOW THIS -->
 <!-------------------------------------------------->
 
+## PLACEHOLDER FOR MERGED RELEASE DATE
+
+
+* When downloading data for an entire project, you have the option to download a single file with a single merged object containing all gene expression and metadata for all samples in that project. 
+  * These merged objects are available as either `SingleCellExperiment` (`.rds` files) or `AnnData` (`.hdf5` files) objects.
+  * This option is available for most projects. 
+  If the project you are interested in does not have this option, see our {ref}`FAQ on which projects can be downloaded as merged objects<faq:Which projects can I download as merged objects?>`. 
+* Merged project downloads will contain a brief summary report about the merged object as well as the individual QC and cell type annotation reports for all libraries in the merged object.
+* See our {ref}`documentation on how merged objects were created<processing_information:merged objects>` and our {ref}`FAQ about merged objects<faq:When should I download a project as a merged object?>` for more information.
+
 
 ## PLACEHOLDER FOR CELL TYPING/COMMUNITY CONTRIBUTIONS RELEASE DATE
 
@@ -26,7 +36,7 @@ Community-contributed projects are 10x Genomics single-cell or single-nuclei dat
 Please refer to the [contributions page](https://scpca.alexslemonade.org/contribute) for more information about community contributions.
 
 
-## PLACEHOLDER FOR RELEASE DATE
+## 2024.03.08
 
 * Downloads for most projects are now available in [`AnnData`](https://anndata.readthedocs.io/en/latest/index.html) format as HDF5 files.
 Multiplexed samples are not yet supported.
