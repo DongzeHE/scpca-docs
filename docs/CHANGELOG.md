@@ -13,7 +13,7 @@ For more information about `AlexsLemonade/scpca-nf` versions, please see [the re
 <!-------------------------------------------------->
 
 
-## PLACEHOLDER FOR CELL TYPING/COMMUNITY CONTRIBUTIONS RELEASE DATE
+## 2024.04.11
 
 * Cell type annotations are now included in each download.
 Cells were annotated using both [`SingleR`](https://bioconductor.org/packages/release/bioc/html/SingleR.html) and [`CellAssign`](https://github.com/Irrationone/cellassign).
