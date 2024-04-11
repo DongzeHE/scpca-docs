@@ -5,6 +5,8 @@ alevin
 Alevin
 AnnData
 APA
+AnnData
+Aran
 barcode
 barcodes
 basepairs
@@ -31,6 +33,7 @@ Ensembl
 et
 fastp
 FASTQ
+Franzén
 GC
 Genomics
 github
@@ -61,9 +64,9 @@ Pearson
 pre
 pseudocount
 pseudogenes
+Looney
 Louvain
 Lun
-miQC
 oligo
 oligos
 README
@@ -81,6 +84,7 @@ Stegle
 Stoeckius
 subdiagnosis
 submitter
+submitters
 Tian
 transcriptome
 transcriptomics
@@ -90,4 +94,6 @@ UMI
 UMIs
 uncompress
 unspliced
+xenograft
 xenografts
+Zhang
