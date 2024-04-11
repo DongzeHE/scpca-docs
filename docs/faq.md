@@ -48,7 +48,7 @@ To read in the HDF5 files you can use the `readh5ad` function from the `AnnData`
 
 ```python
 import anndata
-scpca_sample = anndata.readh5ad(file = "SCPCL000000_processed_rna.hdf5")
+scpca_sample = anndata.readh5ad(file = "SCPCL000000_processed_rna.h5ad")
 ```
 
 A full description of the contents of the `AnnData` object can be found in the section on {ref}`Components of an AnnData object <sce_file_contents:Components of an anndata object>`.
@@ -200,3 +200,10 @@ There are three types of projects for which merged objects are not available:
 
 Although we try to maintain backward compatibility, new features added to the ScPCA Portal may result in downloads that are no longer compatible with code written with older downloads from the ScPCA Portal in mind.
 Please see our {ref}`CHANGELOG <CHANGELOG:CHANGELOG>` for a summary of changes that impact downloads from the Portal.
+
+## I previously downloaded a sample that is no longer on the Portal. Why can't I find it?
+
+If a sample you downloaded previously is no longer available, a submitter has requested it to be removed.
+We process and release all data provided to us on the Portal, without filtering out samples based on quality.
+Instead, we provide a QC report with each download so that users may assess library quality themselves.
+However, we respect submitters' requests to remove samples if they have deemed they are low quality based on their own analyses.

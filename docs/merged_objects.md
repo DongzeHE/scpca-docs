@@ -323,7 +323,7 @@ To begin, you will need to load the `AnnData` package and read the HDF5 file:
 
 ```python
 import anndata
-merged_adata_object = anndata.read_h5ad("SCPCP000000_merged_rna.hdf5")
+merged_adata_object = anndata.read_h5ad("SCPCP000000_merged_rna.h5ad")
 ```
 
 ### AnnData expression counts
@@ -407,7 +407,7 @@ merged_adata_object.obsm["X_UMAP"] # umap results
 
 ### Additional AnnData components for CITE-seq libraries (with ADT tags)
 
-ADT data from CITE-seq experiments, when present, is available as a separate `AnnData` object in an HDF5 file named with the `_adt.hdf5` suffix.
+ADT data from CITE-seq experiments, when present, is available as a separate `AnnData` object in an HDF5 file named with the `_adt.h5ad` suffix.
 
 Merged `AnnData` objects contain two data matrices, each containing CITE-seq expression data for all libraries in a given ScPCA project combined into a single matrix.
 The data matrix `raw.X` of the merged `AnnData` object contains the CITE-seq expression data as primary integer counts, and the data matrix `X` contains the RNA-seq expression data as normalized counts.
