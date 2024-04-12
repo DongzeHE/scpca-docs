@@ -52,7 +52,7 @@ See the [description of the Spatial transcriptomics output section below](#spati
 ### Download folder structure for individual sample downloads with CITE-seq (ADT) data:
 ![sample download folder](images/anndata-sample-citeseq-download-folder.png)
 
-If downloading a sample that contains a CITE-seq library as an `AnnData` object (`hdf5` file), the quantified CITE-seq expression data is included as a separate file with the suffix `_adt.h5ad`.
+If downloading a sample that contains a CITE-seq library as an `AnnData` object (`.h5ad` file), the quantified CITE-seq expression data is included as a separate file with the suffix `_adt.h5ad`.
 
 ## Gene expression data
 
@@ -155,7 +155,7 @@ See the {ref}`section on merged object processing<processing_information:merged 
 
 If downloading a project that contains at least one CITE-seq library, the quantified CITE-seq expression data will also be merged.
 In `SingleCellExperiment` objects (`rds` files), the CITE-seq expression data is provided as an alternative experiment in the same object as the gene expression data.
-However, for `AnnData` objects, (`hdf5` files), the quantified CITE-seq expression is instead provided as a separate file called `SCPCP000000_merged_adt.h5ad`.
+However, for `AnnData` objects, (`.h5ad` files), the quantified CITE-seq expression is instead provided as a separate file called `SCPCP000000_merged_adt.h5ad`.
 
 Every download also includes a single `single_cell_metadata.tsv` file containing metadata for all libraries included in the merged object.
 For a full description of this file's contents, refer to the [metadata section above](#metadata).
