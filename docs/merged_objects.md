@@ -8,7 +8,7 @@ See {ref}`the section on merged object processing <processing_information:merged
 
 Merged objects are provided in two formats:
   - As an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.17/OSCA.intro/the-singlecellexperiment-class.html) for use in R.
-  - As an HDF5 file containing an [`AnnData` object](https://anndata.readthedocs.io/en/latest/index.html) for use in Python.
+  - As an H5AD file containing an [`AnnData` object](https://anndata.readthedocs.io/en/latest/index.html) for use in Python.
 
 
 Below we present some details about the specific contents of the objects we provide.
@@ -319,7 +319,7 @@ This is because there is no guarantee that a unique HTO was used for each sample
 Before getting started, we highly encourage you to familiarize yourself with the general `AnnData` object structure and functions available as part of the [`AnnData` package](https://anndata.readthedocs.io/en/latest/index.html).
 For the most part, the `AnnData` objects that we provide are formatted to match the expected data format for [`CELLxGENE`](https://cellxgene.cziscience.com/) following [schema version `3.0.0`](https://github.com/chanzuckerberg/single-cell-curation/blob/main/schema/3.0.0/schema.md).
 
-To begin, you will need to load the `AnnData` package and read the HDF5 file:
+To begin, you will need to load the `AnnData` package and read the H5AD file:
 
 ```python
 import anndata
@@ -407,7 +407,7 @@ merged_adata_object.obsm["X_UMAP"] # umap results
 
 ### Additional AnnData components for CITE-seq libraries (with ADT tags)
 
-ADT data from CITE-seq experiments, when present, is available as a separate `AnnData` object in an HDF5 file named with the `_adt.h5ad` suffix.
+ADT data from CITE-seq experiments, when present, is available as a separate `AnnData` object in an H5AD file named with the `_adt.h5ad` suffix.
 
 Merged `AnnData` objects contain two data matrices, each containing CITE-seq expression data for all libraries in a given ScPCA project combined into a single matrix.
 The data matrix `raw.X` of the merged `AnnData` object contains the CITE-seq expression data as primary integer counts, and the data matrix `X` contains the RNA-seq expression data as normalized counts.

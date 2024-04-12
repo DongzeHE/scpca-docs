@@ -50,13 +50,13 @@ More resources for learning about `SingleCellExperiment` objects:
 The first step in analyzing the provided gene expression data stored in the `AnnData` objects will be to import the data into python.
 To work with `AnnData` objects in python, we need to ensure that we have the [`AnnData` package](https://anndata.readthedocs.io/en/latest/index.html) installed and loaded.
 
-The following commands can be used to import the HDF5 file into python and save the `AnnData` object:
+The following commands can be used to import the H5AD file into python and save the `AnnData` object:
 
 ```python
 # load anndata module
 import anndata
 
-# read in the HDF5 file, including the path to the file's location
+# read in the H5AD file, including the path to the file's location
 processed_adata = anndata.read_h5ad("SCPCS000000/SCPCL000000_processed_rna.h5ad")
 ```
 
@@ -472,7 +472,7 @@ To access the ADT matrices in `AnnData` objects you will first need to read in t
 
 ```python
 import anndata
-# read in the HDF5 file with ADT data, including the path to the file's location
+# read in the H5AD file with ADT data, including the path to the file's location
 adt_adata = anndata.read_h5ad("SCPCS000000/SCPCL000000_processed_adt.h5ad")
 
 # the raw ADT counts matrix
@@ -528,7 +528,7 @@ Each sample has been tagged with a hashtag oligo (HTO) prior to mixing, and that
 The libraries available for download on the portal have not been separated by sample (i.e. demultiplexed), and therefore contain data from multiple samples.
 
 Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not currently available as `AnnData` objects.
-If you prefer to work with `AnnData` objects, we recommend using the [`zellkonverter` package](https://theislab.github.io/zellkonverter/reference/AnnData-Conversion.html) to convert the `SingleCellExperiment` object to an HDF5 file containing an `AnnData` object.
+If you prefer to work with `AnnData` objects, we recommend using the [`zellkonverter` package](https://theislab.github.io/zellkonverter/reference/AnnData-Conversion.html) to convert the `SingleCellExperiment` object to an H5AD file containing an `AnnData` object.
 
 
 Libraries containing multiplexed samples can be initially processed using the same workflow described above including removal of [low quality cells](#quality-control), [normalization](#normalization), and [dimensionality reduction](#dimensionality-reduction).

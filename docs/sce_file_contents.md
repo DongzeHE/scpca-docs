@@ -2,7 +2,7 @@
 
 Single-cell or single-nuclei gene expression data (unfiltered, filtered, or processed) is provided in two formats:
   - As an RDS file containing a [`SingleCellExperiment` object](http://bioconductor.org/books/3.17/OSCA.intro/the-singlecellexperiment-class.html) for use in R.
-  - An HDF5 file containing an [`AnnData` object](https://anndata.readthedocs.io/en/latest/index.html) for use in Python.
+  - An H5AD file containing an [`AnnData` object](https://anndata.readthedocs.io/en/latest/index.html) for use in Python.
 
 These objects contain the expression data, cell and gene metrics, associated metadata, and, in the case of multimodal data like ADTs from CITE-seq experiments, data from additional cell-based assays.
 For `SingleCellExperiment` objects, the ADT data will be included as an alternative experiment in the same object containing the primary RNA data.
@@ -336,7 +336,7 @@ Genetic demultiplexing statistics are found in the main `colData(sce)` data fram
 Before getting started, we highly encourage you to familiarize yourself with the general `AnnData` object structure and functions available as part of the [`AnnData` package](https://anndata.readthedocs.io/en/latest/index.html).
 For the most part, the `AnnData` objects that we provide are formatted to match the expected data format for [`CELLxGENE`](https://cellxgene.cziscience.com/) following [schema version `3.0.0`](https://github.com/chanzuckerberg/single-cell-curation/blob/main/schema/3.0.0/schema.md).
 
-To begin, you will need to load the `AnnData` package and read the HDF5 file:
+To begin, you will need to load the `AnnData` package and read the H5AD file:
 
 ```python
 import anndata
@@ -449,8 +449,8 @@ The `AnnData` object also includes the following additional items in the `.uns` 
 
 ### AnnData dimensionality reduction results
 
-The HDF5 file containing the processed `AnnData` object (`_processed_rna.h5ad`) contains a slot `.obsm` with both principal component analysis (`X_PCA`) and UMAP (`X_UMAP`) results.
-For all other HDF5 files, the `.obsm` slot will be empty as no dimensionality reduction was performed.
+The H5AD file containing the processed `AnnData` object (`_processed_rna.h5ad`) contains a slot `.obsm` with both principal component analysis (`X_PCA`) and UMAP (`X_UMAP`) results.
+For all other H5AD files, the `.obsm` slot will be empty as no dimensionality reduction was performed.
 
 For information on how PCA and UMAP results were calculated see the {ref}`section on processed gene expression data <processing_information:Processed gene expression data>`.
 
@@ -463,7 +463,7 @@ adata_object.obsm["X_UMAP"] # umap results
 
 ### Additional AnnData components for CITE-seq libraries (with ADT tags)
 
-ADT data from CITE-seq experiments, when present, is available as a separate `AnnData` object (HDF5 file).
+ADT data from CITE-seq experiments, when present, is available as a separate `AnnData` object (H5AD file).
 All files containing ADT data will contain the `_adt.h5ad` suffix.
 
 The data matrix, `X`, of the `AnnData` objects contain the primary ADT expression data as integer counts in both the unfiltered (`_unfiltered_adt.h5ad`) and filtered (`_filtered_adt.h5ad`) objects.
