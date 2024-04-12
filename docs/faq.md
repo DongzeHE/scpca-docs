@@ -192,9 +192,9 @@ There are three types of projects for which merged objects are not available:
     - Although the ScPCA pipeline {ref}`reports demultiplexing results<processing_information:HTO demultiplexing>`, it does not actually perform demultiplexing.
     As there is no guarantee that a unique HTO was used for each sample in a given project, it would not necessarily be possible to determine which HTO corresponds to which sample in a merged object.
 
-- Projects containing more than 50 samples
+- Projects containing more than 100 samples
     - The more samples that are included in a merged object, the larger the object, and the more difficult it will be to work with that object in R or Python.
-    Because of this, we do not provide merged objects for projects with more than 50 samples as the size of the merged object is too large.
+    Because of this, we do not provide merged objects for projects with more than 100 samples as the size of the merged object is too large.
 
 ## Why doesn't my existing code work on a new download from the Portal?
 
