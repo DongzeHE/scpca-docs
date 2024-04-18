@@ -85,5 +85,5 @@ html_context = {
     "display_github": True,
     "github_user": "Alexslemonade",
     "github_repo": "scpca-docs",
-    "github_version": "main/docs/",
+    "github_version": "main/",
 }

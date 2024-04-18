@@ -167,6 +167,35 @@ adt_assay@meta.features <- adt_row_metadata
 seurat_object[["ADT"]] <- adt_assay
 ```
 
+## When should I download a project as a merged object?
+
+When you download all data for a ScPCA project, you will be presented with two options.
+You can either download the project such that the data for each sample is stored in separate files, or you can download a single file that contains a merged object with data from all samples in the project.
+This merged object contains combined data from all samples (and therefore all libraries), including expression count matrices and associated metadata.
+The samples have simply been merged into a single file - _they have not been integrated/batch-corrected_.
+
+You may prefer to download this merged object instead of individual sample files to facilitate downstream analyses that consider multiple samples at once, such as differential expression analysis, integrating multiple samples, or jointly clustering multiple samples.
+
+Please refer to {ref}`the getting started with a merged object section<getting_started:Working with a Merged ScPCA object>` for more details on working with merged objects.
+
+
+## Which projects can I download as merged objects?
+
+Most projects in the ScPCA Portal are available for download as a merged object.
+There are three types of projects for which merged objects are not available:
+
+- Projects comprised of spatial transcriptomics
+    - As described in {ref}`the spatial transcriptomics processing section<processing_information:spatial transcriptomics>`, no post-processing is performed on these libraries after running Space Ranger.
+    Therefore, merging samples into a single object is beyond the scope of the ScPCA pipeline.
+
+- Projects containing multiplexed libraries
+    - Although the ScPCA pipeline {ref}`reports demultiplexing results<processing_information:HTO demultiplexing>`, it does not actually perform demultiplexing.
+    As there is no guarantee that a unique HTO was used for each sample in a given project, it would not necessarily be possible to determine which HTO corresponds to which sample in a merged object.
+
+- Projects containing more than 100 samples
+    - The more samples that are included in a merged object, the larger the object, and the more difficult it will be to work with that object in R or Python.
+    Because of this, we do not provide merged objects for projects with more than 100 samples as the size of the merged object is too large.
+
 ## Why doesn't my existing code work on a new download from the Portal?
 
 Although we try to maintain backward compatibility, new features added to the ScPCA Portal may result in downloads that are no longer compatible with code written with older downloads from the ScPCA Portal in mind.
