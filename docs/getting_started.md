@@ -1,10 +1,10 @@
 # Getting started with an ScPCA dataset
 
 This section provides information on next steps you might take after downloading a dataset from the ScPCA portal.
-Quantified single-cell or single-nuclei gene expression data is provided as either [`SingleCellExperiment` objects (`.rds` files)](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) or [`AnnData` objects (`.hdf5` files)](https://anndata.readthedocs.io/en/latest/index.html).
+Quantified single-cell or single-nuclei gene expression data is provided as either [`SingleCellExperiment` objects (`.rds` files)](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) or [`AnnData` objects (`.h5ad` files)](https://anndata.readthedocs.io/en/latest/index.html).
 A full description of the contents of the `SingleCellExperiment` and `AnnData` objects can be found in the {ref}`single cell gene expression file contents section<sce_file_contents:single-cell gene expression file contents>`.
 
-There are three objects available for each library: an unfiltered object (`unfiltered.rds` or `unfiltered_rna.hdf5`), a filtered object (`filtered.rds` or `filtered_rna.hdf5`), and a processed object (`processed.rds` or `processed_rna.hdf5`).
+There are three objects available for each library: an unfiltered object (`unfiltered.rds` or `unfiltered_rna.h5ad`), a filtered object (`filtered.rds` or `filtered_rna.h5ad`), and a processed object (`processed.rds` or `processed_rna.h5ad`).
 The unfiltered object contains the gene expression data for all droplets, regardless of the presence of a cell or not.
 The filtered object contains the gene expression data for only droplets that are likely to contain cells, removing any probable empty droplets.
 See the {ref}`section on filtering cells<processing_information:Filtering cells>` for more information on how we remove potential empty droplets.
@@ -15,7 +15,7 @@ See the description of the {ref}`processed gene expression data <processing_info
 
 We recommend starting with the processed objects.
   - For working with the processed `SingleCellExperiment`object found in the `processed.rds` file see [Importing ScPCA data from `SingleCellExperiment` objects into R below](#importing-scpca-data-from-singlecellexperiment-objects-into-r).
-  - For working with the processed `AnnData` objects found in the `processed_rna.hdf5` file see [Importing ScPCA data from `AnnData` objects into Python below](#importing-scpca-data-from-anndata-objects-into-python).
+  - For working with the processed `AnnData` objects found in the `processed_rna.h5ad` file see [Importing ScPCA data from `AnnData` objects into Python below](#importing-scpca-data-from-anndata-objects-into-python).
 
 Note: We also have a separate GitHub repository that contains workflows for some common analysis performed on single-cell RNA-sequencing data.
 These workflows are designed to apply the same analysis (e.g., clustering) across multiple samples in parallel and is currently only for use with `SingleCellExperiment` objects.
@@ -50,14 +50,14 @@ More resources for learning about `SingleCellExperiment` objects:
 The first step in analyzing the provided gene expression data stored in the `AnnData` objects will be to import the data into python.
 To work with `AnnData` objects in python, we need to ensure that we have the [`AnnData` package](https://anndata.readthedocs.io/en/latest/index.html) installed and loaded.
 
-The following commands can be used to import the HDF5 file into python and save the `AnnData` object:
+The following commands can be used to import the H5AD file into python and save the `AnnData` object:
 
 ```python
 # load anndata module
 import anndata
 
-# read in the HDF5 file, including the path to the file's location
-processed_adata = anndata.read_h5ad("SCPCS000000/SCPCL000000_processed_rna.hdf5")
+# read in the H5AD file, including the path to the file's location
+processed_adata = anndata.read_h5ad("SCPCS000000/SCPCL000000_processed_rna.h5ad")
 ```
 
 More resources for learning about `AnnData` objects:
@@ -348,7 +348,7 @@ You can read in an `AnnData` merged object with the following python code:
 
 ```r
 import anndata
-adata_merged_object = anndata.read_h5ad("SCPCP000000_merged_rna.hdf5")
+adata_merged_object = anndata.read_h5ad("SCPCP000000_merged_rna.h5ad")
 ```
 
 ### Analyses with merged objects
@@ -450,7 +450,7 @@ If the dataset you downloaded contains samples with ADT data from a CITE-seq exp
 
 For `SingleCellExperiment` objects with ADT data, the ADT expression matrices will be stored as an `altExp` named `"adt"` in the same object containing the RNA expression data.
 
-For `AnnData` objects with ADT data, the ADT expression matrices will be provided in separate files corresponding to the same three stages of data processing: an unfiltered object (`_unfiltered_adt.hdf5`), a filtered object (`_filtered_adt.hdf5`), and a processed object (`_processed_adt.hdf5`).
+For `AnnData` objects with ADT data, the ADT expression matrices will be provided in separate files corresponding to the same three stages of data processing: an unfiltered object (`_unfiltered_adt.h5ad`), a filtered object (`_filtered_adt.h5ad`), and a processed object (`_processed_adt.h5ad`).
 These files will only contain ADT expression data and not RNA expression data.
 
 We recommend working with the processed objects as they contain both the raw and normalized ADT expression matrices along with additional quality control metrics for the CITE-seq experiment.
@@ -468,12 +468,12 @@ counts(altExp(processed_sce))
 logcounts(altExp(processed_sce))
 ```
 
-To access the ADT matrices in `AnnData` objects you will first need to read in the `_adt.hdf5` file, and then you can access the `raw.X` and `X` matrices as shown below:
+To access the ADT matrices in `AnnData` objects you will first need to read in the `_adt.h5ad` file, and then you can access the `raw.X` and `X` matrices as shown below:
 
 ```python
 import anndata
-# read in the HDF5 file with ADT data, including the path to the file's location
-adt_adata = anndata.read_h5ad("SCPCS000000/SCPCL000000_processed_adt.hdf5")
+# read in the H5AD file with ADT data, including the path to the file's location
+adt_adata = anndata.read_h5ad("SCPCS000000/SCPCL000000_processed_adt.h5ad")
 
 # the raw ADT counts matrix
 adt_adata.raw.X
@@ -528,7 +528,7 @@ Each sample has been tagged with a hashtag oligo (HTO) prior to mixing, and that
 The libraries available for download on the portal have not been separated by sample (i.e. demultiplexed), and therefore contain data from multiple samples.
 
 Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not currently available as `AnnData` objects.
-If you prefer to work with `AnnData` objects, we recommend using the [`zellkonverter` package](https://theislab.github.io/zellkonverter/reference/AnnData-Conversion.html) to convert the `SingleCellExperiment` object to an HDF5 file containing an `AnnData` object.
+If you prefer to work with `AnnData` objects, we recommend using the [`zellkonverter` package](https://theislab.github.io/zellkonverter/reference/AnnData-Conversion.html) to convert the `SingleCellExperiment` object to an H5AD file containing an `AnnData` object.
 
 
 Libraries containing multiplexed samples can be initially processed using the same workflow described above including removal of [low quality cells](#quality-control), [normalization](#normalization), and [dimensionality reduction](#dimensionality-reduction).

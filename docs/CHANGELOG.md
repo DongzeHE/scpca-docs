@@ -12,6 +12,10 @@ For more information about `AlexsLemonade/scpca-nf` versions, please see [the re
 <!-- PUT THE NEW CHANGELOG ENTRY RIGHT BELOW THIS -->
 <!-------------------------------------------------->
 
+## PLACEHOLDER FOR MERGED RELEASE DATE
+
+* AnnData files now have the extension `.h5ad` instead of `.hdf5`.
+
 ## 2024.04.18
 
 

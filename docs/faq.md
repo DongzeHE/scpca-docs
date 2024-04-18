@@ -37,22 +37,22 @@ scpca_sample <- readRDS("SCPCL000000_processed.rds")
 A full description of the contents of the `SingleCellExperiment` object can be found in the section on {ref}`Components of a SingleCellExperiment object <sce_file_contents:Components of a singlecellexperiment object>`.
 For more information on working with the RDS files, see {ref}`Getting started with an ScPCA dataset <getting_started:Getting started with an scpca dataset>`.
 
-## How do I use the provided HDF5 files in Python?
+## How do I use the provided H5AD files in Python?
 
 If you would like to work with the gene expression data in Python, you will need to choose the option for downloading the data as an [`AnnData` object](https://anndata.readthedocs.io/en/latest/index.html).
-This download includes HDF5 files that can be directly read into Python.
+This download includes H5AD files that can be directly read into Python.
 
 _Note: You will need to install the [`AnnData` package](https://anndata.readthedocs.io/en/latest/index.html) to work with the provided files._
 
-To read in the HDF5 files you can use the `readh5ad` function from the `AnnData` package.
+To read in the H5AD files you can use the `readh5ad` function from the `AnnData` package.
 
 ```python
 import anndata
-scpca_sample = anndata.readh5ad(file = "SCPCL000000_processed_rna.hdf5")
+scpca_sample = anndata.readh5ad(file = "SCPCL000000_processed_rna.h5ad")
 ```
 
 A full description of the contents of the `AnnData` object can be found in the section on {ref}`Components of an AnnData object <sce_file_contents:Components of an anndata object>`.
-For more information on working with the HDF5 files, see {ref}`Getting started with an ScPCA dataset <getting_started:Getting started with an scpca dataset>`.
+For more information on working with the H5AD files, see {ref}`Getting started with an ScPCA dataset <getting_started:Getting started with an scpca dataset>`.
 
 ## What is the difference between samples and libraries?
 

@@ -1,7 +1,7 @@
 # Downloadable files
 
 The ScPCA Portal download packages include gene expression data, a QC report, and associated metadata for each processed sample.
-Gene expression data is available as either [`SingleCellExperiment` objects (`.rds` files)](#singlecellexperiment-downloads) or [`AnnData` objects (`.hdf5` files)](#anndata-downloads).
+Gene expression data is available as either [`SingleCellExperiment` objects (`.rds` files)](#singlecellexperiment-downloads) or [`AnnData` objects (`.h5ad` files)](#anndata-downloads).
 These files are delivered as a zip file.
 When you uncompress the zip file, the root directory name of your download will include the date you accessed the data on the ScPCA Portal.
 We recommend you record this date in case there are future updates to the Portal that change the underlying data or if you need to cite the data in the future (see {ref}`How to Cite <citation:how to cite>` for more information).
@@ -15,9 +15,9 @@ Note that multiplexed sample libraries are only available as `SingleCellExperime
 See the {ref}`FAQ section about samples and libraries <faq:What is the difference between samples and libraries?>` for more information.
 
 The files shown below will be included with each library (example shown for a library with ID `SCPCL000000`):
-- An unfiltered counts file: `SCPCL000000_unfiltered.rds` or `SCPCL00000_unfiltered_rna.hdf5`,
-- A filtered counts file: `SCPCL000000_filtered.rds` or `SCPCL00000_filtered_rna.hdf5`,
-- A processed counts file: `SCPCL000000_processed.rds` or `SCPCL00000_processed_rna.hdf5`,
+- An unfiltered counts file: `SCPCL000000_unfiltered.rds` or `SCPCL00000_unfiltered_rna.h5ad`,
+- A filtered counts file: `SCPCL000000_filtered.rds` or `SCPCL00000_filtered_rna.h5ad`,
+- A processed counts file: `SCPCL000000_processed.rds` or `SCPCL00000_processed_rna.h5ad`,
 - A quality control report: `SCPCL000000_qc.html`,
 - A supplemental cell type report: `SCPCL000000_celltype-report.html`
 
@@ -52,28 +52,28 @@ See the [description of the Spatial transcriptomics output section below](#spati
 ### Download folder structure for individual sample downloads with CITE-seq (ADT) data:
 ![sample download folder](images/anndata-sample-citeseq-download-folder.png)
 
-If downloading a sample that contains a CITE-seq library as an `AnnData` object (`hdf5` file), the quantified CITE-seq expression data is included as a separate file with the suffix `_adt.hdf5`.
+If downloading a sample that contains a CITE-seq library as an `AnnData` object (`.h5ad` file), the quantified CITE-seq expression data is included as a separate file with the suffix `_adt.h5ad`.
 
 ## Gene expression data
 
-Single-cell or single-nuclei gene expression data is provided as either [`SingleCellExperiment` objects (`.rds` files)](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) or [`AnnData` objects (`.hdf5` files)](https://anndata.readthedocs.io/en/latest/index.html).
+Single-cell or single-nuclei gene expression data is provided as either [`SingleCellExperiment` objects (`.rds` files)](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) or [`AnnData` objects (`.h5ad` files)](https://anndata.readthedocs.io/en/latest/index.html).
 Three files will be provided for each library included in the download - an unfiltered counts file, a filtered counts file, and a processed counts file.
 
-The unfiltered counts file, `SCPCL000000_unfiltered.rds` or `SCPCL000000_unfiltered_rna.hdf5`, contains the counts matrix, where the rows correspond to genes or features and the columns correspond to cell barcodes.
+The unfiltered counts file, `SCPCL000000_unfiltered.rds` or `SCPCL000000_unfiltered_rna.h5ad`, contains the counts matrix, where the rows correspond to genes or features and the columns correspond to cell barcodes.
 Here, all potential cell barcodes that are identified after running {ref}`alevin-fry <processing_information:mapping and quantification using alevin-fry>` are included in the counts matrix.
 The object also includes summary statistics for each cell barcode and gene, as well as metadata about that particular library, such as the reference index and software versions used for mapping and quantification.
 
-The filtered counts file, `SCPCL000000_filtered.rds` or `SCPCL000000_filtered_rna.hdf5` contains a counts matrix with the same structure as above.
+The filtered counts file, `SCPCL000000_filtered.rds` or `SCPCL000000_filtered_rna.h5ad` contains a counts matrix with the same structure as above.
 The cells in this file are those that remain after filtering using {ref}`emptyDrops <processing_information:filtering cells>`.
 As a result, this file only contains cell barcodes that are likely to correspond to true cells.
 
-The processed counts file, `SCPCL000000_processed.rds` or `SCPCL000000_processed_rna.hdf5`, contains both the raw and normalized counts matrices.
+The processed counts file, `SCPCL000000_processed.rds` or `SCPCL000000_processed_rna.h5ad`, contains both the raw and normalized counts matrices.
 The filtered counts file is further filtered to remove low quality cells, such as those with a low number of genes detected or high mitochondrial content.
 This file contains the raw and normalized counts data for cell barcodes that have passed both levels of filtering.
 In addition to the counts matrices, the `SingleCellExperiment` or `AnnData` object stored in the file includes the results of dimensionality reduction using both principal component analysis (PCA) and UMAP.
 
 See {ref}`Single-cell gene expression file contents <sce_file_contents:Single-cell gene expression file contents>` for more information about the contents of the `SingleCellExperiment` and `AnnData` objects and the included statistics and metadata.
-See also {ref}`Using the provided RDS files in R <faq:how do i use the provided RDS files in r?>` and {ref}`Using the provided HDF5 files in Python <faq:how do i use the provided HDF5 files in python?>`.
+See also {ref}`Using the provided RDS files in R <faq:how do i use the provided RDS files in r?>` and {ref}`Using the provided H5AD files in Python <faq:how do i use the provided H5AD files in python?>`.
 
 ## QC report
 
@@ -147,15 +147,15 @@ The [metadata file](#metadata) for multiplexed libraries (`single_cell_metadata.
 
 When downloading a full ScPCA project, you can choose to download data from all samples as individual files, or you can download {ref}`a single file containing all samples merged into a single object<faq:When should I download a project as a merged object?>`.
 
-Merged object downloads contain all single-cell or single-nuclei gene expression data for a given ScPCA project within a single object, provided as either a [`SingleCellExperiment` object (`.rds` file)](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) or an [`AnnData` object (`.hdf5` file)](https://anndata.readthedocs.io/en/latest/index.html).
+Merged object downloads contain all single-cell or single-nuclei gene expression data for a given ScPCA project within a single object, provided as either a [`SingleCellExperiment` object (`.rds` file)](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html) or an [`AnnData` object (`.h5ad` file)](https://anndata.readthedocs.io/en/latest/index.html).
 
-The object file, `SCPCP000000_merged.rds` or `SCPCP000000_merged_rna.hdf5`, contains both a raw and normalized counts matrix, each with combined counts for all samples in an ScPCA project.
+The object file, `SCPCP000000_merged.rds` or `SCPCP000000_merged_rna.h5ad`, contains both a raw and normalized counts matrix, each with combined counts for all samples in an ScPCA project.
 In addition to the counts matrices, the `SingleCellExperiment` or `AnnData` object stored in the file includes the results of library-weighted dimensionality reduction using both principal component analysis (PCA) and UMAP.
 See the {ref}`section on merged object processing<processing_information:merged objects>` for more information about how merged objects were created.
 
 If downloading a project that contains at least one CITE-seq library, the quantified CITE-seq expression data will also be merged.
 In `SingleCellExperiment` objects (`rds` files), the CITE-seq expression data is provided as an alternative experiment in the same object as the gene expression data.
-However, for `AnnData` objects, (`hdf5` files), the quantified CITE-seq expression is instead provided as a separate file called `SCPCP000000_merged_adt.hdf5`.
+However, for `AnnData` objects, (`.h5ad` files), the quantified CITE-seq expression is instead provided as a separate file called `SCPCP000000_merged_adt.h5ad`.
 
 Every download also includes a single `single_cell_metadata.tsv` file containing metadata for all libraries included in the merged object.
 For a full description of this file's contents, refer to the [metadata section above](#metadata).
