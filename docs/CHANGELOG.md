@@ -15,7 +15,12 @@ For more information about `AlexsLemonade/scpca-nf` versions, please see [the re
 ## PLACEHOLDER FOR MERGED RELEASE DATE
 
 * AnnData files now have the extension `.h5ad` instead of `.hdf5`.
+
+## 2024.04.18
+
+
 * When downloading data for an entire project, you have the option to download a single file with a single merged object containing all gene expression and metadata for all samples in that project.
+  * These merged objects are available as either `SingleCellExperiment` (`.rds` files) or `AnnData` (`.hdf5` files) objects.
   * This option is available for most projects.
   If the project you are interested in does not have this option, see our {ref}`FAQ on which projects can be downloaded as merged objects<faq:Which projects can I download as merged objects?>`.
 * Merged project downloads will contain a brief summary report about the merged object as well as the individual QC and cell type annotation reports for all libraries in the merged object.
