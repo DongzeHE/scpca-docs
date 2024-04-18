@@ -1,9 +1,9 @@
 # Merged objects
 
 Each merged object contains _combined information_ for all individual samples in the given ScPCA project.
-While each individual object, as described on the {ref}`Single-cell gene expression file contents page <sce_file_contents>`, contains quantified gene expression results for a single library, each merged object contains all gene expression results, including gene expression counts and metadata, for all libraries and samples in the given ScPCA project.
+While each individual object, as described on the {ref}`Single-cell gene expression file contents page <sce_file_contents:Single-cell gene expression file contents>`, contains quantified gene expression results for a single library, each merged object contains all gene expression results, including gene expression counts and metadata, for all libraries and samples in the given ScPCA project.
 This information includes quantified gene expression data, cell and gene metrics, and associated metadata for all libraries.
-See {ref}`the section on merged object processing <processing_information:merged objects` for more information on how these objects were prepared.
+See {ref}`the section on merged object processing <processing_information:merged objects>` for more information on how these objects were prepared.
 
 
 Merged objects are provided in two formats:
@@ -36,7 +36,7 @@ counts(merged_sce) # combined counts matrix
 logcounts(merged_sce) # combined logcounts matrix
 ```
 
-Column names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are Ensembl gene IDs.
+Column names are cell barcode sequences prefixed with the originating library ID, e.g. `SCPCL000000-{barcode}`, and row names are Ensembl gene IDs.
 These names can be accessed with the following R code:
 
 ```r
@@ -49,7 +49,7 @@ There is also a `spliced` assay which contains the counts matrix with only reads
 ### SingleCellExperiment cell metrics
 
 
-Cell metrics calculated from the RNA-seq expression data are stored as a `DataFrame` in the `colData` slot, where row names are the cell barcode prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`.
+Cell metrics calculated from the RNA-seq expression data are stored as a `DataFrame` in the `colData` slot, where row names are the cell barcode prefixed with the originating library ID, e.g. `SCPCL000000-{barcode}`.
 This `DataFrame` also contains additional sample metadata information stored in the `colData` slot for all projects that do not contain multiplexed libraries.
 Read more about the included sample metadata in the [`Sample metadata` section](#singlecellexperiment-sample-metadata),
 
@@ -76,7 +76,7 @@ Columns representing quality control statistics were calculated using the [`scut
 | `scpca_filter`                   | Labels cells as either `Keep` or `Remove` based on filtering criteria (`prob_compromised` < 0.75 and number of unique genes detected > 200)                                                                                                                                                                                                                                                                                                            |
 | `adt_scpca_filter`               | If CITE-seq was performed, labels cells as either `Keep` or `Remove` based on ADT filtering criteria (`discard = TRUE` as determined by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html))                                                                                                                                                                                                    |
 
-Unlike for {ref}`individual SCE objects<sce_file_contents:singlecellexperiment cell metrics`, cluster assignments are not included in the `colData`.
+Unlike for {ref}`individual SCE objects<sce_file_contents:singlecellexperiment cell metrics>`, cluster assignments are not included in the `colData`.
 
 
 ### SingleCellExperiment gene information and metrics
@@ -88,7 +88,7 @@ rowData(merged_sce) # gene metrics
 ```
 
 The following columns are included for all genes.
-The columns `mean` and `detected` will appear for each library id included in the merged object, named as shown in the table below.
+The columns `mean` and `detected` will appear for each library ID included in the merged object, named as shown in the table below.
 However, there will only be a single `gene_symbol` and `gene_ids` column, as this information equally pertains to all libraries.
 Metrics were calculated for each library using the [`scuttle::addPerFeatureQCMetrics`](https://rdrr.io/github/LTLA/scuttle/man/addPerFeatureQCMetrics.html) function.
 
@@ -129,8 +129,7 @@ Each such list will contain the following fields:
 | `sample_id`                    | Sample ID in the form `SCPCS000000`                                                                                                                                                                                                                                                                                                                                                |
 | `library_id`                   | Library ID in the form `SCPCL000000`                                                                                                                                                                                                                                                                                                                                               |
 | `project_id`                   | Project ID in the form `SCPCP000000`                                                                                                                                                                                                                                                                                                                                               |
-| `salmon_version`               | Version of `salmon` used for initial mapping
-|
+| `salmon_version`               | Version of `salmon` used for initial mapping                                                                                                                                                                                                                                                                                                                                       |
 | `reference_index`              | Transcriptome reference file used for mapping                                                                                                                                                                                                                                                                                                                                      |
 | `total_reads`                  | Total number of reads processed by `salmon`                                                                                                                                                                                                                                                                                                                                        |
 | `mapped_reads`                 | Number of reads successfully mapped                                                                                                                                                                                                                                                                                                                                                |
@@ -141,11 +140,10 @@ Each such list will contain the following fields:
 | `usa_mode`                     | Boolean indicating whether quantification was done using `alevin-fry` USA mode                                                                                                                                                                                                                                                                                                     |
 | `af_num_cells`                 | Number of cells reported by `alevin-fry`                                                                                                                                                                                                                                                                                                                                           |
 | `tech_version`                 | A string indicating the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1                                                                                                                                                                                                                                                                  |
-| `assay_ontology_term_id`       | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the `tech_version`                                                                                                                                                                                                                                        |
+| `assay_ontology_term_id`       | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term ID associated with the `tech_version`                                                                                                                                                                                                                                        |
 | `seq_unit`                     | `cell` for single-cell samples or `nucleus` for single-nucleus samples                                                                                                                                                                                                                                                                                                             |
 | `transcript_type`              | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei                                                                                                                                                                                                                                                                           |
-| `sample_type`                  | A string indicating the type of sample, with one of the following values: `"patient-derived xenograft"`, `"cell line"`, or `"patient tissue"`. If the library is multiplexed, this will be a named vector giving the sample type for each sample ID in the library                                                                                                                 |
-| `miQC_model`                   | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`                                                                                                                                                                                                                                                                                          |
+| `sample_type`                  | A string indicating the type of sample, with one of the following values: `"patient-derived xenograft"`, `"cell line"`, or `"patient tissue"`. If the library is multiplexed, this will be a named vector giving the sample type for each sample ID in the library. A value of `"Not provided"` indicates that this information is not available                                                                                                                 |
 | `filtering_method`             | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`                                                                                                                                                                                                                                                                                   |
 | `umi_cutoff`                   | The minimum UMI count per cell used as a threshold for removing empty droplets. Only present for objects where the `filtering_method` is `UMI cutoff`                                                                                                                                                                                                                              |
 | `prob_compromised_cutoff`      | The minimum cutoff for the probability of a cell being compromised, as calculated by `miQC`                                                                                                                                                                                                                                                                                        |
@@ -153,7 +151,7 @@ Each such list will contain the following fields:
 | `adt_scpca_filter_method`      | If CITE-seq was performed, the method used by the Data Lab to identify cells to be filtered prior to normalization, based on ADT counts. Either `cleanTagCounts with isotype controls` or `cleanTagCounts without isotype controls`. If filtering failed (i.e. `DropletUtils::cleanTagCounts()` could not reliably determine which cells to filter), the value will be `No filter` |
 | `min_gene_cutoff`              | The minimum cutoff for the number of unique genes detected per cell                                                                                                                                                                                                                                                                                                                |
 | `normalization`                | The method used for normalization of raw RNA counts. Either `deconvolution`, described in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7), or `log-normalization`                                                                                                                                                                                       |
-| `adt_normalization`            | If CITE-seq was performed, the method used for normalization of raw ADT counts. Either `median-based` or `log-normalization`, as explained in the {ref}`processed ADT data section <processing_information:Processed ADT data>`                                                                                                                                                   |
+| `adt_normalization`            | If CITE-seq was performed, the method used for normalization of raw ADT counts. Either `median-based` or `log-normalization`, as explained in the {ref}`processed ADT data section <processing_information:Processed ADT data>`                                                                                                                                                    |
 | `highly_variable_genes`        | A list of highly variable genes used for dimensionality reduction, determined using `scran::modelGeneVar` and `scran::getTopHVGs`                                                                                                                                                                                                                                                  |
 | `celltype_methods`             | If cell type annotation was performed, a vector of the methods used for annotation. May include `"submitter"`, `"singler"` and/or `"cellassign"`                                                                                                                                                                                                                                   |
 | `singler_results`              | If cell typing with `SingleR` was performed, the full result object returned by `SingleR` annotation                                                                                                                                                                                                                                                                               |
@@ -167,7 +165,7 @@ Each such list will contain the following fields:
 | `cellassign_reference_source`  | If cell typing with `CellAssign` was performed and completed successfully, the source of the reference dataset (default is [`PanglaoDB`](https://panglaodb.se/))                                                                                                                                                                                                                   |
 | `cellassign_reference_version` | If cell typing with `CellAssign` was performed and completed successfully, the version of the reference dataset source. For references obtained from `PanglaoDB`, the version scheme is a date in ISO8601 format                                                                                                                                                                   |
 
-Unlike for {ref}`individual SingleCellExperiment objects<sce_file_contents:singlecellexperiment sample metadata`, cluster algorithm parameters are not included in these metadata lists because clusters themselves are not included in the merged object.
+Unlike for {ref}`individual SingleCellExperiment objects<sce_file_contents:singlecellexperiment sample metadata>`, cluster algorithm parameters are not included in these metadata lists because clusters themselves are not included in the merged object.
 
 
 ### SingleCellExperiment sample metadata
@@ -193,12 +191,12 @@ metadata(merged_sce)$sample_metadata # sample metadata only for projects with mu
 | `sample_id`                                | Sample ID in the form `SCPCS000000`                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `scpca_project_id`                         | Project ID in the form `SCPCP000000`                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `tech_version`                             | A string indicating the technology and version used for the sample's single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1                                                                                                                                                                                                                                                                                                                             |
-| `assay_ontology_term_id`                   | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the `tech_version`                                                                                                                                                                                                                                                                                                            |
+| `assay_ontology_term_id`                   | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term ID associated with the `tech_version`                                                                                                                                                                                                                                                                                                            |
 | `suspension_type`                          | `cell` for single-cell samples or `nucleus` for single-nucleus samples                                                                                                                                                                                                                                                                                                                                                                                 |
 | `additional_modalities`                    | Any additional modalities associated with the library, represented as alternative experiment names such as `"adt"` or `"cellhash"`. If there are no additional modalities, this value will be `NA`. If the library has multiple additional modalities, this will be a single string with modalities separated by a semicolon, e.g. `"adt;cellhash"`                                                                                                    |
-| `participant_id`                           | Unique id corresponding to the donor from which the sample was obtained                                                                                                                                                                                                                                                                                                                                                                                |
+| `participant_id`                           | Unique ID corresponding to the donor from which the sample was obtained                                                                                                                                                                                                                                                                                                                                                                                |
 | `submitter_id`                             | Original sample identifier from submitter                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `submitter`                                | Submitter name/id                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `submitter`                                | Submitter name/ID                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `age`                                      | Age at time sample was obtained                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `sex`                                      | Sex of patient that the sample was obtained from                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `diagnosis`                                | Tumor type                                                                                                                                                                                                                                                                                                                                                                                                                                             |
@@ -255,7 +253,7 @@ altExp(merged_sce, "adt") # adt experiment
 Within this, the primary expression matrix is again found in the `counts` assay, and the normalized expression matrix is found in the `logcounts` assay.
 Each expression matrix contains the ADT expression data from the CITE-seq experiment for all libraries in the given ScPCA project combined into a single matrix.
 For each assay, each column corresponds to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponds to an antibody derived tag (ADT).
-Column names are again cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are the antibody targets for each ADT.
+Column names are again cell barcode sequences prefixed with the originating library ID, e.g. `SCPCL000000-{barcode}`, and row names are the antibody targets for each ADT.
 In some cases, only some libraries in the merged object will have associated CITE-seq data.
 Libraries which do not have CITE-seq expression data are included in the assay matrices with all `NA` count values.
 
@@ -282,7 +280,7 @@ As in the [main experiment's `colData` slot](#singlecellexperiment-cell-metrics)
 | `sum.controls` |  The sum of counts for all control features. Only present if negative/isotype control ADTs were used |
 | `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative/isotype control ADTs were not used |
 | `ambient.scale` |  The relative amount of ambient contamination. Only present if negative/isotype control ADTs were not used |
-| `discard`  | Indicates whether the cell should be discarded based on ADT QC statistics |
+| `discard`  | Indicates whether the cell should be discarded based on ADT QC statistics. The `TRUE` and `FALSE` values in this column correspond, respectively, to values `"Discard"` and `"Keep"` in the `colData(merged_sce)$adt_scpca_filter` column |
 
 
 Metrics for each of the ADTs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
@@ -313,28 +311,8 @@ metadata(altExp(merged_sce, "adt")) # adt metadata
 
 ### Additional SingleCellExperiment components for multiplexed libraries
 
-
-Multiplexed libraries will contain several additional per-cell data columns in the `colData` slot (accessed with `colData(merged_sce)` [as above](#singlecellexperiment-cell-metrics)).
-
-The following columns in the `colData` slot `DataFrame` contain cellhash QC statistics for multiplexed libraries:
-
-| Column name                 | Contents                                                         |
-| --------------------------- | ---------------------------------------------------------------- |
-| `altexps_cellhash_sum`      | UMI count for cellhash HTOs                                      |
-| `altexps_cellhash_detected` | Number of HTOs detected per cell (HTO count > 0 )                |
-| `altexps_cellhash_percent`  | Percent of `total` UMI count from HTO reads                      |
-
-In addition, the following columns in the `colData` slot `DataFrame` contain demultiplexing results, although note that demultiplexing itself was not performed:
-
-| Column name                 | Contents                                                         |
-| --------------------------- | ---------------------------------------------------------------- |
-| `hashedDrops_sampleid`      | Most likely sample as called by `DropletUtils::hashedDrops`      |
-| `HTODemux_sampleid`         | Most likely sample as called by `Seurat::HTODemux`               |
-| `vireo_sampleid`            | Most likely sample as called by `vireo` (genetic demultiplexing) |
-
-
-Unlike in {ref}`individual SingleCellExperiment objects<sce_file_contents:additional SingleCellExperiment components for multiplexed libraries`, hashtag oligo (HTO) quantification will not be included in the merged `SingleCellExperiment` as an alternative experiment, as described in the ref`{frequently asked questions:faq:which projects can I download as a merged objects?}`.
-
+Merged objects are not available for any projects that contain multiplexed libraries.
+This is because there is no guarantee that a unique HTO was used for each sample in a given project, so it would not necessarily be possible to determine which HTO corresponds to which sample in a merged object.
 
 ## Components of an AnnData merged object
 
@@ -360,7 +338,7 @@ merged_adata_object.raw.X # raw count matrix
 merged_adata_object.X # normalized count matrix
 ```
 
-Column names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`, and row names are Ensembl gene IDs.
+Column names are cell barcode sequences prefixed with the originating library ID, e.g. `SCPCL000000-{barcode}`, and row names are Ensembl gene IDs.
 These names can be accessed as with the following python code:
 
 
@@ -372,7 +350,7 @@ merged_adata_object.var_names # matrix row names
 ### AnnData cell metrics
 
 Cell metrics calculated from the RNA-seq expression data, which were calculated separately for each library, are stored as a `pandas.DataFrame` in the `.obs` slot.
-The slot's row names are cell barcode sequences prefixed with the originating library id, e.g. `SCPCL000000-{barcode}`.
+The slot's row names are cell barcode sequences prefixed with the originating library ID, e.g. `SCPCL000000-{barcode}`.
 
 ```python
 merged_adata_object.obs # cell metrics and metadata
@@ -393,3 +371,68 @@ merged_adata_object.var # gene metrics
 All of the per-gene data columns included in the `rowData` of the `SingleCellExperiment` objects are present in the `.var` slot of the `AnnData` object.
 Note that the `SingleCellExperiment` columns named `SCPCL000000-mean` and `SCPCL000000-detected` are instead named `SCPCL000000.mean` and `SCPCL000000.detected`, respectively, in the merged `AnnData` object.
 To see a full description of the included columns, see the [section on gene metrics in `Components of a SingleCellExperiment merged object`](#singlecellexperiment-gene-information-and-metrics).
+
+
+### AnnData experiment metadata
+
+A partial set of the metadata associated with {ref}`data processing <processing_information:Processing information>` is included in the `.uns` slot of the `AnnData` object as a list.
+
+```python
+merged_adata_object.uns # experiment metadata
+```
+
+The following items are available in the `.uns` slot:
+
+| Item name                      | Contents                                                                                                                                                                                                          |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `library_id`                   | A list of library IDs which are included in the merged object, each in the form `SCPCL000000`                                                                                                                   |
+| `sample_id`                    | A list of sample IDs which are included in the merged object, each in the form `SCPCS000000`                                                                                                                |
+| `merged_highly_variable_genes` | A list of highly variable genes used for performing dimensionality reduction on the merged object, determined using `scran::modelGeneVar`, specifying each library as a separate block, and `scran::getTopHVGs` |
+
+Additional experiment metadata is available in the {ref}`metadata TSV file included in the ScPCA Portal download folder <download_files:Metadata>`.
+
+### AnnData dimensionality reduction results
+
+The merged `AnnData` object contains a slot `.obsm` with both principal component analysis (`X_PCA`) and UMAP (`X_UMAP`) results.
+
+For information on how PCA and UMAP results were calculated see the {ref}`section on processed gene expression data <processing_information:Processed gene expression data>`.
+
+The following command can be used to access the PCA and UMAP results:
+
+```python
+merged_adata_object.obsm["X_PCA"] # pca results
+merged_adata_object.obsm["X_UMAP"] # umap results
+```
+
+
+### Additional AnnData components for CITE-seq libraries (with ADT tags)
+
+ADT data from CITE-seq experiments, when present, is available as a separate `AnnData` object in an HDF5 file named with the `_adt.hdf5` suffix.
+
+Merged `AnnData` objects contain two data matrices, each containing CITE-seq expression data for all libraries in a given ScPCA project combined into a single matrix.
+The data matrix `raw.X` of the merged `AnnData` object contains the CITE-seq expression data as primary integer counts, and the data matrix `X` contains the RNA-seq expression data as normalized counts.
+Note that only cells which are denoted as `"Keep"` in  the `merged_adata_object.uns["adt_scpca_filter"]` column (as described [above](#singlecellexperiment-cell-metrics)) have normalized expression values in the `X` matrix, and all other cells are assigned `NA` values.
+The data is stored as a sparse matrix, where each column represents a cell or droplet, and each row represents a single ADT.
+The `raw.X` and `X` matrices can be accessed with the following python code:
+
+```python
+merged_citeseq_adata_object.raw.X # raw count matrix
+merged_citeseq_adata_object.X # normalized count matrix
+```
+
+Column names are cell barcode sequences prefixed with the originating library ID, e.g. `SCPCL000000-{barcode}`, and row names are the ADT IDs.
+
+```python
+merged_citeseq_adata_object.obs_names # matrix column names
+merged_citeseq_adata_object.var_names # matrix row names
+```
+
+All of the per-cell data columns included in the `colData` of the `"adt"` alternative experiment in `SingleCellExperiment` merged objects are present in the `.obs` slot of the CITE-seq `AnnData` object.
+To see a full description of the included columns, see the section [on additional `SingleCellExperiment` components for CITE-seq libraries](#additional-singlecellexperiment-components-for-cite-seq-libraries-with-adt-tags).
+
+
+In addition, all of the per-ADT data columns included in the `rowData` of the `"adt"` alternative experiment in `SingleCellExperiment` merged objects are present in the `.var` slot of the CITE-seq `AnnData` object.
+To see a full description of the included columns, see the section [on additional `SingleCellExperiment` components for CITE-seq libraries](#additional-singlecellexperiment-components-for-cite-seq-libraries-with-adt-tags).
+
+
+Finally, the `.uns` slot of the CITE-seq `AnnData` object contains a limited set of experiment metadata information, including a list of library IDs (`library_id`) and sample IDs (`sample_id`) included in the merged object.

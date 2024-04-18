@@ -3,6 +3,7 @@ ADTs
 al
 alevin
 Alevin
+AnnData
 APA
 AnnData
 Aran
@@ -67,7 +68,6 @@ Looney
 Louvain
 Luecken
 Lun
-miQC
 oligo
 oligos
 README

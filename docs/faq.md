@@ -176,18 +176,34 @@ The samples have simply been merged into a single file - _they have not been int
 
 You may prefer to download this merged object instead of individual sample files to facilitate downstream analyses that consider multiple samples at once, such as differential expression analysis, integrating multiple samples, or jointly clustering multiple samples.
 
-Please refer to {ref}`the getting started with a merged object section<getting_started:working with a merged scpca object` for more details on working with merged objects.
+Please refer to {ref}`the getting started with a merged object section<getting_started:Working with a Merged ScPCA object>` for more details on working with merged objects.
 
 
-## Which projects can I download as a merged objects?
+## Which projects can I download as merged objects?
 
-Most projects in the ScPCA Portal are available for download as a merged object, with a few exceptions.
+Most projects in the ScPCA Portal are available for download as a merged object.
+There are three types of projects for which merged objects are not available:
 
-First, merged object downloads are not provided for projects comprised of spatial transcriptomics.
-As described in {ref}`the spatial transcriptomics processing section<processing_information:spatial transcriptomics`, no post-processing is performed on these libraries after running Space Ranger.
-Therefore, merging samples into a single object is beyond the scope of the ScPCA pipeline.
+- Projects comprised of spatial transcriptomics
+    - As described in {ref}`the spatial transcriptomics processing section<processing_information:spatial transcriptomics>`, no post-processing is performed on these libraries after running Space Ranger.
+    Therefore, merging samples into a single object is beyond the scope of the ScPCA pipeline.
 
-Second, although projects with multiplexing will have associated merged objects, those merged objects will not contain the hashtag oligonucleotide (HTO) results; they will only contain gene expression results.
-This is because, although the ScPCA pipeline {ref}`reports demultiplexing results<processing_information:HTO demultiplexing>`, the libraries do not actually undergo demultiplexing itself.
-As there is no guarantee that a unique HTO was used for each sample in a given project, it would not necessarily be possible to determine which HTO corresponds to which sample in a merged object.
-Therefore, we do not merge the cellhash components of multiplexed projects.
+- Projects containing multiplexed libraries
+    - Although the ScPCA pipeline {ref}`reports demultiplexing results<processing_information:HTO demultiplexing>`, it does not actually perform demultiplexing.
+    As there is no guarantee that a unique HTO was used for each sample in a given project, it would not necessarily be possible to determine which HTO corresponds to which sample in a merged object.
+
+- Projects containing more than 100 samples
+    - The more samples that are included in a merged object, the larger the object, and the more difficult it will be to work with that object in R or Python.
+    Because of this, we do not provide merged objects for projects with more than 100 samples as the size of the merged object is too large.
+
+## Why doesn't my existing code work on a new download from the Portal?
+
+Although we try to maintain backward compatibility, new features added to the ScPCA Portal may result in downloads that are no longer compatible with code written with older downloads from the ScPCA Portal in mind.
+Please see our {ref}`CHANGELOG <CHANGELOG:CHANGELOG>` for a summary of changes that impact downloads from the Portal.
+
+## I previously downloaded a sample that is no longer on the Portal. Why can't I find it?
+
+If a sample you downloaded previously is no longer available, a submitter has requested it to be removed.
+We process and release all data provided to us on the Portal, without filtering out samples based on quality.
+Instead, we provide a QC report with each download so that users may assess library quality themselves.
+However, we respect submitters' requests to remove samples if they have deemed they are low quality based on their own analyses.

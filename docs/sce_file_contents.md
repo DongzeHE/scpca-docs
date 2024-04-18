@@ -131,12 +131,12 @@ metadata(sce) # experiment metadata
 | `usa_mode`                     | Boolean indicating whether quantification was done using `alevin-fry` USA mode                                                                                                                                                                                                                                                                                                     |
 | `af_num_cells`                 | Number of cells reported by `alevin-fry`                                                                                                                                                                                                                                                                                                                                           |
 | `tech_version`                 | A string indicating the technology and version used for the single-cell library, such as 10Xv2, 10Xv3, or 10Xv3.1                                                                                                                                                                                                                                                                  |
-| `assay_ontology_term_id`       | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term id associated with the `tech_version`                                                                                                                                                                                                                                        |
+| `assay_ontology_term_id`       | A string indicating the [Experimental Factor Ontology](https://www.ebi.ac.uk/ols/ontologies/efo) term ID associated with the `tech_version`                                                                                                                                                                                                                                        |
 | `seq_unit`                     | `cell` for single-cell samples or `nucleus` for single-nuclei samples                                                                                                                                                                                                                                                                                                              |
 | `transcript_type`              | Transcripts included in gene counts: `spliced` for single-cell samples and `unspliced` for single-nuclei                                                                                                                                                                                                                                                                           |
 | `sample_metadata`              | Data frame containing metadata for each sample included in the library (see the [`Sample metadata` section below](#singlecellexperiment-sample-metadata))                                                                                                                                                                                                                          |
-| `sample_type`                  | A string indicating the type of sample, with one of the following values: `"patient-derived xenograft"`, `"cell line"`, or `"patient tissue"`. If the library is multiplexed, this will be a named vector giving the sample type for each sample ID in the library  |
-| `miQC_model`                   | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` objects and `processed` objects                                                                                                                                                                                                                             |
+| `sample_type`                  | A string indicating the type of sample, with one of the following values: `"patient-derived xenograft"`, `"cell line"`, or `"patient tissue"`. If the library is multiplexed, this will be a named vector giving the sample type for each sample ID in the library. A value of `"Not provided"` indicates that this information is not available |
+| `miQC_model`                   | The model object that `miQC` fit to the data and was used to calculate `prob_compromised`. Only present for `filtered` objects                                                                                                                                                                                                                         |
 | `filtering_method`             | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`. Only present for `filtered`  and `processed` objects                                                                                                                                                                                                                             |
 | `umi_cutoff`                   | The minimum UMI count per cell used as a threshold for removing empty droplets. Only present for `filtered` objects where the `filtering_method` is `UMI cutoff`                                                                                                                                                                                                                   |
 | `prob_compromised_cutoff`      | The minimum cutoff for the probability of a cell being compromised, as calculated by `miQC`. Only present for `filtered` and `processed` objects                                                                                                                                                                                                                                   |
@@ -172,9 +172,9 @@ The following columns are included in the sample metadata data frame for all lib
 | ------------- | ---------------------------------------------------------------- |
 | `sample_id`   | Sample ID in the form `SCPCS000000`                            |
 | `library_id`   | Library ID in the form `SCPCL000000`                             |
-| `particpant_id`  | Unique id corresponding to the donor from which the sample was obtained |
+| `particpant_id`  | Unique ID corresponding to the donor from which the sample was obtained |
 | `submitter_id`    | Original sample identifier from submitter                      |
-| `submitter`       | Submitter name/id                                              |
+| `submitter`       | Submitter name/ID                                              |
 | `age`             | Age at time sample was obtained                                |
 | `sex`             | Sex of patient that the sample was obtained from               |
 | `diagnosis`       | Tumor type                                                     |
@@ -247,7 +247,7 @@ In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`]
 | `high.controls`  | Indicates whether the cell has unusually high total control counts. Only present if negative/isotype control ADTs are present |
 | `ambient.scale` |  The relative amount of ambient contamination. Only present if negative control ADTs are _not_ present |
 | `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative/isotype control ADTs are _not_ present |
-| `discard`  | Indicates whether the cell should be discarded based on ADT QC statistics |
+| `discard`  | Indicates whether the cell should be discarded based on ADT QC statistics. The `TRUE` and `FALSE` values in this column correspond, respectively, to values `"Discard"` and `"Keep"` in the `colData(sce)$adt_scpca_filter` column |
 
 
 Metrics for each of the ADTs assayed can be found as a `DataFrame` stored as `rowData` within the alternative experiment:
@@ -260,7 +260,7 @@ This data frame contains the following columns with statistics for each ADT:
 
 | Column name | Contents                                                       |
 | ----------- | -------------------------------------------------------------- |
-| `adt_name`  | Name or ID of the ADT                                          |
+| `adt_id`  | Name or ID of the ADT                                          |
 | `mean`      | Mean ADT count across all cells/droplets                       |
 | `detected`  | Percent of cells in which the ADT was detected (ADT count > 0 ) |
 | `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and will be labeled as `target` |
@@ -283,7 +283,7 @@ altExp(sce, "cellhash") # hto experiment
 ```
 
 Within this, the main data matrix is again found in the `counts` assay, with each column corresponding to a cell or droplet (in the same order as the parent `SingleCellExperiment`) and each row corresponding to a hashtag oligo (HTO).
-Column names are again cell barcode sequences and row names the HTO ids for all assayed HTOs.
+Column names are again cell barcode sequences and row names the HTO IDs for all assayed HTOs.
 
 The following additional per-cell data columns for the cellhash data can be found in the main `colData` data frame (accessed with `colData(sce)` [as above](#singlecellexperiment-cell-metrics)).
 
@@ -386,9 +386,9 @@ The `AnnData` object also includes the following additional cell-level metadata 
 | `sample_id`                                | Sample ID in the form `SCPCS000000`                                                                                                                                                                                                       |
 | `library_id`                               | Library ID in the form `SCPCL000000`                                                                                                                                                                                                      |
 | `scpca_project_id`                         | Project ID in the form `SCPCP000000`                                                                                                                                                                                                      |
-| `participant_id`                           | Unique id corresponding to the donor from which the sample was obtained                                                                                                                                                                   |
+| `participant_id`                           | Unique ID corresponding to the donor from which the sample was obtained                                                                                                                                                                   |
 | `submitter_id`                             | Original sample identifier from submitter                                                                                                                                                                                                 |
-| `submitter`                                | Submitter name/id                                                                                                                                                                                                                         |
+| `submitter`                                | Submitter name/ID                                                                                                                                                                                                                         |
 | `age`                                      | Age at time sample was obtained                                                                                                                                                                                                           |
 | `sex`                                      | Sex of patient that the sample was obtained from                                                                                                                                                                                          |
 | `diagnosis`                                | Tumor type                                                                                                                                                                                                                                |
@@ -472,30 +472,17 @@ Column names are again cell barcode sequences and row names are the antibody tar
 
 As with the RNA `AnnData` objects, in processed objects _only_ (`_processed_adt.hdf5`), the data matrix `X` contains the normalized ADT counts and the primary data can be found in `raw.X`.
 Only cells which are denoted as `"Keep"` in the `adata_obj.obs["adt_scpca_filter"]` column (as described [above](#singlecellexperiment-cell-metrics)) have normalized expression values in the `X` matrix, and all other cells are assigned `NA` values.
-Note that this filtering information is also available in the `discard` column of the object's `.obs` slot, as described in the table below.
+Note that this filtering information is also available in the `discard` column of the object's `.obs` slot.
 However, as described in the {ref}`processed ADT data section <processing_information:Processed ADT data>`, normalization may fail under certain circumstances.
 In such cases the `AnnData` object will not contain a normalized expression matrix, but the primary data will still be stored in `X`.
 
-In addition, the following QC statistics from [`DropletUtils::cleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) can be found in the `obs` slot of each ADT-specific `AnnData` object.
-
-| Column name     | Contents                                                                                                                      |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `zero.ambient`  | Indicates whether the cell has zero ambient contamination                                                                     |
-| `sum.controls`  | The sum of counts for all control features. Only present if negative/isotype control ADTs are present                         |
-| `high.controls` | Indicates whether the cell has unusually high total control counts. Only present if negative/isotype control ADTs are present |
-| `ambient.scale` | The relative amount of ambient contamination. Only present if negative control ADTs are _not_ present                         |
-| `high.ambient`  | Indicates whether the cell has unusually high contamination. Only present if negative/isotype control ADTs are _not_ present  |
-| `discard`       | Indicates whether the cell should be discarded based on QC statistics. The `TRUE` and `FALSE` values in this column correspond, respectively, to values `"Discard"` and `"Keep"` in the `adata_obj.obs["adt_scpca_filter"]` column                                                         |
+All of the per-cell data columns included in the `colData` of the `"adt"` alternative experiment in `SingleCellExperiment` objects are present in the `.obs` slot of the CITE-seq `AnnData` object.
+To see a full description of the included columns, see the section [on additional `SingleCellExperiment` components for CITE-seq libraries](#additional-singlecellexperiment-components-for-cite-seq-libraries-with-adt-tags).
 
 
-Metrics for each of the ADTs assayed can be found as a `pandas.DataFrame` in the `.var` slot within the `AnnData` object:
+In addition, all of the per-ADT data columns included in the `rowData` of the `"adt"` alternative experiment in `SingleCellExperiment` merged objects are present in the `.var` slot of the CITE-seq `AnnData` object.
+To see a full description of the included columns, see the section [on additional `SingleCellExperiment` components for CITE-seq libraries](#additional-singlecellexperiment-components-for-cite-seq-libraries-with-adt-tags).
 
-
-| Column name | Contents                                                       |
-| ----------- | -------------------------------------------------------------- |
-| `mean`      | Mean ADT count across all cells/droplets                       |
-| `detected`  | Percent of cells in which the ADT was detected (ADT count > 0 ) |
-| `target_type` | Whether each ADT is a target (`target`), negative/isotype control (`neg_control`), or positive control (`pos_control`). If this information was not provided, all ADTs will have been considered targets and will be labeled as `target` |
 
 Finally, additional metadata for ADT processing can be found in the `.uns` slot of the `AnnData` object.
 This metadata slot has the same contents as the [RNA experiment metadata](#anndata-experiment-metadata), along with one additional field, `ambient_profile`, which holds a list of the ambient concentrations of each ADT.

@@ -1,7 +1,7 @@
 # ScPCA Portal Documentation
 
 This is the documentation for the [Single-cell Pediatric Cancer Atlas Portal](https://scpca.alexslemonade.org).
-The ScPCA Portal is a database of single-cell and single-nuclei RNA-sequencing data from pediatric cancer clinical samples and xenografts.
+The ScPCA Portal is a growing database of uniformly processed single-cell data from pediatric cancer tumors and model systems.
 
 ```{toctree}
 :maxdepth: 4

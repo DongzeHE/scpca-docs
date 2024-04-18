@@ -15,7 +15,7 @@ jobs:
   spell-check:
     runs-on: ubuntu-latest
     container:
-      image: rocker/tidyverse:4.0.3
+      image: rocker/tidyverse:4.3.2
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:

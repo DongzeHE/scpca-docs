@@ -84,6 +84,9 @@ We combine these marker genes with all "immune cell" `PanglaoDB` marker genes to
 During annotation, we additionally include an `"other"` cell type that does not express any of these marker genes.
 As a consequence, cells which `CellAssign` cannot confidently annotate from the full marker gene list are labeled as `"other"`.
 
+Please be aware that all cell type annotation reference datasets are derived from normal (not tumor) tissue.
+In addition, `CellAssign` annotation is only performed if there are at least 30 cells present in the `processed` object.
+
 Cell type annotation is not performed for cell line samples.
 For information on how to determine if a given sample was derived from a cell line, refer to section(s) describing {ref}`SingleCellExperiment file contents <sce_file_contents:singlecellexperiment sample metadata>` and/or {ref}`AnnData file contents <sce_file_contents:anndata cell metrics>`.
 
@@ -147,7 +150,7 @@ For multiplex libraries where bulk RNA-seq data is available for the individual 
 - Cell genotypes were used to call sample of origin with [`vireo`](https://vireosnp.readthedocs.io) ([Huang _et al._ 2019](https://doi.org/10.1186/s13059-019-1865-2))
 
 The genetic demultiplexing calls are reported alongside HTO demultiplexing results for each library, but we again do not separate the individual samples.
-For information on where the demultiplexing calls can be found, see {ref}`the section on demultiplexing results in the SingleCellExperiment file contents. <sce_file_contents:demultiplexing results>`
+For information on where the demultiplexing calls can be found, see {ref}`the section on demultiplexing results in the SingleCellExperiment file contents<sce_file_contents:demultiplexing results>`.
 
 
 ## Spatial transcriptomics
