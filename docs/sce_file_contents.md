@@ -312,7 +312,7 @@ Note that in the unfiltered `SingleCellExperiment` objects, this may include has
 ### Demultiplexing results
 
 Demultiplexing results are included only in the `filtered` and `processed` objects.
-The demultiplexing methods applied for these objects are described in the {ref}`multiplex data processing section <processing_information:Multiplexed libraries>`.
+A list of the demultiplexing methods applied for these objects can be found in `metadata(sce)$demux_methods` and are described in the {ref}`multiplex data processing section <processing_information:Multiplexed libraries>`.
 
 Demultiplexing analysis adds the following additional fields to the `colData(sce)` data frame:
 
