@@ -15,9 +15,11 @@ Bioinformatics
 cDNA
 cellhash
 cellhashing
+CELLxGENE
 CHANGELOG
 confounders
 CZI
+CZI's
 Danecek
 de
 deconvolution
