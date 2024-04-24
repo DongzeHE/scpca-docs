@@ -67,6 +67,7 @@ There are two types of samples where `AnnData` objects are not available:
     - Although the ScPCA pipeline {ref}`reports demultiplexing results<processing_information:HTO demultiplexing>`, it does not definitively separate samples due to the potential for disagreement among methods.
     - Resolving such disagreements requires examination of the HTO data, which can not be stored in the same `AnnData` object. 
     Therefore, we do not currently provide any multiplexed libraries as `AnnData` objects.
+    - In addition, the multiplexed data in this form are not compliant with the standards for [CELLxGENE](https://cellxgene.cziscience.com), which we have generally tried to match as closely as possible.
 
 ## What is the difference between samples and libraries?
 
