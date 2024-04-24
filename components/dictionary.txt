@@ -12,6 +12,7 @@ barcodes
 basepairs
 benchmarking
 Bioinformatics
+bioRxiv
 cDNA
 cellhash
 cellhashing
@@ -61,7 +62,9 @@ MLA
 oligo
 oligos
 Pearson
+Prasad
 pre
+preprint
 pseudocount
 pseudogenes
 Looney
@@ -79,6 +82,7 @@ ScPCA
 scpcaTools
 scRNA
 SingleCellExperiment
+Spielman
 splici
 Srivastava
 Stegle
