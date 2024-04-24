@@ -64,10 +64,9 @@ There are two types of samples where `AnnData` objects are not available:
     Therefore, we only provide the output from running Space Ranger and do not store data in either R or Python objects.
 
 - Samples that are part of multiplexed libraries
-    - Although the ScPCA pipeline {ref}`reports demultiplexing results<processing_information:HTO demultiplexing>`, it does not actually perform demultiplexing.
-    `AnnData` objects do not support storage of both gene expression data and additional modalities, like quantified HTO expression data, within the same object.
-    Without the associated HTO data, the sample of origin cannot be identified for each cell, causing ambiguity in sample origin assignments.
-    Therefore, we do not provide any multiplexed libraries as `AnnData` objects.
+    - Although the ScPCA pipeline {ref}`reports demultiplexing results<processing_information:HTO demultiplexing>`, it does not definitively separate samples due to the potential for disagreement among methods.
+    - Resolving such disagreements requires examination of the HTO data, which can not be stored in the same `AnnData` object. 
+    Therefore, we do not currently provide any multiplexed libraries as `AnnData` objects.
 
 ## What is the difference between samples and libraries?
 
