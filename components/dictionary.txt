@@ -30,6 +30,7 @@ demultiplexed
 demultiplexing
 demux
 Dobin
+DOI
 DropletUtils
 embeddings
 Ensembl
