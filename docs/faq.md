@@ -54,6 +54,21 @@ scpca_sample = anndata.readh5ad(file = "SCPCL000000_processed_rna.h5ad")
 A full description of the contents of the `AnnData` object can be found in the section on {ref}`Components of an AnnData object <sce_file_contents:Components of an anndata object>`.
 For more information on working with the H5AD files, see {ref}`Getting started with an ScPCA dataset <getting_started:Getting started with an scpca dataset>`.
 
+## Which samples can I download as AnnData objects?
+
+Most samples in the ScPCA Portal are available for download as both `SingleCellExperiment` objects (`.rds` files) and `AnnData` objects (`.h5ad` files).
+There are two types of samples where `AnnData` objects are not available:
+
+- Spatial transcriptomics data from a given sample
+    - As described in {ref}`the spatial transcriptomics processing section<processing_information:spatial transcriptomics>`, no post-processing is performed on these libraries after running Space Ranger.
+    Therefore, we only provide the output from running Space Ranger and do not store data in either R or Python objects.
+
+- Samples that are part of multiplexed libraries
+    - Although the ScPCA pipeline {ref}`reports demultiplexing results<processing_information:HTO demultiplexing>`, it does not definitively separate samples due to the potential for disagreement among methods.
+    - Resolving such disagreements requires examination of the HTO data, which can not be stored in the same `AnnData` object.
+    Therefore, we do not currently provide any multiplexed libraries as `AnnData` objects.
+    - In addition, providing multiplexed data in this form is not compliant with the standards for [CZI's CELLxGENE](https://cellxgene.cziscience.com), which we have tried to match as closely as possible.
+
 ## What is the difference between samples and libraries?
 
 A sample ID, labeled as `scpca_sample_id` and indicated by the prefix `SCPCS`, represents a unique tissue that was collected from a participant.
