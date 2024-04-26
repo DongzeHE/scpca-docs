@@ -12,6 +12,12 @@ For more information about `AlexsLemonade/scpca-nf` versions, please see [the re
 <!-- PUT THE NEW CHANGELOG ENTRY RIGHT BELOW THIS -->
 <!-------------------------------------------------->
 
+## 2024.04.26
+
+* `AnnData` objects are stored in files that now have the extension `.h5ad` instead of `.hdf5`.
+* A preprint describing the ScPCA Portal and the pipeline used to process data is now available on _bioRxiv_ ([DOI: 10.1101/2024.04.19.590243](https://doi.org/10.1101/2024.04.19.590243)).
+  Please cite this preprint when citing the ScPCA Portal (see {ref}`How to Cite <citation:how to cite>` for more information).
+
 ## 2024.04.18
 
 

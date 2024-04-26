@@ -12,12 +12,15 @@ barcodes
 basepairs
 benchmarking
 Bioinformatics
+bioRxiv
 cDNA
 cellhash
 cellhashing
+CELLxGENE
 CHANGELOG
 confounders
 CZI
+CZI's
 Danecek
 de
 deconvolution
@@ -27,6 +30,7 @@ demultiplexed
 demultiplexing
 demux
 Dobin
+DOI
 DropletUtils
 embeddings
 Ensembl
@@ -61,7 +65,9 @@ MLA
 oligo
 oligos
 Pearson
+Prasad
 pre
+preprint
 pseudocount
 pseudogenes
 Looney
@@ -79,6 +85,7 @@ ScPCA
 scpcaTools
 scRNA
 SingleCellExperiment
+Spielman
 splici
 Srivastava
 Stegle
