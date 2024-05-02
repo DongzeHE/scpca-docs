@@ -129,6 +129,20 @@ The gene expression data files available for download report all possible genes 
 A QC report for every processed library is included with all downloads, generated from the unfiltered and {ref}`filtered <processing_information:filtering cells>` {ref}`Single-cell gene expression files <sce_file_contents:Single-cell gene expression file contents>`.
 You can find the [function for generating a QC report](https://github.com/AlexsLemonade/scpcaTools/blob/main/R/generate_qc_report.R) and the [QC report template documents](https://github.com/AlexsLemonade/scpcaTools/tree/main/inst/rmd) in the package we developed for working with processed ScPCA data, [`scpcaTools`](https://github.com/AlexsLemonade/scpcaTools).
 
+## Which libraries include cell type annotations?
+
+Most single-cell and single-nuclei RNA-seq libraries available on the portal will have cell type annotations included in the processed `SingleCellExperiment` or `AnnData` object.
+For more information on where to find the cell type annotations, refer to section(s) describing {ref}`SingleCellExperiment file contents <sce_file_contents:singlecellexperiment sample metadata>` and/or {ref}`AnnData file contents <sce_file_contents:anndata cell metrics>`.
+If cell type annotation was performed, a supplemental cell type report (`SCPCL000000_celltype-report.html`) will be included in the download.
+
+There are a few scenarios where cell type annotation was not performed, which means processed objects will not include cell type annotations, and the download will not include a cell type report.
+
+- Cell type annotation is not performed for cell line samples.
+- Cell type annotation is not performed on libraries with an insufficient number of cells.
+The processed objects on which cell type annotation is performed must contain at least 30 cells to assign cell types with `CellAssign` and at least 2 cells to assign cell types with `SingleR`.
+This means that in some rare cases there will not be enough cells remaining in the processed object for cell type annotation to be performed.
+
+
 ## What if I want to use Seurat instead of Bioconductor?
 
 The RDS files available for download contain [`SingleCellExperiment` objects](http://bioconductor.org/books/3.13/OSCA.intro/the-singlecellexperiment-class.html).
