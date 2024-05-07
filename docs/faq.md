@@ -135,13 +135,8 @@ Most single-cell and single-nuclei RNA-seq libraries available on the portal wil
 For more information on where to find the cell type annotations, refer to section(s) describing {ref}`SingleCellExperiment file contents <sce_file_contents:singlecellexperiment sample metadata>` and/or {ref}`AnnData file contents <sce_file_contents:anndata cell metrics>`.
 If cell type annotation was performed, a supplemental cell type report (`SCPCL000000_celltype-report.html`) will be included in the download.
 
-There are a few scenarios where cell type annotation was not performed, which means processed objects will not include cell type annotations, and the download will not include a cell type report.
-
-- Cell type annotation is not performed for cell line samples.
-- Cell type annotation is not performed on libraries with an insufficient number of cells.
-The processed objects on which cell type annotation is performed must contain at least 30 cells to assign cell types with `CellAssign` and at least 2 cells to assign cell types with `SingleR`.
-This means that in some rare cases there will not be enough cells remaining in the processed object for cell type annotation to be performed.
-
+Cell type annotation is not performed on samples derived from cell lines.
+This means processed objects will not include cell type annotations, and the download will not include a cell type report.
 
 ## What if I want to use Seurat instead of Bioconductor?
 
