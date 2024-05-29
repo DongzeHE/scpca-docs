@@ -7,6 +7,8 @@ When you uncompress the zip file, the root directory name of your download will 
 We recommend you record this date in case there are future updates to the Portal that change the underlying data or if you need to cite the data in the future (see {ref}`How to Cite <citation:how to cite>` for more information).
 Please see our {ref}`CHANGELOG <CHANGELOG:CHANGELOG>` for a summary of changes that impact downloads from the Portal.
 
+If you only downloaded metadata, either the Portal-wide metadata or metadata for an individual project, please see the [section on metadata](#metadata) for a full description.
+
 For all downloads, sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
 Most samples only have one library that has been sequenced.
 For [multiplexed sample libraries](#multiplexed-sample-libraries), the sample folder name will be an underscore-separated list of all samples found in the library files that the folder contains.
@@ -90,24 +92,22 @@ Therefore, there will be no cell type report in the download for these libraries
 
 ## Metadata
 
-The `single_cell_metadata.tsv` file is a tab-separated table with one row per library and the following columns.
+Included with each download, is a `single_cell_metadata.tsv` file containing relevant metadata for each sample included in the download.
+Each row corresponds to a unique sample/library combination and contains the following columns:
 
 | column_id       | contents                                                       |
 |-----------------|----------------------------------------------------------------|
 | `scpca_sample_id` | Sample ID in the form `SCPCS000000`                            |
 | `scpca_library_id` | Library ID in the form `SCPCL000000`                          |
-| `seq_unit`        | `cell` for single-cell samples or `nucleus` for single-nuclei samples |
-| `technology`      | 10x kit used to process library                                |
-| `filtered_cell_count` | Number of cells after filtering with `emptyDrops`          |
-| `submitter_id`    | Original sample identifier from submitter                      |
-| `participant_id`  | Unique id corresponding to the donor from which the sample was obtained |
-| `submitter`       | Submitter name/id                                              |
-| `age_at_diagnosis` | Age at time sample was obtained                               |
-| `sex`             | Sex of patient that the sample was obtained from               |
 | `diagnosis`       | Tumor type                                                     |
 | `subdiagnosis`    | Subcategory of diagnosis or mutation status (if applicable)    |
-| `tissue_location` | Where in the body the tumor sample was located                 |
 | `disease_timing`  | At what stage of disease the sample was obtained, either diagnosis or recurrence |
+| `age_at_diagnosis` | Age at time sample was obtained                               |
+| `sex`             | Sex of patient that the sample was obtained from               |
+| `tissue_location` | Where in the body the tumor sample was located                 |
+| `participant_id`  | Unique id corresponding to the donor from which the sample was obtained |
+| `submitter_id`    | Original sample identifier from submitter                      |
+| `submitter`       | Submitter name/id                                              |
 | `organism`         | The organism the sample was obtained from (e.g., `Homo_sapiens`) |
 | `development_stage_ontology_term_id` | [`HsapDv`](http://obofoundry.org/ontology/hsapdv.html) ontology term indicating the age at which the sample was collected. `unknown` indicates age is unavailable. |
 | `sex_ontology_term_id`| [`PATO`](http://obofoundry.org/ontology/pato.html) term referring to the sex of the sample. `unknown` indicates sex is unavailable. |
@@ -116,14 +116,56 @@ The `single_cell_metadata.tsv` file is a tab-separated table with one row per li
 | `disease_ontology_term_id` | [`MONDO`](http://obofoundry.org/ontology/mondo.html) term indicating disease type. [`PATO:0000461`](https://ontobee.org/ontology/PATO?iri=http://purl.obolibrary.org/obo/PATO_0000461) is used for normal or healthy tissue. |
 | `tissue_ontology_term_id` | [`UBERON`](http://obofoundry.org/ontology/uberon.html) term indicating tissue of origin. `NA` indicates tissue is unavailable.  |
 
+| `seq_unit`        | `cell` for single-cell samples, `nucleus` for single-nuclei samples, `bulk` for bulk RNA-seq samples, and `spot` for spatial transcriptomics samples. |
+| `technology`      | 10x kit used to process library                                |
+| `total_reads` | Total number of reads processed by `salmon` |
+| `mapped_reads` |  Number of reads successfully mapped |
+| `sample_cell_count_estimate` | Total number of cells found in the filtered object for all libraries from a given sample. |
+| `unfiltered_cells` | Total number of cells detected by `alevin-fry` |
+| `filtered_cell_count` | Number of cells after filtering with `emptyDrops`          |
+| `processed_cells` | Number of cells after removing low quality cells |
+| `has_cellhash` | Boolean indicating if the library contains cell hashing data |
+| `includes_anndata` | Boolean indicating if `AnnData` is available for download for the library |
+| `is_cell_line` | Boolean indicating whether or not the sample comes from a cell line |
+| `is_multiplexed` | Boolean indicating if the library contains multiplexed samples |
+| `is_xenograft` | Boolean indicating whether or not the sample was obtained from a patient-derived xenograft |
+
+| `scpca_project_id` | |
+| `pi_name` | |
+| `project_title` | |
+
+| `genome_assembly`| |
+| `mapping_index` | |
+| `spaceranger_version` | |
+| `alevin_fry_version` | |
+| `salmon_version` | |
+| `transcript_type` | |
+| `droplet_filtering_method` | |
+| `cell_filtering_method` ||
+| `prob_compromised_cutoff` ||
+| `min_gene_cutoff` | |
+| `normalization_method` | |
+| `demux_method` | |
+| `date_processed` ||
+| `workflow` | |
+| `workflow_version` ||
+| `workflow_commit` ||
+
 Additional metadata may also be included, specific to the disease type and experimental design of the project.
 Examples of this include treatment or outcome.
-Metadata pertaining to processing will also be available in this table and inside of the `SingleCellExperiment` object.
+Metadata pertaining to processing will be available in this table and inside of the `SingleCellExperiment` object.
 See the {ref}`SingleCellExperiment experiment metadata <sce_file_contents:singlecellexperiment experiment metadata>` section for more information on metadata columns that can be found in the `SingleCellExperiment` object.
 See the {ref}`AnnData experiment metadata <sce_file_contents:anndata experiment metadata>` section for more information on metadata columns that can be found in the `AnnData` object.
 
 For projects with bulk RNA-seq data, the `bulk_metadata.tsv` file will be included for project downloads.
 This file will contain fields equivalent to those found in the `single_cell_metadata.tsv` related to processing the sample, but will not contain patient or disease specific metadata (e.g. `age`, `sex`, `diagnosis`, `subdiagnosis`, `tissue_location`, or `disease_timing`).
+
+### Metadata only downloads
+
+Metadata for all samples on the Portal is available to download separately from gene expression data downloads.
+The metadata for all samples in a given project can be downloaded as a single zip file containing the `SCPCP000000_metadata.tsv` file and a `README.md` file.
+Additionally, the metadata for all samples on the Portal is available and contains the metadata for all samples available on the Portal.
+See the above [table](#metadata) for a description of all columns present in these metadata files.
 
 ## Multiplexed sample libraries
 
