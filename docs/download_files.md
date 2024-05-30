@@ -7,9 +7,7 @@ When you uncompress the zip file, the root directory name of your download will 
 We recommend you record this date in case there are future updates to the Portal that change the underlying data or if you need to cite the data in the future (see {ref}`How to Cite <citation:how to cite>` for more information).
 Please see our {ref}`CHANGELOG <CHANGELOG:CHANGELOG>` for a summary of changes that impact downloads from the Portal.
 
-If you only downloaded metadata, either the Portal-wide metadata or metadata for an individual project, please see the [section on metadata](#metadata) for a full description.
-
-For all downloads, sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
+For all data downloads, sample folders (indicated by the `SCPCS` prefix) contain the files for all libraries (`SCPCL` prefix) derived from that biological sample.
 Most samples only have one library that has been sequenced.
 For [multiplexed sample libraries](#multiplexed-sample-libraries), the sample folder name will be an underscore-separated list of all samples found in the library files that the folder contains.
 Note that multiplexed sample libraries are only available as `SingleCellExperiment` objects, and are not currently available as `AnnData` objects.
@@ -24,6 +22,9 @@ The files shown below will be included with each library (example shown for a li
 - A supplemental cell type report: `SCPCL000000_celltype-report.html`
 
 Every download also includes a single `single_cell_metadata.tsv` file containing metadata for all libraries included in the download.
+
+Metadata-only downloads are also available, either by downloading the metadata for all samples in a single project or by downloading the metadata for all samples on the Portal.
+Please see the [section on metadata](#metadata) for a full description of the contents of the metadata files.
 
 If downloading a project containing bulk RNA-seq data, two tab-separated value files, `bulk_quant.tsv` and `bulk_metadata.tsv`, will be included in the project download.
 The `bulk_quant.tsv` file contains a gene by sample matrix (each row a gene, each column a sample) containing raw gene expression counts quantified by Salmon.
@@ -115,45 +116,39 @@ Each row corresponds to a unique sample/library combination and contains the fol
 | `self_reported_ethnicity_ontology_term_id` | For _Homo sapiens_ samples, a [`Hancestro` term](http://obofoundry.org/ontology/hancestro.html). `multiethnic` indicates more than one ethnicity is reported. `unknown` indicates unavailable ethnicity and `NA` is used for all other organisms. |
 | `disease_ontology_term_id` | [`MONDO`](http://obofoundry.org/ontology/mondo.html) term indicating disease type. [`PATO:0000461`](https://ontobee.org/ontology/PATO?iri=http://purl.obolibrary.org/obo/PATO_0000461) is used for normal or healthy tissue. |
 | `tissue_ontology_term_id` | [`UBERON`](http://obofoundry.org/ontology/uberon.html) term indicating tissue of origin. `NA` indicates tissue is unavailable.  |
-
 | `seq_unit`        | `cell` for single-cell samples, `nucleus` for single-nuclei samples, `bulk` for bulk RNA-seq samples, and `spot` for spatial transcriptomics samples. |
 | `technology`      | 10x kit used to process library                                |
 | `total_reads` | Total number of reads processed by `salmon` |
 | `mapped_reads` |  Number of reads successfully mapped |
-| `sample_cell_count_estimate` | Total number of cells found in the filtered object for all libraries from a given sample. |
+| `sample_cell_count_estimate` | Total number of cells found in the filtered object for all libraries from a given sample |
 | `unfiltered_cells` | Total number of cells detected by `alevin-fry` |
 | `filtered_cell_count` | Number of cells after filtering with `emptyDrops`          |
 | `processed_cells` | Number of cells after removing low quality cells |
-| `has_cellhash` | Boolean indicating if the library contains cell hashing data |
-| `includes_anndata` | Boolean indicating if `AnnData` is available for download for the library |
-| `is_cell_line` | Boolean indicating whether or not the sample comes from a cell line |
+| `has_cellhash` | Boolean indicating if the library has associated cell hashing data |
+| `includes_anndata` | Boolean indicating if `AnnData` is available to download for the library |
+| `is_cell_line` | Boolean indicating whether or not the sample was obtained from a cell line |
 | `is_multiplexed` | Boolean indicating if the library contains multiplexed samples |
 | `is_xenograft` | Boolean indicating whether or not the sample was obtained from a patient-derived xenograft |
-
-| `scpca_project_id` | |
-| `pi_name` | |
-| `project_title` | |
-
-| `genome_assembly`| |
-| `mapping_index` | |
-| `spaceranger_version` | |
-| `alevin_fry_version` | |
-| `salmon_version` | |
-| `transcript_type` | |
-| `droplet_filtering_method` | |
-| `cell_filtering_method` ||
-| `prob_compromised_cutoff` ||
-| `min_gene_cutoff` | |
-| `normalization_method` | |
-| `demux_method` | |
-| `date_processed` ||
-| `workflow` | |
-| `workflow_version` ||
-| `workflow_commit` ||
+| `scpca_project_id` | Project ID in the form `SCPCP000000` |
+| `pi_name` | Name of primary investigator |
+| `project_title` | Title of project |
+| `genome_assembly`| Ensembl version of genome used for mapping with `salmon`, `alevin-fry`, or `spaceranger` |
+| `mapping_index` | Name of index used for mapping with `salmon`, `alevin-fry`, or `spaceranger` |
+| `spaceranger_version` | Version of 10x Genomics' Space Ranger used for mapping, only present for spatial transcriptomics samples |
+| `alevin_fry_version` | Version of `alevin-fry` used for gene expression quantification |
+| `salmon_version` | Version of `salmon` used for mapping |
+| `transcript_type` | Types of counts matrices included in `SingleCellExperiment` or `AnnData` objects. `total` indicates both spliced and unspliced reads are included in the final count, `spliced` indicates only spliced reads are included in the final count |
+| `droplet_filtering_method` | The method used for cell filtering. One of `emptyDrops`, `emptyDropsCellRanger`, or `UMI cutoff`  |
+| `cell_filtering_method` | Method used by the Data Lab to filter low quality cells prior to normalization. Either `miQC` or `Minimum_gene_cutoff` |
+| `prob_compromised_cutoff` | The minimum cutoff for the probability of a cell being compromised, as calculated by `miQC` |
+| `min_gene_cutoff` | The minimum cutoff for the number of unique genes detected per cell |
+| `normalization_method` | The method used for normalization of raw RNA counts. Either `deconvolution`, described in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7), or `log-normalization` |
+| `demux_method` | Methods used to calculate demultiplexed sample numbers. Only present for multiplexed libraries |
+| `date_processed` | Date sample was processed through `AlexsLemonade/scpca-nf` |
 
 Additional metadata may also be included, specific to the disease type and experimental design of the project.
 Examples of this include treatment or outcome.
-Metadata pertaining to processing will be available in this table and inside of the `SingleCellExperiment` object.
+Metadata pertaining to processing will be available in this table and inside of the `SingleCellExperiment` and `AnnData` objects.
 See the {ref}`SingleCellExperiment experiment metadata <sce_file_contents:singlecellexperiment experiment metadata>` section for more information on metadata columns that can be found in the `SingleCellExperiment` object.
 See the {ref}`AnnData experiment metadata <sce_file_contents:anndata experiment metadata>` section for more information on metadata columns that can be found in the `AnnData` object.
 
@@ -163,9 +158,11 @@ This file will contain fields equivalent to those found in the `single_cell_meta
 ### Metadata only downloads
 
 Metadata for all samples on the Portal is available to download separately from gene expression data downloads.
-The metadata for all samples in a given project can be downloaded as a single zip file containing the `SCPCP000000_metadata.tsv` file and a `README.md` file.
+The metadata for all samples in a given project can be downloaded as a single zip file containing the `metadata.tsv` file and a `README.md` file.
+Project-specific metadata will contain all columns mentioned [above table](#metadata) and any additional project-specific columns, such as treatment or outcome.
+
 Additionally, the metadata for all samples on the Portal is available and contains the metadata for all samples available on the Portal.
-See the above [table](#metadata) for a description of all columns present in these metadata files.
+The Portal-wide metadata will contail all columns mentioned in the [above table](#metadata).
 
 ## Multiplexed sample libraries
 
