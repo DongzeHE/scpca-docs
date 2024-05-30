@@ -162,7 +162,7 @@ The metadata for all samples in a given project can be downloaded as a single zi
 Project-specific metadata will contain all columns mentioned [above table](#metadata) and any additional project-specific columns, such as treatment or outcome.
 
 Additionally, the metadata for all samples on the Portal is available and contains the metadata for all samples available on the Portal.
-The Portal-wide metadata will contail all columns mentioned in the [above table](#metadata).
+The Portal-wide metadata will contain all columns mentioned in the [above table](#metadata).
 
 ## Multiplexed sample libraries
 
