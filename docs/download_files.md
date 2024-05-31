@@ -123,6 +123,7 @@ Each row corresponds to a unique sample/library combination and contains the fol
 | `sample_cell_count_estimate` | Total number of cells found in the filtered object for all libraries from a given sample |
 | `unfiltered_cells` | Total number of cells detected by `alevin-fry` |
 | `filtered_cell_count` | Number of cells after filtering with `emptyDrops`          |
+| `filtered_cells` | Number of cells after filtering with `emptyDrops. Only present for multiplexed libraries |
 | `processed_cells` | Number of cells after removing low quality cells |
 | `has_cellhash` | Boolean indicating if the library has associated cell hashing data |
 | `includes_anndata` | Boolean indicating if `AnnData` is available to download for the library |
@@ -144,6 +145,7 @@ Each row corresponds to a unique sample/library combination and contains the fol
 | `min_gene_cutoff` | The minimum cutoff for the number of unique genes detected per cell |
 | `normalization_method` | The method used for normalization of raw RNA counts. Either `deconvolution`, described in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7), or `log-normalization` |
 | `demux_method` | Methods used to calculate demultiplexed sample numbers. Only present for multiplexed libraries |
+| `demux_samples` | Samples included in multiplexed library. Only present for multiplexed libraries |
 | `date_processed` | Date sample was processed through `AlexsLemonade/scpca-nf` |
 
 Additional metadata may also be included, specific to the disease type and experimental design of the project.
