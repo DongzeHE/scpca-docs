@@ -93,7 +93,7 @@ Therefore, there will be no cell type report in the download for these libraries
 
 ## Metadata
 
-Included with each download, is a `single_cell_metadata.tsv` file containing relevant metadata for each sample included in the download.
+Included with each download is a `single_cell_metadata.tsv` file containing relevant metadata for each sample included in the download.
 Each row corresponds to a unique sample/library combination and contains the following columns:
 
 | column_id       | contents                                                       |
@@ -155,14 +155,14 @@ See the {ref}`AnnData experiment metadata <sce_file_contents:anndata experiment 
 For projects with bulk RNA-seq data, the `bulk_metadata.tsv` file will be included for project downloads.
 This file will contain fields equivalent to those found in the `single_cell_metadata.tsv` related to processing the sample, but will not contain patient or disease specific metadata (e.g. `age`, `sex`, `diagnosis`, `subdiagnosis`, `tissue_location`, or `disease_timing`).
 
-### Metadata only downloads
+### Metadata-only downloads
 
 Metadata for all samples on the Portal is available to download separately from gene expression data downloads.
-The metadata for all samples in a given project can be downloaded as a single zip file containing the `metadata.tsv` file and a `README.md` file.
-Project-specific metadata will contain all columns mentioned [above table](#metadata) and any additional project-specific columns, such as treatment or outcome.
+Each project page has an option to download metadata for all of its samples as a single zip file containing the `metadata.tsv` file and a `README.md` file.
+Project-specific metadata will contain all columns listed in [the above table](#metadata) and any additional project-specific columns, such as treatment or outcome.
 
 Additionally, the metadata for all samples on the Portal is available and contains the metadata for all samples available on the Portal.
-The Portal-wide metadata will contain all columns mentioned in the [above table](#metadata).
+The Portal-wide metadata will contain all columns listed in [the above table](#metadata).
 
 ## Multiplexed sample libraries
 
