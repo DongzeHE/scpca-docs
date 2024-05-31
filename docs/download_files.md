@@ -123,7 +123,7 @@ Each row corresponds to a unique sample/library combination and contains the fol
 | `sample_cell_count_estimate` | Total number of cells found in the filtered object for all libraries from a given sample |
 | `unfiltered_cells` | Total number of cells detected by `alevin-fry` |
 | `filtered_cell_count` | Number of cells after filtering with `emptyDrops`          |
-| `filtered_cells` | Number of cells after filtering with `emptyDrops. Only present for multiplexed libraries |
+| `filtered_cells` | Number of cells after filtering with `emptyDrops`. Only present for multiplexed libraries |
 | `processed_cells` | Number of cells after removing low quality cells |
 | `has_cellhash` | Boolean indicating if the library has associated cell hashing data |
 | `includes_anndata` | Boolean indicating if `AnnData` is available to download for the library |
