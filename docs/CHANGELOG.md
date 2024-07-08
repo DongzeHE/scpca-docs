@@ -17,7 +17,7 @@ For more information about `AlexsLemonade/scpca-nf` versions, please see [the re
 * Metadata for all samples in a specified project can now be downloaded as a tab-separated values file.
   * This allows users to download and view all sample, library, project, and processing-related metadata for all samples in a project without having to download all data in a project.
   * Metadata is also included with each data download.
-  * For more information on what to expect in the metadata files, see the {ref}`metadata section of the Downloadable files page <download_files:metadata`.
+  * For more information on what to expect in the metadata files, see the {ref}`metadata section of the Downloadable files page <download_files:metadata>`.
 
 ## 2024.04.26
 
