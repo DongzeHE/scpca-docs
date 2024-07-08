@@ -163,7 +163,7 @@ Metadata for all samples on the Portal is available to download separately from 
 Each project page has an option to download metadata for all of its samples as a single zip file containing the `metadata.tsv` file and a `README.md` file.
 Project-specific metadata will contain all columns listed in [the above table](#metadata) and any additional project-specific columns, such as treatment or outcome.
 
-Additionally, the metadata for all samples on the Portal is available and contains the metadata for all samples available on the Portal.
+Additionally, a single TSV file containing the metadata for all samples from all projects on the Portal is available for download.
 The Portal-wide metadata will contain all columns listed in [the above table](#metadata).
 
 ## Multiplexed sample libraries
