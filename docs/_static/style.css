@@ -13,6 +13,10 @@ body {
   background: #fdfdfd;
 } 
 
+.wy-nav-content img {
+  max-width: 400px;
+}
+
 h1,
 h2,
 h3,
