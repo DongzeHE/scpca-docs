@@ -510,7 +510,7 @@ Any cells labeled `"Remove"` have `NA` values in the normalized expression matri
 Alternatively, you can also filter cells out based on your own criteria.
 For `SingleCellExperiment` objects, quality-control statistics calculated by [`DropletUtils::CleanTagCounts()`](https://rdrr.io/github/MarioniLab/DropletUtils/man/cleanTagCounts.html) are provided in the `colData` slot of the `altExp` (`colData(altExp(filtered_sce))`) as described in {ref}`Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags) <sce_file_contents:Additional SingleCellExperiment components for CITE-seq libraries (with ADT tags)>`.
 
-For `AnnData` objects, these same quality-control statistics are provided in the `obs` slot of the `AnnData` object as described in {ref}`Additional AnnData components for CITE-seq libraries (with ADT tags) <sce_file_contents: Additional AnnData components for CITE-seq libraries (with ADT tags)>`.
+For `AnnData` objects, these same quality-control statistics are provided in the `obs` slot of the `AnnData` object as described in {ref}`Additional AnnData components for CITE-seq libraries (with ADT tags) <sce_file_contents:Additional AnnData components for CITE-seq libraries (with ADT tags)>`.
 
 We recommend filtering out these low-quality cells before proceeding with downstream analyses.
 
@@ -531,7 +531,7 @@ Note that multiplexed sample libraries are only available as `SingleCellExperime
 If you prefer to work with `AnnData` objects, we recommend using the [`zellkonverter` package](https://theislab.github.io/zellkonverter/reference/AnnData-Conversion.html) to convert the `SingleCellExperiment` object to an H5AD file containing an `AnnData` object.
 
 
-Libraries containing multiplexed samples can be initially processed using the same workflow described above including removal of [low quality cells](#quality-control), [normalization](#normalization), and [dimensionality reduction](#dimensionality-reduction).
+Libraries containing multiplexed samples can be initially processed using the same workflow described above including removal of [low quality cells](#quality-control-data), normalization, and [dimensionality reduction](#dimensionality-reduction).
 Demultiplexing can then be used to identify the sample that each cell is from.
 Demultiplexing has already been performed using both [`Seurat::HTODemux`](https://satijalab.org/seurat/reference/htodemux) and [`DropletUtils::hashedDrops`](https://rdrr.io/github/MarioniLab/DropletUtils/man/hashedDrops.html).
 For samples where corresponding bulk RNA-sequencing data is available, {ref}`genetic demultiplexing <processing_information:Genetic demultiplexing>` was also conducted.
