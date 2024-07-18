@@ -44,7 +44,7 @@ For more information about `AlexsLemonade/scpca-nf` versions, please see [the re
 * Cell type annotations are now included in each download.
 Cells were annotated using both [`SingleR`](https://bioconductor.org/packages/release/bioc/html/SingleR.html) and [`CellAssign`](https://github.com/Irrationone/cellassign).
   * You can find more information about how cell types were annotated in the {ref}`cell type annotation procedures section on the Processing Information page<processing_information:cell type annotation>`.
-  For more information on locating cell type annotations and any associated processing information in the downloaded objects see {ref}`the Single-cell gene expression file contents page<sce_file_conents:components of a singlecellexperiment object>`.
+  For more information on locating cell type annotations and any associated processing information in the downloaded objects see {ref}`the Single-cell gene expression file contents page<sce_file_contents:components of a singlecellexperiment object>`.
 * Downloads also contain a separate cell type report providing more information about cell type annotations, including comparisons between different cell type annotations and diagnostic assessments of cell type annotation reliability.
 * Sample metadata now includes two additional pieces of information which can be used to filter datasets: Whether the given sample is a patient-derived xenograft, and whether the sample is derived from a cell line.
 * Processed `SingleCellExperiment` objects no longer include the full `miQC` result object in their metadata, but the `miQC` object is still available in the filtered `SingleCellExperiment` objects.
