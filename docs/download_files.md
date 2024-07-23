@@ -103,7 +103,8 @@ Each row corresponds to a unique sample/library combination and contains the fol
 | `diagnosis`       | Tumor type                                                     |
 | `subdiagnosis`    | Subcategory of diagnosis or mutation status (if applicable)    |
 | `disease_timing`  | At what stage of disease the sample was obtained, either diagnosis or recurrence |
-| `age_at_diagnosis` | Age at time sample was obtained                               |
+| `age`             | Age provided by submitter                                |
+| `age_timing`      | Whether or not age is the age at diagnosis (`diagnosis`), age at collection (`collection`), or `unknown`|
 | `sex`             | Sex of patient that the sample was obtained from               |
 | `tissue_location` | Where in the body the tumor sample was located                 |
 | `participant_id`  | Unique id corresponding to the donor from which the sample was obtained |
