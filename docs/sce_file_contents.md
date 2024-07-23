@@ -176,7 +176,7 @@ The following columns are included in the sample metadata data frame for all lib
 | `submitter_id`    | Original sample identifier from submitter                      |
 | `submitter`       | Submitter name/ID                                              |
 | `age`             | Age provided by submitter                                |
-| `age_timing`      | Whether or not age is the age at diagnosis (`diagnosis`), age at collection (`collection`), or `unknown`|
+| `age_timing`      | Whether age is the age at diagnosis (`diagnosis`), age at collection (`collection`), or `unknown`|
 | `sex`             | Sex of patient that the sample was obtained from               |
 | `diagnosis`       | Tumor type                                                     |
 | `subdiagnosis`    | Subcategory of diagnosis or mutation status (if applicable)    |
@@ -391,7 +391,7 @@ The `AnnData` object also includes the following additional cell-level metadata 
 | `submitter_id`                             | Original sample identifier from submitter                                                                                                                                                                                                 |
 | `submitter`                                | Submitter name/ID                                                                                                                                                                                                                         |
 | `age`             | Age provided by submitter                                |
-| `age_timing`      | Whether or not age is the age at diagnosis (`diagnosis`), age at collection (`collection`), or `unknown`|
+| `age_timing`      | Whether age is the age at diagnosis (`diagnosis`), age at collection (`collection`), or `unknown`|
 | `sex`                                      | Sex of patient that the sample was obtained from                                                                                                                                                                                          |
 | `diagnosis`                                | Tumor type                                                                                                                                                                                                                                |
 | `subdiagnosis`                             | Subcategory of diagnosis or mutation status (if applicable)                                                                                                                                                                               |
