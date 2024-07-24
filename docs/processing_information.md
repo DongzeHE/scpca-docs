@@ -61,6 +61,7 @@ In addition to the raw gene expression data, we also provide a processed `Single
 Prior to normalization, low-quality cells are removed from the gene by cell counts matrix.
 To identify low-quality cells, we use [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected.
 Cells with a high likelihood of being compromised (greater than 0.75) and cells that do not pass a minimum number of unique genes detected threshold of 200 are removed from the counts matrix present in the processed `SingleCellExperiment` object.
+In certain circumstances, `miQC` modeling may fail; in these cases, only cells which do not pass the threshold of at least 200 unique genes are removed.
 
 Log-normalized counts are calculated using the deconvolution method presented in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7).
 The log-normalized counts are used to model variance of each gene prior to selecting the top 2000 highly variable genes (HVGs).
@@ -86,6 +87,9 @@ As a consequence, cells which `CellAssign` cannot confidently annotate from the 
 
 Please be aware that all cell type annotation reference datasets are derived from normal (not tumor) tissue.
 In addition, `CellAssign` annotation is only performed if there are at least 30 cells present in the `processed` object.
+
+Some cells may be labeled as "Unclassified cell" if they were not annotated with `SingleR` or `CellAssign`.
+These are cells which were not present in previous ScPCA data versions on which cell typing was initially performed, so they were not labeled.
 
 Cell type annotation is not performed for cell line samples.
 For information on how to determine if a given sample was derived from a cell line, refer to section(s) describing {ref}`SingleCellExperiment file contents <sce_file_contents:singlecellexperiment sample metadata>` and/or {ref}`AnnData file contents <sce_file_contents:anndata cell metrics>`.
