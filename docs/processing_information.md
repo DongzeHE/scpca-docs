@@ -87,6 +87,10 @@ As a consequence, cells which `CellAssign` cannot confidently annotate from the 
 Please be aware that all cell type annotation reference datasets are derived from normal (not tumor) tissue.
 In addition, `CellAssign` annotation is only performed if there are at least 30 cells present in the `processed` object.
 
+Some cells may be labeled as "Unclassified cell" if they were not annotated with `SingleR` or `CellAssign`.
+These are cells which were not present in previous ScPCA data versions on which cell typing was initially performed, so they were not labeled.
+
+
 Cell type annotation is not performed for cell line samples.
 For information on how to determine if a given sample was derived from a cell line, refer to section(s) describing {ref}`SingleCellExperiment file contents <sce_file_contents:singlecellexperiment sample metadata>` and/or {ref}`AnnData file contents <sce_file_contents:anndata cell metrics>`.
 
