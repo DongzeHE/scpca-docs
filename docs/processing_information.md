@@ -61,6 +61,7 @@ In addition to the raw gene expression data, we also provide a processed `Single
 Prior to normalization, low-quality cells are removed from the gene by cell counts matrix.
 To identify low-quality cells, we use [`miQC`](https://bioconductor.org/packages/release/bioc/html/miQC.html), a package that jointly models proportion of reads belonging to mitochondrial genes and number of unique genes detected.
 Cells with a high likelihood of being compromised (greater than 0.75) and cells that do not pass a minimum number of unique genes detected threshold of 200 are removed from the counts matrix present in the processed `SingleCellExperiment` object.
+In certain circumstances, `miQC` modeling may fail; in these cases, only cells which do not pass the threshold of at least 200 unique genes are removed.
 
 Log-normalized counts are calculated using the deconvolution method presented in [Lun, Bach, and Marioni (2016)](https://doi.org/10.1186/s13059-016-0947-7).
 The log-normalized counts are used to model variance of each gene prior to selecting the top 2000 highly variable genes (HVGs).
