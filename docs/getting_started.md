@@ -179,7 +179,7 @@ This list can be accessed using the following command in the `AnnData` objects:
 processed_adata.uns["highly_variable_genes"]
 ```
 
-Additionally, the `AnnData` objects contain a column in the `.var` slot, `"highly_variable"` indicating whether or not a gene is found in the list of highly variable genes.
+Additionally, the `AnnData` objects contain a column in the `.var` slot, `"highly_variable"`, indicating whether or not a gene is found in the list of highly variable genes.
 
 ### Clustering
 
