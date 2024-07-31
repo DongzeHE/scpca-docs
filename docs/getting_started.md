@@ -179,6 +179,8 @@ This list can be accessed using the following command in the `AnnData` objects:
 processed_adata.uns["highly_variable_genes"]
 ```
 
+Additionally, the `AnnData` objects contain a column in the `.var` slot, `"highly_variable"` indicating whether or not a gene is found in the list of highly variable genes.
+
 ### Clustering
 
 Cluster assignments obtained from [Graph-based clustering](http://bioconductor.org/books/3.16/OSCA.basic/clustering.html#clustering-graph) is also available in the processed objects.
