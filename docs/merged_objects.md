@@ -394,15 +394,15 @@ Additional experiment metadata is available in the {ref}`metadata TSV file inclu
 
 ### AnnData dimensionality reduction results
 
-The merged `AnnData` object contains a slot `.obsm` with both principal component analysis (`X_PCA`) and UMAP (`X_UMAP`) results.
+The merged `AnnData` object contains a slot `.obsm` with both principal component analysis (`X_pca`) and UMAP (`X_umap`) results.
 
 For information on how PCA and UMAP results were calculated see the {ref}`section on processed gene expression data <processing_information:Processed gene expression data>`.
 
 The following command can be used to access the PCA and UMAP results:
 
 ```python
-merged_adata_object.obsm["X_PCA"] # pca results
-merged_adata_object.obsm["X_UMAP"] # umap results
+merged_adata_object.obsm["X_pca"] # pca results
+merged_adata_object.obsm["X_umap"] # umap results
 ```
 
 

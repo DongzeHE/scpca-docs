@@ -146,10 +146,10 @@ Dimensionality reduction results can be accessed in the `AnnData` objects using 
 
 ```python
 # principal component analysis results
-processed_adata.obsm["X_PCA"]
+processed_adata.obsm["X_pca"]
 
 # UMAP results
-processed_adata.obsm["X_UMAP"]
+processed_adata.obsm["X_umap"]
 ```
 
 See below for more resources on dimensionality reduction:
@@ -178,6 +178,8 @@ This list can be accessed using the following command in the `AnnData` objects:
 # list of highly variable genes
 processed_adata.uns["highly_variable_genes"]
 ```
+
+Additionally, the `AnnData` objects contain a column in the `.var` slot, `"highly_variable"`, indicating whether or not a gene is found in the list of highly variable genes.
 
 ### Clustering
 
