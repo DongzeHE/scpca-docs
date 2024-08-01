@@ -12,7 +12,7 @@ For more information about `AlexsLemonade/scpca-nf` versions, please see [the re
 <!-- PUT THE NEW CHANGELOG ENTRY RIGHT BELOW THIS -->
 <!-------------------------------------------------->
 
-## PLACEHOLDER FOR METADATA ADDITION IN REPORTS
+## 2024.08.01
 
 * A table containing sample metadata (e.g., age, sex, diagnosis) is now available in both the QC report (`qc.html`) and the supplemental cell type report (`celltype-report.html`) included in all downloads.
 
