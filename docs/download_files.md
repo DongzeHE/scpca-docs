@@ -39,21 +39,21 @@ See the [description of the Spatial transcriptomics output section below](#spati
 ## `SingleCellExperiment` downloads
 
 ### Download folder structure for project downloads:
-![project download folder](images/project-download-folder.png)
+![project download folder](images/project-download-folder.png){width="400"}
 
 ### Download folder structure for individual sample downloads:
-![sample download folder](images/sample-download-folder.png)
+![sample download folder](images/sample-download-folder.png){width="400"}
 
 ## `AnnData` downloads
 
 ### Download folder structure for project downloads:
-![project download folder](images/anndata-project-download-folder.png)
+![project download folder](images/anndata-project-download-folder.png){width="400"}
 
 ### Download folder structure for individual sample downloads:
-![sample download folder](images/anndata-sample-download-folder.png)
+![sample download folder](images/anndata-sample-download-folder.png){width="400"}
 
 ### Download folder structure for individual sample downloads with CITE-seq (ADT) data:
-![sample download folder](images/anndata-sample-citeseq-download-folder.png)
+![sample download folder](images/anndata-sample-citeseq-download-folder.png){width="400"}
 
 If downloading a sample that contains a CITE-seq library as an `AnnData` object (`.h5ad` file), the quantified CITE-seq expression data is included as a separate file with the suffix `_adt.h5ad`.
 
@@ -175,7 +175,7 @@ For project downloads, the counts and QC files will be organized by the _set_ of
 These sample set folders are named with an underscore-separated list of the sample ids for the libraries within, _e.g._, `SCPCS999990_SCPCS999991_SCPCS999992`.
 Bulk RNA-seq data, if present, will follow the [same format as bulk RNA-seq for single-sample libraries](#download-folder-structure-for-project-downloads).
 
-![multiplexed project download folder](images/multiplexed-download-folder.png)
+![multiplexed project download folder](images/multiplexed-download-folder.png){width="400"}
 
 Because we do not perform demultiplexing to separate cells from multiplexed libraries into sample-specific count matrices, sample downloads from a project with multiplexed data will include all libraries that contain the sample of interest, but these libraries _will still contain cells from other samples_.
 
@@ -212,13 +212,13 @@ This includes a summary of the types of libraries (e.g., single-cell, single-nuc
 Every download also includes the individual [QC report](#qc-report) and, if applicable, [cell type annotation reports](#cell-type-report) for each library included in the merged object.
 
 ### Download folder structure for `SingleCellExperiment` merged downloads:
-![project download folder](images/merged-project-download-folder.png)
+![project download folder](images/merged-project-download-folder.png){width="400"}
 
 ### Download folder structure for `AnnData` merged downloads:
-![project download folder](images/merged-anndata-project-download-folder.png)
+![project download folder](images/merged-anndata-project-download-folder.png){width="400"}
 
 ### Download folder structure for `AnnData` merged downloads with CITE-seq (ADT) data:
-![project download folder](images/merged-anndata-project-citeseq-download-folder.png)
+![project download folder](images/merged-anndata-project-citeseq-download-folder.png){width="400"}
 
 
 ## Spatial transcriptomics libraries
@@ -238,4 +238,4 @@ A full description of all files included in the download for spatial transcripto
 
 Every download also includes a single `spatial_metadata.tsv` file containing metadata for all libraries included in the download.
 
-![sample download with spatial](images/spatial-download-folder.png)
+![sample download with spatial](images/spatial-download-folder.png){width="400"}
