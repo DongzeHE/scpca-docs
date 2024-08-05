@@ -12,6 +12,18 @@ For more information about `AlexsLemonade/scpca-nf` versions, please see [the re
 <!-- PUT THE NEW CHANGELOG ENTRY RIGHT BELOW THIS -->
 <!-------------------------------------------------->
 
+## PLACEHOLDER FOR AGE TIMING/SCANPY CHANGELOG
+
+* A new column, `age_timing`, is now present in the sample metadata tables included with each download.
+  * This column indicates if the age specified in the `age` column is the age at diagnosis (`diagnosis`), age at collection (`collection`), or `unknown`.
+  * This will also be present in the metadata of the `SingleCellExperiment` and `AnnData` objects.
+
+* AnnData objects have been updated to ensure compatibility with [`Scanpy`](https://scanpy.readthedocs.io/en/stable/).
+  * PCA and UMAP embeddings are now stored as `X_pca` and `X_umap` (previously `X_PCA` and `X_UMAP`).
+  * A new column has been added to the `.var` slot, `highly_variable`, indicating if the given gene can be found in the list of highly variable genes.
+  * Parameters and variance weights associated with the PCA results is now available in `.uns["pca"]`.
+  * See {ref}`Components of an AnnData object<sce_file_contents:Components of an anndata object>` for more information.
+
 ## 2024.08.01
 
 * A table containing sample metadata (e.g., age, sex, diagnosis) is now available in both the QC report (`qc.html`) and the supplemental cell type report (`celltype-report.html`) included in all downloads.
