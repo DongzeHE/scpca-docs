@@ -175,7 +175,8 @@ The following columns are included in the sample metadata data frame for all lib
 | `particpant_id`  | Unique ID corresponding to the donor from which the sample was obtained |
 | `submitter_id`    | Original sample identifier from submitter                      |
 | `submitter`       | Submitter name/ID                                              |
-| `age`             | Age at time sample was obtained                                |
+| `age`             | Age provided by submitter                                |
+| `age_timing`      | Whether age is the age at diagnosis (`diagnosis`), age at collection (`collection`), or `unknown`. This will be `diagnosis` for all samples collected at diagnosis, indicated by the `disease_timing` column |
 | `sex`             | Sex of patient that the sample was obtained from               |
 | `diagnosis`       | Tumor type                                                     |
 | `subdiagnosis`    | Subcategory of diagnosis or mutation status (if applicable)    |
@@ -389,7 +390,8 @@ The `AnnData` object also includes the following additional cell-level metadata 
 | `participant_id`                           | Unique ID corresponding to the donor from which the sample was obtained                                                                                                                                                                   |
 | `submitter_id`                             | Original sample identifier from submitter                                                                                                                                                                                                 |
 | `submitter`                                | Submitter name/ID                                                                                                                                                                                                                         |
-| `age`                                      | Age at time sample was obtained                                                                                                                                                                                                           |
+| `age`             | Age provided by submitter                                |
+| `age_timing`      | Whether age is the age at diagnosis (`diagnosis`), age at collection (`collection`), or `unknown`. This will be `diagnosis` for all samples collected at diagnosis, indicated by the `disease_timing` column |
 | `sex`                                      | Sex of patient that the sample was obtained from                                                                                                                                                                                          |
 | `diagnosis`                                | Tumor type                                                                                                                                                                                                                                |
 | `subdiagnosis`                             | Subcategory of diagnosis or mutation status (if applicable)                                                                                                                                                                               |
@@ -425,6 +427,7 @@ The `AnnData` object also includes the following additional gene-level metadata 
 | Column name   | Contents                                                         |
 | ------------- | ---------------------------------------------------------------- |
 | `is_feature_filtered` | Boolean indicating if the gene or feature is filtered out in the normalized matrix but is present in the raw matrix     |
+| `highly_variable` | Boolean indicating if the gene or feature is found in the highly variable gene list determined using `scran::modelGeneVar` and `scran::getTopHVGs`. Only present for `processed` objects   |
 
 
 ### AnnData experiment metadata
@@ -445,11 +448,12 @@ The `AnnData` object also includes the following additional items in the `.uns` 
 | Item name   | Contents                                                         |
 | ------------- | ---------------------------------------------------------------- |
 | `schema_version` | CZI schema version used for `AnnData` formatting |
+| `pca` | A dictionary object containing the parameters and variance weights associated with the PCA matrix found in `.obsm["X_pca"]`. Only available for processed objects |
 
 
 ### AnnData dimensionality reduction results
 
-The H5AD file containing the processed `AnnData` object (`_processed_rna.h5ad`) contains a slot `.obsm` with both principal component analysis (`X_PCA`) and UMAP (`X_UMAP`) results.
+The H5AD file containing the processed `AnnData` object (`_processed_rna.h5ad`) contains a slot `.obsm` with both principal component analysis (`X_pca`) and UMAP (`X_umap`) results stored as a `numpy.ndarray`.
 For all other H5AD files, the `.obsm` slot will be empty as no dimensionality reduction was performed.
 
 For information on how PCA and UMAP results were calculated see the {ref}`section on processed gene expression data <processing_information:Processed gene expression data>`.
@@ -457,8 +461,8 @@ For information on how PCA and UMAP results were calculated see the {ref}`sectio
 The following command can be used to access the PCA and UMAP results:
 
 ```python
-adata_object.obsm["X_PCA"] # pca results
-adata_object.obsm["X_UMAP"] # umap results
+adata_object.obsm["X_pca"] # pca results
+adata_object.obsm["X_umap"] # umap results
 ```
 
 ### Additional AnnData components for CITE-seq libraries (with ADT tags)
