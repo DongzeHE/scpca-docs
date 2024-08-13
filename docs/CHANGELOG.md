@@ -12,6 +12,11 @@ For more information about `AlexsLemonade/scpca-nf` versions, please see [the re
 <!-- PUT THE NEW CHANGELOG ENTRY RIGHT BELOW THIS -->
 <!-------------------------------------------------->
 
+## PLACEHOLDER FOR PORTAL WIDE METADATA
+
+* Metadata for all samples from all projects on the Portal can now be downloaded in a single tab-separated values file.
+* For more information on what to expect in the metadata file, see the {ref}`metadata section of the Downloadable files page <download_files:metadata>`.
+
 ## 2024.08.13
 
 * A new column, `age_timing`, is now present in the sample metadata tables included with each download.
