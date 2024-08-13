@@ -12,7 +12,7 @@ For more information about `AlexsLemonade/scpca-nf` versions, please see [the re
 <!-- PUT THE NEW CHANGELOG ENTRY RIGHT BELOW THIS -->
 <!-------------------------------------------------->
 
-## PLACEHOLDER FOR AGE TIMING/SCANPY CHANGELOG
+## 2024.08.13
 
 * A new column, `age_timing`, is now present in the sample metadata tables included with each download.
   * This column indicates if the age specified in the `age` column is the age at diagnosis (`diagnosis`), age at collection (`collection`), or `unknown`.
