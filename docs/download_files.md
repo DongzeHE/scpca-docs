@@ -178,7 +178,7 @@ For project downloads, the counts and QC files will be organized by the _set_ of
 These sample set folders are named with an underscore-separated list of the sample ids for the libraries within, _e.g._, `SCPCS999990_SCPCS999991_SCPCS999992`.
 Bulk RNA-seq data, if present, will follow the [same format as bulk RNA-seq for single-sample libraries](#download-folder-structure-for-project-downloads).
 
-![multiplexed project download folder](images/multiplexed-download-folder.png){width="600"}
+![multiplexed project download folder](images/multiplexed-download-folder.png){width="750"}
 
 Because we do not perform demultiplexing to separate cells from multiplexed libraries into sample-specific count matrices, sample downloads from a project with multiplexed data will include all libraries that contain the sample of interest, but these libraries _will still contain cells from other samples_.
 
