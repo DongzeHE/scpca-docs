@@ -4,7 +4,7 @@
 
 ### Mapping and quantification using alevin-fry
 
-We used [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/) to generate gene by cell counts matrices for all single-cell and single-nuclei samples.
+We used [`salmon`](https://salmon.readthedocs.io/en/latest) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/) to generate gene by cell counts matrices for all single-cell and single-nuclei samples.
 In brief, we utilized [selective alignment](#selective-alignment) to the [`splici` index](#reference-transcriptome-index) for all single-cell and single-nuclei samples.
 
 #### Reference transcriptome index
@@ -12,7 +12,7 @@ In brief, we utilized [selective alignment](#selective-alignment) to the [`splic
 For all samples, we aligned FASTQ files to a reference transcriptome index referred to as the `splici` index.
 The [`splici` index](https://combine-lab.github.io/alevin-fry-tutorials/2021/improving-txome-specificity/) is built using transcripts from both spliced cDNA and intronic regions.
 Inclusion of intronic regions in the index used for alignment allowed us to capture both reads from mature, spliced cDNA and nascent, unspliced cDNA.
-Alignment of RNA-seq data to an index containing intronic regions has been shown to reduce spuriously detected genes ([He _et al._ 2021](https://doi.org/10.1101/2021.06.29.450377), [Kaminow _et al._ 2021](https://www.biorxiv.org/content/10.1101/2021.05.05.442755v1.full#sec-5)).
+Alignment of RNA-seq data to an index containing intronic regions has been shown to reduce spuriously detected genes ([He _et al._ (2022)](https://doi.org/10.1038/s41592-022-01408-3), [Kaminow _et al._ 2021](https://www.biorxiv.org/content/10.1101/2021.05.05.442755v1.full#sec-5)).
 In our hands, we have found that use of the `splici` index led to a more comparable distribution of unique genes found per cell to Cell Ranger than did use of an index obtained from spliced cDNA transcripts only.
 
 #### Selective alignment
@@ -21,7 +21,7 @@ We mapped reads to the transcriptome index using `salmon` with the default "sele
 Briefly, selective alignment uses a mapping score validated approach to identify maximal exact matches between reads and the provided index.
 For all samples, we used selective alignment to the `splici` index.
 
-A more detailed description of the mapping strategy invoked by `salmon` in conjunction with `alevin-fry` can be found in [Srivastava _et al._ (2020)](https://doi.org/10.1186/s13059-020-02151-8).
+More detailed descriptions of the mapping strategy invoked by `salmon` in conjunction with `alevin-fry` can be found in [Srivastava _et al._ (2020)](https://doi.org/10.1186/s13059-020-02151-8) and [He _et al._ (2022)](https://doi.org/10.1038/s41592-022-01408-3).
 
 #### Alevin-fry parameters
 
@@ -99,7 +99,7 @@ In these cases, the cell type annotations obtained from the submitter will be pr
 
 ## ADT quantification from CITE-seq experiments
 
-CITE-seq libraries with reads from antibody-derived tags (ADTs) were also quantified using  [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/), rounded to integer values.
+CITE-seq libraries with reads from antibody-derived tags (ADTs) were also quantified using  [`salmon`](https://salmon.readthedocs.io/en/latest) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/), rounded to integer values.
 
 Reference indices were constructed from the submitter-provided list of antibody barcode sequences corresponding to each library using the `--features` flag of `salmon index`.
 Mapping to these indices followed the same procedures as for RNA-seq data, including mapping with [selective alignment](#selective-alignment) and subsequent [quantification via alevin-fry](#alevin-fry-parameters).
@@ -130,7 +130,7 @@ Multiplexed libraries, or libraries with cells or nuclei from more than one biol
 
 ### Hashtag oligonucleotide (HTO) quantification
 
-HTO reads were also quantified using  [`salmon alevin`](https://salmon.readthedocs.io/en/latest/alevin.html) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/), rounded to integer values.
+HTO reads were also quantified using  [`salmon`](https://salmon.readthedocs.io/en/latest) and [`alevin-fry`](https://alevin-fry.readthedocs.io/en/latest/), rounded to integer values.
 Reference indices were constructed from the submitter-provided list of HTO sequences corresponding to each library using the `--features` flag of `salmon index`.
 Mapping to these indices followed the same procedures as for RNA-seq data, including mapping with [selective alignment](#selective-alignment) and subsequent [quantification via alevin-fry](#alevin-fry-parameters).
 
